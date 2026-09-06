@@ -24,7 +24,6 @@ Name | Type | Description | Notes
 **TierPinnedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **TierPinnedBy** | Pointer to [**NullableUser**](User.md) |  | [optional] 
 **TierPinReason** | Pointer to **NullableString** |  | [optional] [readonly] 
-**Memberships** | Pointer to [**[]Membership**](Membership.md) |  | [optional] 
 **OauthIdentities** | Pointer to [**[]OAuthIdentity**](OAuthIdentity.md) |  | [optional] 
 **TotpSecret** | Pointer to **NullableString** | The TOTP shared secret, **encrypted at rest** ({@see \\App\\Service\\TwoFactor\\TotpSecretCipher}), or null for an account that has not enabled a second factor. | [optional] 
 **TotpSecretKeyId** | Pointer to **NullableString** | Which key wrapped {@see self::$totpSecret}, so a key rotation can re-wrap it without users re-enrolling ({@see \\App\\Service\\TwoFactor\\TotpSecretCipher}). | [optional] [readonly] 
@@ -738,31 +737,6 @@ HasTierPinReason returns a boolean if a field has been set.
 `func (o *User) UnsetTierPinReason()`
 
 UnsetTierPinReason ensures that no value is present for TierPinReason, not even an explicit nil
-### GetMemberships
-
-`func (o *User) GetMemberships() []Membership`
-
-GetMemberships returns the Memberships field if non-nil, zero value otherwise.
-
-### GetMembershipsOk
-
-`func (o *User) GetMembershipsOk() (*[]Membership, bool)`
-
-GetMembershipsOk returns a tuple with the Memberships field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMemberships
-
-`func (o *User) SetMemberships(v []Membership)`
-
-SetMemberships sets Memberships field to given value.
-
-### HasMemberships
-
-`func (o *User) HasMemberships() bool`
-
-HasMemberships returns a boolean if a field has been set.
-
 ### GetOauthIdentities
 
 `func (o *User) GetOauthIdentities() []OAuthIdentity`

@@ -261,6 +261,66 @@ paths:
           default: 1
           type: integer
         style: form
+      - deprecated: false
+        description: ""
+        explode: false
+        in: query
+        name: slug
+        required: false
+        schema:
+          type: string
+        style: form
+      - deprecated: false
+        description: ""
+        explode: true
+        in: query
+        name: "slug[]"
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - deprecated: false
+        description: ""
+        explode: false
+        in: query
+        name: organization
+        required: false
+        schema:
+          type: string
+        style: form
+      - deprecated: false
+        description: ""
+        explode: true
+        in: query
+        name: "organization[]"
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - deprecated: false
+        description: ""
+        explode: false
+        in: query
+        name: organization.slug
+        required: false
+        schema:
+          type: string
+        style: form
+      - deprecated: false
+        description: ""
+        explode: true
+        in: query
+        name: "organization.slug[]"
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
       responses:
         "200":
           content:
@@ -565,6 +625,86 @@ paths:
       summary: Creates a Deployment resource.
       tags:
       - Deployment
+  /api/deployments/bundle_uploads:
+    post:
+      description: Creates a Deployment resource.
+      operationId: bundle_upload_declare
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Deployment.BundleUploadDeclareInput'
+        description: The new Deployment resource
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment.BundleUploadDeclareOutput'
+          description: Deployment resource created
+        "400":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Invalid input
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ConstraintViolation'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstraintViolation'
+          description: An error occurred
+      summary: Creates a Deployment resource.
+      tags:
+      - Deployment
+  /api/deployments/bundle_uploads/confirm:
+    post:
+      description: Creates a Deployment resource.
+      operationId: bundle_upload_confirm
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Deployment.BundleUploadConfirmInput'
+        description: The new Deployment resource
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment.BundleUploadConfirmOutput'
+          description: Deployment resource created
+        "400":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Invalid input
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ConstraintViolation'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstraintViolation'
+          description: An error occurred
+      summary: Creates a Deployment resource.
+      tags:
+      - Deployment
   /api/deployments/{id}:
     delete:
       description: Removes the Deployment resource.
@@ -690,6 +830,32 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Not found
       summary: Updates the Deployment resource.
+      tags:
+      - Deployment
+  /api/deployments/{id}/endpoints:
+    get:
+      description: Retrieves the collection of Deployment resources.
+      operationId: api_deployments_idendpoints_get_collection
+      parameters:
+      - deprecated: false
+        description: Deployment identifier
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Deployment.DeploymentEndpoint'
+                type: array
+          description: Deployment collection
+      summary: Retrieves the collection of Deployment resources.
       tags:
       - Deployment
   /api/managed_services:
@@ -917,6 +1083,26 @@ paths:
         schema:
           default: 1
           type: integer
+        style: form
+      - deprecated: false
+        description: ""
+        explode: false
+        in: query
+        name: slug
+        required: false
+        schema:
+          type: string
+        style: form
+      - deprecated: false
+        description: ""
+        explode: true
+        in: query
+        name: "slug[]"
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
         style: form
       responses:
         "200":
@@ -2615,19 +2801,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -2715,19 +2888,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -2827,19 +2987,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -2927,19 +3074,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -3008,13 +3142,165 @@ components:
           role: owner
           organization: https://example.com/
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          user: null
+          user:
+            grantedRoles:
+            - grantedRoles
+            - grantedRoles
+            emailConfirmed: true
+            oauthIdentities:
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              provider: github
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              providerUserId: providerUserId
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              provider: github
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              providerUserId: providerUserId
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            displayName: displayName
+            timezone: timezone
+            roles:
+            - roles
+            - roles
+            locale: en_GB
+            avatarPhoto:
+              photo: photo
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              type: type
+            spamMarkedAt: 2000-01-23T04:56:07.000+00:00
+            totpEnabled: true
+            disabledAt: 2000-01-23T04:56:07.000+00:00
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            password: password
+            totpSecret: totpSecret
+            approved: true
+            tierPinnedAt: 2000-01-23T04:56:07.000+00:00
+            userIdentifier: userIdentifier
+            tierPin: untrusted
+            creditGrantedAt: 2000-01-23T04:56:07.000+00:00
+            theme: house
+            disabled: true
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
+            totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
+            email: email
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+            displayLabel: displayLabel
+            ldapManaged: true
+            spamMarkedBy: null
+            ldapDn: ldapDn
+            approvedAt: 2000-01-23T04:56:07.000+00:00
+            recoveryCodes:
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              codeHash: codeHash
+              usedAt: 2000-01-23T04:56:07.000+00:00
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              used: true
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              codeHash: codeHash
+              usedAt: 2000-01-23T04:56:07.000+00:00
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              used: true
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            tierPinned: true
+            tierPinnedBy: null
+            totpSecretKeyId: totpSecretKeyId
+            deletedAt: 2000-01-23T04:56:07.000+00:00
+            deleted: true
+            machine: true
+            avatarPhotoType: avatarPhotoType
+            tierPinReason: tierPinReason
+            machineFor: https://example.com/
+            spam: true
+            username: username
           updatedAt: 2000-01-23T04:56:07.000+00:00
         - createdAt: 2000-01-23T04:56:07.000+00:00
           role: owner
           organization: https://example.com/
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          user: null
+          user:
+            grantedRoles:
+            - grantedRoles
+            - grantedRoles
+            emailConfirmed: true
+            oauthIdentities:
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              provider: github
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              providerUserId: providerUserId
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              provider: github
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              providerUserId: providerUserId
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            displayName: displayName
+            timezone: timezone
+            roles:
+            - roles
+            - roles
+            locale: en_GB
+            avatarPhoto:
+              photo: photo
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              type: type
+            spamMarkedAt: 2000-01-23T04:56:07.000+00:00
+            totpEnabled: true
+            disabledAt: 2000-01-23T04:56:07.000+00:00
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            password: password
+            totpSecret: totpSecret
+            approved: true
+            tierPinnedAt: 2000-01-23T04:56:07.000+00:00
+            userIdentifier: userIdentifier
+            tierPin: untrusted
+            creditGrantedAt: 2000-01-23T04:56:07.000+00:00
+            theme: house
+            disabled: true
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
+            totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
+            email: email
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+            displayLabel: displayLabel
+            ldapManaged: true
+            spamMarkedBy: null
+            ldapDn: ldapDn
+            approvedAt: 2000-01-23T04:56:07.000+00:00
+            recoveryCodes:
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              codeHash: codeHash
+              usedAt: 2000-01-23T04:56:07.000+00:00
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              used: true
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              codeHash: codeHash
+              usedAt: 2000-01-23T04:56:07.000+00:00
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              used: true
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            tierPinned: true
+            tierPinnedBy: null
+            totpSecretKeyId: totpSecretKeyId
+            deletedAt: 2000-01-23T04:56:07.000+00:00
+            deleted: true
+            machine: true
+            avatarPhotoType: avatarPhotoType
+            tierPinReason: tierPinReason
+            machineFor: https://example.com/
+            spam: true
+            username: username
           updatedAt: 2000-01-23T04:56:07.000+00:00
         tierPinned: true
         tierPinnedBy:
@@ -3048,19 +3334,6 @@ components:
           spamMarkedAt: 2000-01-23T04:56:07.000+00:00
           totpEnabled: true
           disabledAt: 2000-01-23T04:56:07.000+00:00
-          memberships:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           createdAt: 2000-01-23T04:56:07.000+00:00
           password: password
           totpSecret: totpSecret
@@ -3241,19 +3514,6 @@ components:
           spamMarkedAt: 2000-01-23T04:56:07.000+00:00
           totpEnabled: true
           disabledAt: 2000-01-23T04:56:07.000+00:00
-          memberships:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           createdAt: 2000-01-23T04:56:07.000+00:00
           password: password
           totpSecret: totpSecret
@@ -3520,19 +3780,6 @@ components:
             spamMarkedAt: 2000-01-23T04:56:07.000+00:00
             totpEnabled: true
             disabledAt: 2000-01-23T04:56:07.000+00:00
-            memberships:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              role: owner
-              organization: https://example.com/
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              role: owner
-              organization: https://example.com/
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
             createdAt: 2000-01-23T04:56:07.000+00:00
             password: password
             totpSecret: totpSecret
@@ -3620,19 +3867,6 @@ components:
             spamMarkedAt: 2000-01-23T04:56:07.000+00:00
             totpEnabled: true
             disabledAt: 2000-01-23T04:56:07.000+00:00
-            memberships:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              role: owner
-              organization: https://example.com/
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              role: owner
-              organization: https://example.com/
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
             createdAt: 2000-01-23T04:56:07.000+00:00
             password: password
             totpSecret: totpSecret
@@ -3787,19 +4021,6 @@ components:
           spamMarkedAt: 2000-01-23T04:56:07.000+00:00
           totpEnabled: true
           disabledAt: 2000-01-23T04:56:07.000+00:00
-          memberships:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           createdAt: 2000-01-23T04:56:07.000+00:00
           password: password
           totpSecret: totpSecret
@@ -3926,19 +4147,6 @@ components:
         spamMarkedAt: 2000-01-23T04:56:07.000+00:00
         totpEnabled: true
         disabledAt: 2000-01-23T04:56:07.000+00:00
-        memberships:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          role: owner
-          organization: https://example.com/
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          user: null
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          role: owner
-          organization: https://example.com/
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          user: null
-          updatedAt: 2000-01-23T04:56:07.000+00:00
         createdAt: 2000-01-23T04:56:07.000+00:00
         password: password
         totpSecret: totpSecret
@@ -4112,10 +4320,6 @@ components:
           nullable: true
           readOnly: true
           type: string
-        memberships:
-          items:
-            $ref: '#/components/schemas/Membership'
-          type: array
         oauthIdentities:
           items:
             $ref: '#/components/schemas/OAuthIdentity'
@@ -4297,13 +4501,112 @@ components:
           nullable: true
           readOnly: true
           type: string
+    UserAvatarPhoto:
+      example:
+        photo: photo
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        type: type
+      properties:
+        photo:
+          description: "Base64 of the raw image bytes — see {@see User::getAvatarPhoto()}\
+            \ for why text rather than a BLOB."
+          readOnly: true
+          type: string
+        type:
+          description: |-
+            The media type sniffed from the bytes ({@see \App\Service\DirectoryPhoto}),
+            nullable like the old `avatar_photo_type` column was: bytes can be stored
+            without a type, and {@see \App\Controller\AvatarController} falls back to
+            `application/octet-stream`.
+          nullable: true
+          type: string
+        id:
+          format: uuid
+          readOnly: true
+          type: string
     Membership:
       example:
         createdAt: 2000-01-23T04:56:07.000+00:00
         role: owner
         organization: https://example.com/
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        user: null
+        user:
+          grantedRoles:
+          - grantedRoles
+          - grantedRoles
+          emailConfirmed: true
+          oauthIdentities:
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            provider: github
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            providerUserId: providerUserId
+            user: null
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            provider: github
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            providerUserId: providerUserId
+            user: null
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          displayName: displayName
+          timezone: timezone
+          roles:
+          - roles
+          - roles
+          locale: en_GB
+          avatarPhoto:
+            photo: photo
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            type: type
+          spamMarkedAt: 2000-01-23T04:56:07.000+00:00
+          totpEnabled: true
+          disabledAt: 2000-01-23T04:56:07.000+00:00
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          password: password
+          totpSecret: totpSecret
+          approved: true
+          tierPinnedAt: 2000-01-23T04:56:07.000+00:00
+          userIdentifier: userIdentifier
+          tierPin: untrusted
+          creditGrantedAt: 2000-01-23T04:56:07.000+00:00
+          theme: house
+          disabled: true
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
+          totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
+          email: email
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          displayLabel: displayLabel
+          ldapManaged: true
+          spamMarkedBy: null
+          ldapDn: ldapDn
+          approvedAt: 2000-01-23T04:56:07.000+00:00
+          recoveryCodes:
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            codeHash: codeHash
+            usedAt: 2000-01-23T04:56:07.000+00:00
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            used: true
+            user: null
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          - createdAt: 2000-01-23T04:56:07.000+00:00
+            codeHash: codeHash
+            usedAt: 2000-01-23T04:56:07.000+00:00
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            used: true
+            user: null
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+          tierPinned: true
+          tierPinnedBy: null
+          totpSecretKeyId: totpSecretKeyId
+          deletedAt: 2000-01-23T04:56:07.000+00:00
+          deleted: true
+          machine: true
+          avatarPhotoType: avatarPhotoType
+          tierPinReason: tierPinReason
+          machineFor: https://example.com/
+          spam: true
+          username: username
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         organization:
@@ -4329,29 +4632,6 @@ components:
         updatedAt:
           format: date-time
           nullable: true
-          readOnly: true
-          type: string
-    UserAvatarPhoto:
-      example:
-        photo: photo
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        type: type
-      properties:
-        photo:
-          description: "Base64 of the raw image bytes — see {@see User::getAvatarPhoto()}\
-            \ for why text rather than a BLOB."
-          readOnly: true
-          type: string
-        type:
-          description: |-
-            The media type sniffed from the bytes ({@see \App\Service\DirectoryPhoto}),
-            nullable like the old `avatar_photo_type` column was: bytes can be stored
-            without a type, and {@see \App\Controller\AvatarController} falls back to
-            `application/octet-stream`.
-          nullable: true
-          type: string
-        id:
-          format: uuid
           readOnly: true
           type: string
     Organization:
@@ -4402,19 +4682,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -4502,19 +4769,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -4614,19 +4868,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -4714,19 +4955,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -4795,13 +5023,165 @@ components:
           role: owner
           organization: https://example.com/
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          user: null
+          user:
+            grantedRoles:
+            - grantedRoles
+            - grantedRoles
+            emailConfirmed: true
+            oauthIdentities:
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              provider: github
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              providerUserId: providerUserId
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              provider: github
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              providerUserId: providerUserId
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            displayName: displayName
+            timezone: timezone
+            roles:
+            - roles
+            - roles
+            locale: en_GB
+            avatarPhoto:
+              photo: photo
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              type: type
+            spamMarkedAt: 2000-01-23T04:56:07.000+00:00
+            totpEnabled: true
+            disabledAt: 2000-01-23T04:56:07.000+00:00
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            password: password
+            totpSecret: totpSecret
+            approved: true
+            tierPinnedAt: 2000-01-23T04:56:07.000+00:00
+            userIdentifier: userIdentifier
+            tierPin: untrusted
+            creditGrantedAt: 2000-01-23T04:56:07.000+00:00
+            theme: house
+            disabled: true
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
+            totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
+            email: email
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+            displayLabel: displayLabel
+            ldapManaged: true
+            spamMarkedBy: null
+            ldapDn: ldapDn
+            approvedAt: 2000-01-23T04:56:07.000+00:00
+            recoveryCodes:
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              codeHash: codeHash
+              usedAt: 2000-01-23T04:56:07.000+00:00
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              used: true
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              codeHash: codeHash
+              usedAt: 2000-01-23T04:56:07.000+00:00
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              used: true
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            tierPinned: true
+            tierPinnedBy: null
+            totpSecretKeyId: totpSecretKeyId
+            deletedAt: 2000-01-23T04:56:07.000+00:00
+            deleted: true
+            machine: true
+            avatarPhotoType: avatarPhotoType
+            tierPinReason: tierPinReason
+            machineFor: https://example.com/
+            spam: true
+            username: username
           updatedAt: 2000-01-23T04:56:07.000+00:00
         - createdAt: 2000-01-23T04:56:07.000+00:00
           role: owner
           organization: https://example.com/
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          user: null
+          user:
+            grantedRoles:
+            - grantedRoles
+            - grantedRoles
+            emailConfirmed: true
+            oauthIdentities:
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              provider: github
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              providerUserId: providerUserId
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              provider: github
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              providerUserId: providerUserId
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            displayName: displayName
+            timezone: timezone
+            roles:
+            - roles
+            - roles
+            locale: en_GB
+            avatarPhoto:
+              photo: photo
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              type: type
+            spamMarkedAt: 2000-01-23T04:56:07.000+00:00
+            totpEnabled: true
+            disabledAt: 2000-01-23T04:56:07.000+00:00
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            password: password
+            totpSecret: totpSecret
+            approved: true
+            tierPinnedAt: 2000-01-23T04:56:07.000+00:00
+            userIdentifier: userIdentifier
+            tierPin: untrusted
+            creditGrantedAt: 2000-01-23T04:56:07.000+00:00
+            theme: house
+            disabled: true
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
+            totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
+            email: email
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+            displayLabel: displayLabel
+            ldapManaged: true
+            spamMarkedBy: null
+            ldapDn: ldapDn
+            approvedAt: 2000-01-23T04:56:07.000+00:00
+            recoveryCodes:
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              codeHash: codeHash
+              usedAt: 2000-01-23T04:56:07.000+00:00
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              used: true
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            - createdAt: 2000-01-23T04:56:07.000+00:00
+              codeHash: codeHash
+              usedAt: 2000-01-23T04:56:07.000+00:00
+              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+              used: true
+              user: null
+              updatedAt: 2000-01-23T04:56:07.000+00:00
+            tierPinned: true
+            tierPinnedBy: null
+            totpSecretKeyId: totpSecretKeyId
+            deletedAt: 2000-01-23T04:56:07.000+00:00
+            deleted: true
+            machine: true
+            avatarPhotoType: avatarPhotoType
+            tierPinReason: tierPinReason
+            machineFor: https://example.com/
+            spam: true
+            username: username
           updatedAt: 2000-01-23T04:56:07.000+00:00
         tierPinned: true
         tierPinnedBy:
@@ -4835,19 +5215,6 @@ components:
           spamMarkedAt: 2000-01-23T04:56:07.000+00:00
           totpEnabled: true
           disabledAt: 2000-01-23T04:56:07.000+00:00
-          memberships:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           createdAt: 2000-01-23T04:56:07.000+00:00
           password: password
           totpSecret: totpSecret
@@ -5028,19 +5395,6 @@ components:
           spamMarkedAt: 2000-01-23T04:56:07.000+00:00
           totpEnabled: true
           disabledAt: 2000-01-23T04:56:07.000+00:00
-          memberships:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           createdAt: 2000-01-23T04:56:07.000+00:00
           password: password
           totpSecret: totpSecret
@@ -5267,6 +5621,7 @@ components:
           kind: postgres
           capacityBytes: 0
           observedAt: 2000-01-23T04:56:07.000+00:00
+          inFlightStale: true
           majorVersion: majorVersion
           catalogueEntry: catalogueEntry
           observedUsageBytes: 6
@@ -5276,6 +5631,7 @@ components:
           swarm: https://example.com/
           failureReason: failureReason
           name: name
+          inFlightSince: 2000-01-23T04:56:07.000+00:00
           imageRef: imageRef
           state: requested
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -5451,6 +5807,7 @@ components:
         kind: postgres
         capacityBytes: 0
         observedAt: 2000-01-23T04:56:07.000+00:00
+        inFlightStale: true
         majorVersion: majorVersion
         catalogueEntry: catalogueEntry
         observedUsageBytes: 6
@@ -5460,6 +5817,7 @@ components:
         swarm: https://example.com/
         failureReason: failureReason
         name: name
+        inFlightSince: 2000-01-23T04:56:07.000+00:00
         imageRef: imageRef
         state: requested
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -5522,6 +5880,16 @@ components:
           nullable: true
           readOnly: true
           type: string
+        inFlightSince:
+          description: |-
+            When the current attempt to reach `Serving` began — {@see claim()} sets it
+            on a fresh row and {@see markInFlight()} again on an upgrade's re-entry into
+            `Healthchecking`; null once the row is `Serving`, `Failed`, or anything else
+            that means nothing is still trying.
+          format: date-time
+          nullable: true
+          readOnly: true
+          type: string
         id:
           format: uuid
           readOnly: true
@@ -5541,6 +5909,10 @@ components:
           readOnly: true
           type: string
         serving:
+          readOnly: true
+          type: boolean
+        inFlightStale:
+          description: Dispatched so long ago that whatever was carrying it is gone.
           readOnly: true
           type: boolean
         adminCredential:
@@ -5596,6 +5968,44 @@ components:
       - engine
       - organization
       - slug
+    Deployment.DeploymentEndpoint:
+      description: |-
+        An IMMUTABLE compose revision. A deploy is a new row; rollback re-points
+        Application::$currentDeployment at an older one. Placement is resolved onto this
+        row (targetSwarm) at deploy time, so migration is just the next revision.
+      example:
+        protocol: protocol
+        port: 0
+        service: service
+        host: host
+        assigned: true
+        hostUnknownReason: hostUnknownReason
+        edgeRouted: true
+        targetPort: 6
+        url: url
+      properties:
+        service:
+          type: string
+        protocol:
+          type: string
+        host:
+          nullable: true
+          type: string
+        port:
+          nullable: true
+          type: integer
+        targetPort:
+          type: integer
+        assigned:
+          type: boolean
+        edgeRouted:
+          type: boolean
+        url:
+          nullable: true
+          type: string
+        hostUnknownReason:
+          nullable: true
+          type: string
     Deployment.jsonMergePatch:
       description: |-
         An IMMUTABLE compose revision. A deploy is a new row; rollback re-points
@@ -5662,19 +6072,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -5766,19 +6163,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -5900,19 +6284,6 @@ components:
             spamMarkedAt: 2000-01-23T04:56:07.000+00:00
             totpEnabled: true
             disabledAt: 2000-01-23T04:56:07.000+00:00
-            memberships:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              role: owner
-              organization: https://example.com/
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              role: owner
-              organization: https://example.com/
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
             createdAt: 2000-01-23T04:56:07.000+00:00
             password: password
             totpSecret: totpSecret
@@ -6026,19 +6397,6 @@ components:
             spamMarkedAt: 2000-01-23T04:56:07.000+00:00
             totpEnabled: true
             disabledAt: 2000-01-23T04:56:07.000+00:00
-            memberships:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              role: owner
-              organization: https://example.com/
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              role: owner
-              organization: https://example.com/
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
             createdAt: 2000-01-23T04:56:07.000+00:00
             password: password
             totpSecret: totpSecret
@@ -6176,19 +6534,6 @@ components:
           spamMarkedAt: 2000-01-23T04:56:07.000+00:00
           totpEnabled: true
           disabledAt: 2000-01-23T04:56:07.000+00:00
-          memberships:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           createdAt: 2000-01-23T04:56:07.000+00:00
           password: password
           totpSecret: totpSecret
@@ -6474,19 +6819,6 @@ components:
           spamMarkedAt: 2000-01-23T04:56:07.000+00:00
           totpEnabled: true
           disabledAt: 2000-01-23T04:56:07.000+00:00
-          memberships:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           createdAt: 2000-01-23T04:56:07.000+00:00
           password: password
           totpSecret: totpSecret
@@ -6670,19 +7002,6 @@ components:
             spamMarkedAt: 2000-01-23T04:56:07.000+00:00
             totpEnabled: true
             disabledAt: 2000-01-23T04:56:07.000+00:00
-            memberships:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              role: owner
-              organization: https://example.com/
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              role: owner
-              organization: https://example.com/
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
             createdAt: 2000-01-23T04:56:07.000+00:00
             password: password
             totpSecret: totpSecret
@@ -6943,19 +7262,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -7047,19 +7353,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -7181,19 +7474,6 @@ components:
             spamMarkedAt: 2000-01-23T04:56:07.000+00:00
             totpEnabled: true
             disabledAt: 2000-01-23T04:56:07.000+00:00
-            memberships:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              role: owner
-              organization: https://example.com/
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              role: owner
-              organization: https://example.com/
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
             createdAt: 2000-01-23T04:56:07.000+00:00
             password: password
             totpSecret: totpSecret
@@ -7307,19 +7587,6 @@ components:
             spamMarkedAt: 2000-01-23T04:56:07.000+00:00
             totpEnabled: true
             disabledAt: 2000-01-23T04:56:07.000+00:00
-            memberships:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              role: owner
-              organization: https://example.com/
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              role: owner
-              organization: https://example.com/
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
             createdAt: 2000-01-23T04:56:07.000+00:00
             password: password
             totpSecret: totpSecret
@@ -7457,19 +7724,6 @@ components:
           spamMarkedAt: 2000-01-23T04:56:07.000+00:00
           totpEnabled: true
           disabledAt: 2000-01-23T04:56:07.000+00:00
-          memberships:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           createdAt: 2000-01-23T04:56:07.000+00:00
           password: password
           totpSecret: totpSecret
@@ -7689,6 +7943,256 @@ components:
         deleted:
           readOnly: true
           type: boolean
+    Deployment.BundleUploadConfirmInput:
+      description: |-
+        An IMMUTABLE compose revision. A deploy is a new row; rollback re-points
+        Application::$currentDeployment at an older one. Placement is resolved onto this
+        row (targetSwarm) at deploy time, so migration is just the next revision.
+      properties:
+        secrets:
+          additionalProperties:
+            additionalProperties:
+              type: string
+          description: |-
+            Raw `build.secrets` values, keyed by service then by BuildKit secret id
+            (Grey.ooo/someones.computer_agent#46) — matches
+            `App\Service\Bundle\BundleIngestor::commitFromStoredContent()`'s
+            `$secrets` parameter.
+        application:
+          example: https://example.com/
+          format: iri-reference
+          nullable: true
+          type: string
+        client:
+          default: api
+          description: Matches `App\Service\Bundle\BundleManifest::$client` — which
+            client produced this.
+          type: string
+        name:
+          maxLength: 63
+          nullable: true
+          type: string
+        force:
+          default: false
+          description: |-
+            Ask for a new revision even if this digest already matches one —
+            {@see BundleManifest::$force}'s own meaning, unchanged.
+          type: boolean
+        compose:
+          default: ""
+          type: string
+        contexts:
+          items:
+            $ref: '#/components/schemas/BundleContextInput'
+          type: array
+        images:
+          items:
+            $ref: '#/components/schemas/BundleForwardedImageInput'
+          type: array
+      required:
+      - application
+      - client
+      - compose
+    BundleForwardedImageInput:
+      properties:
+        service:
+          default: ""
+          type: string
+        image:
+          default: ""
+          type: string
+        contextSha256:
+          default: ""
+          pattern: "^([a-f0-9]{64})$"
+          type: string
+      required:
+      - contextSha256
+      - image
+      - service
+    BundleContextInput:
+      properties:
+        service:
+          default: ""
+          type: string
+        contextSha256:
+          default: ""
+          pattern: "^([a-f0-9]{64})$"
+          type: string
+        dockerfile:
+          default: Dockerfile
+          type: string
+        additionalContexts:
+          items:
+            $ref: '#/components/schemas/BundleAdditionalContextInput'
+          type: array
+      required:
+      - contextSha256
+      - service
+    BundleAdditionalContextInput:
+      properties:
+        name:
+          default: ""
+          type: string
+        contextSha256:
+          default: ""
+          pattern: "^([a-f0-9]{64})$"
+          type: string
+      required:
+      - contextSha256
+      - name
+    Deployment.BundleUploadConfirmOutput:
+      description: |-
+        An IMMUTABLE compose revision. A deploy is a new row; rollback re-points
+        Application::$currentDeployment at an older one. Placement is resolved onto this
+        row (targetSwarm) at deploy time, so migration is just the next revision.
+      example:
+        retried: true
+        sequence: 0
+        digest: digest
+        warning: warning
+        id: id
+        url: url
+        status: status
+      properties:
+        id:
+          type: string
+        sequence:
+          type: integer
+        status:
+          type: string
+        digest:
+          nullable: true
+          type: string
+        url:
+          type: string
+        retried:
+          description: True when this upload restarted an existing failed revision
+            rather than minting one.
+          type: boolean
+        warning:
+          description: "A deploy this organization can still afford, but is projected\
+            \ to run out of paying for soon — null on every ordinary deploy."
+          nullable: true
+          type: string
+    Deployment.BundleUploadDeclareInput:
+      description: |-
+        An IMMUTABLE compose revision. A deploy is a new row; rollback re-points
+        Application::$currentDeployment at an older one. Placement is resolved onto this
+        row (targetSwarm) at deploy time, so migration is just the next revision.
+      properties:
+        application:
+          example: https://example.com/
+          format: iri-reference
+          nullable: true
+          type: string
+        client:
+          default: api
+          description: Matches `App\Service\Bundle\BundleManifest::$client` — which
+            client produced this.
+          type: string
+        name:
+          maxLength: 63
+          nullable: true
+          type: string
+        force:
+          default: false
+          description: |-
+            Ask for a new revision even if this digest already matches one —
+            {@see BundleManifest::$force}'s own meaning, unchanged.
+          type: boolean
+        compose:
+          default: ""
+          type: string
+        contexts:
+          items:
+            $ref: '#/components/schemas/BundleContextInput'
+          type: array
+        images:
+          items:
+            $ref: '#/components/schemas/BundleForwardedImageInput'
+          type: array
+      required:
+      - application
+      - client
+      - compose
+    Deployment.BundleUploadDeclareOutput:
+      description: |-
+        An IMMUTABLE compose revision. A deploy is a new row; rollback re-points
+        Application::$currentDeployment at an older one. Placement is resolved onto this
+        row (targetSwarm) at deploy time, so migration is just the next revision.
+      example:
+        images:
+        - contextSha256: contextSha256
+          uploadUrl: uploadUrl
+          service: service
+          name: name
+          alreadyStored: true
+        - contextSha256: contextSha256
+          uploadUrl: uploadUrl
+          service: service
+          name: name
+          alreadyStored: true
+        additionalContexts:
+        - contextSha256: contextSha256
+          uploadUrl: uploadUrl
+          service: service
+          name: name
+          alreadyStored: true
+        - contextSha256: contextSha256
+          uploadUrl: uploadUrl
+          service: service
+          name: name
+          alreadyStored: true
+        contexts:
+        - contextSha256: contextSha256
+          uploadUrl: uploadUrl
+          service: service
+          name: name
+          alreadyStored: true
+        - contextSha256: contextSha256
+          uploadUrl: uploadUrl
+          service: service
+          name: name
+          alreadyStored: true
+        expiresAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        contexts:
+          items:
+            $ref: '#/components/schemas/BundleUploadTarget'
+          type: array
+        additionalContexts:
+          items:
+            $ref: '#/components/schemas/BundleUploadTarget'
+          type: array
+        images:
+          items:
+            $ref: '#/components/schemas/BundleUploadTarget'
+          type: array
+        expiresAt:
+          format: date-time
+          type: string
+    BundleUploadTarget:
+      example:
+        contextSha256: contextSha256
+        uploadUrl: uploadUrl
+        service: service
+        name: name
+        alreadyStored: true
+      properties:
+        service:
+          type: string
+        name:
+          description: "The additional context's name, or null for a service's own\
+            \ primary context/image."
+          nullable: true
+          type: string
+        contextSha256:
+          type: string
+        alreadyStored:
+          type: boolean
+        uploadUrl:
+          nullable: true
+          type: string
     CreditTransaction:
       description: |-
         An IMMUTABLE, append-only ledger row for an Organization's shared credit
@@ -7751,19 +8255,6 @@ components:
           spamMarkedAt: 2000-01-23T04:56:07.000+00:00
           totpEnabled: true
           disabledAt: 2000-01-23T04:56:07.000+00:00
-          memberships:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            role: owner
-            organization: https://example.com/
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           createdAt: 2000-01-23T04:56:07.000+00:00
           password: password
           totpSecret: totpSecret
@@ -7995,19 +8486,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -8095,19 +8573,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -8207,19 +8672,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -8307,19 +8759,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -8382,6 +8821,7 @@ components:
         buildBucket: buildBucket
         primaryDeploymentName: primaryDeploymentName
         accessGate: none
+        poolDomain: poolDomain
         firstRunningAt: 2000-01-23T04:56:07.000+00:00
         iconSource: uploaded
         deployments:
@@ -8395,6 +8835,7 @@ components:
           algo: algo
         deleted: true
         currentDeployment: https://example.com/
+        poolLabel: poolLabel
         operatorChosenIcon: true
         organization: https://example.com/
         name: name
@@ -8527,6 +8968,30 @@ components:
           items:
             $ref: '#/components/schemas/PortAllocation'
           type: array
+        poolDomain:
+          description: |-
+            Which of the app-hosting pool domains (`snarl.dev`, `starshp.dev` —
+            {@see \App\Service\Ingress\DomainPoolAssigner}) this application's
+            deployments answer under, in addition to `someones.computer`. Null until
+            its first successful deploy assigns one, and never moved after — a
+            redeploy must resolve to the same pool hostnames it already handed out,
+            the same reason {@see $firstRunningAt} is a latch rather than a rolling
+            value.
+          nullable: true
+          readOnly: true
+          type: string
+        poolLabel:
+          description: |-
+            Overrides the auto-slugified application name in the pool-domain
+            hostname's `{service}.{deployment}.{label}.{poolDomain}` shape
+            ({@see \App\Service\Ingress\PoolHostname}) — null for every application
+            that has not opted into a custom one, which is what {@see poolLabelOrSlug()}
+            falls back to. Unique platform-wide, the same reasoning as
+            {@see \App\Entity\Domain::$name}: two applications sharing a label would
+            collide on the exact same DNS name the moment they also shared a
+            deployment and service name.
+          nullable: true
+          type: string
         id:
           format: uuid
           readOnly: true
@@ -8720,19 +9185,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -8820,19 +9272,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -8932,19 +9371,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -9032,19 +9458,6 @@ components:
               spamMarkedAt: 2000-01-23T04:56:07.000+00:00
               totpEnabled: true
               disabledAt: 2000-01-23T04:56:07.000+00:00
-              memberships:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                role: owner
-                organization: https://example.com/
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
               createdAt: 2000-01-23T04:56:07.000+00:00
               password: password
               totpSecret: totpSecret
@@ -9107,6 +9520,7 @@ components:
         buildBucket: buildBucket
         primaryDeploymentName: primaryDeploymentName
         accessGate: none
+        poolDomain: poolDomain
         firstRunningAt: 2000-01-23T04:56:07.000+00:00
         iconSource: uploaded
         deployments:
@@ -9120,6 +9534,7 @@ components:
           algo: algo
         deleted: true
         currentDeployment: https://example.com/
+        poolLabel: poolLabel
         operatorChosenIcon: true
         organization: https://example.com/
         name: name
@@ -9252,6 +9667,30 @@ components:
           items:
             $ref: '#/components/schemas/PortAllocation'
           type: array
+        poolDomain:
+          description: |-
+            Which of the app-hosting pool domains (`snarl.dev`, `starshp.dev` —
+            {@see \App\Service\Ingress\DomainPoolAssigner}) this application's
+            deployments answer under, in addition to `someones.computer`. Null until
+            its first successful deploy assigns one, and never moved after — a
+            redeploy must resolve to the same pool hostnames it already handed out,
+            the same reason {@see $firstRunningAt} is a latch rather than a rolling
+            value.
+          nullable: true
+          readOnly: true
+          type: string
+        poolLabel:
+          description: |-
+            Overrides the auto-slugified application name in the pool-domain
+            hostname's `{service}.{deployment}.{label}.{poolDomain}` shape
+            ({@see \App\Service\Ingress\PoolHostname}) — null for every application
+            that has not opted into a custom one, which is what {@see poolLabelOrSlug()}
+            falls back to. Unique platform-wide, the same reasoning as
+            {@see \App\Entity\Domain::$name}: two applications sharing a label would
+            collide on the exact same DNS name the moment they also shared a
+            deployment and service name.
+          nullable: true
+          type: string
         id:
           format: uuid
           readOnly: true

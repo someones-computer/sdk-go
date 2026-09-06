@@ -38,12 +38,16 @@ type ServiceInstance struct {
 	CapacityBytes NullableServiceInstanceCapacityBytes `json:"capacityBytes,omitempty"`
 	ObservedUsageBytes NullableServiceInstanceObservedUsageBytes `json:"observedUsageBytes,omitempty"`
 	ObservedAt NullableTime `json:"observedAt,omitempty"`
+	// When the current attempt to reach `Serving` began — {@see claim()} sets it on a fresh row and {@see markInFlight()} again on an upgrade's re-entry into `Healthchecking`; null once the row is `Serving`, `Failed`, or anything else that means nothing is still trying.
+	InFlightSince NullableTime `json:"inFlightSince,omitempty"`
 	Id *string `json:"id,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt NullableTime `json:"updatedAt,omitempty"`
 	// `postgres 17`, `mysql 8.0` — the catalogue entry this instance serves.
 	CatalogueEntry *string `json:"catalogueEntry,omitempty"`
 	Serving *bool `json:"serving,omitempty"`
+	// Dispatched so long ago that whatever was carrying it is gone.
+	InFlightStale *bool `json:"inFlightStale,omitempty"`
 	AdminCredential *SealedSecret `json:"adminCredential,omitempty"`
 }
 
@@ -460,6 +464,48 @@ func (o *ServiceInstance) UnsetObservedAt() {
 	o.ObservedAt.Unset()
 }
 
+// GetInFlightSince returns the InFlightSince field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ServiceInstance) GetInFlightSince() time.Time {
+	if o == nil || IsNil(o.InFlightSince.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.InFlightSince.Get()
+}
+
+// GetInFlightSinceOk returns a tuple with the InFlightSince field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ServiceInstance) GetInFlightSinceOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.InFlightSince.Get(), o.InFlightSince.IsSet()
+}
+
+// HasInFlightSince returns a boolean if a field has been set.
+func (o *ServiceInstance) HasInFlightSince() bool {
+	if o != nil && o.InFlightSince.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetInFlightSince gets a reference to the given NullableTime and assigns it to the InFlightSince field.
+func (o *ServiceInstance) SetInFlightSince(v time.Time) {
+	o.InFlightSince.Set(&v)
+}
+// SetInFlightSinceNil sets the value for InFlightSince to be an explicit nil
+func (o *ServiceInstance) SetInFlightSinceNil() {
+	o.InFlightSince.Set(nil)
+}
+
+// UnsetInFlightSince ensures that no value is present for InFlightSince, not even an explicit nil
+func (o *ServiceInstance) UnsetInFlightSince() {
+	o.InFlightSince.Unset()
+}
+
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *ServiceInstance) GetId() string {
 	if o == nil || IsNil(o.Id) {
@@ -630,6 +676,38 @@ func (o *ServiceInstance) SetServing(v bool) {
 	o.Serving = &v
 }
 
+// GetInFlightStale returns the InFlightStale field value if set, zero value otherwise.
+func (o *ServiceInstance) GetInFlightStale() bool {
+	if o == nil || IsNil(o.InFlightStale) {
+		var ret bool
+		return ret
+	}
+	return *o.InFlightStale
+}
+
+// GetInFlightStaleOk returns a tuple with the InFlightStale field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstance) GetInFlightStaleOk() (*bool, bool) {
+	if o == nil || IsNil(o.InFlightStale) {
+		return nil, false
+	}
+	return o.InFlightStale, true
+}
+
+// HasInFlightStale returns a boolean if a field has been set.
+func (o *ServiceInstance) HasInFlightStale() bool {
+	if o != nil && !IsNil(o.InFlightStale) {
+		return true
+	}
+
+	return false
+}
+
+// SetInFlightStale gets a reference to the given bool and assigns it to the InFlightStale field.
+func (o *ServiceInstance) SetInFlightStale(v bool) {
+	o.InFlightStale = &v
+}
+
 // GetAdminCredential returns the AdminCredential field value if set, zero value otherwise.
 func (o *ServiceInstance) GetAdminCredential() SealedSecret {
 	if o == nil || IsNil(o.AdminCredential) {
@@ -705,6 +783,9 @@ func (o ServiceInstance) ToMap() (map[string]interface{}, error) {
 	if o.ObservedAt.IsSet() {
 		toSerialize["observedAt"] = o.ObservedAt.Get()
 	}
+	if o.InFlightSince.IsSet() {
+		toSerialize["inFlightSince"] = o.InFlightSince.Get()
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -719,6 +800,9 @@ func (o ServiceInstance) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Serving) {
 		toSerialize["serving"] = o.Serving
+	}
+	if !IsNil(o.InFlightStale) {
+		toSerialize["inFlightStale"] = o.InFlightStale
 	}
 	if !IsNil(o.AdminCredential) {
 		toSerialize["adminCredential"] = o.AdminCredential

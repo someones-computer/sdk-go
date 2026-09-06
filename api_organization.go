@@ -17,6 +17,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"reflect"
 )
 
 
@@ -27,11 +28,25 @@ type ApiApiOrganizationsGetCollectionRequest struct {
 	ctx context.Context
 	ApiService *OrganizationAPIService
 	page *int32
+	slug *string
+	slug2 *[]string
 }
 
 // The collection page number
 func (r ApiApiOrganizationsGetCollectionRequest) Page(page int32) ApiApiOrganizationsGetCollectionRequest {
 	r.page = &page
+	return r
+}
+
+// 
+func (r ApiApiOrganizationsGetCollectionRequest) Slug(slug string) ApiApiOrganizationsGetCollectionRequest {
+	r.slug = &slug
+	return r
+}
+
+// 
+func (r ApiApiOrganizationsGetCollectionRequest) Slug2(slug2 []string) ApiApiOrganizationsGetCollectionRequest {
+	r.slug2 = &slug2
 	return r
 }
 
@@ -80,6 +95,20 @@ func (a *OrganizationAPIService) ApiOrganizationsGetCollectionExecute(r ApiApiOr
 	} else {
 		var defaultValue int32 = 1
 		r.page = &defaultValue
+	}
+	if r.slug != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "slug", r.slug, "form", "")
+	}
+	if r.slug2 != nil {
+		t := *r.slug2
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "slug[]", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "slug[]", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

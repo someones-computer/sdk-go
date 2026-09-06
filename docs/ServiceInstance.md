@@ -15,11 +15,13 @@ Name | Type | Description | Notes
 **CapacityBytes** | Pointer to [**NullableServiceInstanceCapacityBytes**](ServiceInstanceCapacityBytes.md) |  | [optional] 
 **ObservedUsageBytes** | Pointer to [**NullableServiceInstanceObservedUsageBytes**](ServiceInstanceObservedUsageBytes.md) |  | [optional] 
 **ObservedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
+**InFlightSince** | Pointer to **NullableTime** | When the current attempt to reach &#x60;Serving&#x60; began — {@see claim()} sets it on a fresh row and {@see markInFlight()} again on an upgrade&#39;s re-entry into &#x60;Healthchecking&#x60;; null once the row is &#x60;Serving&#x60;, &#x60;Failed&#x60;, or anything else that means nothing is still trying. | [optional] [readonly] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **UpdatedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **CatalogueEntry** | Pointer to **string** | &#x60;postgres 17&#x60;, &#x60;mysql 8.0&#x60; — the catalogue entry this instance serves. | [optional] [readonly] 
 **Serving** | Pointer to **bool** |  | [optional] [readonly] 
+**InFlightStale** | Pointer to **bool** | Dispatched so long ago that whatever was carrying it is gone. | [optional] [readonly] 
 **AdminCredential** | Pointer to [**SealedSecret**](SealedSecret.md) |  | [optional] 
 
 ## Methods
@@ -356,6 +358,41 @@ HasObservedAt returns a boolean if a field has been set.
 `func (o *ServiceInstance) UnsetObservedAt()`
 
 UnsetObservedAt ensures that no value is present for ObservedAt, not even an explicit nil
+### GetInFlightSince
+
+`func (o *ServiceInstance) GetInFlightSince() time.Time`
+
+GetInFlightSince returns the InFlightSince field if non-nil, zero value otherwise.
+
+### GetInFlightSinceOk
+
+`func (o *ServiceInstance) GetInFlightSinceOk() (*time.Time, bool)`
+
+GetInFlightSinceOk returns a tuple with the InFlightSince field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInFlightSince
+
+`func (o *ServiceInstance) SetInFlightSince(v time.Time)`
+
+SetInFlightSince sets InFlightSince field to given value.
+
+### HasInFlightSince
+
+`func (o *ServiceInstance) HasInFlightSince() bool`
+
+HasInFlightSince returns a boolean if a field has been set.
+
+### SetInFlightSinceNil
+
+`func (o *ServiceInstance) SetInFlightSinceNil(b bool)`
+
+ SetInFlightSinceNil sets the value for InFlightSince to be an explicit nil
+
+### UnsetInFlightSince
+`func (o *ServiceInstance) UnsetInFlightSince()`
+
+UnsetInFlightSince ensures that no value is present for InFlightSince, not even an explicit nil
 ### GetId
 
 `func (o *ServiceInstance) GetId() string`
@@ -490,6 +527,31 @@ SetServing sets Serving field to given value.
 `func (o *ServiceInstance) HasServing() bool`
 
 HasServing returns a boolean if a field has been set.
+
+### GetInFlightStale
+
+`func (o *ServiceInstance) GetInFlightStale() bool`
+
+GetInFlightStale returns the InFlightStale field if non-nil, zero value otherwise.
+
+### GetInFlightStaleOk
+
+`func (o *ServiceInstance) GetInFlightStaleOk() (*bool, bool)`
+
+GetInFlightStaleOk returns a tuple with the InFlightStale field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetInFlightStale
+
+`func (o *ServiceInstance) SetInFlightStale(v bool)`
+
+SetInFlightStale sets InFlightStale field to given value.
+
+### HasInFlightStale
+
+`func (o *ServiceInstance) HasInFlightStale() bool`
+
+HasInFlightStale returns a boolean if a field has been set.
 
 ### GetAdminCredential
 
