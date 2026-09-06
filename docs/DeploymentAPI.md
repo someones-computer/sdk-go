@@ -8,7 +8,10 @@ Method | HTTP request | Description
 [**ApiDeploymentsIdDelete**](DeploymentAPI.md#ApiDeploymentsIdDelete) | **Delete** /api/deployments/{id} | Removes the Deployment resource.
 [**ApiDeploymentsIdGet**](DeploymentAPI.md#ApiDeploymentsIdGet) | **Get** /api/deployments/{id} | Retrieves a Deployment resource.
 [**ApiDeploymentsIdPatch**](DeploymentAPI.md#ApiDeploymentsIdPatch) | **Patch** /api/deployments/{id} | Updates the Deployment resource.
+[**ApiDeploymentsIdendpointsGetCollection**](DeploymentAPI.md#ApiDeploymentsIdendpointsGetCollection) | **Get** /api/deployments/{id}/endpoints | Retrieves the collection of Deployment resources.
 [**ApiDeploymentsPost**](DeploymentAPI.md#ApiDeploymentsPost) | **Post** /api/deployments | Creates a Deployment resource.
+[**BundleUploadConfirm**](DeploymentAPI.md#BundleUploadConfirm) | **Post** /api/deployments/bundle_uploads/confirm | Creates a Deployment resource.
+[**BundleUploadDeclare**](DeploymentAPI.md#BundleUploadDeclare) | **Post** /api/deployments/bundle_uploads | Creates a Deployment resource.
 
 
 
@@ -288,6 +291,76 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ApiDeploymentsIdendpointsGetCollection
+
+> []DeploymentDeploymentEndpoint ApiDeploymentsIdendpointsGetCollection(ctx, id).Execute()
+
+Retrieves the collection of Deployment resources.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/someones-computer/sdk-go"
+)
+
+func main() {
+	id := "id_example" // string | Deployment identifier
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeploymentAPI.ApiDeploymentsIdendpointsGetCollection(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeploymentAPI.ApiDeploymentsIdendpointsGetCollection``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ApiDeploymentsIdendpointsGetCollection`: []DeploymentDeploymentEndpoint
+	fmt.Fprintf(os.Stdout, "Response from `DeploymentAPI.ApiDeploymentsIdendpointsGetCollection`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | Deployment identifier | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiApiDeploymentsIdendpointsGetCollectionRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**[]DeploymentDeploymentEndpoint**](DeploymentDeploymentEndpoint.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ApiDeploymentsPost
 
 > Deployment ApiDeploymentsPost(ctx).Deployment(deployment).Execute()
@@ -339,6 +412,138 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Deployment**](Deployment.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## BundleUploadConfirm
+
+> DeploymentBundleUploadConfirmOutput BundleUploadConfirm(ctx).DeploymentBundleUploadConfirmInput(deploymentBundleUploadConfirmInput).Execute()
+
+Creates a Deployment resource.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/someones-computer/sdk-go"
+)
+
+func main() {
+	deploymentBundleUploadConfirmInput := *openapiclient.NewDeploymentBundleUploadConfirmInput("https://example.com/", "Client_example", "Compose_example") // DeploymentBundleUploadConfirmInput | The new Deployment resource
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeploymentAPI.BundleUploadConfirm(context.Background()).DeploymentBundleUploadConfirmInput(deploymentBundleUploadConfirmInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeploymentAPI.BundleUploadConfirm``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `BundleUploadConfirm`: DeploymentBundleUploadConfirmOutput
+	fmt.Fprintf(os.Stdout, "Response from `DeploymentAPI.BundleUploadConfirm`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiBundleUploadConfirmRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deploymentBundleUploadConfirmInput** | [**DeploymentBundleUploadConfirmInput**](DeploymentBundleUploadConfirmInput.md) | The new Deployment resource | 
+
+### Return type
+
+[**DeploymentBundleUploadConfirmOutput**](DeploymentBundleUploadConfirmOutput.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## BundleUploadDeclare
+
+> DeploymentBundleUploadDeclareOutput BundleUploadDeclare(ctx).DeploymentBundleUploadDeclareInput(deploymentBundleUploadDeclareInput).Execute()
+
+Creates a Deployment resource.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/someones-computer/sdk-go"
+)
+
+func main() {
+	deploymentBundleUploadDeclareInput := *openapiclient.NewDeploymentBundleUploadDeclareInput("https://example.com/", "Client_example", "Compose_example") // DeploymentBundleUploadDeclareInput | The new Deployment resource
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DeploymentAPI.BundleUploadDeclare(context.Background()).DeploymentBundleUploadDeclareInput(deploymentBundleUploadDeclareInput).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DeploymentAPI.BundleUploadDeclare``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `BundleUploadDeclare`: DeploymentBundleUploadDeclareOutput
+	fmt.Fprintf(os.Stdout, "Response from `DeploymentAPI.BundleUploadDeclare`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiBundleUploadDeclareRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deploymentBundleUploadDeclareInput** | [**DeploymentBundleUploadDeclareInput**](DeploymentBundleUploadDeclareInput.md) | The new Deployment resource | 
+
+### Return type
+
+[**DeploymentBundleUploadDeclareOutput**](DeploymentBundleUploadDeclareOutput.md)
 
 ### Authorization
 

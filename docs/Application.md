@@ -21,6 +21,8 @@ Name | Type | Description | Notes
 **Deployments** | Pointer to **[]string** |  | [optional] 
 **Variables** | Pointer to [**[]Variable**](Variable.md) |  | [optional] 
 **PortAllocations** | Pointer to [**[]PortAllocation**](PortAllocation.md) |  | [optional] 
+**PoolDomain** | Pointer to **NullableString** | Which of the app-hosting pool domains (&#x60;snarl.dev&#x60;, &#x60;starshp.dev&#x60; — {@see \\App\\Service\\Ingress\\DomainPoolAssigner}) this application&#39;s deployments answer under, in addition to &#x60;someones.computer&#x60;. Null until its first successful deploy assigns one, and never moved after — a redeploy must resolve to the same pool hostnames it already handed out, the same reason {@see $firstRunningAt} is a latch rather than a rolling value. | [optional] [readonly] 
+**PoolLabel** | Pointer to **NullableString** | Overrides the auto-slugified application name in the pool-domain hostname&#39;s &#x60;{service}.{deployment}.{label}.{poolDomain}&#x60; shape ({@see \\App\\Service\\Ingress\\PoolHostname}) — null for every application that has not opted into a custom one, which is what {@see poolLabelOrSlug()} falls back to. Unique platform-wide, the same reasoning as {@see \\App\\Entity\\Domain::$name}: two applications sharing a label would collide on the exact same DNS name the moment they also shared a deployment and service name. | [optional] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **DeletedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
@@ -556,6 +558,76 @@ SetPortAllocations sets PortAllocations field to given value.
 
 HasPortAllocations returns a boolean if a field has been set.
 
+### GetPoolDomain
+
+`func (o *Application) GetPoolDomain() string`
+
+GetPoolDomain returns the PoolDomain field if non-nil, zero value otherwise.
+
+### GetPoolDomainOk
+
+`func (o *Application) GetPoolDomainOk() (*string, bool)`
+
+GetPoolDomainOk returns a tuple with the PoolDomain field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPoolDomain
+
+`func (o *Application) SetPoolDomain(v string)`
+
+SetPoolDomain sets PoolDomain field to given value.
+
+### HasPoolDomain
+
+`func (o *Application) HasPoolDomain() bool`
+
+HasPoolDomain returns a boolean if a field has been set.
+
+### SetPoolDomainNil
+
+`func (o *Application) SetPoolDomainNil(b bool)`
+
+ SetPoolDomainNil sets the value for PoolDomain to be an explicit nil
+
+### UnsetPoolDomain
+`func (o *Application) UnsetPoolDomain()`
+
+UnsetPoolDomain ensures that no value is present for PoolDomain, not even an explicit nil
+### GetPoolLabel
+
+`func (o *Application) GetPoolLabel() string`
+
+GetPoolLabel returns the PoolLabel field if non-nil, zero value otherwise.
+
+### GetPoolLabelOk
+
+`func (o *Application) GetPoolLabelOk() (*string, bool)`
+
+GetPoolLabelOk returns a tuple with the PoolLabel field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPoolLabel
+
+`func (o *Application) SetPoolLabel(v string)`
+
+SetPoolLabel sets PoolLabel field to given value.
+
+### HasPoolLabel
+
+`func (o *Application) HasPoolLabel() bool`
+
+HasPoolLabel returns a boolean if a field has been set.
+
+### SetPoolLabelNil
+
+`func (o *Application) SetPoolLabelNil(b bool)`
+
+ SetPoolLabelNil sets the value for PoolLabel to be an explicit nil
+
+### UnsetPoolLabel
+`func (o *Application) UnsetPoolLabel()`
+
+UnsetPoolLabel ensures that no value is present for PoolLabel, not even an explicit nil
 ### GetId
 
 `func (o *Application) GetId() string`

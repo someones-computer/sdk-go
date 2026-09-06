@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## ApiApplicationsGetCollection
 
-> []Application ApiApplicationsGetCollection(ctx).Page(page).Execute()
+> []Application ApiApplicationsGetCollection(ctx).Page(page).Slug(slug).Slug2(slug2).Organization(organization).Organization2(organization2).OrganizationSlug(organizationSlug).OrganizationSlug2(organizationSlug2).Execute()
 
 Retrieves the collection of Application resources.
 
@@ -34,10 +34,16 @@ import (
 
 func main() {
 	page := int32(56) // int32 | The collection page number (optional) (default to 1)
+	slug := "slug_example" // string |  (optional)
+	slug2 := []string{"Inner_example"} // []string |  (optional)
+	organization := "organization_example" // string |  (optional)
+	organization2 := []string{"Inner_example"} // []string |  (optional)
+	organizationSlug := "organizationSlug_example" // string |  (optional)
+	organizationSlug2 := []string{"Inner_example"} // []string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationAPI.ApiApplicationsGetCollection(context.Background()).Page(page).Execute()
+	resp, r, err := apiClient.ApplicationAPI.ApiApplicationsGetCollection(context.Background()).Page(page).Slug(slug).Slug2(slug2).Organization(organization).Organization2(organization2).OrganizationSlug(organizationSlug).OrganizationSlug2(organizationSlug2).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationAPI.ApiApplicationsGetCollection``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -59,6 +65,12 @@ Other parameters are passed through a pointer to a apiApiApplicationsGetCollecti
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **int32** | The collection page number | [default to 1]
+ **slug** | **string** |  | 
+ **slug2** | **[]string** |  | 
+ **organization** | **string** |  | 
+ **organization2** | **[]string** |  | 
+ **organizationSlug** | **string** |  | 
+ **organizationSlug2** | **[]string** |  | 
 
 ### Return type
 

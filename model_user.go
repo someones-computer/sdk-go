@@ -52,7 +52,6 @@ type User struct {
 	TierPinnedAt NullableTime `json:"tierPinnedAt,omitempty"`
 	TierPinnedBy NullableUser `json:"tierPinnedBy,omitempty"`
 	TierPinReason NullableString `json:"tierPinReason,omitempty"`
-	Memberships []Membership `json:"memberships,omitempty"`
 	OauthIdentities []OAuthIdentity `json:"oauthIdentities,omitempty"`
 	// The TOTP shared secret, **encrypted at rest** ({@see \\App\\Service\\TwoFactor\\TotpSecretCipher}), or null for an account that has not enabled a second factor.
 	TotpSecret NullableString `json:"totpSecret,omitempty"`
@@ -912,38 +911,6 @@ func (o *User) SetTierPinReasonNil() {
 // UnsetTierPinReason ensures that no value is present for TierPinReason, not even an explicit nil
 func (o *User) UnsetTierPinReason() {
 	o.TierPinReason.Unset()
-}
-
-// GetMemberships returns the Memberships field value if set, zero value otherwise.
-func (o *User) GetMemberships() []Membership {
-	if o == nil || IsNil(o.Memberships) {
-		var ret []Membership
-		return ret
-	}
-	return o.Memberships
-}
-
-// GetMembershipsOk returns a tuple with the Memberships field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *User) GetMembershipsOk() ([]Membership, bool) {
-	if o == nil || IsNil(o.Memberships) {
-		return nil, false
-	}
-	return o.Memberships, true
-}
-
-// HasMemberships returns a boolean if a field has been set.
-func (o *User) HasMemberships() bool {
-	if o != nil && !IsNil(o.Memberships) {
-		return true
-	}
-
-	return false
-}
-
-// SetMemberships gets a reference to the given []Membership and assigns it to the Memberships field.
-func (o *User) SetMemberships(v []Membership) {
-	o.Memberships = v
 }
 
 // GetOauthIdentities returns the OauthIdentities field value if set, zero value otherwise.
@@ -1821,9 +1788,6 @@ func (o User) ToMap() (map[string]interface{}, error) {
 	}
 	if o.TierPinReason.IsSet() {
 		toSerialize["tierPinReason"] = o.TierPinReason.Get()
-	}
-	if !IsNil(o.Memberships) {
-		toSerialize["memberships"] = o.Memberships
 	}
 	if !IsNil(o.OauthIdentities) {
 		toSerialize["oauthIdentities"] = o.OauthIdentities

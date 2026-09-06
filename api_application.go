@@ -17,6 +17,7 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"reflect"
 )
 
 
@@ -27,11 +28,53 @@ type ApiApiApplicationsGetCollectionRequest struct {
 	ctx context.Context
 	ApiService *ApplicationAPIService
 	page *int32
+	slug *string
+	slug2 *[]string
+	organization *string
+	organization2 *[]string
+	organizationSlug *string
+	organizationSlug2 *[]string
 }
 
 // The collection page number
 func (r ApiApiApplicationsGetCollectionRequest) Page(page int32) ApiApiApplicationsGetCollectionRequest {
 	r.page = &page
+	return r
+}
+
+// 
+func (r ApiApiApplicationsGetCollectionRequest) Slug(slug string) ApiApiApplicationsGetCollectionRequest {
+	r.slug = &slug
+	return r
+}
+
+// 
+func (r ApiApiApplicationsGetCollectionRequest) Slug2(slug2 []string) ApiApiApplicationsGetCollectionRequest {
+	r.slug2 = &slug2
+	return r
+}
+
+// 
+func (r ApiApiApplicationsGetCollectionRequest) Organization(organization string) ApiApiApplicationsGetCollectionRequest {
+	r.organization = &organization
+	return r
+}
+
+// 
+func (r ApiApiApplicationsGetCollectionRequest) Organization2(organization2 []string) ApiApiApplicationsGetCollectionRequest {
+	r.organization2 = &organization2
+	return r
+}
+
+// 
+func (r ApiApiApplicationsGetCollectionRequest) OrganizationSlug(organizationSlug string) ApiApiApplicationsGetCollectionRequest {
+	r.organizationSlug = &organizationSlug
+	return r
+}
+
+// 
+func (r ApiApiApplicationsGetCollectionRequest) OrganizationSlug2(organizationSlug2 []string) ApiApiApplicationsGetCollectionRequest {
+	r.organizationSlug2 = &organizationSlug2
 	return r
 }
 
@@ -80,6 +123,48 @@ func (a *ApplicationAPIService) ApiApplicationsGetCollectionExecute(r ApiApiAppl
 	} else {
 		var defaultValue int32 = 1
 		r.page = &defaultValue
+	}
+	if r.slug != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "slug", r.slug, "form", "")
+	}
+	if r.slug2 != nil {
+		t := *r.slug2
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "slug[]", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "slug[]", t, "form", "multi")
+		}
+	}
+	if r.organization != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "organization", r.organization, "form", "")
+	}
+	if r.organization2 != nil {
+		t := *r.organization2
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "organization[]", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "organization[]", t, "form", "multi")
+		}
+	}
+	if r.organizationSlug != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "organization.slug", r.organizationSlug, "form", "")
+	}
+	if r.organizationSlug2 != nil {
+		t := *r.organizationSlug2
+		if reflect.TypeOf(t).Kind() == reflect.Slice {
+			s := reflect.ValueOf(t)
+			for i := 0; i < s.Len(); i++ {
+				parameterAddToHeaderOrQuery(localVarQueryParams, "organization.slug[]", s.Index(i).Interface(), "form", "multi")
+			}
+		} else {
+			parameterAddToHeaderOrQuery(localVarQueryParams, "organization.slug[]", t, "form", "multi")
+		}
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 ## ApiOrganizationsGetCollection
 
-> []Organization ApiOrganizationsGetCollection(ctx).Page(page).Execute()
+> []Organization ApiOrganizationsGetCollection(ctx).Page(page).Slug(slug).Slug2(slug2).Execute()
 
 Retrieves the collection of Organization resources.
 
@@ -34,10 +34,12 @@ import (
 
 func main() {
 	page := int32(56) // int32 | The collection page number (optional) (default to 1)
+	slug := "slug_example" // string |  (optional)
+	slug2 := []string{"Inner_example"} // []string |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.OrganizationAPI.ApiOrganizationsGetCollection(context.Background()).Page(page).Execute()
+	resp, r, err := apiClient.OrganizationAPI.ApiOrganizationsGetCollection(context.Background()).Page(page).Slug(slug).Slug2(slug2).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `OrganizationAPI.ApiOrganizationsGetCollection``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -59,6 +61,8 @@ Other parameters are passed through a pointer to a apiApiOrganizationsGetCollect
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **int32** | The collection page number | [default to 1]
+ **slug** | **string** |  | 
+ **slug2** | **[]string** |  | 
 
 ### Return type
 
