@@ -8361,6 +8361,7 @@ components:
           - compute
           - storage
           - engine_load
+          - registry_storage
           - null
           nullable: true
           readOnly: true
