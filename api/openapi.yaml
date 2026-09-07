@@ -8320,6 +8320,7 @@ components:
           - top_up
           - grant
           - debit
+          - gift_card
           type: string
         status:
           default: pending
