@@ -22,11 +22,11 @@ func Test_someonescomputer_SwarmAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test SwarmAPIService ApiSwarmsGetCollection", func(t *testing.T) {
+	t.Run("Test SwarmAPIService SwarmsCreate", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.SwarmAPI.ApiSwarmsGetCollection(context.Background()).Execute()
+		resp, httpRes, err := apiClient.SwarmAPI.SwarmsCreate(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -34,40 +34,26 @@ func Test_someonescomputer_SwarmAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test SwarmAPIService ApiSwarmsIdDelete", func(t *testing.T) {
+	t.Run("Test SwarmAPIService SwarmsDelete", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		httpRes, err := apiClient.SwarmAPI.ApiSwarmsIdDelete(context.Background(), id).Execute()
+		httpRes, err := apiClient.SwarmAPI.SwarmsDelete(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
 
-	t.Run("Test SwarmAPIService ApiSwarmsIdGet", func(t *testing.T) {
+	t.Run("Test SwarmAPIService SwarmsGet", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		resp, httpRes, err := apiClient.SwarmAPI.ApiSwarmsIdGet(context.Background(), id).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test SwarmAPIService ApiSwarmsIdPatch", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var id string
-
-		resp, httpRes, err := apiClient.SwarmAPI.ApiSwarmsIdPatch(context.Background(), id).Execute()
+		resp, httpRes, err := apiClient.SwarmAPI.SwarmsGet(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -75,11 +61,25 @@ func Test_someonescomputer_SwarmAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test SwarmAPIService ApiSwarmsPost", func(t *testing.T) {
+	t.Run("Test SwarmAPIService SwarmsList", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.SwarmAPI.ApiSwarmsPost(context.Background()).Execute()
+		resp, httpRes, err := apiClient.SwarmAPI.SwarmsList(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test SwarmAPIService SwarmsUpdate", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.SwarmAPI.SwarmsUpdate(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

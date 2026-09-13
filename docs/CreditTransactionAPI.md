@@ -4,80 +4,14 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ApiCreditTransactionsGetCollection**](CreditTransactionAPI.md#ApiCreditTransactionsGetCollection) | **Get** /api/credit_transactions | Retrieves the collection of CreditTransaction resources.
-[**ApiCreditTransactionsIdGet**](CreditTransactionAPI.md#ApiCreditTransactionsIdGet) | **Get** /api/credit_transactions/{id} | Retrieves a CreditTransaction resource.
+[**CreditTransactionsGet**](CreditTransactionAPI.md#CreditTransactionsGet) | **Get** /api/credit_transactions/{id} | Retrieves a CreditTransaction resource.
+[**CreditTransactionsList**](CreditTransactionAPI.md#CreditTransactionsList) | **Get** /api/credit_transactions | Retrieves the collection of CreditTransaction resources.
 
 
 
-## ApiCreditTransactionsGetCollection
+## CreditTransactionsGet
 
-> []CreditTransaction ApiCreditTransactionsGetCollection(ctx).Page(page).Execute()
-
-Retrieves the collection of CreditTransaction resources.
-
-
-
-### Example
-
-```go
-package main
-
-import (
-	"context"
-	"fmt"
-	"os"
-	openapiclient "github.com/someones-computer/sdk-go"
-)
-
-func main() {
-	page := int32(56) // int32 | The collection page number (optional) (default to 1)
-
-	configuration := openapiclient.NewConfiguration()
-	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CreditTransactionAPI.ApiCreditTransactionsGetCollection(context.Background()).Page(page).Execute()
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CreditTransactionAPI.ApiCreditTransactionsGetCollection``: %v\n", err)
-		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-	}
-	// response from `ApiCreditTransactionsGetCollection`: []CreditTransaction
-	fmt.Fprintf(os.Stdout, "Response from `CreditTransactionAPI.ApiCreditTransactionsGetCollection`: %v\n", resp)
-}
-```
-
-### Path Parameters
-
-
-
-### Other Parameters
-
-Other parameters are passed through a pointer to a apiApiCreditTransactionsGetCollectionRequest struct via the builder pattern
-
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **page** | **int32** | The collection page number | [default to 1]
-
-### Return type
-
-[**[]CreditTransaction**](CreditTransaction.md)
-
-### Authorization
-
-[bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
-- **Content-Type**: Not defined
-- **Accept**: application/json
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
-[[Back to Model list]](../README.md#documentation-for-models)
-[[Back to README]](../README.md)
-
-
-## ApiCreditTransactionsIdGet
-
-> CreditTransaction ApiCreditTransactionsIdGet(ctx, id).Execute()
+> CreditTransaction CreditTransactionsGet(ctx, id).Execute()
 
 Retrieves a CreditTransaction resource.
 
@@ -100,13 +34,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.CreditTransactionAPI.ApiCreditTransactionsIdGet(context.Background(), id).Execute()
+	resp, r, err := apiClient.CreditTransactionAPI.CreditTransactionsGet(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `CreditTransactionAPI.ApiCreditTransactionsIdGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `CreditTransactionAPI.CreditTransactionsGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ApiCreditTransactionsIdGet`: CreditTransaction
-	fmt.Fprintf(os.Stdout, "Response from `CreditTransactionAPI.ApiCreditTransactionsIdGet`: %v\n", resp)
+	// response from `CreditTransactionsGet`: CreditTransaction
+	fmt.Fprintf(os.Stdout, "Response from `CreditTransactionAPI.CreditTransactionsGet`: %v\n", resp)
 }
 ```
 
@@ -120,7 +54,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiApiCreditTransactionsIdGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiCreditTransactionsGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -139,6 +73,72 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json, application/problem+json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## CreditTransactionsList
+
+> []CreditTransaction CreditTransactionsList(ctx).Page(page).Execute()
+
+Retrieves the collection of CreditTransaction resources.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/someones-computer/sdk-go"
+)
+
+func main() {
+	page := int32(56) // int32 | The collection page number (optional) (default to 1)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CreditTransactionAPI.CreditTransactionsList(context.Background()).Page(page).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CreditTransactionAPI.CreditTransactionsList``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CreditTransactionsList`: []CreditTransaction
+	fmt.Fprintf(os.Stdout, "Response from `CreditTransactionAPI.CreditTransactionsList`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiCreditTransactionsListRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **page** | **int32** | The collection page number | [default to 1]
+
+### Return type
+
+[**[]CreditTransaction**](CreditTransaction.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

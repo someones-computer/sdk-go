@@ -22,11 +22,11 @@ func Test_someonescomputer_AdoptionApprovalAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test AdoptionApprovalAPIService ApiAdoptionApprovalsGetCollection", func(t *testing.T) {
+	t.Run("Test AdoptionApprovalAPIService AdoptionApprovalsDecide", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.AdoptionApprovalAPI.ApiAdoptionApprovalsGetCollection(context.Background()).Execute()
+		resp, httpRes, err := apiClient.AdoptionApprovalAPI.AdoptionApprovalsDecide(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -34,41 +34,41 @@ func Test_someonescomputer_AdoptionApprovalAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test AdoptionApprovalAPIService ApiAdoptionApprovalsIdDelete", func(t *testing.T) {
+	t.Run("Test AdoptionApprovalAPIService AdoptionApprovalsGet", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		httpRes, err := apiClient.AdoptionApprovalAPI.ApiAdoptionApprovalsIdDelete(context.Background(), id).Execute()
+		resp, httpRes, err := apiClient.AdoptionApprovalAPI.AdoptionApprovalsGet(context.Background(), id).Execute()
 
 		require.Nil(t, err)
+		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
 
-	t.Run("Test AdoptionApprovalAPIService ApiAdoptionApprovalsIdGet", func(t *testing.T) {
+	t.Run("Test AdoptionApprovalAPIService AdoptionApprovalsList", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.AdoptionApprovalAPI.AdoptionApprovalsList(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test AdoptionApprovalAPIService AdoptionApprovalsWithdraw", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		resp, httpRes, err := apiClient.AdoptionApprovalAPI.ApiAdoptionApprovalsIdGet(context.Background(), id).Execute()
+		httpRes, err := apiClient.AdoptionApprovalAPI.AdoptionApprovalsWithdraw(context.Background(), id).Execute()
 
 		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test AdoptionApprovalAPIService ApiAdoptionApprovalsPost", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.AdoptionApprovalAPI.ApiAdoptionApprovalsPost(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})

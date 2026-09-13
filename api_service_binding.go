@@ -23,359 +23,32 @@ import (
 // ServiceBindingAPIService ServiceBindingAPI service
 type ServiceBindingAPIService service
 
-type ApiApiServiceBindingsGetCollectionRequest struct {
-	ctx context.Context
-	ApiService *ServiceBindingAPIService
-	page *int32
-}
-
-// The collection page number
-func (r ApiApiServiceBindingsGetCollectionRequest) Page(page int32) ApiApiServiceBindingsGetCollectionRequest {
-	r.page = &page
-	return r
-}
-
-func (r ApiApiServiceBindingsGetCollectionRequest) Execute() ([]ServiceBinding, *http.Response, error) {
-	return r.ApiService.ApiServiceBindingsGetCollectionExecute(r)
-}
-
-/*
-ApiServiceBindingsGetCollection Retrieves the collection of ServiceBinding resources.
-
-Retrieves the collection of ServiceBinding resources.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiApiServiceBindingsGetCollectionRequest
-*/
-func (a *ServiceBindingAPIService) ApiServiceBindingsGetCollection(ctx context.Context) ApiApiServiceBindingsGetCollectionRequest {
-	return ApiApiServiceBindingsGetCollectionRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return []ServiceBinding
-func (a *ServiceBindingAPIService) ApiServiceBindingsGetCollectionExecute(r ApiApiServiceBindingsGetCollectionRequest) ([]ServiceBinding, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []ServiceBinding
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceBindingAPIService.ApiServiceBindingsGetCollection")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/service_bindings"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.page != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	} else {
-		var defaultValue int32 = 1
-		r.page = &defaultValue
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiApiServiceBindingsIdDeleteRequest struct {
-	ctx context.Context
-	ApiService *ServiceBindingAPIService
-	id string
-}
-
-func (r ApiApiServiceBindingsIdDeleteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.ApiServiceBindingsIdDeleteExecute(r)
-}
-
-/*
-ApiServiceBindingsIdDelete Removes the ServiceBinding resource.
-
-Removes the ServiceBinding resource.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id ServiceBinding identifier
- @return ApiApiServiceBindingsIdDeleteRequest
-*/
-func (a *ServiceBindingAPIService) ApiServiceBindingsIdDelete(ctx context.Context, id string) ApiApiServiceBindingsIdDeleteRequest {
-	return ApiApiServiceBindingsIdDeleteRequest{
-		ApiService: a,
-		ctx: ctx,
-		id: id,
-	}
-}
-
-// Execute executes the request
-func (a *ServiceBindingAPIService) ApiServiceBindingsIdDeleteExecute(r ApiApiServiceBindingsIdDeleteRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceBindingAPIService.ApiServiceBindingsIdDelete")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/service_bindings/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json", "application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiApiServiceBindingsIdGetRequest struct {
-	ctx context.Context
-	ApiService *ServiceBindingAPIService
-	id string
-}
-
-func (r ApiApiServiceBindingsIdGetRequest) Execute() (*ServiceBinding, *http.Response, error) {
-	return r.ApiService.ApiServiceBindingsIdGetExecute(r)
-}
-
-/*
-ApiServiceBindingsIdGet Retrieves a ServiceBinding resource.
-
-Retrieves a ServiceBinding resource.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id ServiceBinding identifier
- @return ApiApiServiceBindingsIdGetRequest
-*/
-func (a *ServiceBindingAPIService) ApiServiceBindingsIdGet(ctx context.Context, id string) ApiApiServiceBindingsIdGetRequest {
-	return ApiApiServiceBindingsIdGetRequest{
-		ApiService: a,
-		ctx: ctx,
-		id: id,
-	}
-}
-
-// Execute executes the request
-//  @return ServiceBinding
-func (a *ServiceBindingAPIService) ApiServiceBindingsIdGetExecute(r ApiApiServiceBindingsIdGetRequest) (*ServiceBinding, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ServiceBinding
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceBindingAPIService.ApiServiceBindingsIdGet")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/service_bindings/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiApiServiceBindingsPostRequest struct {
+type ApiServiceBindingsCreateRequest struct {
 	ctx context.Context
 	ApiService *ServiceBindingAPIService
 	serviceBindingServiceBindingInput *ServiceBindingServiceBindingInput
 }
 
 // The new ServiceBinding resource
-func (r ApiApiServiceBindingsPostRequest) ServiceBindingServiceBindingInput(serviceBindingServiceBindingInput ServiceBindingServiceBindingInput) ApiApiServiceBindingsPostRequest {
+func (r ApiServiceBindingsCreateRequest) ServiceBindingServiceBindingInput(serviceBindingServiceBindingInput ServiceBindingServiceBindingInput) ApiServiceBindingsCreateRequest {
 	r.serviceBindingServiceBindingInput = &serviceBindingServiceBindingInput
 	return r
 }
 
-func (r ApiApiServiceBindingsPostRequest) Execute() (*ServiceBinding, *http.Response, error) {
-	return r.ApiService.ApiServiceBindingsPostExecute(r)
+func (r ApiServiceBindingsCreateRequest) Execute() (*ServiceBinding, *http.Response, error) {
+	return r.ApiService.ServiceBindingsCreateExecute(r)
 }
 
 /*
-ApiServiceBindingsPost Creates a ServiceBinding resource.
+ServiceBindingsCreate Creates a ServiceBinding resource.
 
 Creates a ServiceBinding resource.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiApiServiceBindingsPostRequest
+ @return ApiServiceBindingsCreateRequest
 */
-func (a *ServiceBindingAPIService) ApiServiceBindingsPost(ctx context.Context) ApiApiServiceBindingsPostRequest {
-	return ApiApiServiceBindingsPostRequest{
+func (a *ServiceBindingAPIService) ServiceBindingsCreate(ctx context.Context) ApiServiceBindingsCreateRequest {
+	return ApiServiceBindingsCreateRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -383,7 +56,7 @@ func (a *ServiceBindingAPIService) ApiServiceBindingsPost(ctx context.Context) A
 
 // Execute executes the request
 //  @return ServiceBinding
-func (a *ServiceBindingAPIService) ApiServiceBindingsPostExecute(r ApiApiServiceBindingsPostRequest) (*ServiceBinding, *http.Response, error) {
+func (a *ServiceBindingAPIService) ServiceBindingsCreateExecute(r ApiServiceBindingsCreateRequest) (*ServiceBinding, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -391,7 +64,7 @@ func (a *ServiceBindingAPIService) ApiServiceBindingsPostExecute(r ApiApiService
 		localVarReturnValue  *ServiceBinding
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceBindingAPIService.ApiServiceBindingsPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceBindingAPIService.ServiceBindingsCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -466,6 +139,333 @@ func (a *ServiceBindingAPIService) ApiServiceBindingsPostExecute(r ApiApiService
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiServiceBindingsDeleteRequest struct {
+	ctx context.Context
+	ApiService *ServiceBindingAPIService
+	id string
+}
+
+func (r ApiServiceBindingsDeleteRequest) Execute() (*http.Response, error) {
+	return r.ApiService.ServiceBindingsDeleteExecute(r)
+}
+
+/*
+ServiceBindingsDelete Removes the ServiceBinding resource.
+
+Removes the ServiceBinding resource.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id ServiceBinding identifier
+ @return ApiServiceBindingsDeleteRequest
+*/
+func (a *ServiceBindingAPIService) ServiceBindingsDelete(ctx context.Context, id string) ApiServiceBindingsDeleteRequest {
+	return ApiServiceBindingsDeleteRequest{
+		ApiService: a,
+		ctx: ctx,
+		id: id,
+	}
+}
+
+// Execute executes the request
+func (a *ServiceBindingAPIService) ServiceBindingsDeleteExecute(r ApiServiceBindingsDeleteRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceBindingAPIService.ServiceBindingsDelete")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/service_bindings/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/problem+json", "application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiServiceBindingsGetRequest struct {
+	ctx context.Context
+	ApiService *ServiceBindingAPIService
+	id string
+}
+
+func (r ApiServiceBindingsGetRequest) Execute() (*ServiceBinding, *http.Response, error) {
+	return r.ApiService.ServiceBindingsGetExecute(r)
+}
+
+/*
+ServiceBindingsGet Retrieves a ServiceBinding resource.
+
+Retrieves a ServiceBinding resource.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id ServiceBinding identifier
+ @return ApiServiceBindingsGetRequest
+*/
+func (a *ServiceBindingAPIService) ServiceBindingsGet(ctx context.Context, id string) ApiServiceBindingsGetRequest {
+	return ApiServiceBindingsGetRequest{
+		ApiService: a,
+		ctx: ctx,
+		id: id,
+	}
+}
+
+// Execute executes the request
+//  @return ServiceBinding
+func (a *ServiceBindingAPIService) ServiceBindingsGetExecute(r ApiServiceBindingsGetRequest) (*ServiceBinding, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ServiceBinding
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceBindingAPIService.ServiceBindingsGet")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/service_bindings/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiServiceBindingsListRequest struct {
+	ctx context.Context
+	ApiService *ServiceBindingAPIService
+	page *int32
+}
+
+// The collection page number
+func (r ApiServiceBindingsListRequest) Page(page int32) ApiServiceBindingsListRequest {
+	r.page = &page
+	return r
+}
+
+func (r ApiServiceBindingsListRequest) Execute() ([]ServiceBinding, *http.Response, error) {
+	return r.ApiService.ServiceBindingsListExecute(r)
+}
+
+/*
+ServiceBindingsList Retrieves the collection of ServiceBinding resources.
+
+Retrieves the collection of ServiceBinding resources.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiServiceBindingsListRequest
+*/
+func (a *ServiceBindingAPIService) ServiceBindingsList(ctx context.Context) ApiServiceBindingsListRequest {
+	return ApiServiceBindingsListRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return []ServiceBinding
+func (a *ServiceBindingAPIService) ServiceBindingsListExecute(r ApiServiceBindingsListRequest) ([]ServiceBinding, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []ServiceBinding
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ServiceBindingAPIService.ServiceBindingsList")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/service_bindings"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	} else {
+		var defaultValue int32 = 1
+		r.page = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}

@@ -18,7 +18,7 @@ import (
 // checks if the DeploymentBundleUploadDeclareOutput type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DeploymentBundleUploadDeclareOutput{}
 
-// DeploymentBundleUploadDeclareOutput An IMMUTABLE compose revision. A deploy is a new row; rollback re-points Application::$currentDeployment at an older one. Placement is resolved onto this row (targetSwarm) at deploy time, so migration is just the next revision.
+// DeploymentBundleUploadDeclareOutput Declare a bundle upload and get a presigned URL to upload it to.
 type DeploymentBundleUploadDeclareOutput struct {
 	Contexts []BundleUploadTarget `json:"contexts,omitempty"`
 	AdditionalContexts []BundleUploadTarget `json:"additionalContexts,omitempty"`

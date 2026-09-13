@@ -18,7 +18,7 @@ import (
 // checks if the Swarm type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Swarm{}
 
-// Swarm A Docker Swarm we can deploy onto. The trust boundary of the platform.  owner === null  => PLATFORM pool (shared infra we run). owner !== null  => CUSTOMER BYO cluster (untrusted, outbound-only).
+// Swarm List swarms the caller can see.
 type Swarm struct {
 	// Null for the platform pool; set for a customer BYO cluster.
 	Owner NullableString `json:"owner,omitempty"`

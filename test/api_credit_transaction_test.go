@@ -22,11 +22,13 @@ func Test_someonescomputer_CreditTransactionAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test CreditTransactionAPIService ApiCreditTransactionsGetCollection", func(t *testing.T) {
+	t.Run("Test CreditTransactionAPIService CreditTransactionsGet", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.CreditTransactionAPI.ApiCreditTransactionsGetCollection(context.Background()).Execute()
+		var id string
+
+		resp, httpRes, err := apiClient.CreditTransactionAPI.CreditTransactionsGet(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -34,13 +36,11 @@ func Test_someonescomputer_CreditTransactionAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test CreditTransactionAPIService ApiCreditTransactionsIdGet", func(t *testing.T) {
+	t.Run("Test CreditTransactionAPIService CreditTransactionsList", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var id string
-
-		resp, httpRes, err := apiClient.CreditTransactionAPI.ApiCreditTransactionsIdGet(context.Background(), id).Execute()
+		resp, httpRes, err := apiClient.CreditTransactionAPI.CreditTransactionsList(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

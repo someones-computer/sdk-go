@@ -23,359 +23,32 @@ import (
 // ManagedServiceAPIService ManagedServiceAPI service
 type ManagedServiceAPIService service
 
-type ApiApiManagedServicesGetCollectionRequest struct {
-	ctx context.Context
-	ApiService *ManagedServiceAPIService
-	page *int32
-}
-
-// The collection page number
-func (r ApiApiManagedServicesGetCollectionRequest) Page(page int32) ApiApiManagedServicesGetCollectionRequest {
-	r.page = &page
-	return r
-}
-
-func (r ApiApiManagedServicesGetCollectionRequest) Execute() ([]ManagedService, *http.Response, error) {
-	return r.ApiService.ApiManagedServicesGetCollectionExecute(r)
-}
-
-/*
-ApiManagedServicesGetCollection Retrieves the collection of ManagedService resources.
-
-Retrieves the collection of ManagedService resources.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiApiManagedServicesGetCollectionRequest
-*/
-func (a *ManagedServiceAPIService) ApiManagedServicesGetCollection(ctx context.Context) ApiApiManagedServicesGetCollectionRequest {
-	return ApiApiManagedServicesGetCollectionRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return []ManagedService
-func (a *ManagedServiceAPIService) ApiManagedServicesGetCollectionExecute(r ApiApiManagedServicesGetCollectionRequest) ([]ManagedService, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []ManagedService
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ManagedServiceAPIService.ApiManagedServicesGetCollection")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/managed_services"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.page != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	} else {
-		var defaultValue int32 = 1
-		r.page = &defaultValue
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiApiManagedServicesIdDeleteRequest struct {
-	ctx context.Context
-	ApiService *ManagedServiceAPIService
-	id string
-}
-
-func (r ApiApiManagedServicesIdDeleteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.ApiManagedServicesIdDeleteExecute(r)
-}
-
-/*
-ApiManagedServicesIdDelete Removes the ManagedService resource.
-
-Removes the ManagedService resource.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id ManagedService identifier
- @return ApiApiManagedServicesIdDeleteRequest
-*/
-func (a *ManagedServiceAPIService) ApiManagedServicesIdDelete(ctx context.Context, id string) ApiApiManagedServicesIdDeleteRequest {
-	return ApiApiManagedServicesIdDeleteRequest{
-		ApiService: a,
-		ctx: ctx,
-		id: id,
-	}
-}
-
-// Execute executes the request
-func (a *ManagedServiceAPIService) ApiManagedServicesIdDeleteExecute(r ApiApiManagedServicesIdDeleteRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ManagedServiceAPIService.ApiManagedServicesIdDelete")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/managed_services/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json", "application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiApiManagedServicesIdGetRequest struct {
-	ctx context.Context
-	ApiService *ManagedServiceAPIService
-	id string
-}
-
-func (r ApiApiManagedServicesIdGetRequest) Execute() (*ManagedService, *http.Response, error) {
-	return r.ApiService.ApiManagedServicesIdGetExecute(r)
-}
-
-/*
-ApiManagedServicesIdGet Retrieves a ManagedService resource.
-
-Retrieves a ManagedService resource.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id ManagedService identifier
- @return ApiApiManagedServicesIdGetRequest
-*/
-func (a *ManagedServiceAPIService) ApiManagedServicesIdGet(ctx context.Context, id string) ApiApiManagedServicesIdGetRequest {
-	return ApiApiManagedServicesIdGetRequest{
-		ApiService: a,
-		ctx: ctx,
-		id: id,
-	}
-}
-
-// Execute executes the request
-//  @return ManagedService
-func (a *ManagedServiceAPIService) ApiManagedServicesIdGetExecute(r ApiApiManagedServicesIdGetRequest) (*ManagedService, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *ManagedService
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ManagedServiceAPIService.ApiManagedServicesIdGet")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/managed_services/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiApiManagedServicesPostRequest struct {
+type ApiManagedServicesCreateRequest struct {
 	ctx context.Context
 	ApiService *ManagedServiceAPIService
 	managedServiceManagedServiceInput *ManagedServiceManagedServiceInput
 }
 
 // The new ManagedService resource
-func (r ApiApiManagedServicesPostRequest) ManagedServiceManagedServiceInput(managedServiceManagedServiceInput ManagedServiceManagedServiceInput) ApiApiManagedServicesPostRequest {
+func (r ApiManagedServicesCreateRequest) ManagedServiceManagedServiceInput(managedServiceManagedServiceInput ManagedServiceManagedServiceInput) ApiManagedServicesCreateRequest {
 	r.managedServiceManagedServiceInput = &managedServiceManagedServiceInput
 	return r
 }
 
-func (r ApiApiManagedServicesPostRequest) Execute() (*ManagedService, *http.Response, error) {
-	return r.ApiService.ApiManagedServicesPostExecute(r)
+func (r ApiManagedServicesCreateRequest) Execute() (*ManagedService, *http.Response, error) {
+	return r.ApiService.ManagedServicesCreateExecute(r)
 }
 
 /*
-ApiManagedServicesPost Creates a ManagedService resource.
+ManagedServicesCreate Creates a ManagedService resource.
 
 Creates a ManagedService resource.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiApiManagedServicesPostRequest
+ @return ApiManagedServicesCreateRequest
 */
-func (a *ManagedServiceAPIService) ApiManagedServicesPost(ctx context.Context) ApiApiManagedServicesPostRequest {
-	return ApiApiManagedServicesPostRequest{
+func (a *ManagedServiceAPIService) ManagedServicesCreate(ctx context.Context) ApiManagedServicesCreateRequest {
+	return ApiManagedServicesCreateRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -383,7 +56,7 @@ func (a *ManagedServiceAPIService) ApiManagedServicesPost(ctx context.Context) A
 
 // Execute executes the request
 //  @return ManagedService
-func (a *ManagedServiceAPIService) ApiManagedServicesPostExecute(r ApiApiManagedServicesPostRequest) (*ManagedService, *http.Response, error) {
+func (a *ManagedServiceAPIService) ManagedServicesCreateExecute(r ApiManagedServicesCreateRequest) (*ManagedService, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -391,7 +64,7 @@ func (a *ManagedServiceAPIService) ApiManagedServicesPostExecute(r ApiApiManaged
 		localVarReturnValue  *ManagedService
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ManagedServiceAPIService.ApiManagedServicesPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ManagedServiceAPIService.ManagedServicesCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -482,27 +155,129 @@ func (a *ManagedServiceAPIService) ApiManagedServicesPostExecute(r ApiApiManaged
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiResumeRequest struct {
+type ApiManagedServicesDeleteRequest struct {
 	ctx context.Context
 	ApiService *ManagedServiceAPIService
 	id string
 }
 
-func (r ApiResumeRequest) Execute() (*ManagedService, *http.Response, error) {
-	return r.ApiService.ResumeExecute(r)
+func (r ApiManagedServicesDeleteRequest) Execute() (*http.Response, error) {
+	return r.ApiService.ManagedServicesDeleteExecute(r)
 }
 
 /*
-Resume Creates a ManagedService resource.
+ManagedServicesDelete Removes the ManagedService resource.
 
-Creates a ManagedService resource.
+Removes the ManagedService resource.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id ManagedService identifier
- @return ApiResumeRequest
+ @return ApiManagedServicesDeleteRequest
 */
-func (a *ManagedServiceAPIService) Resume(ctx context.Context, id string) ApiResumeRequest {
-	return ApiResumeRequest{
+func (a *ManagedServiceAPIService) ManagedServicesDelete(ctx context.Context, id string) ApiManagedServicesDeleteRequest {
+	return ApiManagedServicesDeleteRequest{
+		ApiService: a,
+		ctx: ctx,
+		id: id,
+	}
+}
+
+// Execute executes the request
+func (a *ManagedServiceAPIService) ManagedServicesDeleteExecute(r ApiManagedServicesDeleteRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ManagedServiceAPIService.ManagedServicesDelete")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/managed_services/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/problem+json", "application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type ApiManagedServicesGetRequest struct {
+	ctx context.Context
+	ApiService *ManagedServiceAPIService
+	id string
+}
+
+func (r ApiManagedServicesGetRequest) Execute() (*ManagedService, *http.Response, error) {
+	return r.ApiService.ManagedServicesGetExecute(r)
+}
+
+/*
+ManagedServicesGet Retrieves a ManagedService resource.
+
+Retrieves a ManagedService resource.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id ManagedService identifier
+ @return ApiManagedServicesGetRequest
+*/
+func (a *ManagedServiceAPIService) ManagedServicesGet(ctx context.Context, id string) ApiManagedServicesGetRequest {
+	return ApiManagedServicesGetRequest{
 		ApiService: a,
 		ctx: ctx,
 		id: id,
@@ -511,7 +286,232 @@ func (a *ManagedServiceAPIService) Resume(ctx context.Context, id string) ApiRes
 
 // Execute executes the request
 //  @return ManagedService
-func (a *ManagedServiceAPIService) ResumeExecute(r ApiResumeRequest) (*ManagedService, *http.Response, error) {
+func (a *ManagedServiceAPIService) ManagedServicesGetExecute(r ApiManagedServicesGetRequest) (*ManagedService, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ManagedService
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ManagedServiceAPIService.ManagedServicesGet")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/managed_services/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiManagedServicesListRequest struct {
+	ctx context.Context
+	ApiService *ManagedServiceAPIService
+	page *int32
+}
+
+// The collection page number
+func (r ApiManagedServicesListRequest) Page(page int32) ApiManagedServicesListRequest {
+	r.page = &page
+	return r
+}
+
+func (r ApiManagedServicesListRequest) Execute() ([]ManagedService, *http.Response, error) {
+	return r.ApiService.ManagedServicesListExecute(r)
+}
+
+/*
+ManagedServicesList Retrieves the collection of ManagedService resources.
+
+Retrieves the collection of ManagedService resources.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiManagedServicesListRequest
+*/
+func (a *ManagedServiceAPIService) ManagedServicesList(ctx context.Context) ApiManagedServicesListRequest {
+	return ApiManagedServicesListRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return []ManagedService
+func (a *ManagedServiceAPIService) ManagedServicesListExecute(r ApiManagedServicesListRequest) ([]ManagedService, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []ManagedService
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ManagedServiceAPIService.ManagedServicesList")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/managed_services"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	} else {
+		var defaultValue int32 = 1
+		r.page = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiManagedServicesResumeRequest struct {
+	ctx context.Context
+	ApiService *ManagedServiceAPIService
+	id string
+}
+
+func (r ApiManagedServicesResumeRequest) Execute() (*ManagedService, *http.Response, error) {
+	return r.ApiService.ManagedServicesResumeExecute(r)
+}
+
+/*
+ManagedServicesResume Creates a ManagedService resource.
+
+Creates a ManagedService resource.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id ManagedService identifier
+ @return ApiManagedServicesResumeRequest
+*/
+func (a *ManagedServiceAPIService) ManagedServicesResume(ctx context.Context, id string) ApiManagedServicesResumeRequest {
+	return ApiManagedServicesResumeRequest{
+		ApiService: a,
+		ctx: ctx,
+		id: id,
+	}
+}
+
+// Execute executes the request
+//  @return ManagedService
+func (a *ManagedServiceAPIService) ManagedServicesResumeExecute(r ApiManagedServicesResumeRequest) (*ManagedService, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -519,7 +519,7 @@ func (a *ManagedServiceAPIService) ResumeExecute(r ApiResumeRequest) (*ManagedSe
 		localVarReturnValue  *ManagedService
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ManagedServiceAPIService.Resume")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ManagedServiceAPIService.ManagedServicesResume")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -606,27 +606,27 @@ func (a *ManagedServiceAPIService) ResumeExecute(r ApiResumeRequest) (*ManagedSe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiSuspendRequest struct {
+type ApiManagedServicesSuspendRequest struct {
 	ctx context.Context
 	ApiService *ManagedServiceAPIService
 	id string
 }
 
-func (r ApiSuspendRequest) Execute() (*ManagedService, *http.Response, error) {
-	return r.ApiService.SuspendExecute(r)
+func (r ApiManagedServicesSuspendRequest) Execute() (*ManagedService, *http.Response, error) {
+	return r.ApiService.ManagedServicesSuspendExecute(r)
 }
 
 /*
-Suspend Creates a ManagedService resource.
+ManagedServicesSuspend Creates a ManagedService resource.
 
 Creates a ManagedService resource.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id ManagedService identifier
- @return ApiSuspendRequest
+ @return ApiManagedServicesSuspendRequest
 */
-func (a *ManagedServiceAPIService) Suspend(ctx context.Context, id string) ApiSuspendRequest {
-	return ApiSuspendRequest{
+func (a *ManagedServiceAPIService) ManagedServicesSuspend(ctx context.Context, id string) ApiManagedServicesSuspendRequest {
+	return ApiManagedServicesSuspendRequest{
 		ApiService: a,
 		ctx: ctx,
 		id: id,
@@ -635,7 +635,7 @@ func (a *ManagedServiceAPIService) Suspend(ctx context.Context, id string) ApiSu
 
 // Execute executes the request
 //  @return ManagedService
-func (a *ManagedServiceAPIService) SuspendExecute(r ApiSuspendRequest) (*ManagedService, *http.Response, error) {
+func (a *ManagedServiceAPIService) ManagedServicesSuspendExecute(r ApiManagedServicesSuspendRequest) (*ManagedService, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -643,7 +643,7 @@ func (a *ManagedServiceAPIService) SuspendExecute(r ApiSuspendRequest) (*Managed
 		localVarReturnValue  *ManagedService
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ManagedServiceAPIService.Suspend")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "ManagedServiceAPIService.ManagedServicesSuspend")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}

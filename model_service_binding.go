@@ -18,7 +18,7 @@ import (
 // checks if the ServiceBinding type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ServiceBinding{}
 
-// ServiceBinding That an application may use a managed service — the join the per-application toggle could not express.  Many-to-many by construction: one database can back a web app and its worker, and one application can hold several bindings. Unbinding leaves the data alone; only destroying the {@see ManagedService} touches it.  A binding is also where the *deployment* seam lives. It records which variable names it injects, so the UI can say what an application will receive before it receives it, and so the resolver can show an operator-set variable shadowing a binding rather than silently losing to it.  **Creating one is a permission, not a provisioning step** — nothing at the engine moves. Deleting one withdraws that permission and touches no data, which is why `DELETE` here is a hard delete and `DELETE` on a {@see ManagedService} is not the same kind of verb at all.
+// ServiceBinding List service bindings (application-to-managed-service links) the caller can see.
 type ServiceBinding struct {
 	Application *string `json:"application,omitempty"`
 	Service *string `json:"service,omitempty"`

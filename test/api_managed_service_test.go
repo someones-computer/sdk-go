@@ -22,11 +22,11 @@ func Test_someonescomputer_ManagedServiceAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test ManagedServiceAPIService ApiManagedServicesGetCollection", func(t *testing.T) {
+	t.Run("Test ManagedServiceAPIService ManagedServicesCreate", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.ManagedServiceAPI.ApiManagedServicesGetCollection(context.Background()).Execute()
+		resp, httpRes, err := apiClient.ManagedServiceAPI.ManagedServicesCreate(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -34,38 +34,26 @@ func Test_someonescomputer_ManagedServiceAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test ManagedServiceAPIService ApiManagedServicesIdDelete", func(t *testing.T) {
+	t.Run("Test ManagedServiceAPIService ManagedServicesDelete", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		httpRes, err := apiClient.ManagedServiceAPI.ApiManagedServicesIdDelete(context.Background(), id).Execute()
+		httpRes, err := apiClient.ManagedServiceAPI.ManagedServicesDelete(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
 
-	t.Run("Test ManagedServiceAPIService ApiManagedServicesIdGet", func(t *testing.T) {
+	t.Run("Test ManagedServiceAPIService ManagedServicesGet", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		resp, httpRes, err := apiClient.ManagedServiceAPI.ApiManagedServicesIdGet(context.Background(), id).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test ManagedServiceAPIService ApiManagedServicesPost", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.ManagedServiceAPI.ApiManagedServicesPost(context.Background()).Execute()
+		resp, httpRes, err := apiClient.ManagedServiceAPI.ManagedServicesGet(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -73,13 +61,11 @@ func Test_someonescomputer_ManagedServiceAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test ManagedServiceAPIService Resume", func(t *testing.T) {
+	t.Run("Test ManagedServiceAPIService ManagedServicesList", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		var id string
-
-		resp, httpRes, err := apiClient.ManagedServiceAPI.Resume(context.Background(), id).Execute()
+		resp, httpRes, err := apiClient.ManagedServiceAPI.ManagedServicesList(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -87,13 +73,27 @@ func Test_someonescomputer_ManagedServiceAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test ManagedServiceAPIService Suspend", func(t *testing.T) {
+	t.Run("Test ManagedServiceAPIService ManagedServicesResume", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		resp, httpRes, err := apiClient.ManagedServiceAPI.Suspend(context.Background(), id).Execute()
+		resp, httpRes, err := apiClient.ManagedServiceAPI.ManagedServicesResume(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ManagedServiceAPIService ManagedServicesSuspend", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.ManagedServiceAPI.ManagedServicesSuspend(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

@@ -22,11 +22,11 @@ func Test_someonescomputer_ServiceBindingAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test ServiceBindingAPIService ApiServiceBindingsGetCollection", func(t *testing.T) {
+	t.Run("Test ServiceBindingAPIService ServiceBindingsCreate", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.ServiceBindingAPI.ApiServiceBindingsGetCollection(context.Background()).Execute()
+		resp, httpRes, err := apiClient.ServiceBindingAPI.ServiceBindingsCreate(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -34,26 +34,26 @@ func Test_someonescomputer_ServiceBindingAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test ServiceBindingAPIService ApiServiceBindingsIdDelete", func(t *testing.T) {
+	t.Run("Test ServiceBindingAPIService ServiceBindingsDelete", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		httpRes, err := apiClient.ServiceBindingAPI.ApiServiceBindingsIdDelete(context.Background(), id).Execute()
+		httpRes, err := apiClient.ServiceBindingAPI.ServiceBindingsDelete(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
 
-	t.Run("Test ServiceBindingAPIService ApiServiceBindingsIdGet", func(t *testing.T) {
+	t.Run("Test ServiceBindingAPIService ServiceBindingsGet", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		resp, httpRes, err := apiClient.ServiceBindingAPI.ApiServiceBindingsIdGet(context.Background(), id).Execute()
+		resp, httpRes, err := apiClient.ServiceBindingAPI.ServiceBindingsGet(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -61,11 +61,11 @@ func Test_someonescomputer_ServiceBindingAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test ServiceBindingAPIService ApiServiceBindingsPost", func(t *testing.T) {
+	t.Run("Test ServiceBindingAPIService ServiceBindingsList", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.ServiceBindingAPI.ApiServiceBindingsPost(context.Background()).Execute()
+		resp, httpRes, err := apiClient.ServiceBindingAPI.ServiceBindingsList(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

@@ -18,7 +18,7 @@ import (
 // checks if the Deployment type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Deployment{}
 
-// Deployment An IMMUTABLE compose revision. A deploy is a new row; rollback re-points Application::$currentDeployment at an older one. Placement is resolved onto this row (targetSwarm) at deploy time, so migration is just the next revision.
+// Deployment List an application's deployment revisions.
 type Deployment struct {
 	Application *string `json:"application,omitempty"`
 	// Monotonic per-application revision number.

@@ -18,7 +18,7 @@ import (
 // checks if the Organization type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Organization{}
 
-// Organization Ownership and (future) billing boundary. Owns applications, may own BYO swarms.
+// Organization List organizations the caller is a member of.
 type Organization struct {
 	MachineAccount NullableUser `json:"machineAccount,omitempty"`
 	Name *string `json:"name,omitempty"`
