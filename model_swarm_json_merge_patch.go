@@ -18,7 +18,7 @@ import (
 // checks if the SwarmJsonMergePatch type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SwarmJsonMergePatch{}
 
-// SwarmJsonMergePatch A Docker Swarm we can deploy onto. The trust boundary of the platform.  owner === null  => PLATFORM pool (shared infra we run). owner !== null  => CUSTOMER BYO cluster (untrusted, outbound-only).
+// SwarmJsonMergePatch Update a swarm's mutable fields (platform administration).
 type SwarmJsonMergePatch struct {
 	// Null for the platform pool; set for a customer BYO cluster.
 	Owner NullableString `json:"owner,omitempty"`

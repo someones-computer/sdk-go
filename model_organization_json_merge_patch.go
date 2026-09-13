@@ -18,7 +18,7 @@ import (
 // checks if the OrganizationJsonMergePatch type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OrganizationJsonMergePatch{}
 
-// OrganizationJsonMergePatch Ownership and (future) billing boundary. Owns applications, may own BYO swarms.
+// OrganizationJsonMergePatch Update an organization's mutable fields.
 type OrganizationJsonMergePatch struct {
 	MachineAccount NullableUser `json:"machineAccount,omitempty"`
 	Name *string `json:"name,omitempty"`

@@ -22,11 +22,11 @@ func Test_someonescomputer_OrganizationAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test OrganizationAPIService ApiOrganizationsGetCollection", func(t *testing.T) {
+	t.Run("Test OrganizationAPIService OrganizationsCreate", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.OrganizationAPI.ApiOrganizationsGetCollection(context.Background()).Execute()
+		resp, httpRes, err := apiClient.OrganizationAPI.OrganizationsCreate(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -34,40 +34,26 @@ func Test_someonescomputer_OrganizationAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test OrganizationAPIService ApiOrganizationsIdDelete", func(t *testing.T) {
+	t.Run("Test OrganizationAPIService OrganizationsDelete", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		httpRes, err := apiClient.OrganizationAPI.ApiOrganizationsIdDelete(context.Background(), id).Execute()
+		httpRes, err := apiClient.OrganizationAPI.OrganizationsDelete(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
 
-	t.Run("Test OrganizationAPIService ApiOrganizationsIdGet", func(t *testing.T) {
+	t.Run("Test OrganizationAPIService OrganizationsGet", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		resp, httpRes, err := apiClient.OrganizationAPI.ApiOrganizationsIdGet(context.Background(), id).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test OrganizationAPIService ApiOrganizationsIdPatch", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var id string
-
-		resp, httpRes, err := apiClient.OrganizationAPI.ApiOrganizationsIdPatch(context.Background(), id).Execute()
+		resp, httpRes, err := apiClient.OrganizationAPI.OrganizationsGet(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -75,11 +61,25 @@ func Test_someonescomputer_OrganizationAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test OrganizationAPIService ApiOrganizationsPost", func(t *testing.T) {
+	t.Run("Test OrganizationAPIService OrganizationsList", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.OrganizationAPI.ApiOrganizationsPost(context.Background()).Execute()
+		resp, httpRes, err := apiClient.OrganizationAPI.OrganizationsList(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test OrganizationAPIService OrganizationsUpdate", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.OrganizationAPI.OrganizationsUpdate(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

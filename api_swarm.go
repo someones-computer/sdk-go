@@ -23,48 +23,48 @@ import (
 // SwarmAPIService SwarmAPI service
 type SwarmAPIService service
 
-type ApiApiSwarmsGetCollectionRequest struct {
+type ApiSwarmsCreateRequest struct {
 	ctx context.Context
 	ApiService *SwarmAPIService
-	page *int32
+	swarm *Swarm
 }
 
-// The collection page number
-func (r ApiApiSwarmsGetCollectionRequest) Page(page int32) ApiApiSwarmsGetCollectionRequest {
-	r.page = &page
+// The new Swarm resource
+func (r ApiSwarmsCreateRequest) Swarm(swarm Swarm) ApiSwarmsCreateRequest {
+	r.swarm = &swarm
 	return r
 }
 
-func (r ApiApiSwarmsGetCollectionRequest) Execute() ([]Swarm, *http.Response, error) {
-	return r.ApiService.ApiSwarmsGetCollectionExecute(r)
+func (r ApiSwarmsCreateRequest) Execute() (*Swarm, *http.Response, error) {
+	return r.ApiService.SwarmsCreateExecute(r)
 }
 
 /*
-ApiSwarmsGetCollection Retrieves the collection of Swarm resources.
+SwarmsCreate Creates a Swarm resource.
 
-Retrieves the collection of Swarm resources.
+Creates a Swarm resource.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiApiSwarmsGetCollectionRequest
+ @return ApiSwarmsCreateRequest
 */
-func (a *SwarmAPIService) ApiSwarmsGetCollection(ctx context.Context) ApiApiSwarmsGetCollectionRequest {
-	return ApiApiSwarmsGetCollectionRequest{
+func (a *SwarmAPIService) SwarmsCreate(ctx context.Context) ApiSwarmsCreateRequest {
+	return ApiSwarmsCreateRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Swarm
-func (a *SwarmAPIService) ApiSwarmsGetCollectionExecute(r ApiApiSwarmsGetCollectionRequest) ([]Swarm, *http.Response, error) {
+//  @return Swarm
+func (a *SwarmAPIService) SwarmsCreateExecute(r ApiSwarmsCreateRequest) (*Swarm, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
+		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []Swarm
+		localVarReturnValue  *Swarm
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwarmAPIService.ApiSwarmsGetCollection")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwarmAPIService.SwarmsCreate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -74,15 +74,12 @@ func (a *SwarmAPIService) ApiSwarmsGetCollectionExecute(r ApiApiSwarmsGetCollect
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-
-	if r.page != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	} else {
-		var defaultValue int32 = 1
-		r.page = &defaultValue
+	if r.swarm == nil {
+		return localVarReturnValue, nil, reportError("swarm is required and must be specified")
 	}
+
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -91,13 +88,15 @@ func (a *SwarmAPIService) ApiSwarmsGetCollectionExecute(r ApiApiSwarmsGetCollect
 	}
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.swarm
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -120,6 +119,38 @@ func (a *SwarmAPIService) ApiSwarmsGetCollectionExecute(r ApiApiSwarmsGetCollect
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 422 {
+			var v ConstraintViolation
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -135,27 +166,27 @@ func (a *SwarmAPIService) ApiSwarmsGetCollectionExecute(r ApiApiSwarmsGetCollect
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiApiSwarmsIdDeleteRequest struct {
+type ApiSwarmsDeleteRequest struct {
 	ctx context.Context
 	ApiService *SwarmAPIService
 	id string
 }
 
-func (r ApiApiSwarmsIdDeleteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.ApiSwarmsIdDeleteExecute(r)
+func (r ApiSwarmsDeleteRequest) Execute() (*http.Response, error) {
+	return r.ApiService.SwarmsDeleteExecute(r)
 }
 
 /*
-ApiSwarmsIdDelete Removes the Swarm resource.
+SwarmsDelete Removes the Swarm resource.
 
 Removes the Swarm resource.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id Swarm identifier
- @return ApiApiSwarmsIdDeleteRequest
+ @return ApiSwarmsDeleteRequest
 */
-func (a *SwarmAPIService) ApiSwarmsIdDelete(ctx context.Context, id string) ApiApiSwarmsIdDeleteRequest {
-	return ApiApiSwarmsIdDeleteRequest{
+func (a *SwarmAPIService) SwarmsDelete(ctx context.Context, id string) ApiSwarmsDeleteRequest {
+	return ApiSwarmsDeleteRequest{
 		ApiService: a,
 		ctx: ctx,
 		id: id,
@@ -163,14 +194,14 @@ func (a *SwarmAPIService) ApiSwarmsIdDelete(ctx context.Context, id string) ApiA
 }
 
 // Execute executes the request
-func (a *SwarmAPIService) ApiSwarmsIdDeleteExecute(r ApiApiSwarmsIdDeleteRequest) (*http.Response, error) {
+func (a *SwarmAPIService) SwarmsDeleteExecute(r ApiSwarmsDeleteRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodDelete
 		localVarPostBody     interface{}
 		formFiles            []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwarmAPIService.ApiSwarmsIdDelete")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwarmAPIService.SwarmsDelete")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -248,27 +279,27 @@ func (a *SwarmAPIService) ApiSwarmsIdDeleteExecute(r ApiApiSwarmsIdDeleteRequest
 	return localVarHTTPResponse, nil
 }
 
-type ApiApiSwarmsIdGetRequest struct {
+type ApiSwarmsGetRequest struct {
 	ctx context.Context
 	ApiService *SwarmAPIService
 	id string
 }
 
-func (r ApiApiSwarmsIdGetRequest) Execute() (*Swarm, *http.Response, error) {
-	return r.ApiService.ApiSwarmsIdGetExecute(r)
+func (r ApiSwarmsGetRequest) Execute() (*Swarm, *http.Response, error) {
+	return r.ApiService.SwarmsGetExecute(r)
 }
 
 /*
-ApiSwarmsIdGet Retrieves a Swarm resource.
+SwarmsGet Retrieves a Swarm resource.
 
 Retrieves a Swarm resource.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id Swarm identifier
- @return ApiApiSwarmsIdGetRequest
+ @return ApiSwarmsGetRequest
 */
-func (a *SwarmAPIService) ApiSwarmsIdGet(ctx context.Context, id string) ApiApiSwarmsIdGetRequest {
-	return ApiApiSwarmsIdGetRequest{
+func (a *SwarmAPIService) SwarmsGet(ctx context.Context, id string) ApiSwarmsGetRequest {
+	return ApiSwarmsGetRequest{
 		ApiService: a,
 		ctx: ctx,
 		id: id,
@@ -277,7 +308,7 @@ func (a *SwarmAPIService) ApiSwarmsIdGet(ctx context.Context, id string) ApiApiS
 
 // Execute executes the request
 //  @return Swarm
-func (a *SwarmAPIService) ApiSwarmsIdGetExecute(r ApiApiSwarmsIdGetRequest) (*Swarm, *http.Response, error) {
+func (a *SwarmAPIService) SwarmsGetExecute(r ApiSwarmsGetRequest) (*Swarm, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -285,7 +316,7 @@ func (a *SwarmAPIService) ApiSwarmsIdGetExecute(r ApiApiSwarmsIdGetRequest) (*Sw
 		localVarReturnValue  *Swarm
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwarmAPIService.ApiSwarmsIdGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwarmAPIService.SwarmsGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -361,7 +392,119 @@ func (a *SwarmAPIService) ApiSwarmsIdGetExecute(r ApiApiSwarmsIdGetRequest) (*Sw
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type ApiApiSwarmsIdPatchRequest struct {
+type ApiSwarmsListRequest struct {
+	ctx context.Context
+	ApiService *SwarmAPIService
+	page *int32
+}
+
+// The collection page number
+func (r ApiSwarmsListRequest) Page(page int32) ApiSwarmsListRequest {
+	r.page = &page
+	return r
+}
+
+func (r ApiSwarmsListRequest) Execute() ([]Swarm, *http.Response, error) {
+	return r.ApiService.SwarmsListExecute(r)
+}
+
+/*
+SwarmsList Retrieves the collection of Swarm resources.
+
+Retrieves the collection of Swarm resources.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiSwarmsListRequest
+*/
+func (a *SwarmAPIService) SwarmsList(ctx context.Context) ApiSwarmsListRequest {
+	return ApiSwarmsListRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return []Swarm
+func (a *SwarmAPIService) SwarmsListExecute(r ApiSwarmsListRequest) ([]Swarm, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []Swarm
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwarmAPIService.SwarmsList")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/swarms"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	} else {
+		var defaultValue int32 = 1
+		r.page = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiSwarmsUpdateRequest struct {
 	ctx context.Context
 	ApiService *SwarmAPIService
 	id string
@@ -369,26 +512,26 @@ type ApiApiSwarmsIdPatchRequest struct {
 }
 
 // The updated Swarm resource
-func (r ApiApiSwarmsIdPatchRequest) SwarmJsonMergePatch(swarmJsonMergePatch SwarmJsonMergePatch) ApiApiSwarmsIdPatchRequest {
+func (r ApiSwarmsUpdateRequest) SwarmJsonMergePatch(swarmJsonMergePatch SwarmJsonMergePatch) ApiSwarmsUpdateRequest {
 	r.swarmJsonMergePatch = &swarmJsonMergePatch
 	return r
 }
 
-func (r ApiApiSwarmsIdPatchRequest) Execute() (*Swarm, *http.Response, error) {
-	return r.ApiService.ApiSwarmsIdPatchExecute(r)
+func (r ApiSwarmsUpdateRequest) Execute() (*Swarm, *http.Response, error) {
+	return r.ApiService.SwarmsUpdateExecute(r)
 }
 
 /*
-ApiSwarmsIdPatch Updates the Swarm resource.
+SwarmsUpdate Updates the Swarm resource.
 
 Updates the Swarm resource.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id Swarm identifier
- @return ApiApiSwarmsIdPatchRequest
+ @return ApiSwarmsUpdateRequest
 */
-func (a *SwarmAPIService) ApiSwarmsIdPatch(ctx context.Context, id string) ApiApiSwarmsIdPatchRequest {
-	return ApiApiSwarmsIdPatchRequest{
+func (a *SwarmAPIService) SwarmsUpdate(ctx context.Context, id string) ApiSwarmsUpdateRequest {
+	return ApiSwarmsUpdateRequest{
 		ApiService: a,
 		ctx: ctx,
 		id: id,
@@ -397,7 +540,7 @@ func (a *SwarmAPIService) ApiSwarmsIdPatch(ctx context.Context, id string) ApiAp
 
 // Execute executes the request
 //  @return Swarm
-func (a *SwarmAPIService) ApiSwarmsIdPatchExecute(r ApiApiSwarmsIdPatchRequest) (*Swarm, *http.Response, error) {
+func (a *SwarmAPIService) SwarmsUpdateExecute(r ApiSwarmsUpdateRequest) (*Swarm, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPatch
 		localVarPostBody     interface{}
@@ -405,7 +548,7 @@ func (a *SwarmAPIService) ApiSwarmsIdPatchExecute(r ApiApiSwarmsIdPatchRequest) 
 		localVarReturnValue  *Swarm
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwarmAPIService.ApiSwarmsIdPatch")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwarmAPIService.SwarmsUpdate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -495,149 +638,6 @@ func (a *SwarmAPIService) ApiSwarmsIdPatchExecute(r ApiApiSwarmsIdPatchRequest) 
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiApiSwarmsPostRequest struct {
-	ctx context.Context
-	ApiService *SwarmAPIService
-	swarm *Swarm
-}
-
-// The new Swarm resource
-func (r ApiApiSwarmsPostRequest) Swarm(swarm Swarm) ApiApiSwarmsPostRequest {
-	r.swarm = &swarm
-	return r
-}
-
-func (r ApiApiSwarmsPostRequest) Execute() (*Swarm, *http.Response, error) {
-	return r.ApiService.ApiSwarmsPostExecute(r)
-}
-
-/*
-ApiSwarmsPost Creates a Swarm resource.
-
-Creates a Swarm resource.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiApiSwarmsPostRequest
-*/
-func (a *SwarmAPIService) ApiSwarmsPost(ctx context.Context) ApiApiSwarmsPostRequest {
-	return ApiApiSwarmsPostRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return Swarm
-func (a *SwarmAPIService) ApiSwarmsPostExecute(r ApiApiSwarmsPostRequest) (*Swarm, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Swarm
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "SwarmAPIService.ApiSwarmsPost")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/swarms"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.swarm == nil {
-		return localVarReturnValue, nil, reportError("swarm is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.swarm
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 422 {
-			var v ConstraintViolation
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 403 {
 			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

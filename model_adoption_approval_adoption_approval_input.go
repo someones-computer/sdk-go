@@ -19,7 +19,7 @@ import (
 // checks if the AdoptionApprovalAdoptionApprovalInput type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AdoptionApprovalAdoptionApprovalInput{}
 
-// AdoptionApprovalAdoptionApprovalInput A human's decision on one compose service the adoption planner detected — approve it, or decline it (§15).  **The switch arms detection; this is what authorizes the act.** {@see \\App\\Service\\ManagedService\\Adoption\\AdoptionReconciler} only ever turns a candidate into a real {@see ManagedService}/{@see ServiceBinding} pair when a row here says `approved`, and only for the compose service name recorded — a rename is a different candidate with no decision of its own yet.  **There is no \"pending\" row.** A service the planner reports and nobody has decided on simply has none here; recording one for every candidate on every deploy would need cleaning up the moment a service is renamed away, for a state (\"undecided\") a missing row already expresses for free.  One row per (application, compose service): deciding again — approving after a rejection, or the reverse — updates it rather than accumulating history, because only the current decision governs what the next deploy does.
+// AdoptionApprovalAdoptionApprovalInput Approve or decline an adopted compose service candidate.
 type AdoptionApprovalAdoptionApprovalInput struct {
 	Application NullableString `json:"application"`
 	ComposeServiceName string `json:"composeServiceName"`

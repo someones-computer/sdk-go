@@ -22,11 +22,11 @@ func Test_someonescomputer_DeploymentAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test DeploymentAPIService ApiDeploymentsGetCollection", func(t *testing.T) {
+	t.Run("Test DeploymentAPIService DeploymentsBundleUploadConfirm", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.DeploymentAPI.ApiDeploymentsGetCollection(context.Background()).Execute()
+		resp, httpRes, err := apiClient.DeploymentAPI.DeploymentsBundleUploadConfirm(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -34,26 +34,50 @@ func Test_someonescomputer_DeploymentAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test DeploymentAPIService ApiDeploymentsIdDelete", func(t *testing.T) {
+	t.Run("Test DeploymentAPIService DeploymentsBundleUploadDeclare", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.DeploymentAPI.DeploymentsBundleUploadDeclare(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DeploymentAPIService DeploymentsCreate", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.DeploymentAPI.DeploymentsCreate(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DeploymentAPIService DeploymentsDelete", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		httpRes, err := apiClient.DeploymentAPI.ApiDeploymentsIdDelete(context.Background(), id).Execute()
+		httpRes, err := apiClient.DeploymentAPI.DeploymentsDelete(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
 
-	t.Run("Test DeploymentAPIService ApiDeploymentsIdGet", func(t *testing.T) {
+	t.Run("Test DeploymentAPIService DeploymentsEndpoints", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		resp, httpRes, err := apiClient.DeploymentAPI.ApiDeploymentsIdGet(context.Background(), id).Execute()
+		resp, httpRes, err := apiClient.DeploymentAPI.DeploymentsEndpoints(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -61,13 +85,13 @@ func Test_someonescomputer_DeploymentAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test DeploymentAPIService ApiDeploymentsIdPatch", func(t *testing.T) {
+	t.Run("Test DeploymentAPIService DeploymentsGet", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		resp, httpRes, err := apiClient.DeploymentAPI.ApiDeploymentsIdPatch(context.Background(), id).Execute()
+		resp, httpRes, err := apiClient.DeploymentAPI.DeploymentsGet(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -75,49 +99,25 @@ func Test_someonescomputer_DeploymentAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test DeploymentAPIService ApiDeploymentsIdendpointsGetCollection", func(t *testing.T) {
+	t.Run("Test DeploymentAPIService DeploymentsList", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.DeploymentAPI.DeploymentsList(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DeploymentAPIService DeploymentsUpdate", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		resp, httpRes, err := apiClient.DeploymentAPI.ApiDeploymentsIdendpointsGetCollection(context.Background(), id).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test DeploymentAPIService ApiDeploymentsPost", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.DeploymentAPI.ApiDeploymentsPost(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test DeploymentAPIService BundleUploadConfirm", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.DeploymentAPI.BundleUploadConfirm(context.Background()).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test DeploymentAPIService BundleUploadDeclare", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		resp, httpRes, err := apiClient.DeploymentAPI.BundleUploadDeclare(context.Background()).Execute()
+		resp, httpRes, err := apiClient.DeploymentAPI.DeploymentsUpdate(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

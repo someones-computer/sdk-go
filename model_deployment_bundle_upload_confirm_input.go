@@ -19,7 +19,7 @@ import (
 // checks if the DeploymentBundleUploadConfirmInput type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DeploymentBundleUploadConfirmInput{}
 
-// DeploymentBundleUploadConfirmInput An IMMUTABLE compose revision. A deploy is a new row; rollback re-points Application::$currentDeployment at an older one. Placement is resolved onto this row (targetSwarm) at deploy time, so migration is just the next revision.
+// DeploymentBundleUploadConfirmInput Confirm a completed bundle upload, creating the deployment revision.
 type DeploymentBundleUploadConfirmInput struct {
 	// Raw `build.secrets` values, keyed by service then by BuildKit secret id (Grey.ooo/someones.computer_agent#46) — matches `App\\Service\\Bundle\\BundleIngestor::commitFromStoredContent()`'s `$secrets` parameter.
 	Secrets map[string]map[string]string `json:"secrets,omitempty"`

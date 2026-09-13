@@ -23,359 +23,32 @@ import (
 // AdoptionApprovalAPIService AdoptionApprovalAPI service
 type AdoptionApprovalAPIService service
 
-type ApiApiAdoptionApprovalsGetCollectionRequest struct {
-	ctx context.Context
-	ApiService *AdoptionApprovalAPIService
-	page *int32
-}
-
-// The collection page number
-func (r ApiApiAdoptionApprovalsGetCollectionRequest) Page(page int32) ApiApiAdoptionApprovalsGetCollectionRequest {
-	r.page = &page
-	return r
-}
-
-func (r ApiApiAdoptionApprovalsGetCollectionRequest) Execute() ([]AdoptionApproval, *http.Response, error) {
-	return r.ApiService.ApiAdoptionApprovalsGetCollectionExecute(r)
-}
-
-/*
-ApiAdoptionApprovalsGetCollection Retrieves the collection of AdoptionApproval resources.
-
-Retrieves the collection of AdoptionApproval resources.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiApiAdoptionApprovalsGetCollectionRequest
-*/
-func (a *AdoptionApprovalAPIService) ApiAdoptionApprovalsGetCollection(ctx context.Context) ApiApiAdoptionApprovalsGetCollectionRequest {
-	return ApiApiAdoptionApprovalsGetCollectionRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return []AdoptionApproval
-func (a *AdoptionApprovalAPIService) ApiAdoptionApprovalsGetCollectionExecute(r ApiApiAdoptionApprovalsGetCollectionRequest) ([]AdoptionApproval, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []AdoptionApproval
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdoptionApprovalAPIService.ApiAdoptionApprovalsGetCollection")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/adoption_approvals"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.page != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	} else {
-		var defaultValue int32 = 1
-		r.page = &defaultValue
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiApiAdoptionApprovalsIdDeleteRequest struct {
-	ctx context.Context
-	ApiService *AdoptionApprovalAPIService
-	id string
-}
-
-func (r ApiApiAdoptionApprovalsIdDeleteRequest) Execute() (*http.Response, error) {
-	return r.ApiService.ApiAdoptionApprovalsIdDeleteExecute(r)
-}
-
-/*
-ApiAdoptionApprovalsIdDelete Removes the AdoptionApproval resource.
-
-Removes the AdoptionApproval resource.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id AdoptionApproval identifier
- @return ApiApiAdoptionApprovalsIdDeleteRequest
-*/
-func (a *AdoptionApprovalAPIService) ApiAdoptionApprovalsIdDelete(ctx context.Context, id string) ApiApiAdoptionApprovalsIdDeleteRequest {
-	return ApiApiAdoptionApprovalsIdDeleteRequest{
-		ApiService: a,
-		ctx: ctx,
-		id: id,
-	}
-}
-
-// Execute executes the request
-func (a *AdoptionApprovalAPIService) ApiAdoptionApprovalsIdDeleteExecute(r ApiApiAdoptionApprovalsIdDeleteRequest) (*http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodDelete
-		localVarPostBody     interface{}
-		formFiles            []formFile
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdoptionApprovalAPIService.ApiAdoptionApprovalsIdDelete")
-	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/adoption_approvals/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json", "application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type ApiApiAdoptionApprovalsIdGetRequest struct {
-	ctx context.Context
-	ApiService *AdoptionApprovalAPIService
-	id string
-}
-
-func (r ApiApiAdoptionApprovalsIdGetRequest) Execute() (*AdoptionApproval, *http.Response, error) {
-	return r.ApiService.ApiAdoptionApprovalsIdGetExecute(r)
-}
-
-/*
-ApiAdoptionApprovalsIdGet Retrieves a AdoptionApproval resource.
-
-Retrieves a AdoptionApproval resource.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param id AdoptionApproval identifier
- @return ApiApiAdoptionApprovalsIdGetRequest
-*/
-func (a *AdoptionApprovalAPIService) ApiAdoptionApprovalsIdGet(ctx context.Context, id string) ApiApiAdoptionApprovalsIdGetRequest {
-	return ApiApiAdoptionApprovalsIdGetRequest{
-		ApiService: a,
-		ctx: ctx,
-		id: id,
-	}
-}
-
-// Execute executes the request
-//  @return AdoptionApproval
-func (a *AdoptionApprovalAPIService) ApiAdoptionApprovalsIdGetExecute(r ApiApiAdoptionApprovalsIdGetRequest) (*AdoptionApproval, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *AdoptionApproval
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdoptionApprovalAPIService.ApiAdoptionApprovalsIdGet")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/adoption_approvals/{id}"
-	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 404 {
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiApiAdoptionApprovalsPostRequest struct {
+type ApiAdoptionApprovalsDecideRequest struct {
 	ctx context.Context
 	ApiService *AdoptionApprovalAPIService
 	adoptionApprovalAdoptionApprovalInput *AdoptionApprovalAdoptionApprovalInput
 }
 
 // The new AdoptionApproval resource
-func (r ApiApiAdoptionApprovalsPostRequest) AdoptionApprovalAdoptionApprovalInput(adoptionApprovalAdoptionApprovalInput AdoptionApprovalAdoptionApprovalInput) ApiApiAdoptionApprovalsPostRequest {
+func (r ApiAdoptionApprovalsDecideRequest) AdoptionApprovalAdoptionApprovalInput(adoptionApprovalAdoptionApprovalInput AdoptionApprovalAdoptionApprovalInput) ApiAdoptionApprovalsDecideRequest {
 	r.adoptionApprovalAdoptionApprovalInput = &adoptionApprovalAdoptionApprovalInput
 	return r
 }
 
-func (r ApiApiAdoptionApprovalsPostRequest) Execute() (*AdoptionApproval, *http.Response, error) {
-	return r.ApiService.ApiAdoptionApprovalsPostExecute(r)
+func (r ApiAdoptionApprovalsDecideRequest) Execute() (*AdoptionApproval, *http.Response, error) {
+	return r.ApiService.AdoptionApprovalsDecideExecute(r)
 }
 
 /*
-ApiAdoptionApprovalsPost Creates a AdoptionApproval resource.
+AdoptionApprovalsDecide Creates a AdoptionApproval resource.
 
 Creates a AdoptionApproval resource.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiApiAdoptionApprovalsPostRequest
+ @return ApiAdoptionApprovalsDecideRequest
 */
-func (a *AdoptionApprovalAPIService) ApiAdoptionApprovalsPost(ctx context.Context) ApiApiAdoptionApprovalsPostRequest {
-	return ApiApiAdoptionApprovalsPostRequest{
+func (a *AdoptionApprovalAPIService) AdoptionApprovalsDecide(ctx context.Context) ApiAdoptionApprovalsDecideRequest {
+	return ApiAdoptionApprovalsDecideRequest{
 		ApiService: a,
 		ctx: ctx,
 	}
@@ -383,7 +56,7 @@ func (a *AdoptionApprovalAPIService) ApiAdoptionApprovalsPost(ctx context.Contex
 
 // Execute executes the request
 //  @return AdoptionApproval
-func (a *AdoptionApprovalAPIService) ApiAdoptionApprovalsPostExecute(r ApiApiAdoptionApprovalsPostRequest) (*AdoptionApproval, *http.Response, error) {
+func (a *AdoptionApprovalAPIService) AdoptionApprovalsDecideExecute(r ApiAdoptionApprovalsDecideRequest) (*AdoptionApproval, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
@@ -391,7 +64,7 @@ func (a *AdoptionApprovalAPIService) ApiAdoptionApprovalsPostExecute(r ApiApiAdo
 		localVarReturnValue  *AdoptionApproval
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdoptionApprovalAPIService.ApiAdoptionApprovalsPost")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdoptionApprovalAPIService.AdoptionApprovalsDecide")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -480,4 +153,331 @@ func (a *AdoptionApprovalAPIService) ApiAdoptionApprovalsPostExecute(r ApiApiAdo
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiAdoptionApprovalsGetRequest struct {
+	ctx context.Context
+	ApiService *AdoptionApprovalAPIService
+	id string
+}
+
+func (r ApiAdoptionApprovalsGetRequest) Execute() (*AdoptionApproval, *http.Response, error) {
+	return r.ApiService.AdoptionApprovalsGetExecute(r)
+}
+
+/*
+AdoptionApprovalsGet Retrieves a AdoptionApproval resource.
+
+Retrieves a AdoptionApproval resource.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id AdoptionApproval identifier
+ @return ApiAdoptionApprovalsGetRequest
+*/
+func (a *AdoptionApprovalAPIService) AdoptionApprovalsGet(ctx context.Context, id string) ApiAdoptionApprovalsGetRequest {
+	return ApiAdoptionApprovalsGetRequest{
+		ApiService: a,
+		ctx: ctx,
+		id: id,
+	}
+}
+
+// Execute executes the request
+//  @return AdoptionApproval
+func (a *AdoptionApprovalAPIService) AdoptionApprovalsGetExecute(r ApiAdoptionApprovalsGetRequest) (*AdoptionApproval, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *AdoptionApproval
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdoptionApprovalAPIService.AdoptionApprovalsGet")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/adoption_approvals/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiAdoptionApprovalsListRequest struct {
+	ctx context.Context
+	ApiService *AdoptionApprovalAPIService
+	page *int32
+}
+
+// The collection page number
+func (r ApiAdoptionApprovalsListRequest) Page(page int32) ApiAdoptionApprovalsListRequest {
+	r.page = &page
+	return r
+}
+
+func (r ApiAdoptionApprovalsListRequest) Execute() ([]AdoptionApproval, *http.Response, error) {
+	return r.ApiService.AdoptionApprovalsListExecute(r)
+}
+
+/*
+AdoptionApprovalsList Retrieves the collection of AdoptionApproval resources.
+
+Retrieves the collection of AdoptionApproval resources.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiAdoptionApprovalsListRequest
+*/
+func (a *AdoptionApprovalAPIService) AdoptionApprovalsList(ctx context.Context) ApiAdoptionApprovalsListRequest {
+	return ApiAdoptionApprovalsListRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return []AdoptionApproval
+func (a *AdoptionApprovalAPIService) AdoptionApprovalsListExecute(r ApiAdoptionApprovalsListRequest) ([]AdoptionApproval, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []AdoptionApproval
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdoptionApprovalAPIService.AdoptionApprovalsList")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/adoption_approvals"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	} else {
+		var defaultValue int32 = 1
+		r.page = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiAdoptionApprovalsWithdrawRequest struct {
+	ctx context.Context
+	ApiService *AdoptionApprovalAPIService
+	id string
+}
+
+func (r ApiAdoptionApprovalsWithdrawRequest) Execute() (*http.Response, error) {
+	return r.ApiService.AdoptionApprovalsWithdrawExecute(r)
+}
+
+/*
+AdoptionApprovalsWithdraw Removes the AdoptionApproval resource.
+
+Removes the AdoptionApproval resource.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param id AdoptionApproval identifier
+ @return ApiAdoptionApprovalsWithdrawRequest
+*/
+func (a *AdoptionApprovalAPIService) AdoptionApprovalsWithdraw(ctx context.Context, id string) ApiAdoptionApprovalsWithdrawRequest {
+	return ApiAdoptionApprovalsWithdrawRequest{
+		ApiService: a,
+		ctx: ctx,
+		id: id,
+	}
+}
+
+// Execute executes the request
+func (a *AdoptionApprovalAPIService) AdoptionApprovalsWithdrawExecute(r ApiAdoptionApprovalsWithdrawRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "AdoptionApprovalAPIService.AdoptionApprovalsWithdraw")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/adoption_approvals/{id}"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterValueToString(r.id, "id")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/problem+json", "application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+					newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }

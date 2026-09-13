@@ -4,18 +4,18 @@ All URIs are relative to *http://localhost*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**ApiServiceBindingsGetCollection**](ServiceBindingAPI.md#ApiServiceBindingsGetCollection) | **Get** /api/service_bindings | Retrieves the collection of ServiceBinding resources.
-[**ApiServiceBindingsIdDelete**](ServiceBindingAPI.md#ApiServiceBindingsIdDelete) | **Delete** /api/service_bindings/{id} | Removes the ServiceBinding resource.
-[**ApiServiceBindingsIdGet**](ServiceBindingAPI.md#ApiServiceBindingsIdGet) | **Get** /api/service_bindings/{id} | Retrieves a ServiceBinding resource.
-[**ApiServiceBindingsPost**](ServiceBindingAPI.md#ApiServiceBindingsPost) | **Post** /api/service_bindings | Creates a ServiceBinding resource.
+[**ServiceBindingsCreate**](ServiceBindingAPI.md#ServiceBindingsCreate) | **Post** /api/service_bindings | Creates a ServiceBinding resource.
+[**ServiceBindingsDelete**](ServiceBindingAPI.md#ServiceBindingsDelete) | **Delete** /api/service_bindings/{id} | Removes the ServiceBinding resource.
+[**ServiceBindingsGet**](ServiceBindingAPI.md#ServiceBindingsGet) | **Get** /api/service_bindings/{id} | Retrieves a ServiceBinding resource.
+[**ServiceBindingsList**](ServiceBindingAPI.md#ServiceBindingsList) | **Get** /api/service_bindings | Retrieves the collection of ServiceBinding resources.
 
 
 
-## ApiServiceBindingsGetCollection
+## ServiceBindingsCreate
 
-> []ServiceBinding ApiServiceBindingsGetCollection(ctx).Page(page).Execute()
+> ServiceBinding ServiceBindingsCreate(ctx).ServiceBindingServiceBindingInput(serviceBindingServiceBindingInput).Execute()
 
-Retrieves the collection of ServiceBinding resources.
+Creates a ServiceBinding resource.
 
 
 
@@ -32,17 +32,17 @@ import (
 )
 
 func main() {
-	page := int32(56) // int32 | The collection page number (optional) (default to 1)
+	serviceBindingServiceBindingInput := *openapiclient.NewServiceBindingServiceBindingInput("https://example.com/", "https://example.com/") // ServiceBindingServiceBindingInput | The new ServiceBinding resource
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ServiceBindingAPI.ApiServiceBindingsGetCollection(context.Background()).Page(page).Execute()
+	resp, r, err := apiClient.ServiceBindingAPI.ServiceBindingsCreate(context.Background()).ServiceBindingServiceBindingInput(serviceBindingServiceBindingInput).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ServiceBindingAPI.ApiServiceBindingsGetCollection``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceBindingAPI.ServiceBindingsCreate``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ApiServiceBindingsGetCollection`: []ServiceBinding
-	fmt.Fprintf(os.Stdout, "Response from `ServiceBindingAPI.ApiServiceBindingsGetCollection`: %v\n", resp)
+	// response from `ServiceBindingsCreate`: ServiceBinding
+	fmt.Fprintf(os.Stdout, "Response from `ServiceBindingAPI.ServiceBindingsCreate`: %v\n", resp)
 }
 ```
 
@@ -52,16 +52,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiApiServiceBindingsGetCollectionRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiServiceBindingsCreateRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** | The collection page number | [default to 1]
+ **serviceBindingServiceBindingInput** | [**ServiceBindingServiceBindingInput**](ServiceBindingServiceBindingInput.md) | The new ServiceBinding resource | 
 
 ### Return type
 
-[**[]ServiceBinding**](ServiceBinding.md)
+[**ServiceBinding**](ServiceBinding.md)
 
 ### Authorization
 
@@ -69,17 +69,17 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: Not defined
-- **Accept**: application/json
+- **Content-Type**: application/json
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
 [[Back to README]](../README.md)
 
 
-## ApiServiceBindingsIdDelete
+## ServiceBindingsDelete
 
-> ApiServiceBindingsIdDelete(ctx, id).Execute()
+> ServiceBindingsDelete(ctx, id).Execute()
 
 Removes the ServiceBinding resource.
 
@@ -102,9 +102,9 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	r, err := apiClient.ServiceBindingAPI.ApiServiceBindingsIdDelete(context.Background(), id).Execute()
+	r, err := apiClient.ServiceBindingAPI.ServiceBindingsDelete(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ServiceBindingAPI.ApiServiceBindingsIdDelete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceBindingAPI.ServiceBindingsDelete``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
 }
@@ -120,7 +120,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiApiServiceBindingsIdDeleteRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiServiceBindingsDeleteRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -145,9 +145,9 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ApiServiceBindingsIdGet
+## ServiceBindingsGet
 
-> ServiceBinding ApiServiceBindingsIdGet(ctx, id).Execute()
+> ServiceBinding ServiceBindingsGet(ctx, id).Execute()
 
 Retrieves a ServiceBinding resource.
 
@@ -170,13 +170,13 @@ func main() {
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ServiceBindingAPI.ApiServiceBindingsIdGet(context.Background(), id).Execute()
+	resp, r, err := apiClient.ServiceBindingAPI.ServiceBindingsGet(context.Background(), id).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ServiceBindingAPI.ApiServiceBindingsIdGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceBindingAPI.ServiceBindingsGet``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ApiServiceBindingsIdGet`: ServiceBinding
-	fmt.Fprintf(os.Stdout, "Response from `ServiceBindingAPI.ApiServiceBindingsIdGet`: %v\n", resp)
+	// response from `ServiceBindingsGet`: ServiceBinding
+	fmt.Fprintf(os.Stdout, "Response from `ServiceBindingAPI.ServiceBindingsGet`: %v\n", resp)
 }
 ```
 
@@ -190,7 +190,7 @@ Name | Type | Description  | Notes
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiApiServiceBindingsIdGetRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiServiceBindingsGetRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
@@ -215,11 +215,11 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
-## ApiServiceBindingsPost
+## ServiceBindingsList
 
-> ServiceBinding ApiServiceBindingsPost(ctx).ServiceBindingServiceBindingInput(serviceBindingServiceBindingInput).Execute()
+> []ServiceBinding ServiceBindingsList(ctx).Page(page).Execute()
 
-Creates a ServiceBinding resource.
+Retrieves the collection of ServiceBinding resources.
 
 
 
@@ -236,17 +236,17 @@ import (
 )
 
 func main() {
-	serviceBindingServiceBindingInput := *openapiclient.NewServiceBindingServiceBindingInput("https://example.com/", "https://example.com/") // ServiceBindingServiceBindingInput | The new ServiceBinding resource
+	page := int32(56) // int32 | The collection page number (optional) (default to 1)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ServiceBindingAPI.ApiServiceBindingsPost(context.Background()).ServiceBindingServiceBindingInput(serviceBindingServiceBindingInput).Execute()
+	resp, r, err := apiClient.ServiceBindingAPI.ServiceBindingsList(context.Background()).Page(page).Execute()
 	if err != nil {
-		fmt.Fprintf(os.Stderr, "Error when calling `ServiceBindingAPI.ApiServiceBindingsPost``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Error when calling `ServiceBindingAPI.ServiceBindingsList``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ApiServiceBindingsPost`: ServiceBinding
-	fmt.Fprintf(os.Stdout, "Response from `ServiceBindingAPI.ApiServiceBindingsPost`: %v\n", resp)
+	// response from `ServiceBindingsList`: []ServiceBinding
+	fmt.Fprintf(os.Stdout, "Response from `ServiceBindingAPI.ServiceBindingsList`: %v\n", resp)
 }
 ```
 
@@ -256,16 +256,16 @@ func main() {
 
 ### Other Parameters
 
-Other parameters are passed through a pointer to a apiApiServiceBindingsPostRequest struct via the builder pattern
+Other parameters are passed through a pointer to a apiServiceBindingsListRequest struct via the builder pattern
 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **serviceBindingServiceBindingInput** | [**ServiceBindingServiceBindingInput**](ServiceBindingServiceBindingInput.md) | The new ServiceBinding resource | 
+ **page** | **int32** | The collection page number | [default to 1]
 
 ### Return type
 
-[**ServiceBinding**](ServiceBinding.md)
+[**[]ServiceBinding**](ServiceBinding.md)
 
 ### Authorization
 
@@ -273,8 +273,8 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
-- **Content-Type**: application/json
-- **Accept**: application/json, application/problem+json
+- **Content-Type**: Not defined
+- **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)

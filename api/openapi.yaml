@@ -122,7 +122,7 @@ paths:
   /api/adoption_approvals:
     get:
       description: Retrieves the collection of AdoptionApproval resources.
-      operationId: api_adoption_approvals_get_collection
+      operationId: adoption_approvals_list
       parameters:
       - deprecated: false
         description: The collection page number
@@ -148,7 +148,7 @@ paths:
       - AdoptionApproval
     post:
       description: Creates a AdoptionApproval resource.
-      operationId: api_adoption_approvals_post
+      operationId: adoption_approvals_decide
       parameters: []
       requestBody:
         content:
@@ -188,7 +188,7 @@ paths:
   /api/adoption_approvals/{id}:
     delete:
       description: Removes the AdoptionApproval resource.
-      operationId: api_adoption_approvals_id_delete
+      operationId: adoption_approvals_withdraw
       parameters:
       - deprecated: false
         description: AdoptionApproval identifier
@@ -216,7 +216,7 @@ paths:
       - AdoptionApproval
     get:
       description: Retrieves a AdoptionApproval resource.
-      operationId: api_adoption_approvals_id_get
+      operationId: adoption_approvals_get
       parameters:
       - deprecated: false
         description: AdoptionApproval identifier
@@ -249,7 +249,7 @@ paths:
   /api/applications:
     get:
       description: Retrieves the collection of Application resources.
-      operationId: api_applications_get_collection
+      operationId: applications_list
       parameters:
       - deprecated: false
         description: The collection page number
@@ -335,7 +335,7 @@ paths:
       - Application
     post:
       description: Creates a Application resource.
-      operationId: api_applications_post
+      operationId: applications_create
       parameters: []
       requestBody:
         content:
@@ -375,7 +375,7 @@ paths:
   /api/applications/{id}:
     delete:
       description: Removes the Application resource.
-      operationId: api_applications_id_delete
+      operationId: applications_delete
       parameters:
       - deprecated: false
         description: Application identifier
@@ -412,7 +412,7 @@ paths:
       - Application
     get:
       description: Retrieves a Application resource.
-      operationId: api_applications_id_get
+      operationId: applications_get
       parameters:
       - deprecated: false
         description: Application identifier
@@ -444,7 +444,7 @@ paths:
       - Application
     patch:
       description: Updates the Application resource.
-      operationId: api_applications_id_patch
+      operationId: applications_update
       parameters:
       - deprecated: false
         description: Application identifier
@@ -502,7 +502,7 @@ paths:
   /api/credit_transactions:
     get:
       description: Retrieves the collection of CreditTransaction resources.
-      operationId: api_credit_transactions_get_collection
+      operationId: credit_transactions_list
       parameters:
       - deprecated: false
         description: The collection page number
@@ -529,7 +529,7 @@ paths:
   /api/credit_transactions/{id}:
     get:
       description: Retrieves a CreditTransaction resource.
-      operationId: api_credit_transactions_id_get
+      operationId: credit_transactions_get
       parameters:
       - deprecated: false
         description: CreditTransaction identifier
@@ -562,7 +562,7 @@ paths:
   /api/deployments:
     get:
       description: Retrieves the collection of Deployment resources.
-      operationId: api_deployments_get_collection
+      operationId: deployments_list
       parameters:
       - deprecated: false
         description: The collection page number
@@ -588,7 +588,7 @@ paths:
       - Deployment
     post:
       description: Creates a Deployment resource.
-      operationId: api_deployments_post
+      operationId: deployments_create
       parameters: []
       requestBody:
         content:
@@ -628,7 +628,7 @@ paths:
   /api/deployments/bundle_uploads:
     post:
       description: Creates a Deployment resource.
-      operationId: bundle_upload_declare
+      operationId: deployments_bundle_upload_declare
       parameters: []
       requestBody:
         content:
@@ -668,7 +668,7 @@ paths:
   /api/deployments/bundle_uploads/confirm:
     post:
       description: Creates a Deployment resource.
-      operationId: bundle_upload_confirm
+      operationId: deployments_bundle_upload_confirm
       parameters: []
       requestBody:
         content:
@@ -708,7 +708,7 @@ paths:
   /api/deployments/{id}:
     delete:
       description: Removes the Deployment resource.
-      operationId: api_deployments_id_delete
+      operationId: deployments_delete
       parameters:
       - deprecated: false
         description: Deployment identifier
@@ -745,7 +745,7 @@ paths:
       - Deployment
     get:
       description: Retrieves a Deployment resource.
-      operationId: api_deployments_id_get
+      operationId: deployments_get
       parameters:
       - deprecated: false
         description: Deployment identifier
@@ -777,7 +777,7 @@ paths:
       - Deployment
     patch:
       description: Updates the Deployment resource.
-      operationId: api_deployments_id_patch
+      operationId: deployments_update
       parameters:
       - deprecated: false
         description: Deployment identifier
@@ -835,7 +835,7 @@ paths:
   /api/deployments/{id}/endpoints:
     get:
       description: Retrieves the collection of Deployment resources.
-      operationId: api_deployments_idendpoints_get_collection
+      operationId: deployments_endpoints
       parameters:
       - deprecated: false
         description: Deployment identifier
@@ -861,7 +861,7 @@ paths:
   /api/managed_services:
     get:
       description: Retrieves the collection of ManagedService resources.
-      operationId: api_managed_services_get_collection
+      operationId: managed_services_list
       parameters:
       - deprecated: false
         description: The collection page number
@@ -887,7 +887,7 @@ paths:
       - ManagedService
     post:
       description: Creates a ManagedService resource.
-      operationId: api_managed_services_post
+      operationId: managed_services_create
       parameters: []
       requestBody:
         content:
@@ -927,7 +927,7 @@ paths:
   /api/managed_services/{id}:
     delete:
       description: Removes the ManagedService resource.
-      operationId: api_managed_services_id_delete
+      operationId: managed_services_delete
       parameters:
       - deprecated: false
         description: ManagedService identifier
@@ -955,7 +955,7 @@ paths:
       - ManagedService
     get:
       description: Retrieves a ManagedService resource.
-      operationId: api_managed_services_id_get
+      operationId: managed_services_get
       parameters:
       - deprecated: false
         description: ManagedService identifier
@@ -988,7 +988,7 @@ paths:
   /api/managed_services/{id}/resume:
     post:
       description: Creates a ManagedService resource.
-      operationId: resume
+      operationId: managed_services_resume
       parameters:
       - deprecated: false
         description: ManagedService identifier
@@ -1030,7 +1030,7 @@ paths:
   /api/managed_services/{id}/suspend:
     post:
       description: Creates a ManagedService resource.
-      operationId: suspend
+      operationId: managed_services_suspend
       parameters:
       - deprecated: false
         description: ManagedService identifier
@@ -1072,7 +1072,7 @@ paths:
   /api/organizations:
     get:
       description: Retrieves the collection of Organization resources.
-      operationId: api_organizations_get_collection
+      operationId: organizations_list
       parameters:
       - deprecated: false
         description: The collection page number
@@ -1118,7 +1118,7 @@ paths:
       - Organization
     post:
       description: Creates a Organization resource.
-      operationId: api_organizations_post
+      operationId: organizations_create
       parameters: []
       requestBody:
         content:
@@ -1158,7 +1158,7 @@ paths:
   /api/organizations/{id}:
     delete:
       description: Removes the Organization resource.
-      operationId: api_organizations_id_delete
+      operationId: organizations_delete
       parameters:
       - deprecated: false
         description: Organization identifier
@@ -1195,7 +1195,7 @@ paths:
       - Organization
     get:
       description: Retrieves a Organization resource.
-      operationId: api_organizations_id_get
+      operationId: organizations_get
       parameters:
       - deprecated: false
         description: Organization identifier
@@ -1227,7 +1227,7 @@ paths:
       - Organization
     patch:
       description: Updates the Organization resource.
-      operationId: api_organizations_id_patch
+      operationId: organizations_update
       parameters:
       - deprecated: false
         description: Organization identifier
@@ -1285,7 +1285,7 @@ paths:
   /api/service_bindings:
     get:
       description: Retrieves the collection of ServiceBinding resources.
-      operationId: api_service_bindings_get_collection
+      operationId: service_bindings_list
       parameters:
       - deprecated: false
         description: The collection page number
@@ -1311,7 +1311,7 @@ paths:
       - ServiceBinding
     post:
       description: Creates a ServiceBinding resource.
-      operationId: api_service_bindings_post
+      operationId: service_bindings_create
       parameters: []
       requestBody:
         content:
@@ -1351,7 +1351,7 @@ paths:
   /api/service_bindings/{id}:
     delete:
       description: Removes the ServiceBinding resource.
-      operationId: api_service_bindings_id_delete
+      operationId: service_bindings_delete
       parameters:
       - deprecated: false
         description: ServiceBinding identifier
@@ -1379,7 +1379,7 @@ paths:
       - ServiceBinding
     get:
       description: Retrieves a ServiceBinding resource.
-      operationId: api_service_bindings_id_get
+      operationId: service_bindings_get
       parameters:
       - deprecated: false
         description: ServiceBinding identifier
@@ -1412,7 +1412,7 @@ paths:
   /api/swarms:
     get:
       description: Retrieves the collection of Swarm resources.
-      operationId: api_swarms_get_collection
+      operationId: swarms_list
       parameters:
       - deprecated: false
         description: The collection page number
@@ -1438,7 +1438,7 @@ paths:
       - Swarm
     post:
       description: Creates a Swarm resource.
-      operationId: api_swarms_post
+      operationId: swarms_create
       parameters: []
       requestBody:
         content:
@@ -1487,7 +1487,7 @@ paths:
   /api/swarms/{id}:
     delete:
       description: Removes the Swarm resource.
-      operationId: api_swarms_id_delete
+      operationId: swarms_delete
       parameters:
       - deprecated: false
         description: Swarm identifier
@@ -1524,7 +1524,7 @@ paths:
       - Swarm
     get:
       description: Retrieves a Swarm resource.
-      operationId: api_swarms_id_get
+      operationId: swarms_get
       parameters:
       - deprecated: false
         description: Swarm identifier
@@ -1556,7 +1556,7 @@ paths:
       - Swarm
     patch:
       description: Updates the Swarm resource.
-      operationId: api_swarms_id_patch
+      operationId: swarms_update
       parameters:
       - deprecated: false
         description: Swarm identifier
@@ -1628,140 +1628,7 @@ components:
   responses: {}
   schemas:
     Swarm.jsonMergePatch:
-      description: |-
-        A Docker Swarm we can deploy onto. The trust boundary of the platform.
-
-        owner === null  => PLATFORM pool (shared infra we run).
-        owner !== null  => CUSTOMER BYO cluster (untrusted, outbound-only).
-      example:
-        lastSeenAt: 2000-01-23T04:56:07.000+00:00
-        platformOwned: true
-        roles:
-        - roles
-        - roles
-        publicHost: publicHost
-        capacity:
-          key: capacity
-        ingressInstalledAt: 2000-01-23T04:56:07.000+00:00
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        endpoint: endpoint
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-        owner: https://example.com/
-        workingEdge: true
-        kind: platform
-        platformProvisioned: true
-        ingressVerificationError: ingressVerificationError
-        labels:
-          key: labels
-        deployments:
-        - https://example.com/
-        - https://example.com/
-        deletedAt: 2000-01-23T04:56:07.000+00:00
-        nodes:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          hostname: hostname
-          swarm: https://example.com/
-          state: state
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          nodeId: nodeId
-          capacity:
-            key: capacity
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          hostname: hostname
-          swarm: https://example.com/
-          state: state
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          nodeId: nodeId
-          capacity:
-            key: capacity
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        deleted: true
-        ingressVerifiedAt: 2000-01-23T04:56:07.000+00:00
-        ingressNetwork: ingressNetwork
-        name: name
-        ingressError: ingressError
-        machines:
-        - instance:
-            lastSeenAt: 2000-01-23T04:56:07.000+00:00
-            template: true
-            lastError: lastError
-            tokenId: tokenId
-            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
-            verifyTls: true
-            version:
-              key: version
-            templateAlpineVersion: templateAlpineVersion
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            endpoint: endpoint
-            name: name
-            templateVmid: 2
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tokenSecret: tokenSecret
-            publicKeyPin: publicKeyPin
-            templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
-            templateBuildFailures: 4
-            status: unreachable
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          address: address
-          provisioningStale: true
-          vmid: 0
-          diskGigabytes: 5
-          diskBlocks: 6
-          provisionAttempt: 5
-          provisionStartedAt: 2000-01-23T04:56:07.000+00:00
-          node: node
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          size: s
-          swarm: https://example.com/
-          failure: failure
-          organization: https://example.com/
-          name: name
-          templateVmid: 1
-          state: requested
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - instance:
-            lastSeenAt: 2000-01-23T04:56:07.000+00:00
-            template: true
-            lastError: lastError
-            tokenId: tokenId
-            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
-            verifyTls: true
-            version:
-              key: version
-            templateAlpineVersion: templateAlpineVersion
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            endpoint: endpoint
-            name: name
-            templateVmid: 2
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tokenSecret: tokenSecret
-            publicKeyPin: publicKeyPin
-            templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
-            templateBuildFailures: 4
-            status: unreachable
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          address: address
-          provisioningStale: true
-          vmid: 0
-          diskGigabytes: 5
-          diskBlocks: 6
-          provisionAttempt: 5
-          provisionStartedAt: 2000-01-23T04:56:07.000+00:00
-          node: node
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          size: s
-          swarm: https://example.com/
-          failure: failure
-          organization: https://example.com/
-          name: name
-          templateVmid: 1
-          state: requested
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        status: unreachable
+      description: Update a swarm's mutable fields (platform administration).
       properties:
         owner:
           description: Null for the platform pool; set for a customer BYO cluster.
@@ -2339,11 +2206,7 @@ components:
           readOnly: true
           type: string
     Swarm:
-      description: |-
-        A Docker Swarm we can deploy onto. The trust boundary of the platform.
-
-        owner === null  => PLATFORM pool (shared infra we run).
-        owner !== null  => CUSTOMER BYO cluster (untrusted, outbound-only).
+      description: List swarms the caller can see.
       example:
         lastSeenAt: 2000-01-23T04:56:07.000+00:00
         platformOwned: true
@@ -2626,23 +2489,8 @@ components:
           readOnly: true
           type: boolean
     ServiceBinding:
-      description: |-
-        That an application may use a managed service — the join the per-application
-        toggle could not express.
-
-        Many-to-many by construction: one database can back a web app and its worker,
-        and one application can hold several bindings. Unbinding leaves the data alone;
-        only destroying the {@see ManagedService} touches it.
-
-        A binding is also where the *deployment* seam lives. It records which variable
-        names it injects, so the UI can say what an application will receive before it
-        receives it, and so the resolver can show an operator-set variable shadowing a
-        binding rather than silently losing to it.
-
-        **Creating one is a permission, not a provisioning step** — nothing at the engine
-        moves. Deleting one withdraws that permission and touches no data, which is why
-        `DELETE` here is a hard delete and `DELETE` on a {@see ManagedService} is not the
-        same kind of verb at all.
+      description: List service bindings (application-to-managed-service links) the
+        caller can see.
       example:
         createdAt: 2000-01-23T04:56:07.000+00:00
         adoptedComposeService: adoptedComposeService
@@ -2722,23 +2570,7 @@ components:
         ciphertext:
           type: string
     ServiceBinding.ServiceBindingInput:
-      description: |-
-        That an application may use a managed service — the join the per-application
-        toggle could not express.
-
-        Many-to-many by construction: one database can back a web app and its worker,
-        and one application can hold several bindings. Unbinding leaves the data alone;
-        only destroying the {@see ManagedService} touches it.
-
-        A binding is also where the *deployment* seam lives. It records which variable
-        names it injects, so the UI can say what an application will receive before it
-        receives it, and so the resolver can show an operator-set variable shadowing a
-        binding rather than silently losing to it.
-
-        **Creating one is a permission, not a provisioning step** — nothing at the engine
-        moves. Deleting one withdraws that permission and touches no data, which is why
-        `DELETE` here is a hard delete and `DELETE` on a {@see ManagedService} is not the
-        same kind of verb at all.
+      description: Bind a managed service to an application.
       properties:
         application:
           example: https://example.com/
@@ -2754,816 +2586,7 @@ components:
       - application
       - service
     Organization.jsonMergePatch:
-      description: "Ownership and (future) billing boundary. Owns applications, may\
-        \ own BYO swarms."
-      example:
-        creditTransactions:
-        - https://example.com/
-        - https://example.com/
-        variables:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          application: https://example.com/
-          orgShared: true
-          versions:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              grantedRoles:
-              - grantedRoles
-              - grantedRoles
-              emailConfirmed: true
-              oauthIdentities:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayName: displayName
-              timezone: timezone
-              roles:
-              - roles
-              - roles
-              locale: en_GB
-              avatarPhoto:
-                photo: photo
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                type: type
-              spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-              totpEnabled: true
-              disabledAt: 2000-01-23T04:56:07.000+00:00
-              createdAt: 2000-01-23T04:56:07.000+00:00
-              password: password
-              totpSecret: totpSecret
-              approved: true
-              tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-              userIdentifier: userIdentifier
-              tierPin: untrusted
-              creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-              theme: house
-              disabled: true
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              email: email
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayLabel: displayLabel
-              ldapManaged: true
-              spamMarkedBy: null
-              ldapDn: ldapDn
-              approvedAt: 2000-01-23T04:56:07.000+00:00
-              recoveryCodes:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              tierPinned: true
-              tierPinnedBy: null
-              totpSecretKeyId: totpSecretKeyId
-              deletedAt: 2000-01-23T04:56:07.000+00:00
-              deleted: true
-              machine: true
-              avatarPhotoType: avatarPhotoType
-              tierPinReason: tierPinReason
-              machineFor: https://example.com/
-              spam: true
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              grantedRoles:
-              - grantedRoles
-              - grantedRoles
-              emailConfirmed: true
-              oauthIdentities:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayName: displayName
-              timezone: timezone
-              roles:
-              - roles
-              - roles
-              locale: en_GB
-              avatarPhoto:
-                photo: photo
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                type: type
-              spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-              totpEnabled: true
-              disabledAt: 2000-01-23T04:56:07.000+00:00
-              createdAt: 2000-01-23T04:56:07.000+00:00
-              password: password
-              totpSecret: totpSecret
-              approved: true
-              tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-              userIdentifier: userIdentifier
-              tierPin: untrusted
-              creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-              theme: house
-              disabled: true
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              email: email
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayLabel: displayLabel
-              ldapManaged: true
-              spamMarkedBy: null
-              ldapDn: ldapDn
-              approvedAt: 2000-01-23T04:56:07.000+00:00
-              recoveryCodes:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              tierPinned: true
-              tierPinnedBy: null
-              totpSecretKeyId: totpSecretKeyId
-              deletedAt: 2000-01-23T04:56:07.000+00:00
-              deleted: true
-              machine: true
-              avatarPhotoType: avatarPhotoType
-              tierPinReason: tierPinReason
-              machineFor: https://example.com/
-              spam: true
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          secretFileDelivery: false
-          organization: https://example.com/
-          sensitive: false
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          key: key
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          application: https://example.com/
-          orgShared: true
-          versions:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              grantedRoles:
-              - grantedRoles
-              - grantedRoles
-              emailConfirmed: true
-              oauthIdentities:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayName: displayName
-              timezone: timezone
-              roles:
-              - roles
-              - roles
-              locale: en_GB
-              avatarPhoto:
-                photo: photo
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                type: type
-              spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-              totpEnabled: true
-              disabledAt: 2000-01-23T04:56:07.000+00:00
-              createdAt: 2000-01-23T04:56:07.000+00:00
-              password: password
-              totpSecret: totpSecret
-              approved: true
-              tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-              userIdentifier: userIdentifier
-              tierPin: untrusted
-              creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-              theme: house
-              disabled: true
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              email: email
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayLabel: displayLabel
-              ldapManaged: true
-              spamMarkedBy: null
-              ldapDn: ldapDn
-              approvedAt: 2000-01-23T04:56:07.000+00:00
-              recoveryCodes:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              tierPinned: true
-              tierPinnedBy: null
-              totpSecretKeyId: totpSecretKeyId
-              deletedAt: 2000-01-23T04:56:07.000+00:00
-              deleted: true
-              machine: true
-              avatarPhotoType: avatarPhotoType
-              tierPinReason: tierPinReason
-              machineFor: https://example.com/
-              spam: true
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              grantedRoles:
-              - grantedRoles
-              - grantedRoles
-              emailConfirmed: true
-              oauthIdentities:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayName: displayName
-              timezone: timezone
-              roles:
-              - roles
-              - roles
-              locale: en_GB
-              avatarPhoto:
-                photo: photo
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                type: type
-              spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-              totpEnabled: true
-              disabledAt: 2000-01-23T04:56:07.000+00:00
-              createdAt: 2000-01-23T04:56:07.000+00:00
-              password: password
-              totpSecret: totpSecret
-              approved: true
-              tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-              userIdentifier: userIdentifier
-              tierPin: untrusted
-              creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-              theme: house
-              disabled: true
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              email: email
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayLabel: displayLabel
-              ldapManaged: true
-              spamMarkedBy: null
-              ldapDn: ldapDn
-              approvedAt: 2000-01-23T04:56:07.000+00:00
-              recoveryCodes:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              tierPinned: true
-              tierPinnedBy: null
-              totpSecretKeyId: totpSecretKeyId
-              deletedAt: 2000-01-23T04:56:07.000+00:00
-              deleted: true
-              machine: true
-              avatarPhotoType: avatarPhotoType
-              tierPinReason: tierPinReason
-              machineFor: https://example.com/
-              spam: true
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          secretFileDelivery: false
-          organization: https://example.com/
-          sensitive: false
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          key: key
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        swarms:
-        - https://example.com/
-        - https://example.com/
-        lowBalanceWarnedAt: 2000-01-23T04:56:07.000+00:00
-        memberships:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          role: owner
-          organization: https://example.com/
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          user:
-            grantedRoles:
-            - grantedRoles
-            - grantedRoles
-            emailConfirmed: true
-            oauthIdentities:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            displayName: displayName
-            timezone: timezone
-            roles:
-            - roles
-            - roles
-            locale: en_GB
-            avatarPhoto:
-              photo: photo
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              type: type
-            spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-            totpEnabled: true
-            disabledAt: 2000-01-23T04:56:07.000+00:00
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            password: password
-            totpSecret: totpSecret
-            approved: true
-            tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-            userIdentifier: userIdentifier
-            tierPin: untrusted
-            creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-            theme: house
-            disabled: true
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            email: email
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-            displayLabel: displayLabel
-            ldapManaged: true
-            spamMarkedBy: null
-            ldapDn: ldapDn
-            approvedAt: 2000-01-23T04:56:07.000+00:00
-            recoveryCodes:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              codeHash: codeHash
-              usedAt: 2000-01-23T04:56:07.000+00:00
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              used: true
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              codeHash: codeHash
-              usedAt: 2000-01-23T04:56:07.000+00:00
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              used: true
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            tierPinned: true
-            tierPinnedBy: null
-            totpSecretKeyId: totpSecretKeyId
-            deletedAt: 2000-01-23T04:56:07.000+00:00
-            deleted: true
-            machine: true
-            avatarPhotoType: avatarPhotoType
-            tierPinReason: tierPinReason
-            machineFor: https://example.com/
-            spam: true
-            username: username
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          role: owner
-          organization: https://example.com/
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          user:
-            grantedRoles:
-            - grantedRoles
-            - grantedRoles
-            emailConfirmed: true
-            oauthIdentities:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            displayName: displayName
-            timezone: timezone
-            roles:
-            - roles
-            - roles
-            locale: en_GB
-            avatarPhoto:
-              photo: photo
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              type: type
-            spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-            totpEnabled: true
-            disabledAt: 2000-01-23T04:56:07.000+00:00
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            password: password
-            totpSecret: totpSecret
-            approved: true
-            tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-            userIdentifier: userIdentifier
-            tierPin: untrusted
-            creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-            theme: house
-            disabled: true
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            email: email
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-            displayLabel: displayLabel
-            ldapManaged: true
-            spamMarkedBy: null
-            ldapDn: ldapDn
-            approvedAt: 2000-01-23T04:56:07.000+00:00
-            recoveryCodes:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              codeHash: codeHash
-              usedAt: 2000-01-23T04:56:07.000+00:00
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              used: true
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              codeHash: codeHash
-              usedAt: 2000-01-23T04:56:07.000+00:00
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              used: true
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            tierPinned: true
-            tierPinnedBy: null
-            totpSecretKeyId: totpSecretKeyId
-            deletedAt: 2000-01-23T04:56:07.000+00:00
-            deleted: true
-            machine: true
-            avatarPhotoType: avatarPhotoType
-            tierPinReason: tierPinReason
-            machineFor: https://example.com/
-            spam: true
-            username: username
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        tierPinned: true
-        tierPinnedBy:
-          grantedRoles:
-          - grantedRoles
-          - grantedRoles
-          emailConfirmed: true
-          oauthIdentities:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          displayName: displayName
-          timezone: timezone
-          roles:
-          - roles
-          - roles
-          locale: en_GB
-          avatarPhoto:
-            photo: photo
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            type: type
-          spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-          totpEnabled: true
-          disabledAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          password: password
-          totpSecret: totpSecret
-          approved: true
-          tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-          userIdentifier: userIdentifier
-          tierPin: untrusted
-          creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-          theme: house
-          disabled: true
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          email: email
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-          displayLabel: displayLabel
-          ldapManaged: true
-          spamMarkedBy: null
-          ldapDn: ldapDn
-          approvedAt: 2000-01-23T04:56:07.000+00:00
-          recoveryCodes:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            codeHash: codeHash
-            usedAt: 2000-01-23T04:56:07.000+00:00
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            used: true
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            codeHash: codeHash
-            usedAt: 2000-01-23T04:56:07.000+00:00
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            used: true
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          tierPinned: true
-          tierPinnedBy: null
-          totpSecretKeyId: totpSecretKeyId
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          machine: true
-          avatarPhotoType: avatarPhotoType
-          tierPinReason: tierPinReason
-          machineFor: https://example.com/
-          spam: true
-          username: username
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        deletedAt: 2000-01-23T04:56:07.000+00:00
-        tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-        signals:
-        - reason: reason
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          application: https://example.com/
-          organization: https://example.com/
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - reason: reason
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          application: https://example.com/
-          organization: https://example.com/
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        deleted: true
-        tierPin: untrusted
-        tierPinReason: tierPinReason
-        twoFactorRequiredAt: 2000-01-23T04:56:07.000+00:00
-        name: name
-        theme: house
-        machines:
-        - instance:
-            lastSeenAt: 2000-01-23T04:56:07.000+00:00
-            template: true
-            lastError: lastError
-            tokenId: tokenId
-            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
-            verifyTls: true
-            version:
-              key: version
-            templateAlpineVersion: templateAlpineVersion
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            endpoint: endpoint
-            name: name
-            templateVmid: 2
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tokenSecret: tokenSecret
-            publicKeyPin: publicKeyPin
-            templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
-            templateBuildFailures: 4
-            status: unreachable
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          address: address
-          provisioningStale: true
-          vmid: 0
-          diskGigabytes: 5
-          diskBlocks: 6
-          provisionAttempt: 5
-          provisionStartedAt: 2000-01-23T04:56:07.000+00:00
-          node: node
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          size: s
-          swarm: https://example.com/
-          failure: failure
-          organization: https://example.com/
-          name: name
-          templateVmid: 1
-          state: requested
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - instance:
-            lastSeenAt: 2000-01-23T04:56:07.000+00:00
-            template: true
-            lastError: lastError
-            tokenId: tokenId
-            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
-            verifyTls: true
-            version:
-              key: version
-            templateAlpineVersion: templateAlpineVersion
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            endpoint: endpoint
-            name: name
-            templateVmid: 2
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tokenSecret: tokenSecret
-            publicKeyPin: publicKeyPin
-            templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
-            templateBuildFailures: 4
-            status: unreachable
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          address: address
-          provisioningStale: true
-          vmid: 0
-          diskGigabytes: 5
-          diskBlocks: 6
-          provisionAttempt: 5
-          provisionStartedAt: 2000-01-23T04:56:07.000+00:00
-          node: node
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          size: s
-          swarm: https://example.com/
-          failure: failure
-          organization: https://example.com/
-          name: name
-          templateVmid: 1
-          state: requested
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        slug: slug
-        machineAccount:
-          grantedRoles:
-          - grantedRoles
-          - grantedRoles
-          emailConfirmed: true
-          oauthIdentities:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          displayName: displayName
-          timezone: timezone
-          roles:
-          - roles
-          - roles
-          locale: en_GB
-          avatarPhoto:
-            photo: photo
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            type: type
-          spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-          totpEnabled: true
-          disabledAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          password: password
-          totpSecret: totpSecret
-          approved: true
-          tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-          userIdentifier: userIdentifier
-          tierPin: untrusted
-          creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-          theme: house
-          disabled: true
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          email: email
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-          displayLabel: displayLabel
-          ldapManaged: true
-          spamMarkedBy: null
-          ldapDn: ldapDn
-          approvedAt: 2000-01-23T04:56:07.000+00:00
-          recoveryCodes:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            codeHash: codeHash
-            usedAt: 2000-01-23T04:56:07.000+00:00
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            used: true
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            codeHash: codeHash
-            usedAt: 2000-01-23T04:56:07.000+00:00
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            used: true
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          tierPinned: true
-          tierPinnedBy: null
-          totpSecretKeyId: totpSecretKeyId
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          machine: true
-          avatarPhotoType: avatarPhotoType
-          tierPinReason: tierPinReason
-          machineFor: https://example.com/
-          spam: true
-          username: username
-        applications:
-        - https://example.com/
-        - https://example.com/
-        updatedAt: 2000-01-23T04:56:07.000+00:00
+      description: Update an organization's mutable fields.
       properties:
         machineAccount:
           $ref: '#/components/schemas/User'
@@ -4635,8 +3658,7 @@ components:
           readOnly: true
           type: string
     Organization:
-      description: "Ownership and (future) billing boundary. Owns applications, may\
-        \ own BYO swarms."
+      description: List organizations the caller is a member of.
       example:
         creditTransactions:
         - https://example.com/
@@ -5583,34 +4605,7 @@ components:
           readOnly: true
           type: boolean
     ManagedService:
-      description: |-
-        One tenant's database or bucket on a shared engine.
-
-        **Owned by an organization and bound to applications** — not a per-application
-        toggle. The distinction is the whole reason this entity exists in this shape: a
-        toggle with a unique foreign key cannot express one database backing both a web
-        app and its worker, and cannot survive an application being rebuilt under a new
-        name. Binding is therefore explicit ({@see ServiceBinding}), which costs one
-        step at creation and buys sharing, one billing shape, one permission model and
-        one set of verbs across databases *and* buckets.
-
-        A bucket is the same noun with a different {@see $kind}. Only the driver that
-        executes the tenancy operations differs.
-
-        Soft-deleted, so a destroy is recoverable within its grace period
-        ({@see ManagedServiceRepository::GRACE_PERIOD}); only the driver's `DROP` is not,
-        and that runs on the far side of it.
-
-        **Read is scoped by membership and writing by role**, which are different
-        questions: {@see \App\ApiResource\ManagedServiceOwnerExtension} filters the
-        query, so another tenant's id answers 404 rather than confirming it exists, while
-        {@see \App\Security\Voter\ManageVoter} governs the verbs inside each processor
-        — a plain member may see their organization's databases without being able to
-        destroy one.
-
-        Delete does *not* fall through to the generic soft-delete processor: dropping a
-        database is not stamping a column, and the difference is a tenant's data. See
-        {@see \App\State\ManagedServiceDestroyProcessor}.
+      description: List managed services (databases/buckets) the caller can see.
       example:
         instance:
           adminCredential:
@@ -5918,34 +4913,7 @@ components:
         adminCredential:
           $ref: '#/components/schemas/SealedSecret'
     ManagedService.ManagedServiceInput:
-      description: |-
-        One tenant's database or bucket on a shared engine.
-
-        **Owned by an organization and bound to applications** — not a per-application
-        toggle. The distinction is the whole reason this entity exists in this shape: a
-        toggle with a unique foreign key cannot express one database backing both a web
-        app and its worker, and cannot survive an application being rebuilt under a new
-        name. Binding is therefore explicit ({@see ServiceBinding}), which costs one
-        step at creation and buys sharing, one billing shape, one permission model and
-        one set of verbs across databases *and* buckets.
-
-        A bucket is the same noun with a different {@see $kind}. Only the driver that
-        executes the tenancy operations differs.
-
-        Soft-deleted, so a destroy is recoverable within its grace period
-        ({@see ManagedServiceRepository::GRACE_PERIOD}); only the driver's `DROP` is not,
-        and that runs on the far side of it.
-
-        **Read is scoped by membership and writing by role**, which are different
-        questions: {@see \App\ApiResource\ManagedServiceOwnerExtension} filters the
-        query, so another tenant's id answers 404 rather than confirming it exists, while
-        {@see \App\Security\Voter\ManageVoter} governs the verbs inside each processor
-        — a plain member may see their organization's databases without being able to
-        destroy one.
-
-        Delete does *not* fall through to the generic soft-delete processor: dropping a
-        database is not stamping a column, and the difference is a tenant's data. See
-        {@see \App\State\ManagedServiceDestroyProcessor}.
+      description: Create a new managed service (database or bucket) on a shared engine.
       properties:
         engine:
           default: ""
@@ -5969,10 +4937,7 @@ components:
       - organization
       - slug
     Deployment.DeploymentEndpoint:
-      description: |-
-        An IMMUTABLE compose revision. A deploy is a new row; rollback re-points
-        Application::$currentDeployment at an older one. Placement is resolved onto this
-        row (targetSwarm) at deploy time, so migration is just the next revision.
+      description: List the reachable endpoint(s) for one deployment.
       example:
         protocol: protocol
         port: 0
@@ -6007,582 +4972,7 @@ components:
           nullable: true
           type: string
     Deployment.jsonMergePatch:
-      description: |-
-        An IMMUTABLE compose revision. A deploy is a new row; rollback re-points
-        Application::$currentDeployment at an older one. Placement is resolved onto this
-        row (targetSwarm) at deploy time, so migration is just the next revision.
-      example:
-        zeroTaskObservedAt: 2000-01-23T04:56:07.000+00:00
-        canonicalSpec:
-          key:
-            key:
-              key: Deployment_jsonMergePatch_canonicalSpec_value
-        failedOnSwarm: false
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        onASwarm: true
-        statusReason: statusReason
-        buildSecrets:
-          key:
-            key:
-              key: buildSecrets
-        buildContexts:
-          key:
-            key:
-              key:
-                key: Deployment_jsonMergePatch_buildContexts_value_value
-        digest: digest
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        forwardedImages:
-          key:
-            key: forwardedImages
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-        variables:
-        - variableVersion:
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              grantedRoles:
-              - grantedRoles
-              - grantedRoles
-              emailConfirmed: true
-              oauthIdentities:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayName: displayName
-              timezone: timezone
-              roles:
-              - roles
-              - roles
-              locale: en_GB
-              avatarPhoto:
-                photo: photo
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                type: type
-              spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-              totpEnabled: true
-              disabledAt: 2000-01-23T04:56:07.000+00:00
-              createdAt: 2000-01-23T04:56:07.000+00:00
-              password: password
-              totpSecret: totpSecret
-              approved: true
-              tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-              userIdentifier: userIdentifier
-              tierPin: untrusted
-              creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-              theme: house
-              disabled: true
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              email: email
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayLabel: displayLabel
-              ldapManaged: true
-              spamMarkedBy: null
-              ldapDn: ldapDn
-              approvedAt: 2000-01-23T04:56:07.000+00:00
-              recoveryCodes:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              tierPinned: true
-              tierPinnedBy: null
-              totpSecretKeyId: totpSecretKeyId
-              deletedAt: 2000-01-23T04:56:07.000+00:00
-              deleted: true
-              machine: true
-              avatarPhotoType: avatarPhotoType
-              tierPinReason: tierPinReason
-              machineFor: https://example.com/
-              spam: true
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          key: key
-          deployment: https://example.com/
-        - variableVersion:
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              grantedRoles:
-              - grantedRoles
-              - grantedRoles
-              emailConfirmed: true
-              oauthIdentities:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayName: displayName
-              timezone: timezone
-              roles:
-              - roles
-              - roles
-              locale: en_GB
-              avatarPhoto:
-                photo: photo
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                type: type
-              spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-              totpEnabled: true
-              disabledAt: 2000-01-23T04:56:07.000+00:00
-              createdAt: 2000-01-23T04:56:07.000+00:00
-              password: password
-              totpSecret: totpSecret
-              approved: true
-              tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-              userIdentifier: userIdentifier
-              tierPin: untrusted
-              creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-              theme: house
-              disabled: true
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              email: email
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayLabel: displayLabel
-              ldapManaged: true
-              spamMarkedBy: null
-              ldapDn: ldapDn
-              approvedAt: 2000-01-23T04:56:07.000+00:00
-              recoveryCodes:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              tierPinned: true
-              tierPinnedBy: null
-              totpSecretKeyId: totpSecretKeyId
-              deletedAt: 2000-01-23T04:56:07.000+00:00
-              deleted: true
-              machine: true
-              avatarPhotoType: avatarPhotoType
-              tierPinReason: tierPinReason
-              machineFor: https://example.com/
-              spam: true
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          key: key
-          deployment: https://example.com/
-        failures:
-        - phase: placement
-          displayLabel: displayLabel
-          reason: reason
-          shared: true
-          shareToken: shareToken
-          imageDigest: imageDigest
-          reference: reference
-          buildLogKey: buildLogKey
-          shareExpiresAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          sharedAt: 2000-01-23T04:56:07.000+00:00
-          proxmoxInstance:
-            lastSeenAt: 2000-01-23T04:56:07.000+00:00
-            template: true
-            lastError: lastError
-            tokenId: tokenId
-            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
-            verifyTls: true
-            version:
-              key: version
-            templateAlpineVersion: templateAlpineVersion
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            endpoint: endpoint
-            name: name
-            templateVmid: 2
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tokenSecret: tokenSecret
-            publicKeyPin: publicKeyPin
-            templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
-            templateBuildFailures: 4
-            status: unreachable
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          service: service
-          sharedBy:
-            grantedRoles:
-            - grantedRoles
-            - grantedRoles
-            emailConfirmed: true
-            oauthIdentities:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            displayName: displayName
-            timezone: timezone
-            roles:
-            - roles
-            - roles
-            locale: en_GB
-            avatarPhoto:
-              photo: photo
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              type: type
-            spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-            totpEnabled: true
-            disabledAt: 2000-01-23T04:56:07.000+00:00
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            password: password
-            totpSecret: totpSecret
-            approved: true
-            tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-            userIdentifier: userIdentifier
-            tierPin: untrusted
-            creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-            theme: house
-            disabled: true
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            email: email
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-            displayLabel: displayLabel
-            ldapManaged: true
-            spamMarkedBy: null
-            ldapDn: ldapDn
-            approvedAt: 2000-01-23T04:56:07.000+00:00
-            recoveryCodes:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              codeHash: codeHash
-              usedAt: 2000-01-23T04:56:07.000+00:00
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              used: true
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              codeHash: codeHash
-              usedAt: 2000-01-23T04:56:07.000+00:00
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              used: true
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            tierPinned: true
-            tierPinnedBy: null
-            totpSecretKeyId: totpSecretKeyId
-            deletedAt: 2000-01-23T04:56:07.000+00:00
-            deleted: true
-            machine: true
-            avatarPhotoType: avatarPhotoType
-            tierPinReason: tierPinReason
-            machineFor: https://example.com/
-            spam: true
-            username: username
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          deployment: https://example.com/
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - phase: placement
-          displayLabel: displayLabel
-          reason: reason
-          shared: true
-          shareToken: shareToken
-          imageDigest: imageDigest
-          reference: reference
-          buildLogKey: buildLogKey
-          shareExpiresAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          sharedAt: 2000-01-23T04:56:07.000+00:00
-          proxmoxInstance:
-            lastSeenAt: 2000-01-23T04:56:07.000+00:00
-            template: true
-            lastError: lastError
-            tokenId: tokenId
-            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
-            verifyTls: true
-            version:
-              key: version
-            templateAlpineVersion: templateAlpineVersion
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            endpoint: endpoint
-            name: name
-            templateVmid: 2
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tokenSecret: tokenSecret
-            publicKeyPin: publicKeyPin
-            templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
-            templateBuildFailures: 4
-            status: unreachable
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          service: service
-          sharedBy:
-            grantedRoles:
-            - grantedRoles
-            - grantedRoles
-            emailConfirmed: true
-            oauthIdentities:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            displayName: displayName
-            timezone: timezone
-            roles:
-            - roles
-            - roles
-            locale: en_GB
-            avatarPhoto:
-              photo: photo
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              type: type
-            spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-            totpEnabled: true
-            disabledAt: 2000-01-23T04:56:07.000+00:00
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            password: password
-            totpSecret: totpSecret
-            approved: true
-            tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-            userIdentifier: userIdentifier
-            tierPin: untrusted
-            creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-            theme: house
-            disabled: true
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            email: email
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-            displayLabel: displayLabel
-            ldapManaged: true
-            spamMarkedBy: null
-            ldapDn: ldapDn
-            approvedAt: 2000-01-23T04:56:07.000+00:00
-            recoveryCodes:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              codeHash: codeHash
-              usedAt: 2000-01-23T04:56:07.000+00:00
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              used: true
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              codeHash: codeHash
-              usedAt: 2000-01-23T04:56:07.000+00:00
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              used: true
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            tierPinned: true
-            tierPinnedBy: null
-            totpSecretKeyId: totpSecretKeyId
-            deletedAt: 2000-01-23T04:56:07.000+00:00
-            deleted: true
-            machine: true
-            avatarPhotoType: avatarPhotoType
-            tierPinReason: tierPinReason
-            machineFor: https://example.com/
-            spam: true
-            username: username
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          deployment: https://example.com/
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        rawCompose: rawCompose
-        services:
-        - image: image
-          cpuReservation: 5
-          restart: always
-          replicas: 6
-          cpuLimit: 1
-          httpPort: 9
-          ports:
-          - key: 7
-          - key: 7
-          command:
-          - command
-          - command
-          memLimit: 5
-          healthcheck:
-            key: 3
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          memReservation: 2
-          entrypoint:
-          - entrypoint
-          - entrypoint
-          name: name
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          forwardedUnscanned: false
-          deployment: https://example.com/
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - image: image
-          cpuReservation: 5
-          restart: always
-          replicas: 6
-          cpuLimit: 1
-          httpPort: 9
-          ports:
-          - key: 7
-          - key: 7
-          command:
-          - command
-          - command
-          memLimit: 5
-          healthcheck:
-            key: 3
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          memReservation: 2
-          entrypoint:
-          - entrypoint
-          - entrypoint
-          name: name
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          forwardedUnscanned: false
-          deployment: https://example.com/
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        degraded: false
-        sequence: 0
-        deletedAt: 2000-01-23T04:56:07.000+00:00
-        deleted: true
-        application: https://example.com/
-        createdBy:
-          grantedRoles:
-          - grantedRoles
-          - grantedRoles
-          emailConfirmed: true
-          oauthIdentities:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          displayName: displayName
-          timezone: timezone
-          roles:
-          - roles
-          - roles
-          locale: en_GB
-          avatarPhoto:
-            photo: photo
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            type: type
-          spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-          totpEnabled: true
-          disabledAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          password: password
-          totpSecret: totpSecret
-          approved: true
-          tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-          userIdentifier: userIdentifier
-          tierPin: untrusted
-          creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-          theme: house
-          disabled: true
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          email: email
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-          displayLabel: displayLabel
-          ldapManaged: true
-          spamMarkedBy: null
-          ldapDn: ldapDn
-          approvedAt: 2000-01-23T04:56:07.000+00:00
-          recoveryCodes:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            codeHash: codeHash
-            usedAt: 2000-01-23T04:56:07.000+00:00
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            used: true
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            codeHash: codeHash
-            usedAt: 2000-01-23T04:56:07.000+00:00
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            used: true
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          tierPinned: true
-          tierPinnedBy: null
-          totpSecretKeyId: totpSecretKeyId
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          machine: true
-          avatarPhotoType: avatarPhotoType
-          tierPinReason: tierPinReason
-          machineFor: https://example.com/
-          spam: true
-          username: username
-        name: name
-        targetSwarm: https://example.com/
-        status: pending
+      description: Update a deployment revision's mutable fields.
       properties:
         application:
           example: https://example.com/
@@ -7197,10 +5587,7 @@ components:
           readOnly: true
           type: string
     Deployment:
-      description: |-
-        An IMMUTABLE compose revision. A deploy is a new row; rollback re-points
-        Application::$currentDeployment at an older one. Placement is resolved onto this
-        row (targetSwarm) at deploy time, so migration is just the next revision.
+      description: List an application's deployment revisions.
       example:
         zeroTaskObservedAt: 2000-01-23T04:56:07.000+00:00
         canonicalSpec:
@@ -7944,10 +6331,7 @@ components:
           readOnly: true
           type: boolean
     Deployment.BundleUploadConfirmInput:
-      description: |-
-        An IMMUTABLE compose revision. A deploy is a new row; rollback re-points
-        Application::$currentDeployment at an older one. Placement is resolved onto this
-        row (targetSwarm) at deploy time, so migration is just the next revision.
+      description: "Confirm a completed bundle upload, creating the deployment revision."
       properties:
         secrets:
           additionalProperties:
@@ -8041,10 +6425,7 @@ components:
       - contextSha256
       - name
     Deployment.BundleUploadConfirmOutput:
-      description: |-
-        An IMMUTABLE compose revision. A deploy is a new row; rollback re-points
-        Application::$currentDeployment at an older one. Placement is resolved onto this
-        row (targetSwarm) at deploy time, so migration is just the next revision.
+      description: "Confirm a completed bundle upload, creating the deployment revision."
       example:
         retried: true
         sequence: 0
@@ -8075,10 +6456,7 @@ components:
           nullable: true
           type: string
     Deployment.BundleUploadDeclareInput:
-      description: |-
-        An IMMUTABLE compose revision. A deploy is a new row; rollback re-points
-        Application::$currentDeployment at an older one. Placement is resolved onto this
-        row (targetSwarm) at deploy time, so migration is just the next revision.
+      description: Declare a bundle upload and get a presigned URL to upload it to.
       properties:
         application:
           example: https://example.com/
@@ -8116,10 +6494,7 @@ components:
       - client
       - compose
     Deployment.BundleUploadDeclareOutput:
-      description: |-
-        An IMMUTABLE compose revision. A deploy is a new row; rollback re-points
-        Application::$currentDeployment at an older one. Placement is resolved onto this
-        row (targetSwarm) at deploy time, so migration is just the next revision.
+      description: Declare a bundle upload and get a presigned URL to upload it to.
       example:
         images:
         - contextSha256: contextSha256
@@ -8194,28 +6569,7 @@ components:
           nullable: true
           type: string
     CreditTransaction:
-      description: |-
-        An IMMUTABLE, append-only ledger row for an Organization's shared credit
-        balance. A balance is never mutated in place — it's always
-        `SUM(amountCents)` over `Succeeded` rows (see
-        {@see CreditTransactionRepository::balanceForOrganization()}). Read-only over
-        the API: money movement stays server-driven.
-
-        Three kinds of row, one table ({@see CreditTransactionType}):
-
-          - a **top-up** is created `Pending` before redirecting to Stripe Checkout,
-            keyed on `stripeCheckoutSessionId`, then flipped to `Succeeded`/`Failed`
-            by {@see \App\Controller\StripeWebhookController};
-          - a **grant** and a **debit** are terminal the moment they are written, so
-            both are written `Succeeded` — the `Pending` default is a Stripe-webhook
-            state and is wrong for them — and neither has a Stripe session, which is
-            why `stripeCheckoutSessionId` is nullable.
-
-        A debit additionally carries the hour it bills for and the meter reading it
-        came from, so the ledger can be checked against the usage events rather than
-        taken on trust. One table rather than two because the balance has to be the
-        sum of money in and money out, and a second table would make every balance
-        read a join.
+      description: List an organization's credit ledger rows.
       example:
         engineMillis: 5
         type: top_up
@@ -8404,444 +6758,7 @@ components:
           readOnly: true
           type: string
     Application.jsonMergePatch:
-      description: |-
-        A deployable "island": one logical app, defined by a compose file, deployed as a
-        swarm stack. Holds a pointer to the current (immutable) deployment; history lives
-        in the deployment revisions.
-      example:
-        icon: icon
-        serviceAdoption: "off"
-        iconKey: iconKey
-        iconVersion: iconVersion
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        buildCredential:
-          ciphertext: ciphertext
-          keyId: keyId
-          nonce: nonce
-          algo: algo
-        legacyStackBase: legacyStackBase
-        buildKeyId: buildKeyId
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        slug: slug
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-        portAllocations:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          protocol: tcp
-          publishedPort: 1
-          swarm: https://example.com/
-          application: https://example.com/
-          deploymentName: deploymentName
-          assigned: true
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          serviceName: serviceName
-          targetPort: 6
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          protocol: tcp
-          publishedPort: 1
-          swarm: https://example.com/
-          application: https://example.com/
-          deploymentName: deploymentName
-          assigned: true
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          serviceName: serviceName
-          targetPort: 6
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        variables:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          application: https://example.com/
-          orgShared: true
-          versions:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              grantedRoles:
-              - grantedRoles
-              - grantedRoles
-              emailConfirmed: true
-              oauthIdentities:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayName: displayName
-              timezone: timezone
-              roles:
-              - roles
-              - roles
-              locale: en_GB
-              avatarPhoto:
-                photo: photo
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                type: type
-              spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-              totpEnabled: true
-              disabledAt: 2000-01-23T04:56:07.000+00:00
-              createdAt: 2000-01-23T04:56:07.000+00:00
-              password: password
-              totpSecret: totpSecret
-              approved: true
-              tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-              userIdentifier: userIdentifier
-              tierPin: untrusted
-              creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-              theme: house
-              disabled: true
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              email: email
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayLabel: displayLabel
-              ldapManaged: true
-              spamMarkedBy: null
-              ldapDn: ldapDn
-              approvedAt: 2000-01-23T04:56:07.000+00:00
-              recoveryCodes:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              tierPinned: true
-              tierPinnedBy: null
-              totpSecretKeyId: totpSecretKeyId
-              deletedAt: 2000-01-23T04:56:07.000+00:00
-              deleted: true
-              machine: true
-              avatarPhotoType: avatarPhotoType
-              tierPinReason: tierPinReason
-              machineFor: https://example.com/
-              spam: true
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              grantedRoles:
-              - grantedRoles
-              - grantedRoles
-              emailConfirmed: true
-              oauthIdentities:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayName: displayName
-              timezone: timezone
-              roles:
-              - roles
-              - roles
-              locale: en_GB
-              avatarPhoto:
-                photo: photo
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                type: type
-              spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-              totpEnabled: true
-              disabledAt: 2000-01-23T04:56:07.000+00:00
-              createdAt: 2000-01-23T04:56:07.000+00:00
-              password: password
-              totpSecret: totpSecret
-              approved: true
-              tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-              userIdentifier: userIdentifier
-              tierPin: untrusted
-              creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-              theme: house
-              disabled: true
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              email: email
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayLabel: displayLabel
-              ldapManaged: true
-              spamMarkedBy: null
-              ldapDn: ldapDn
-              approvedAt: 2000-01-23T04:56:07.000+00:00
-              recoveryCodes:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              tierPinned: true
-              tierPinnedBy: null
-              totpSecretKeyId: totpSecretKeyId
-              deletedAt: 2000-01-23T04:56:07.000+00:00
-              deleted: true
-              machine: true
-              avatarPhotoType: avatarPhotoType
-              tierPinReason: tierPinReason
-              machineFor: https://example.com/
-              spam: true
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          secretFileDelivery: false
-          organization: https://example.com/
-          sensitive: false
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          key: key
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          application: https://example.com/
-          orgShared: true
-          versions:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              grantedRoles:
-              - grantedRoles
-              - grantedRoles
-              emailConfirmed: true
-              oauthIdentities:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayName: displayName
-              timezone: timezone
-              roles:
-              - roles
-              - roles
-              locale: en_GB
-              avatarPhoto:
-                photo: photo
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                type: type
-              spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-              totpEnabled: true
-              disabledAt: 2000-01-23T04:56:07.000+00:00
-              createdAt: 2000-01-23T04:56:07.000+00:00
-              password: password
-              totpSecret: totpSecret
-              approved: true
-              tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-              userIdentifier: userIdentifier
-              tierPin: untrusted
-              creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-              theme: house
-              disabled: true
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              email: email
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayLabel: displayLabel
-              ldapManaged: true
-              spamMarkedBy: null
-              ldapDn: ldapDn
-              approvedAt: 2000-01-23T04:56:07.000+00:00
-              recoveryCodes:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              tierPinned: true
-              tierPinnedBy: null
-              totpSecretKeyId: totpSecretKeyId
-              deletedAt: 2000-01-23T04:56:07.000+00:00
-              deleted: true
-              machine: true
-              avatarPhotoType: avatarPhotoType
-              tierPinReason: tierPinReason
-              machineFor: https://example.com/
-              spam: true
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              grantedRoles:
-              - grantedRoles
-              - grantedRoles
-              emailConfirmed: true
-              oauthIdentities:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                provider: github
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                providerUserId: providerUserId
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayName: displayName
-              timezone: timezone
-              roles:
-              - roles
-              - roles
-              locale: en_GB
-              avatarPhoto:
-                photo: photo
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                type: type
-              spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-              totpEnabled: true
-              disabledAt: 2000-01-23T04:56:07.000+00:00
-              createdAt: 2000-01-23T04:56:07.000+00:00
-              password: password
-              totpSecret: totpSecret
-              approved: true
-              tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-              userIdentifier: userIdentifier
-              tierPin: untrusted
-              creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-              theme: house
-              disabled: true
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-              email: email
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-              displayLabel: displayLabel
-              ldapManaged: true
-              spamMarkedBy: null
-              ldapDn: ldapDn
-              approvedAt: 2000-01-23T04:56:07.000+00:00
-              recoveryCodes:
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              - createdAt: 2000-01-23T04:56:07.000+00:00
-                codeHash: codeHash
-                usedAt: 2000-01-23T04:56:07.000+00:00
-                id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-                used: true
-                user: null
-                updatedAt: 2000-01-23T04:56:07.000+00:00
-              tierPinned: true
-              tierPinnedBy: null
-              totpSecretKeyId: totpSecretKeyId
-              deletedAt: 2000-01-23T04:56:07.000+00:00
-              deleted: true
-              machine: true
-              avatarPhotoType: avatarPhotoType
-              tierPinReason: tierPinReason
-              machineFor: https://example.com/
-              spam: true
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          secretFileDelivery: false
-          organization: https://example.com/
-          sensitive: false
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          key: key
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        buildBucket: buildBucket
-        primaryDeploymentName: primaryDeploymentName
-        accessGate: none
-        poolDomain: poolDomain
-        firstRunningAt: 2000-01-23T04:56:07.000+00:00
-        iconSource: uploaded
-        deployments:
-        - https://example.com/
-        - https://example.com/
-        deletedAt: 2000-01-23T04:56:07.000+00:00
-        accessGateCredential:
-          ciphertext: ciphertext
-          keyId: keyId
-          nonce: nonce
-          algo: algo
-        deleted: true
-        currentDeployment: https://example.com/
-        poolLabel: poolLabel
-        operatorChosenIcon: true
-        organization: https://example.com/
-        name: name
-        isolationLevel: shared
+      description: Update an application's mutable fields.
       properties:
         organization:
           description: |-
@@ -9103,10 +7020,7 @@ components:
           readOnly: true
           type: string
     Application:
-      description: |-
-        A deployable "island": one logical app, defined by a compose file, deployed as a
-        swarm stack. Holds a pointer to the current (immutable) deployment; history lives
-        in the deployment revisions.
+      description: List applications the caller can see.
       example:
         icon: icon
         serviceAdoption: "off"
@@ -9737,24 +7651,7 @@ components:
           readOnly: true
           type: boolean
     AdoptionApproval:
-      description: |-
-        A human's decision on one compose service the adoption planner detected —
-        approve it, or decline it (§15).
-
-        **The switch arms detection; this is what authorizes the act.**
-        {@see \App\Service\ManagedService\Adoption\AdoptionReconciler} only ever turns a
-        candidate into a real {@see ManagedService}/{@see ServiceBinding} pair when a row
-        here says `approved`, and only for the compose service name recorded — a rename
-        is a different candidate with no decision of its own yet.
-
-        **There is no "pending" row.** A service the planner reports and nobody has
-        decided on simply has none here; recording one for every candidate on every
-        deploy would need cleaning up the moment a service is renamed away, for a state
-        ("undecided") a missing row already expresses for free.
-
-        One row per (application, compose service): deciding again — approving after a
-        rejection, or the reverse — updates it rather than accumulating history, because
-        only the current decision governs what the next deploy does.
+      description: List adoption approval decisions the caller can see.
       example:
         composeServiceName: composeServiceName
         approved: true
@@ -9781,24 +7678,7 @@ components:
           readOnly: true
           type: string
     AdoptionApproval.AdoptionApprovalInput:
-      description: |-
-        A human's decision on one compose service the adoption planner detected —
-        approve it, or decline it (§15).
-
-        **The switch arms detection; this is what authorizes the act.**
-        {@see \App\Service\ManagedService\Adoption\AdoptionReconciler} only ever turns a
-        candidate into a real {@see ManagedService}/{@see ServiceBinding} pair when a row
-        here says `approved`, and only for the compose service name recorded — a rename
-        is a different candidate with no decision of its own yet.
-
-        **There is no "pending" row.** A service the planner reports and nobody has
-        decided on simply has none here; recording one for every candidate on every
-        deploy would need cleaning up the moment a service is renamed away, for a state
-        ("undecided") a missing row already expresses for free.
-
-        One row per (application, compose service): deciding again — approving after a
-        rejection, or the reverse — updates it rather than accumulating history, because
-        only the current decision governs what the next deploy does.
+      description: Approve or decline an adopted compose service candidate.
       properties:
         application:
           example: https://example.com/

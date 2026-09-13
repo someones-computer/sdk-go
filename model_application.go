@@ -18,7 +18,7 @@ import (
 // checks if the Application type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Application{}
 
-// Application A deployable \"island\": one logical app, defined by a compose file, deployed as a swarm stack. Holds a pointer to the current (immutable) deployment; history lives in the deployment revisions.
+// Application List applications the caller can see.
 type Application struct {
 	// Re-home this application. Callers own everything the uniqueness constraint and the trust invariant elsewhere in the platform expect of a move — the entity itself only holds the pointer.
 	Organization *string `json:"organization,omitempty"`

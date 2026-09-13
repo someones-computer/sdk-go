@@ -22,11 +22,11 @@ func Test_someonescomputer_ApplicationAPIService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test ApplicationAPIService ApiApplicationsGetCollection", func(t *testing.T) {
+	t.Run("Test ApplicationAPIService ApplicationsCreate", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.ApplicationAPI.ApiApplicationsGetCollection(context.Background()).Execute()
+		resp, httpRes, err := apiClient.ApplicationAPI.ApplicationsCreate(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -34,40 +34,26 @@ func Test_someonescomputer_ApplicationAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test ApplicationAPIService ApiApplicationsIdDelete", func(t *testing.T) {
+	t.Run("Test ApplicationAPIService ApplicationsDelete", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		httpRes, err := apiClient.ApplicationAPI.ApiApplicationsIdDelete(context.Background(), id).Execute()
+		httpRes, err := apiClient.ApplicationAPI.ApplicationsDelete(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
 
-	t.Run("Test ApplicationAPIService ApiApplicationsIdGet", func(t *testing.T) {
+	t.Run("Test ApplicationAPIService ApplicationsGet", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
 		var id string
 
-		resp, httpRes, err := apiClient.ApplicationAPI.ApiApplicationsIdGet(context.Background(), id).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test ApplicationAPIService ApiApplicationsIdPatch", func(t *testing.T) {
-
-		t.Skip("skip test")  // remove to run test
-
-		var id string
-
-		resp, httpRes, err := apiClient.ApplicationAPI.ApiApplicationsIdPatch(context.Background(), id).Execute()
+		resp, httpRes, err := apiClient.ApplicationAPI.ApplicationsGet(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -75,11 +61,25 @@ func Test_someonescomputer_ApplicationAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test ApplicationAPIService ApiApplicationsPost", func(t *testing.T) {
+	t.Run("Test ApplicationAPIService ApplicationsList", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
 
-		resp, httpRes, err := apiClient.ApplicationAPI.ApiApplicationsPost(context.Background()).Execute()
+		resp, httpRes, err := apiClient.ApplicationAPI.ApplicationsList(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ApplicationAPIService ApplicationsUpdate", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.ApplicationAPI.ApplicationsUpdate(context.Background(), id).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

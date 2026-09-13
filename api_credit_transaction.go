@@ -23,139 +23,27 @@ import (
 // CreditTransactionAPIService CreditTransactionAPI service
 type CreditTransactionAPIService service
 
-type ApiApiCreditTransactionsGetCollectionRequest struct {
-	ctx context.Context
-	ApiService *CreditTransactionAPIService
-	page *int32
-}
-
-// The collection page number
-func (r ApiApiCreditTransactionsGetCollectionRequest) Page(page int32) ApiApiCreditTransactionsGetCollectionRequest {
-	r.page = &page
-	return r
-}
-
-func (r ApiApiCreditTransactionsGetCollectionRequest) Execute() ([]CreditTransaction, *http.Response, error) {
-	return r.ApiService.ApiCreditTransactionsGetCollectionExecute(r)
-}
-
-/*
-ApiCreditTransactionsGetCollection Retrieves the collection of CreditTransaction resources.
-
-Retrieves the collection of CreditTransaction resources.
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiApiCreditTransactionsGetCollectionRequest
-*/
-func (a *CreditTransactionAPIService) ApiCreditTransactionsGetCollection(ctx context.Context) ApiApiCreditTransactionsGetCollectionRequest {
-	return ApiApiCreditTransactionsGetCollectionRequest{
-		ApiService: a,
-		ctx: ctx,
-	}
-}
-
-// Execute executes the request
-//  @return []CreditTransaction
-func (a *CreditTransactionAPIService) ApiCreditTransactionsGetCollectionExecute(r ApiApiCreditTransactionsGetCollectionRequest) ([]CreditTransaction, *http.Response, error) {
-	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []CreditTransaction
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CreditTransactionAPIService.ApiCreditTransactionsGetCollection")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/api/credit_transactions"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if r.page != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
-	} else {
-		var defaultValue int32 = 1
-		r.page = &defaultValue
-	}
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type ApiApiCreditTransactionsIdGetRequest struct {
+type ApiCreditTransactionsGetRequest struct {
 	ctx context.Context
 	ApiService *CreditTransactionAPIService
 	id string
 }
 
-func (r ApiApiCreditTransactionsIdGetRequest) Execute() (*CreditTransaction, *http.Response, error) {
-	return r.ApiService.ApiCreditTransactionsIdGetExecute(r)
+func (r ApiCreditTransactionsGetRequest) Execute() (*CreditTransaction, *http.Response, error) {
+	return r.ApiService.CreditTransactionsGetExecute(r)
 }
 
 /*
-ApiCreditTransactionsIdGet Retrieves a CreditTransaction resource.
+CreditTransactionsGet Retrieves a CreditTransaction resource.
 
 Retrieves a CreditTransaction resource.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param id CreditTransaction identifier
- @return ApiApiCreditTransactionsIdGetRequest
+ @return ApiCreditTransactionsGetRequest
 */
-func (a *CreditTransactionAPIService) ApiCreditTransactionsIdGet(ctx context.Context, id string) ApiApiCreditTransactionsIdGetRequest {
-	return ApiApiCreditTransactionsIdGetRequest{
+func (a *CreditTransactionAPIService) CreditTransactionsGet(ctx context.Context, id string) ApiCreditTransactionsGetRequest {
+	return ApiCreditTransactionsGetRequest{
 		ApiService: a,
 		ctx: ctx,
 		id: id,
@@ -164,7 +52,7 @@ func (a *CreditTransactionAPIService) ApiCreditTransactionsIdGet(ctx context.Con
 
 // Execute executes the request
 //  @return CreditTransaction
-func (a *CreditTransactionAPIService) ApiCreditTransactionsIdGetExecute(r ApiApiCreditTransactionsIdGetRequest) (*CreditTransaction, *http.Response, error) {
+func (a *CreditTransactionAPIService) CreditTransactionsGetExecute(r ApiCreditTransactionsGetRequest) (*CreditTransaction, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
@@ -172,7 +60,7 @@ func (a *CreditTransactionAPIService) ApiCreditTransactionsIdGetExecute(r ApiApi
 		localVarReturnValue  *CreditTransaction
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CreditTransactionAPIService.ApiCreditTransactionsIdGet")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CreditTransactionAPIService.CreditTransactionsGet")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -232,6 +120,118 @@ func (a *CreditTransactionAPIService) ApiCreditTransactionsIdGetExecute(r ApiApi
 			}
 					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 					newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type ApiCreditTransactionsListRequest struct {
+	ctx context.Context
+	ApiService *CreditTransactionAPIService
+	page *int32
+}
+
+// The collection page number
+func (r ApiCreditTransactionsListRequest) Page(page int32) ApiCreditTransactionsListRequest {
+	r.page = &page
+	return r
+}
+
+func (r ApiCreditTransactionsListRequest) Execute() ([]CreditTransaction, *http.Response, error) {
+	return r.ApiService.CreditTransactionsListExecute(r)
+}
+
+/*
+CreditTransactionsList Retrieves the collection of CreditTransaction resources.
+
+Retrieves the collection of CreditTransaction resources.
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return ApiCreditTransactionsListRequest
+*/
+func (a *CreditTransactionAPIService) CreditTransactionsList(ctx context.Context) ApiCreditTransactionsListRequest {
+	return ApiCreditTransactionsListRequest{
+		ApiService: a,
+		ctx: ctx,
+	}
+}
+
+// Execute executes the request
+//  @return []CreditTransaction
+func (a *CreditTransactionAPIService) CreditTransactionsListExecute(r ApiCreditTransactionsListRequest) ([]CreditTransaction, *http.Response, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []CreditTransaction
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CreditTransactionAPIService.CreditTransactionsList")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/credit_transactions"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.page != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
+	} else {
+		var defaultValue int32 = 1
+		r.page = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
