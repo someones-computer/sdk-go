@@ -57,8 +57,6 @@ type APIClient struct {
 
 	DeploymentAPI *DeploymentAPIService
 
-	DeploymentAccessGateAPI *DeploymentAccessGateAPIService
-
 	ManagedServiceAPI *ManagedServiceAPIService
 
 	OrganizationAPI *OrganizationAPIService
@@ -88,7 +86,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ApplicationAPI = (*ApplicationAPIService)(&c.common)
 	c.CreditTransactionAPI = (*CreditTransactionAPIService)(&c.common)
 	c.DeploymentAPI = (*DeploymentAPIService)(&c.common)
-	c.DeploymentAccessGateAPI = (*DeploymentAccessGateAPIService)(&c.common)
 	c.ManagedServiceAPI = (*ManagedServiceAPIService)(&c.common)
 	c.OrganizationAPI = (*OrganizationAPIService)(&c.common)
 	c.ServiceBindingAPI = (*ServiceBindingAPIService)(&c.common)
