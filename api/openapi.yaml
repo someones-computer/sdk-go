@@ -6717,6 +6717,7 @@ components:
           - storage
           - engine_load
           - registry_storage
+          - ingress_egress
           - null
           nullable: true
           readOnly: true
