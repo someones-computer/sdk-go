@@ -7,7 +7,6 @@ api_adoption_approval.go
 api_application.go
 api_credit_transaction.go
 api_deployment.go
-api_deployment_access_gate.go
 api_managed_service.go
 api_organization.go
 api_service_binding.go
@@ -32,9 +31,6 @@ docs/CreditTransactionEngineMillis.md
 docs/CreditTransactionUsageBytes.md
 docs/Deployment.md
 docs/DeploymentAPI.md
-docs/DeploymentAccessGate.md
-docs/DeploymentAccessGateAPI.md
-docs/DeploymentAccessGateJsonMergePatch.md
 docs/DeploymentBundleUploadConfirmInput.md
 docs/DeploymentBundleUploadConfirmOutput.md
 docs/DeploymentBundleUploadDeclareInput.md
@@ -102,8 +98,6 @@ model_credit_transaction.go
 model_credit_transaction_engine_millis.go
 model_credit_transaction_usage_bytes.go
 model_deployment.go
-model_deployment_access_gate.go
-model_deployment_access_gate_json_merge_patch.go
 model_deployment_bundle_upload_confirm_input.go
 model_deployment_bundle_upload_confirm_output.go
 model_deployment_bundle_upload_declare_input.go
@@ -154,7 +148,6 @@ response.go
 test/api_adoption_approval_test.go
 test/api_application_test.go
 test/api_credit_transaction_test.go
-test/api_deployment_access_gate_test.go
 test/api_deployment_test.go
 test/api_managed_service_test.go
 test/api_organization_test.go
