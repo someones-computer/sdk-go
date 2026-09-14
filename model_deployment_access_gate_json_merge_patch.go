@@ -35,8 +35,6 @@ type DeploymentAccessGateJsonMergePatch struct {
 // will change when the set of required properties is changed
 func NewDeploymentAccessGateJsonMergePatch() *DeploymentAccessGateJsonMergePatch {
 	this := DeploymentAccessGateJsonMergePatch{}
-	var accessGate string = "none"
-	this.AccessGate = &accessGate
 	return &this
 }
 
@@ -45,8 +43,6 @@ func NewDeploymentAccessGateJsonMergePatch() *DeploymentAccessGateJsonMergePatch
 // but it doesn't guarantee that properties required by API are set
 func NewDeploymentAccessGateJsonMergePatchWithDefaults() *DeploymentAccessGateJsonMergePatch {
 	this := DeploymentAccessGateJsonMergePatch{}
-	var accessGate string = "none"
-	this.AccessGate = &accessGate
 	return &this
 }
 

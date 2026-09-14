@@ -35,8 +35,6 @@ type DeploymentAccessGate struct {
 // will change when the set of required properties is changed
 func NewDeploymentAccessGate() *DeploymentAccessGate {
 	this := DeploymentAccessGate{}
-	var accessGate string = "none"
-	this.AccessGate = &accessGate
 	return &this
 }
 
@@ -45,8 +43,6 @@ func NewDeploymentAccessGate() *DeploymentAccessGate {
 // but it doesn't guarantee that properties required by API are set
 func NewDeploymentAccessGateWithDefaults() *DeploymentAccessGate {
 	this := DeploymentAccessGate{}
-	var accessGate string = "none"
-	this.AccessGate = &accessGate
 	return &this
 }
 

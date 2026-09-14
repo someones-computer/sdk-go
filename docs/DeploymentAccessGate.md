@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Application** | Pointer to **string** |  | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
-**AccessGate** | Pointer to **string** |  | [optional] [default to "none"]
+**AccessGate** | Pointer to **string** |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **UpdatedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 

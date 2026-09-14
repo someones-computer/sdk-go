@@ -5153,7 +5153,6 @@ components:
         name:
           type: string
         accessGate:
-          default: none
           enum:
           - none
           - basic_auth
@@ -5197,7 +5196,6 @@ components:
         name:
           type: string
         accessGate:
-          default: none
           enum:
           - none
           - basic_auth
@@ -7000,7 +6998,6 @@ components:
           - storage
           - engine_load
           - registry_storage
-          - ingress_egress
           - null
           nullable: true
           readOnly: true
