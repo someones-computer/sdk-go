@@ -97,6 +97,11 @@ Class | Method | HTTP request | Description
 *DeploymentAPI* | [**DeploymentsGet**](docs/DeploymentAPI.md#deploymentsget) | **Get** /api/deployments/{id} | Retrieves a Deployment resource.
 *DeploymentAPI* | [**DeploymentsList**](docs/DeploymentAPI.md#deploymentslist) | **Get** /api/deployments | Retrieves the collection of Deployment resources.
 *DeploymentAPI* | [**DeploymentsUpdate**](docs/DeploymentAPI.md#deploymentsupdate) | **Patch** /api/deployments/{id} | Updates the Deployment resource.
+*DeploymentAccessGateAPI* | [**DeploymentAccessGatesCreate**](docs/DeploymentAccessGateAPI.md#deploymentaccessgatescreate) | **Post** /api/deployment_access_gates | Creates a DeploymentAccessGate resource.
+*DeploymentAccessGateAPI* | [**DeploymentAccessGatesDelete**](docs/DeploymentAccessGateAPI.md#deploymentaccessgatesdelete) | **Delete** /api/deployment_access_gates/{id} | Removes the DeploymentAccessGate resource.
+*DeploymentAccessGateAPI* | [**DeploymentAccessGatesGet**](docs/DeploymentAccessGateAPI.md#deploymentaccessgatesget) | **Get** /api/deployment_access_gates/{id} | Retrieves a DeploymentAccessGate resource.
+*DeploymentAccessGateAPI* | [**DeploymentAccessGatesList**](docs/DeploymentAccessGateAPI.md#deploymentaccessgateslist) | **Get** /api/deployment_access_gates | Retrieves the collection of DeploymentAccessGate resources.
+*DeploymentAccessGateAPI* | [**DeploymentAccessGatesUpdate**](docs/DeploymentAccessGateAPI.md#deploymentaccessgatesupdate) | **Patch** /api/deployment_access_gates/{id} | Updates the DeploymentAccessGate resource.
 *ManagedServiceAPI* | [**ManagedServicesCreate**](docs/ManagedServiceAPI.md#managedservicescreate) | **Post** /api/managed_services | Creates a ManagedService resource.
 *ManagedServiceAPI* | [**ManagedServicesDelete**](docs/ManagedServiceAPI.md#managedservicesdelete) | **Delete** /api/managed_services/{id} | Removes the ManagedService resource.
 *ManagedServiceAPI* | [**ManagedServicesGet**](docs/ManagedServiceAPI.md#managedservicesget) | **Get** /api/managed_services/{id} | Retrieves a ManagedService resource.
@@ -135,6 +140,8 @@ Class | Method | HTTP request | Description
  - [CreditTransactionEngineMillis](docs/CreditTransactionEngineMillis.md)
  - [CreditTransactionUsageBytes](docs/CreditTransactionUsageBytes.md)
  - [Deployment](docs/Deployment.md)
+ - [DeploymentAccessGate](docs/DeploymentAccessGate.md)
+ - [DeploymentAccessGateJsonMergePatch](docs/DeploymentAccessGateJsonMergePatch.md)
  - [DeploymentBundleUploadConfirmInput](docs/DeploymentBundleUploadConfirmInput.md)
  - [DeploymentBundleUploadConfirmOutput](docs/DeploymentBundleUploadConfirmOutput.md)
  - [DeploymentBundleUploadDeclareInput](docs/DeploymentBundleUploadDeclareInput.md)
