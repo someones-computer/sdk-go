@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **TierPinReason** | Pointer to **NullableString** |  | [optional] [readonly] 
 **LowBalanceWarnedAt** | Pointer to **NullableTime** | When {@see \\App\\MessageHandler\\CheckRunwayHandler} last warned this organization that its projected runway had dropped below the threshold; null once no warning is outstanding. Set once per crossing and cleared the moment the projection recovers — by a top-up or by the burn easing off — which is what makes \&quot;warn once, re-arm on recovery\&quot; a fact this column can answer rather than something re-derived from the notification table on every tick. | [optional] [readonly] 
 **TwoFactorRequiredAt** | Pointer to **NullableTime** | When an Owner/Admin turned on the requirement that every member of this organization protects their account with a second factor; null means it is optional. A reversible policy toggle, stamped like {@see User::$disabledAt} rather than a verdict, so no \&quot;who set it\&quot; attribution. | [optional] [readonly] 
+**ApiAccessLogRetentionDays** | Pointer to **NullableInt32** | How long this organization&#39;s {@see \\App\\Entity\\ApiAccessLogEntry} rows are kept before {@see \\App\\MessageHandler\\PurgeApiAccessLogHandler} prunes them. Null means \&quot;the platform default\&quot; ({@see \\App\\Service\\ApiAccessLogRetention::DEFAULT_DAYS}) rather than a fixed number baked into every organization row the day this shipped. | [optional] [readonly] 
 **Memberships** | Pointer to [**[]Membership**](Membership.md) |  | [optional] 
 **Applications** | Pointer to **[]string** |  | [optional] 
 **Swarms** | Pointer to **[]string** | BYO swarms owned by this organization. | [optional] 
@@ -377,6 +378,41 @@ HasTwoFactorRequiredAt returns a boolean if a field has been set.
 `func (o *OrganizationJsonMergePatch) UnsetTwoFactorRequiredAt()`
 
 UnsetTwoFactorRequiredAt ensures that no value is present for TwoFactorRequiredAt, not even an explicit nil
+### GetApiAccessLogRetentionDays
+
+`func (o *OrganizationJsonMergePatch) GetApiAccessLogRetentionDays() int32`
+
+GetApiAccessLogRetentionDays returns the ApiAccessLogRetentionDays field if non-nil, zero value otherwise.
+
+### GetApiAccessLogRetentionDaysOk
+
+`func (o *OrganizationJsonMergePatch) GetApiAccessLogRetentionDaysOk() (*int32, bool)`
+
+GetApiAccessLogRetentionDaysOk returns a tuple with the ApiAccessLogRetentionDays field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetApiAccessLogRetentionDays
+
+`func (o *OrganizationJsonMergePatch) SetApiAccessLogRetentionDays(v int32)`
+
+SetApiAccessLogRetentionDays sets ApiAccessLogRetentionDays field to given value.
+
+### HasApiAccessLogRetentionDays
+
+`func (o *OrganizationJsonMergePatch) HasApiAccessLogRetentionDays() bool`
+
+HasApiAccessLogRetentionDays returns a boolean if a field has been set.
+
+### SetApiAccessLogRetentionDaysNil
+
+`func (o *OrganizationJsonMergePatch) SetApiAccessLogRetentionDaysNil(b bool)`
+
+ SetApiAccessLogRetentionDaysNil sets the value for ApiAccessLogRetentionDays to be an explicit nil
+
+### UnsetApiAccessLogRetentionDays
+`func (o *OrganizationJsonMergePatch) UnsetApiAccessLogRetentionDays()`
+
+UnsetApiAccessLogRetentionDays ensures that no value is present for ApiAccessLogRetentionDays, not even an explicit nil
 ### GetMemberships
 
 `func (o *OrganizationJsonMergePatch) GetMemberships() []Membership`

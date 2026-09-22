@@ -35,6 +35,8 @@ type Organization struct {
 	LowBalanceWarnedAt NullableTime `json:"lowBalanceWarnedAt,omitempty"`
 	// When an Owner/Admin turned on the requirement that every member of this organization protects their account with a second factor; null means it is optional. A reversible policy toggle, stamped like {@see User::$disabledAt} rather than a verdict, so no \"who set it\" attribution.
 	TwoFactorRequiredAt NullableTime `json:"twoFactorRequiredAt,omitempty"`
+	// How long this organization's {@see \\App\\Entity\\ApiAccessLogEntry} rows are kept before {@see \\App\\MessageHandler\\PurgeApiAccessLogHandler} prunes them. Null means \"the platform default\" ({@see \\App\\Service\\ApiAccessLogRetention::DEFAULT_DAYS}) rather than a fixed number baked into every organization row the day this shipped.
+	ApiAccessLogRetentionDays NullableInt32 `json:"apiAccessLogRetentionDays,omitempty"`
 	Memberships []Membership `json:"memberships,omitempty"`
 	Applications []string `json:"applications,omitempty"`
 	// BYO swarms owned by this organization.
@@ -467,6 +469,48 @@ func (o *Organization) SetTwoFactorRequiredAtNil() {
 // UnsetTwoFactorRequiredAt ensures that no value is present for TwoFactorRequiredAt, not even an explicit nil
 func (o *Organization) UnsetTwoFactorRequiredAt() {
 	o.TwoFactorRequiredAt.Unset()
+}
+
+// GetApiAccessLogRetentionDays returns the ApiAccessLogRetentionDays field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Organization) GetApiAccessLogRetentionDays() int32 {
+	if o == nil || IsNil(o.ApiAccessLogRetentionDays.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.ApiAccessLogRetentionDays.Get()
+}
+
+// GetApiAccessLogRetentionDaysOk returns a tuple with the ApiAccessLogRetentionDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Organization) GetApiAccessLogRetentionDaysOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ApiAccessLogRetentionDays.Get(), o.ApiAccessLogRetentionDays.IsSet()
+}
+
+// HasApiAccessLogRetentionDays returns a boolean if a field has been set.
+func (o *Organization) HasApiAccessLogRetentionDays() bool {
+	if o != nil && o.ApiAccessLogRetentionDays.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetApiAccessLogRetentionDays gets a reference to the given NullableInt32 and assigns it to the ApiAccessLogRetentionDays field.
+func (o *Organization) SetApiAccessLogRetentionDays(v int32) {
+	o.ApiAccessLogRetentionDays.Set(&v)
+}
+// SetApiAccessLogRetentionDaysNil sets the value for ApiAccessLogRetentionDays to be an explicit nil
+func (o *Organization) SetApiAccessLogRetentionDaysNil() {
+	o.ApiAccessLogRetentionDays.Set(nil)
+}
+
+// UnsetApiAccessLogRetentionDays ensures that no value is present for ApiAccessLogRetentionDays, not even an explicit nil
+func (o *Organization) UnsetApiAccessLogRetentionDays() {
+	o.ApiAccessLogRetentionDays.Unset()
 }
 
 // GetMemberships returns the Memberships field value if set, zero value otherwise.
@@ -944,6 +988,9 @@ func (o Organization) ToMap() (map[string]interface{}, error) {
 	}
 	if o.TwoFactorRequiredAt.IsSet() {
 		toSerialize["twoFactorRequiredAt"] = o.TwoFactorRequiredAt.Get()
+	}
+	if o.ApiAccessLogRetentionDays.IsSet() {
+		toSerialize["apiAccessLogRetentionDays"] = o.ApiAccessLogRetentionDays.Get()
 	}
 	if !IsNil(o.Memberships) {
 		toSerialize["memberships"] = o.Memberships

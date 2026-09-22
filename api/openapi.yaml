@@ -2013,9 +2013,9 @@ components:
           updatedAt: 2000-01-23T04:56:07.000+00:00
         address: address
         provisioningStale: true
-        vmid: 0
-        diskGigabytes: 5
-        diskBlocks: 6
+        vmid: 6
+        diskGigabytes: 2
+        diskBlocks: 1
         provisionAttempt: 5
         provisionStartedAt: 2000-01-23T04:56:07.000+00:00
         node: node
@@ -2025,7 +2025,7 @@ components:
         failure: failure
         organization: https://example.com/
         name: name
-        templateVmid: 1
+        templateVmid: 5
         state: requested
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -2487,9 +2487,9 @@ components:
             updatedAt: 2000-01-23T04:56:07.000+00:00
           address: address
           provisioningStale: true
-          vmid: 0
-          diskGigabytes: 5
-          diskBlocks: 6
+          vmid: 6
+          diskGigabytes: 2
+          diskBlocks: 1
           provisionAttempt: 5
           provisionStartedAt: 2000-01-23T04:56:07.000+00:00
           node: node
@@ -2499,7 +2499,7 @@ components:
           failure: failure
           organization: https://example.com/
           name: name
-          templateVmid: 1
+          templateVmid: 5
           state: requested
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -2526,9 +2526,9 @@ components:
             updatedAt: 2000-01-23T04:56:07.000+00:00
           address: address
           provisioningStale: true
-          vmid: 0
-          diskGigabytes: 5
-          diskBlocks: 6
+          vmid: 6
+          diskGigabytes: 2
+          diskBlocks: 1
           provisionAttempt: 5
           provisionStartedAt: 2000-01-23T04:56:07.000+00:00
           node: node
@@ -2538,7 +2538,7 @@ components:
           failure: failure
           organization: https://example.com/
           name: name
-          templateVmid: 1
+          templateVmid: 5
           state: requested
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -2871,6 +2871,16 @@ components:
           nullable: true
           readOnly: true
           type: string
+        apiAccessLogRetentionDays:
+          description: |-
+            How long this organization's {@see \App\Entity\ApiAccessLogEntry} rows are
+            kept before {@see \App\MessageHandler\PurgeApiAccessLogHandler} prunes
+            them. Null means "the platform default"
+            ({@see \App\Service\ApiAccessLogRetention::DEFAULT_DAYS}) rather than a
+            fixed number baked into every organization row the day this shipped.
+          nullable: true
+          readOnly: true
+          type: integer
         memberships:
           items:
             $ref: '#/components/schemas/Membership'
@@ -4247,6 +4257,7 @@ components:
         - https://example.com/
         - https://example.com/
         lowBalanceWarnedAt: 2000-01-23T04:56:07.000+00:00
+        apiAccessLogRetentionDays: 0
         memberships:
         - createdAt: 2000-01-23T04:56:07.000+00:00
           role: owner
@@ -4536,9 +4547,9 @@ components:
             updatedAt: 2000-01-23T04:56:07.000+00:00
           address: address
           provisioningStale: true
-          vmid: 0
-          diskGigabytes: 5
-          diskBlocks: 6
+          vmid: 6
+          diskGigabytes: 2
+          diskBlocks: 1
           provisionAttempt: 5
           provisionStartedAt: 2000-01-23T04:56:07.000+00:00
           node: node
@@ -4548,7 +4559,7 @@ components:
           failure: failure
           organization: https://example.com/
           name: name
-          templateVmid: 1
+          templateVmid: 5
           state: requested
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -4575,9 +4586,9 @@ components:
             updatedAt: 2000-01-23T04:56:07.000+00:00
           address: address
           provisioningStale: true
-          vmid: 0
-          diskGigabytes: 5
-          diskBlocks: 6
+          vmid: 6
+          diskGigabytes: 2
+          diskBlocks: 1
           provisionAttempt: 5
           provisionStartedAt: 2000-01-23T04:56:07.000+00:00
           node: node
@@ -4587,7 +4598,7 @@ components:
           failure: failure
           organization: https://example.com/
           name: name
-          templateVmid: 1
+          templateVmid: 5
           state: requested
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           updatedAt: 2000-01-23T04:56:07.000+00:00
@@ -4751,6 +4762,16 @@ components:
           nullable: true
           readOnly: true
           type: string
+        apiAccessLogRetentionDays:
+          description: |-
+            How long this organization's {@see \App\Entity\ApiAccessLogEntry} rows are
+            kept before {@see \App\MessageHandler\PurgeApiAccessLogHandler} prunes
+            them. Null means "the platform default"
+            ({@see \App\Service\ApiAccessLogRetention::DEFAULT_DAYS}) rather than a
+            fixed number baked into every organization row the day this shipped.
+          nullable: true
+          readOnly: true
+          type: integer
         memberships:
           items:
             $ref: '#/components/schemas/Membership'
@@ -6938,6 +6959,7 @@ components:
           username: username
         stripeCheckoutSessionId: stripeCheckoutSessionId
         organization: https://example.com/
+        usageRows: 2
         currency: usd
         usageHour: 2000-01-23T04:56:07.000+00:00
         usageSeconds: 6
@@ -6999,6 +7021,7 @@ components:
           - engine_load
           - registry_storage
           - ingress_egress
+          - api_access_log_volume
           - null
           nullable: true
           readOnly: true
@@ -7019,6 +7042,15 @@ components:
           $ref: '#/components/schemas/CreditTransaction_usageBytes'
         engineMillis:
           $ref: '#/components/schemas/CreditTransaction_engineMillis'
+        usageRows:
+          description: |-
+            The row count an API-access-log-volume debit was computed from — the
+            evidence a per-row charge can be checked against, the same role
+            {@see $usageBytes} plays for a storage debit. Null on anything but that
+            kind of debit.
+          nullable: true
+          readOnly: true
+          type: integer
         stripeEventId:
           description: Stripe Event id that last transitioned this row; secondary
             idempotency guard for webhook delivery.
