@@ -3009,63 +3009,8 @@ components:
         organization: https://example.com/
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         user:
-          grantedRoles:
-          - grantedRoles
-          - grantedRoles
-          emailConfirmed: true
-          oauthIdentities:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           displayName: displayName
-          timezone: timezone
-          roles:
-          - roles
-          - roles
-          locale: en_GB
-          avatarPhoto:
-            photo: photo
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            type: type
-          spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-          totpEnabled: true
-          disabledAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          approved: true
-          tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-          userIdentifier: userIdentifier
-          tierPin: untrusted
-          creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-          theme: house
-          disabled: true
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          email: email
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-          displayLabel: displayLabel
-          ldapManaged: true
-          spamMarkedBy: null
-          ldapDn: ldapDn
-          approvedAt: 2000-01-23T04:56:07.000+00:00
-          tierPinned: true
-          tierPinnedBy: null
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          machine: true
-          avatarPhotoType: avatarPhotoType
-          tierPinReason: tierPinReason
-          machineFor: https://example.com/
-          spam: true
           username: username
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
@@ -3096,334 +3041,19 @@ components:
           type: string
     User:
       example:
-        grantedRoles:
-        - grantedRoles
-        - grantedRoles
-        emailConfirmed: true
-        oauthIdentities:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          provider: github
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          providerUserId: providerUserId
-          user: null
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          provider: github
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          providerUserId: providerUserId
-          user: null
-          updatedAt: 2000-01-23T04:56:07.000+00:00
         displayName: displayName
-        timezone: timezone
-        roles:
-        - roles
-        - roles
-        locale: en_GB
-        avatarPhoto:
-          photo: photo
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          type: type
-        spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-        totpEnabled: true
-        disabledAt: 2000-01-23T04:56:07.000+00:00
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        approved: true
-        tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-        userIdentifier: userIdentifier
-        tierPin: untrusted
-        creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-        theme: house
-        disabled: true
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-        totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-        email: email
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-        displayLabel: displayLabel
-        ldapManaged: true
-        spamMarkedBy: null
-        ldapDn: ldapDn
-        approvedAt: 2000-01-23T04:56:07.000+00:00
-        tierPinned: true
-        tierPinnedBy: null
-        deletedAt: 2000-01-23T04:56:07.000+00:00
-        deleted: true
-        machine: true
-        avatarPhotoType: avatarPhotoType
-        tierPinReason: tierPinReason
-        machineFor: https://example.com/
-        spam: true
         username: username
       properties:
-        email:
+        id:
+          format: uuid
+          readOnly: true
           type: string
         username:
           description: Handle the user can sign in with instead of their email.
           type: string
         displayName:
           nullable: true
-          type: string
-        theme:
-          description: |-
-            Which skin this person prefers, or null to take whatever their organization
-            or the instance says.
-          enum:
-          - house
-          - corporate
-          - dull
-          - plain
-          - red-label
-          - null
-          nullable: true
-          type: string
-        locale:
-          description: |-
-            Which locale this person prefers, or null for no explicit choice — the
-            same shape as {@see self::$theme}: null is not `en_GB`, it is "let the
-            cascade decide" (cookie, then `Accept-Language`, then the instance
-            default). See {@see \App\Service\LocaleResolver} and
-            docs/internationalization.md.
-          enum:
-          - en_GB
-          - en_US
-          - null
-          nullable: true
-          type: string
-        timezone:
-          description: |-
-            The IANA timezone identifier (e.g. `Europe/London`) this person prefers, or
-            null for no explicit choice — the same shape as {@see self::$locale}: null
-            is not UTC, it is "let the cascade decide" (cookie written by the browser's
-            own auto-detection, then the instance default). A plain validated string
-            rather than a backed enum like {@see self::$theme}/{@see self::$locale}: the
-            IANA database has ~400 identifiers, too many for an enum to curate the way
-            {@see \App\Enum\Locale} deliberately does for its two cases. See
-            {@see \App\Service\TimezoneResolver}.
-          nullable: true
-          type: string
-        ldapDn:
-          description: |-
-            The bound entry's distinguished name in LLDAP. Presence means the account
-            is LDAP-authoritative: {@see App\Service\LdapAccountLinker} clears any
-            local password when it sets this, and it is never set alongside one.
-          nullable: true
-          type: string
-        avatarPhoto:
-          $ref: '#/components/schemas/UserAvatarPhoto'
-        roles:
-          items:
-            type: string
-          type: array
-        disabledAt:
-          description: Set when a platform operator suspends the account; null = active.
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        spamMarkedAt:
-          description: When an operator judged this account to be spam; null = not
-            spam.
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        spamMarkedBy:
-          $ref: '#/components/schemas/User'
-        approvedAt:
-          description: |-
-            When an operator approved the account; null means it is still waiting and
-            can reach nothing but the holding page ({@see self::getRoles()}).
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        emailConfirmedAt:
-          description: |-
-            When the address on this account was proven to be one the person can read;
-            null means it never was ({@see \App\Service\EmailConfirmationService}).
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        creditGrantedAt:
-          description: "When the one-off signup credit was granted ({@see \\App\\\
-            Service\\Credit\\SignupGrant})."
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        tierPin:
-          description: |-
-            An operator's override of the trust tier this account would otherwise
-            progress into on its own; null means the automatic rule decides
-            ({@see \App\Service\Trust\TierResolver}).
-          enum:
-          - untrusted
-          - trusted
-          - verified
-          - null
-          nullable: true
-          readOnly: true
-          type: string
-        tierPinnedAt:
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        tierPinnedBy:
-          $ref: '#/components/schemas/User'
-        tierPinReason:
-          nullable: true
-          readOnly: true
-          type: string
-        oauthIdentities:
-          items:
-            $ref: '#/components/schemas/OAuthIdentity'
-          type: array
-        totpConfirmedAt:
-          description: |-
-            When the person proved the authenticator by entering a live code; null
-            means 2FA is not in force for this account. This is the flag the step-up
-            gate reads ({@see \App\EventSubscriber\TwoFactorStepUpSubscriber}).
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        machineFor:
-          description: "The organization this account exists to act for, or null for\
-            \ a person."
-          example: https://example.com/
-          format: iri-reference
-          nullable: true
-          type: string
-        id:
-          format: uuid
-          readOnly: true
-          type: string
-        deletedAt:
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        createdAt:
-          format: date-time
-          readOnly: true
-          type: string
-        updatedAt:
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        displayLabel:
-          description: |-
-            How this person is named in the UI. Registration requires a display name,
-            but an OAuth provider may not share one, so the handle stands in — never
-            the email address, which is not ours to show.
-          readOnly: true
-          type: string
-        machine:
-          description: "Whether this account is a machine acting for an organization,\
-            \ not a person."
-          readOnly: true
-          type: boolean
-        ldapManaged:
-          readOnly: true
-          type: boolean
-        avatarPhotoType:
-          nullable: true
-          readOnly: true
-          type: string
-        userIdentifier:
-          description: |-
-            The identifier stored in the session token. Sign-in accepts either the
-            email or the username ({@see UserRepository::loadUserByIdentifier()});
-            this is the canonical one the token is refreshed from.
-          readOnly: true
-          type: string
-        grantedRoles:
-          description: |-
-            The roles the account actually carries, whether or not it has been
-            approved — what the admin panel shows and what the feature toggles flip.
-          items:
-            type: string
-          type: array
-        disabled:
-          readOnly: true
-          type: boolean
-        spam:
-          readOnly: true
-          type: boolean
-        approved:
-          readOnly: true
-          type: boolean
-        emailConfirmed:
-          readOnly: true
-          type: boolean
-        tierPinned:
-          readOnly: true
-          type: boolean
-        totpEnabled:
-          description: True once the person has proved the authenticator — the gate's
-            on/off switch.
-          readOnly: true
-          type: boolean
-        deleted:
-          readOnly: true
-          type: boolean
-    OAuthIdentity:
-      example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        provider: github
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        providerUserId: providerUserId
-        user: null
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        provider:
-          enum:
-          - github
-          - google
-          type: string
-        providerUserId:
-          description: "The stable, provider-assigned user id (never the email)."
-          type: string
-        user:
-          $ref: '#/components/schemas/User'
-        id:
-          format: uuid
-          readOnly: true
-          type: string
-        createdAt:
-          format: date-time
-          readOnly: true
-          type: string
-        updatedAt:
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-    UserAvatarPhoto:
-      example:
-        photo: photo
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        type: type
-      properties:
-        photo:
-          description: "Base64 of the raw image bytes — see {@see User::getAvatarPhoto()}\
-            \ for why text rather than a BLOB."
-          readOnly: true
-          type: string
-        type:
-          description: |-
-            The media type sniffed from the bytes ({@see \App\Service\DirectoryPhoto}),
-            nullable like the old `avatar_photo_type` column was: bytes can be stored
-            without a type, and {@see \App\Controller\AvatarController} falls back to
-            `application/octet-stream`.
-          nullable: true
-          type: string
-        id:
-          format: uuid
-          readOnly: true
           type: string
     Organization:
       description: List organizations the caller is a member of.
@@ -3442,63 +3072,8 @@ components:
           organization: https://example.com/
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           user:
-            grantedRoles:
-            - grantedRoles
-            - grantedRoles
-            emailConfirmed: true
-            oauthIdentities:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
             displayName: displayName
-            timezone: timezone
-            roles:
-            - roles
-            - roles
-            locale: en_GB
-            avatarPhoto:
-              photo: photo
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              type: type
-            spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-            totpEnabled: true
-            disabledAt: 2000-01-23T04:56:07.000+00:00
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            approved: true
-            tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-            userIdentifier: userIdentifier
-            tierPin: untrusted
-            creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-            theme: house
-            disabled: true
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            email: email
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-            displayLabel: displayLabel
-            ldapManaged: true
-            spamMarkedBy: null
-            ldapDn: ldapDn
-            approvedAt: 2000-01-23T04:56:07.000+00:00
-            tierPinned: true
-            tierPinnedBy: null
-            deletedAt: 2000-01-23T04:56:07.000+00:00
-            deleted: true
-            machine: true
-            avatarPhotoType: avatarPhotoType
-            tierPinReason: tierPinReason
-            machineFor: https://example.com/
-            spam: true
             username: username
           updatedAt: 2000-01-23T04:56:07.000+00:00
         - createdAt: 2000-01-23T04:56:07.000+00:00
@@ -3506,124 +3081,14 @@ components:
           organization: https://example.com/
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           user:
-            grantedRoles:
-            - grantedRoles
-            - grantedRoles
-            emailConfirmed: true
-            oauthIdentities:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
             displayName: displayName
-            timezone: timezone
-            roles:
-            - roles
-            - roles
-            locale: en_GB
-            avatarPhoto:
-              photo: photo
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              type: type
-            spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-            totpEnabled: true
-            disabledAt: 2000-01-23T04:56:07.000+00:00
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            approved: true
-            tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-            userIdentifier: userIdentifier
-            tierPin: untrusted
-            creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-            theme: house
-            disabled: true
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            email: email
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-            displayLabel: displayLabel
-            ldapManaged: true
-            spamMarkedBy: null
-            ldapDn: ldapDn
-            approvedAt: 2000-01-23T04:56:07.000+00:00
-            tierPinned: true
-            tierPinnedBy: null
-            deletedAt: 2000-01-23T04:56:07.000+00:00
-            deleted: true
-            machine: true
-            avatarPhotoType: avatarPhotoType
-            tierPinReason: tierPinReason
-            machineFor: https://example.com/
-            spam: true
             username: username
           updatedAt: 2000-01-23T04:56:07.000+00:00
         tierPinned: true
         tierPinnedBy:
-          grantedRoles:
-          - grantedRoles
-          - grantedRoles
-          emailConfirmed: true
-          oauthIdentities:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           displayName: displayName
-          timezone: timezone
-          roles:
-          - roles
-          - roles
-          locale: en_GB
-          avatarPhoto:
-            photo: photo
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            type: type
-          spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-          totpEnabled: true
-          disabledAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          approved: true
-          tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-          userIdentifier: userIdentifier
-          tierPin: untrusted
-          creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-          theme: house
-          disabled: true
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          email: email
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-          displayLabel: displayLabel
-          ldapManaged: true
-          spamMarkedBy: null
-          ldapDn: ldapDn
-          approvedAt: 2000-01-23T04:56:07.000+00:00
-          tierPinned: true
-          tierPinnedBy: null
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          machine: true
-          avatarPhotoType: avatarPhotoType
-          tierPinReason: tierPinReason
-          machineFor: https://example.com/
-          spam: true
           username: username
         createdAt: 2000-01-23T04:56:07.000+00:00
         deletedAt: 2000-01-23T04:56:07.000+00:00
@@ -3727,63 +3192,8 @@ components:
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         slug: slug
         machineAccount:
-          grantedRoles:
-          - grantedRoles
-          - grantedRoles
-          emailConfirmed: true
-          oauthIdentities:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           displayName: displayName
-          timezone: timezone
-          roles:
-          - roles
-          - roles
-          locale: en_GB
-          avatarPhoto:
-            photo: photo
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            type: type
-          spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-          totpEnabled: true
-          disabledAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          approved: true
-          tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-          userIdentifier: userIdentifier
-          tierPin: untrusted
-          creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-          theme: house
-          disabled: true
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          email: email
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-          displayLabel: displayLabel
-          ldapManaged: true
-          spamMarkedBy: null
-          ldapDn: ldapDn
-          approvedAt: 2000-01-23T04:56:07.000+00:00
-          tierPinned: true
-          tierPinnedBy: null
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          machine: true
-          avatarPhotoType: avatarPhotoType
-          tierPinReason: tierPinReason
-          machineFor: https://example.com/
-          spam: true
           username: username
         applications:
         - https://example.com/
@@ -4536,63 +3946,8 @@ components:
           updatedAt: 2000-01-23T04:56:07.000+00:00
         service: service
         sharedBy:
-          grantedRoles:
-          - grantedRoles
-          - grantedRoles
-          emailConfirmed: true
-          oauthIdentities:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           displayName: displayName
-          timezone: timezone
-          roles:
-          - roles
-          - roles
-          locale: en_GB
-          avatarPhoto:
-            photo: photo
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            type: type
-          spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-          totpEnabled: true
-          disabledAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          approved: true
-          tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-          userIdentifier: userIdentifier
-          tierPin: untrusted
-          creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-          theme: house
-          disabled: true
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          email: email
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-          displayLabel: displayLabel
-          ldapManaged: true
-          spamMarkedBy: null
-          ldapDn: ldapDn
-          approvedAt: 2000-01-23T04:56:07.000+00:00
-          tierPinned: true
-          tierPinnedBy: null
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          machine: true
-          avatarPhotoType: avatarPhotoType
-          tierPinReason: tierPinReason
-          machineFor: https://example.com/
-          spam: true
           username: username
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         deployment: https://example.com/
@@ -4846,63 +4201,8 @@ components:
             updatedAt: 2000-01-23T04:56:07.000+00:00
           service: service
           sharedBy:
-            grantedRoles:
-            - grantedRoles
-            - grantedRoles
-            emailConfirmed: true
-            oauthIdentities:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
             displayName: displayName
-            timezone: timezone
-            roles:
-            - roles
-            - roles
-            locale: en_GB
-            avatarPhoto:
-              photo: photo
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              type: type
-            spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-            totpEnabled: true
-            disabledAt: 2000-01-23T04:56:07.000+00:00
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            approved: true
-            tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-            userIdentifier: userIdentifier
-            tierPin: untrusted
-            creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-            theme: house
-            disabled: true
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            email: email
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-            displayLabel: displayLabel
-            ldapManaged: true
-            spamMarkedBy: null
-            ldapDn: ldapDn
-            approvedAt: 2000-01-23T04:56:07.000+00:00
-            tierPinned: true
-            tierPinnedBy: null
-            deletedAt: 2000-01-23T04:56:07.000+00:00
-            deleted: true
-            machine: true
-            avatarPhotoType: avatarPhotoType
-            tierPinReason: tierPinReason
-            machineFor: https://example.com/
-            spam: true
             username: username
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           deployment: https://example.com/
@@ -4939,63 +4239,8 @@ components:
             updatedAt: 2000-01-23T04:56:07.000+00:00
           service: service
           sharedBy:
-            grantedRoles:
-            - grantedRoles
-            - grantedRoles
-            emailConfirmed: true
-            oauthIdentities:
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
-            - createdAt: 2000-01-23T04:56:07.000+00:00
-              provider: github
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              providerUserId: providerUserId
-              user: null
-              updatedAt: 2000-01-23T04:56:07.000+00:00
             displayName: displayName
-            timezone: timezone
-            roles:
-            - roles
-            - roles
-            locale: en_GB
-            avatarPhoto:
-              photo: photo
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              type: type
-            spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-            totpEnabled: true
-            disabledAt: 2000-01-23T04:56:07.000+00:00
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            approved: true
-            tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-            userIdentifier: userIdentifier
-            tierPin: untrusted
-            creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-            theme: house
-            disabled: true
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-            email: email
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-            displayLabel: displayLabel
-            ldapManaged: true
-            spamMarkedBy: null
-            ldapDn: ldapDn
-            approvedAt: 2000-01-23T04:56:07.000+00:00
-            tierPinned: true
-            tierPinnedBy: null
-            deletedAt: 2000-01-23T04:56:07.000+00:00
-            deleted: true
-            machine: true
-            avatarPhotoType: avatarPhotoType
-            tierPinReason: tierPinReason
-            machineFor: https://example.com/
-            spam: true
             username: username
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           deployment: https://example.com/
@@ -5072,63 +4317,8 @@ components:
               key:
                 key: Deployment_jsonMergePatch_buildContexts_value_value
         createdBy:
-          grantedRoles:
-          - grantedRoles
-          - grantedRoles
-          emailConfirmed: true
-          oauthIdentities:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           displayName: displayName
-          timezone: timezone
-          roles:
-          - roles
-          - roles
-          locale: en_GB
-          avatarPhoto:
-            photo: photo
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            type: type
-          spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-          totpEnabled: true
-          disabledAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          approved: true
-          tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-          userIdentifier: userIdentifier
-          tierPin: untrusted
-          creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-          theme: house
-          disabled: true
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          email: email
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-          displayLabel: displayLabel
-          ldapManaged: true
-          spamMarkedBy: null
-          ldapDn: ldapDn
-          approvedAt: 2000-01-23T04:56:07.000+00:00
-          tierPinned: true
-          tierPinnedBy: null
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          machine: true
-          avatarPhotoType: avatarPhotoType
-          tierPinReason: tierPinReason
-          machineFor: https://example.com/
-          spam: true
           username: username
         name: name
         digest: digest
@@ -5541,63 +4731,8 @@ components:
         createdAt: 2000-01-23T04:56:07.000+00:00
         amountCents: 0
         createdBy:
-          grantedRoles:
-          - grantedRoles
-          - grantedRoles
-          emailConfirmed: true
-          oauthIdentities:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            provider: github
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            providerUserId: providerUserId
-            user: null
-            updatedAt: 2000-01-23T04:56:07.000+00:00
           displayName: displayName
-          timezone: timezone
-          roles:
-          - roles
-          - roles
-          locale: en_GB
-          avatarPhoto:
-            photo: photo
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            type: type
-          spamMarkedAt: 2000-01-23T04:56:07.000+00:00
-          totpEnabled: true
-          disabledAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          approved: true
-          tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-          userIdentifier: userIdentifier
-          tierPin: untrusted
-          creditGrantedAt: 2000-01-23T04:56:07.000+00:00
-          theme: house
-          disabled: true
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          emailConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          totpConfirmedAt: 2000-01-23T04:56:07.000+00:00
-          email: email
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-          displayLabel: displayLabel
-          ldapManaged: true
-          spamMarkedBy: null
-          ldapDn: ldapDn
-          approvedAt: 2000-01-23T04:56:07.000+00:00
-          tierPinned: true
-          tierPinnedBy: null
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          machine: true
-          avatarPhotoType: avatarPhotoType
-          tierPinReason: tierPinReason
-          machineFor: https://example.com/
-          spam: true
           username: username
         stripeCheckoutSessionId: stripeCheckoutSessionId
         organization: https://example.com/

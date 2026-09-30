@@ -54,7 +54,6 @@ docs/ManagedServicePendingLoadMillis.md
 docs/ManagedServiceQuotaBytes.md
 docs/ManagedServiceUsageBytes.md
 docs/Membership.md
-docs/OAuthIdentity.md
 docs/Organization.md
 docs/OrganizationAPI.md
 docs/OrganizationJsonMergePatch.md
@@ -79,7 +78,6 @@ docs/SwarmAPI.md
 docs/SwarmJsonMergePatch.md
 docs/SwarmNode.md
 docs/User.md
-docs/UserAvatarPhoto.md
 git_push.sh
 go.mod
 go.sum
@@ -117,7 +115,6 @@ model_managed_service_pending_load_millis.go
 model_managed_service_quota_bytes.go
 model_managed_service_usage_bytes.go
 model_membership.go
-model_o_auth_identity.go
 model_organization.go
 model_organization_json_merge_patch.go
 model_organization_signal.go
@@ -139,7 +136,6 @@ model_swarm.go
 model_swarm_json_merge_patch.go
 model_swarm_node.go
 model_user.go
-model_user_avatar_photo.go
 response.go
 test/api_adoption_approval_test.go
 test/api_application_test.go
