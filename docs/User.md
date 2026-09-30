@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **Theme** | Pointer to **NullableString** | Which skin this person prefers, or null to take whatever their organization or the instance says. | [optional] 
 **Locale** | Pointer to **NullableString** | Which locale this person prefers, or null for no explicit choice — the same shape as {@see self::$theme}: null is not &#x60;en_GB&#x60;, it is \&quot;let the cascade decide\&quot; (cookie, then &#x60;Accept-Language&#x60;, then the instance default). See {@see \\App\\Service\\LocaleResolver} and docs/internationalization.md. | [optional] 
 **Timezone** | Pointer to **NullableString** | The IANA timezone identifier (e.g. &#x60;Europe/London&#x60;) this person prefers, or null for no explicit choice — the same shape as {@see self::$locale}: null is not UTC, it is \&quot;let the cascade decide\&quot; (cookie written by the browser&#39;s own auto-detection, then the instance default). A plain validated string rather than a backed enum like {@see self::$theme}/{@see self::$locale}: the IANA database has ~400 identifiers, too many for an enum to curate the way {@see \\App\\Enum\\Locale} deliberately does for its two cases. See {@see \\App\\Service\\TimezoneResolver}. | [optional] 
-**Password** | Pointer to **NullableString** | Hashed password; null for accounts that authenticate only via OAuth or LDAP. | [optional] 
 **LdapDn** | Pointer to **NullableString** | The bound entry&#39;s distinguished name in LLDAP. Presence means the account is LDAP-authoritative: {@see App\\Service\\LdapAccountLinker} clears any local password when it sets this, and it is never set alongside one. | [optional] 
 **AvatarPhoto** | Pointer to [**NullableUserAvatarPhoto**](UserAvatarPhoto.md) |  | [optional] 
 **Roles** | Pointer to **[]string** |  | [optional] 
@@ -25,10 +24,7 @@ Name | Type | Description | Notes
 **TierPinnedBy** | Pointer to [**NullableUser**](User.md) |  | [optional] 
 **TierPinReason** | Pointer to **NullableString** |  | [optional] [readonly] 
 **OauthIdentities** | Pointer to [**[]OAuthIdentity**](OAuthIdentity.md) |  | [optional] 
-**TotpSecret** | Pointer to **NullableString** | The TOTP shared secret, **encrypted at rest** ({@see \\App\\Service\\TwoFactor\\TotpSecretCipher}), or null for an account that has not enabled a second factor. | [optional] 
-**TotpSecretKeyId** | Pointer to **NullableString** | Which key wrapped {@see self::$totpSecret}, so a key rotation can re-wrap it without users re-enrolling ({@see \\App\\Service\\TwoFactor\\TotpSecretCipher}). | [optional] [readonly] 
 **TotpConfirmedAt** | Pointer to **NullableTime** | When the person proved the authenticator by entering a live code; null means 2FA is not in force for this account. This is the flag the step-up gate reads ({@see \\App\\EventSubscriber\\TwoFactorStepUpSubscriber}). | [optional] [readonly] 
-**RecoveryCodes** | Pointer to [**[]RecoveryCode**](RecoveryCode.md) |  | [optional] 
 **MachineFor** | Pointer to **NullableString** | The organization this account exists to act for, or null for a person. | [optional] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **DeletedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
@@ -257,41 +253,6 @@ HasTimezone returns a boolean if a field has been set.
 `func (o *User) UnsetTimezone()`
 
 UnsetTimezone ensures that no value is present for Timezone, not even an explicit nil
-### GetPassword
-
-`func (o *User) GetPassword() string`
-
-GetPassword returns the Password field if non-nil, zero value otherwise.
-
-### GetPasswordOk
-
-`func (o *User) GetPasswordOk() (*string, bool)`
-
-GetPasswordOk returns a tuple with the Password field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetPassword
-
-`func (o *User) SetPassword(v string)`
-
-SetPassword sets Password field to given value.
-
-### HasPassword
-
-`func (o *User) HasPassword() bool`
-
-HasPassword returns a boolean if a field has been set.
-
-### SetPasswordNil
-
-`func (o *User) SetPasswordNil(b bool)`
-
- SetPasswordNil sets the value for Password to be an explicit nil
-
-### UnsetPassword
-`func (o *User) UnsetPassword()`
-
-UnsetPassword ensures that no value is present for Password, not even an explicit nil
 ### GetLdapDn
 
 `func (o *User) GetLdapDn() string`
@@ -762,76 +723,6 @@ SetOauthIdentities sets OauthIdentities field to given value.
 
 HasOauthIdentities returns a boolean if a field has been set.
 
-### GetTotpSecret
-
-`func (o *User) GetTotpSecret() string`
-
-GetTotpSecret returns the TotpSecret field if non-nil, zero value otherwise.
-
-### GetTotpSecretOk
-
-`func (o *User) GetTotpSecretOk() (*string, bool)`
-
-GetTotpSecretOk returns a tuple with the TotpSecret field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTotpSecret
-
-`func (o *User) SetTotpSecret(v string)`
-
-SetTotpSecret sets TotpSecret field to given value.
-
-### HasTotpSecret
-
-`func (o *User) HasTotpSecret() bool`
-
-HasTotpSecret returns a boolean if a field has been set.
-
-### SetTotpSecretNil
-
-`func (o *User) SetTotpSecretNil(b bool)`
-
- SetTotpSecretNil sets the value for TotpSecret to be an explicit nil
-
-### UnsetTotpSecret
-`func (o *User) UnsetTotpSecret()`
-
-UnsetTotpSecret ensures that no value is present for TotpSecret, not even an explicit nil
-### GetTotpSecretKeyId
-
-`func (o *User) GetTotpSecretKeyId() string`
-
-GetTotpSecretKeyId returns the TotpSecretKeyId field if non-nil, zero value otherwise.
-
-### GetTotpSecretKeyIdOk
-
-`func (o *User) GetTotpSecretKeyIdOk() (*string, bool)`
-
-GetTotpSecretKeyIdOk returns a tuple with the TotpSecretKeyId field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTotpSecretKeyId
-
-`func (o *User) SetTotpSecretKeyId(v string)`
-
-SetTotpSecretKeyId sets TotpSecretKeyId field to given value.
-
-### HasTotpSecretKeyId
-
-`func (o *User) HasTotpSecretKeyId() bool`
-
-HasTotpSecretKeyId returns a boolean if a field has been set.
-
-### SetTotpSecretKeyIdNil
-
-`func (o *User) SetTotpSecretKeyIdNil(b bool)`
-
- SetTotpSecretKeyIdNil sets the value for TotpSecretKeyId to be an explicit nil
-
-### UnsetTotpSecretKeyId
-`func (o *User) UnsetTotpSecretKeyId()`
-
-UnsetTotpSecretKeyId ensures that no value is present for TotpSecretKeyId, not even an explicit nil
 ### GetTotpConfirmedAt
 
 `func (o *User) GetTotpConfirmedAt() time.Time`
@@ -867,31 +758,6 @@ HasTotpConfirmedAt returns a boolean if a field has been set.
 `func (o *User) UnsetTotpConfirmedAt()`
 
 UnsetTotpConfirmedAt ensures that no value is present for TotpConfirmedAt, not even an explicit nil
-### GetRecoveryCodes
-
-`func (o *User) GetRecoveryCodes() []RecoveryCode`
-
-GetRecoveryCodes returns the RecoveryCodes field if non-nil, zero value otherwise.
-
-### GetRecoveryCodesOk
-
-`func (o *User) GetRecoveryCodesOk() (*[]RecoveryCode, bool)`
-
-GetRecoveryCodesOk returns a tuple with the RecoveryCodes field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetRecoveryCodes
-
-`func (o *User) SetRecoveryCodes(v []RecoveryCode)`
-
-SetRecoveryCodes sets RecoveryCodes field to given value.
-
-### HasRecoveryCodes
-
-`func (o *User) HasRecoveryCodes() bool`
-
-HasRecoveryCodes returns a boolean if a field has been set.
-
 ### GetMachineFor
 
 `func (o *User) GetMachineFor() string`

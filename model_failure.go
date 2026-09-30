@@ -34,8 +34,6 @@ type Failure struct {
 	BuildLogKey NullableString `json:"buildLogKey,omitempty"`
 	// The digest a {@see FailurePhase::Scan} failure was quarantined over — null for every other phase. What lets the scan quarantine queue (docs/image-scanning.md, #816) resolve straight from a quarantined revision to the exact {@see \\App\\Entity\\ImageScan} an operator's Clear or Uphold acts on, without re-deriving it from a pinned image reference or a reason string meant for a person to read.
 	ImageDigest NullableString `json:"imageDigest,omitempty"`
-	// The capability that makes {@see \\App\\Controller\\FailureController::shared()} serve this to someone with no session, or null while it is private.
-	ShareToken NullableString `json:"shareToken,omitempty"`
 	SharedAt NullableTime `json:"sharedAt,omitempty"`
 	// When the capability above stops working, 24 hours after it was minted.
 	ShareExpiresAt NullableTime `json:"shareExpiresAt,omitempty"`
@@ -372,48 +370,6 @@ func (o *Failure) UnsetImageDigest() {
 	o.ImageDigest.Unset()
 }
 
-// GetShareToken returns the ShareToken field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Failure) GetShareToken() string {
-	if o == nil || IsNil(o.ShareToken.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.ShareToken.Get()
-}
-
-// GetShareTokenOk returns a tuple with the ShareToken field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Failure) GetShareTokenOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.ShareToken.Get(), o.ShareToken.IsSet()
-}
-
-// HasShareToken returns a boolean if a field has been set.
-func (o *Failure) HasShareToken() bool {
-	if o != nil && o.ShareToken.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetShareToken gets a reference to the given NullableString and assigns it to the ShareToken field.
-func (o *Failure) SetShareToken(v string) {
-	o.ShareToken.Set(&v)
-}
-// SetShareTokenNil sets the value for ShareToken to be an explicit nil
-func (o *Failure) SetShareTokenNil() {
-	o.ShareToken.Set(nil)
-}
-
-// UnsetShareToken ensures that no value is present for ShareToken, not even an explicit nil
-func (o *Failure) UnsetShareToken() {
-	o.ShareToken.Unset()
-}
-
 // GetSharedAt returns the SharedAt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Failure) GetSharedAt() time.Time {
 	if o == nil || IsNil(o.SharedAt.Get()) {
@@ -743,9 +699,6 @@ func (o Failure) ToMap() (map[string]interface{}, error) {
 	}
 	if o.ImageDigest.IsSet() {
 		toSerialize["imageDigest"] = o.ImageDigest.Get()
-	}
-	if o.ShareToken.IsSet() {
-		toSerialize["shareToken"] = o.ShareToken.Get()
 	}
 	if o.SharedAt.IsSet() {
 		toSerialize["sharedAt"] = o.SharedAt.Get()

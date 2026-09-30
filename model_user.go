@@ -30,8 +30,6 @@ type User struct {
 	Locale NullableString `json:"locale,omitempty"`
 	// The IANA timezone identifier (e.g. `Europe/London`) this person prefers, or null for no explicit choice — the same shape as {@see self::$locale}: null is not UTC, it is \"let the cascade decide\" (cookie written by the browser's own auto-detection, then the instance default). A plain validated string rather than a backed enum like {@see self::$theme}/{@see self::$locale}: the IANA database has ~400 identifiers, too many for an enum to curate the way {@see \\App\\Enum\\Locale} deliberately does for its two cases. See {@see \\App\\Service\\TimezoneResolver}.
 	Timezone NullableString `json:"timezone,omitempty"`
-	// Hashed password; null for accounts that authenticate only via OAuth or LDAP.
-	Password NullableString `json:"password,omitempty"`
 	// The bound entry's distinguished name in LLDAP. Presence means the account is LDAP-authoritative: {@see App\\Service\\LdapAccountLinker} clears any local password when it sets this, and it is never set alongside one.
 	LdapDn NullableString `json:"ldapDn,omitempty"`
 	AvatarPhoto NullableUserAvatarPhoto `json:"avatarPhoto,omitempty"`
@@ -53,13 +51,8 @@ type User struct {
 	TierPinnedBy NullableUser `json:"tierPinnedBy,omitempty"`
 	TierPinReason NullableString `json:"tierPinReason,omitempty"`
 	OauthIdentities []OAuthIdentity `json:"oauthIdentities,omitempty"`
-	// The TOTP shared secret, **encrypted at rest** ({@see \\App\\Service\\TwoFactor\\TotpSecretCipher}), or null for an account that has not enabled a second factor.
-	TotpSecret NullableString `json:"totpSecret,omitempty"`
-	// Which key wrapped {@see self::$totpSecret}, so a key rotation can re-wrap it without users re-enrolling ({@see \\App\\Service\\TwoFactor\\TotpSecretCipher}).
-	TotpSecretKeyId NullableString `json:"totpSecretKeyId,omitempty"`
 	// When the person proved the authenticator by entering a live code; null means 2FA is not in force for this account. This is the flag the step-up gate reads ({@see \\App\\EventSubscriber\\TwoFactorStepUpSubscriber}).
 	TotpConfirmedAt NullableTime `json:"totpConfirmedAt,omitempty"`
-	RecoveryCodes []RecoveryCode `json:"recoveryCodes,omitempty"`
 	// The organization this account exists to act for, or null for a person.
 	MachineFor NullableString `json:"machineFor,omitempty"`
 	Id *string `json:"id,omitempty"`
@@ -333,48 +326,6 @@ func (o *User) SetTimezoneNil() {
 // UnsetTimezone ensures that no value is present for Timezone, not even an explicit nil
 func (o *User) UnsetTimezone() {
 	o.Timezone.Unset()
-}
-
-// GetPassword returns the Password field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *User) GetPassword() string {
-	if o == nil || IsNil(o.Password.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.Password.Get()
-}
-
-// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *User) GetPasswordOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Password.Get(), o.Password.IsSet()
-}
-
-// HasPassword returns a boolean if a field has been set.
-func (o *User) HasPassword() bool {
-	if o != nil && o.Password.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetPassword gets a reference to the given NullableString and assigns it to the Password field.
-func (o *User) SetPassword(v string) {
-	o.Password.Set(&v)
-}
-// SetPasswordNil sets the value for Password to be an explicit nil
-func (o *User) SetPasswordNil() {
-	o.Password.Set(nil)
-}
-
-// UnsetPassword ensures that no value is present for Password, not even an explicit nil
-func (o *User) UnsetPassword() {
-	o.Password.Unset()
 }
 
 // GetLdapDn returns the LdapDn field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -945,90 +896,6 @@ func (o *User) SetOauthIdentities(v []OAuthIdentity) {
 	o.OauthIdentities = v
 }
 
-// GetTotpSecret returns the TotpSecret field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *User) GetTotpSecret() string {
-	if o == nil || IsNil(o.TotpSecret.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.TotpSecret.Get()
-}
-
-// GetTotpSecretOk returns a tuple with the TotpSecret field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *User) GetTotpSecretOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.TotpSecret.Get(), o.TotpSecret.IsSet()
-}
-
-// HasTotpSecret returns a boolean if a field has been set.
-func (o *User) HasTotpSecret() bool {
-	if o != nil && o.TotpSecret.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetTotpSecret gets a reference to the given NullableString and assigns it to the TotpSecret field.
-func (o *User) SetTotpSecret(v string) {
-	o.TotpSecret.Set(&v)
-}
-// SetTotpSecretNil sets the value for TotpSecret to be an explicit nil
-func (o *User) SetTotpSecretNil() {
-	o.TotpSecret.Set(nil)
-}
-
-// UnsetTotpSecret ensures that no value is present for TotpSecret, not even an explicit nil
-func (o *User) UnsetTotpSecret() {
-	o.TotpSecret.Unset()
-}
-
-// GetTotpSecretKeyId returns the TotpSecretKeyId field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *User) GetTotpSecretKeyId() string {
-	if o == nil || IsNil(o.TotpSecretKeyId.Get()) {
-		var ret string
-		return ret
-	}
-	return *o.TotpSecretKeyId.Get()
-}
-
-// GetTotpSecretKeyIdOk returns a tuple with the TotpSecretKeyId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *User) GetTotpSecretKeyIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.TotpSecretKeyId.Get(), o.TotpSecretKeyId.IsSet()
-}
-
-// HasTotpSecretKeyId returns a boolean if a field has been set.
-func (o *User) HasTotpSecretKeyId() bool {
-	if o != nil && o.TotpSecretKeyId.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetTotpSecretKeyId gets a reference to the given NullableString and assigns it to the TotpSecretKeyId field.
-func (o *User) SetTotpSecretKeyId(v string) {
-	o.TotpSecretKeyId.Set(&v)
-}
-// SetTotpSecretKeyIdNil sets the value for TotpSecretKeyId to be an explicit nil
-func (o *User) SetTotpSecretKeyIdNil() {
-	o.TotpSecretKeyId.Set(nil)
-}
-
-// UnsetTotpSecretKeyId ensures that no value is present for TotpSecretKeyId, not even an explicit nil
-func (o *User) UnsetTotpSecretKeyId() {
-	o.TotpSecretKeyId.Unset()
-}
-
 // GetTotpConfirmedAt returns the TotpConfirmedAt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *User) GetTotpConfirmedAt() time.Time {
 	if o == nil || IsNil(o.TotpConfirmedAt.Get()) {
@@ -1069,38 +936,6 @@ func (o *User) SetTotpConfirmedAtNil() {
 // UnsetTotpConfirmedAt ensures that no value is present for TotpConfirmedAt, not even an explicit nil
 func (o *User) UnsetTotpConfirmedAt() {
 	o.TotpConfirmedAt.Unset()
-}
-
-// GetRecoveryCodes returns the RecoveryCodes field value if set, zero value otherwise.
-func (o *User) GetRecoveryCodes() []RecoveryCode {
-	if o == nil || IsNil(o.RecoveryCodes) {
-		var ret []RecoveryCode
-		return ret
-	}
-	return o.RecoveryCodes
-}
-
-// GetRecoveryCodesOk returns a tuple with the RecoveryCodes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *User) GetRecoveryCodesOk() ([]RecoveryCode, bool) {
-	if o == nil || IsNil(o.RecoveryCodes) {
-		return nil, false
-	}
-	return o.RecoveryCodes, true
-}
-
-// HasRecoveryCodes returns a boolean if a field has been set.
-func (o *User) HasRecoveryCodes() bool {
-	if o != nil && !IsNil(o.RecoveryCodes) {
-		return true
-	}
-
-	return false
-}
-
-// SetRecoveryCodes gets a reference to the given []RecoveryCode and assigns it to the RecoveryCodes field.
-func (o *User) SetRecoveryCodes(v []RecoveryCode) {
-	o.RecoveryCodes = v
 }
 
 // GetMachineFor returns the MachineFor field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1747,9 +1582,6 @@ func (o User) ToMap() (map[string]interface{}, error) {
 	if o.Timezone.IsSet() {
 		toSerialize["timezone"] = o.Timezone.Get()
 	}
-	if o.Password.IsSet() {
-		toSerialize["password"] = o.Password.Get()
-	}
 	if o.LdapDn.IsSet() {
 		toSerialize["ldapDn"] = o.LdapDn.Get()
 	}
@@ -1792,17 +1624,8 @@ func (o User) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OauthIdentities) {
 		toSerialize["oauthIdentities"] = o.OauthIdentities
 	}
-	if o.TotpSecret.IsSet() {
-		toSerialize["totpSecret"] = o.TotpSecret.Get()
-	}
-	if o.TotpSecretKeyId.IsSet() {
-		toSerialize["totpSecretKeyId"] = o.TotpSecretKeyId.Get()
-	}
 	if o.TotpConfirmedAt.IsSet() {
 		toSerialize["totpConfirmedAt"] = o.TotpConfirmedAt.Get()
-	}
-	if !IsNil(o.RecoveryCodes) {
-		toSerialize["recoveryCodes"] = o.RecoveryCodes
 	}
 	if o.MachineFor.IsSet() {
 		toSerialize["machineFor"] = o.MachineFor.Get()

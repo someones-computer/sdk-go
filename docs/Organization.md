@@ -20,7 +20,6 @@ Name | Type | Description | Notes
 **Swarms** | Pointer to **[]string** | BYO swarms owned by this organization. | [optional] 
 **Machines** | Pointer to [**[]Machine**](Machine.md) |  | [optional] 
 **CreditTransactions** | Pointer to **[]string** | The append-only credit ledger. | [optional] 
-**Variables** | Pointer to [**[]Variable**](Variable.md) |  | [optional] 
 **Signals** | Pointer to [**[]OrganizationSignal**](OrganizationSignal.md) |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **DeletedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
@@ -537,31 +536,6 @@ SetCreditTransactions sets CreditTransactions field to given value.
 `func (o *Organization) HasCreditTransactions() bool`
 
 HasCreditTransactions returns a boolean if a field has been set.
-
-### GetVariables
-
-`func (o *Organization) GetVariables() []Variable`
-
-GetVariables returns the Variables field if non-nil, zero value otherwise.
-
-### GetVariablesOk
-
-`func (o *Organization) GetVariablesOk() (*[]Variable, bool)`
-
-GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVariables
-
-`func (o *Organization) SetVariables(v []Variable)`
-
-SetVariables sets Variables field to given value.
-
-### HasVariables
-
-`func (o *Organization) HasVariables() bool`
-
-HasVariables returns a boolean if a field has been set.
 
 ### GetSignals
 
