@@ -18,7 +18,7 @@ import (
 // checks if the ManagedService type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ManagedService{}
 
-// ManagedService List managed services (databases/buckets) the caller can see.
+// ManagedService List retired managed services that a restore can still bring back. A service stays restorable for 7 days after deletedAt.
 type ManagedService struct {
 	Organization *string `json:"organization,omitempty"`
 	Slug *string `json:"slug,omitempty"`
