@@ -157,7 +157,6 @@ Class | Method | HTTP request | Description
  - [DeploymentJsonMergePatch](docs/DeploymentJsonMergePatch.md)
  - [DeploymentJsonMergePatchBuildContextsValueValue](docs/DeploymentJsonMergePatchBuildContextsValueValue.md)
  - [DeploymentJsonMergePatchCanonicalSpecValue](docs/DeploymentJsonMergePatchCanonicalSpecValue.md)
- - [DeploymentVariable](docs/DeploymentVariable.md)
  - [Error](docs/Error.md)
  - [Failure](docs/Failure.md)
  - [Machine](docs/Machine.md)
@@ -174,8 +173,6 @@ Class | Method | HTTP request | Description
  - [OrganizationSignal](docs/OrganizationSignal.md)
  - [PortAllocation](docs/PortAllocation.md)
  - [ProxmoxInstance](docs/ProxmoxInstance.md)
- - [RecoveryCode](docs/RecoveryCode.md)
- - [SealedSecret](docs/SealedSecret.md)
  - [Service](docs/Service.md)
  - [ServiceBinding](docs/ServiceBinding.md)
  - [ServiceBindingServiceBindingInput](docs/ServiceBindingServiceBindingInput.md)
@@ -193,8 +190,6 @@ Class | Method | HTTP request | Description
  - [SwarmNode](docs/SwarmNode.md)
  - [User](docs/User.md)
  - [UserAvatarPhoto](docs/UserAvatarPhoto.md)
- - [Variable](docs/Variable.md)
- - [VariableVersion](docs/VariableVersion.md)
 
 
 ## Documentation For Authorization
