@@ -111,8 +111,6 @@ Class | Method | HTTP request | Description
 *ManagedServiceAPI* | [**ManagedServicesDelete**](docs/ManagedServiceAPI.md#managedservicesdelete) | **Delete** /api/managed_services/{id} | Removes the ManagedService resource.
 *ManagedServiceAPI* | [**ManagedServicesGet**](docs/ManagedServiceAPI.md#managedservicesget) | **Get** /api/managed_services/{id} | Retrieves a ManagedService resource.
 *ManagedServiceAPI* | [**ManagedServicesList**](docs/ManagedServiceAPI.md#managedserviceslist) | **Get** /api/managed_services | Retrieves the collection of ManagedService resources.
-*ManagedServiceAPI* | [**ManagedServicesListRetired**](docs/ManagedServiceAPI.md#managedserviceslistretired) | **Get** /api/managed_services/retired | Retrieves the collection of ManagedService resources.
-*ManagedServiceAPI* | [**ManagedServicesRestore**](docs/ManagedServiceAPI.md#managedservicesrestore) | **Post** /api/managed_services/{id}/restore | Creates a ManagedService resource.
 *ManagedServiceAPI* | [**ManagedServicesResume**](docs/ManagedServiceAPI.md#managedservicesresume) | **Post** /api/managed_services/{id}/resume | Creates a ManagedService resource.
 *ManagedServiceAPI* | [**ManagedServicesSuspend**](docs/ManagedServiceAPI.md#managedservicessuspend) | **Post** /api/managed_services/{id}/suspend | Creates a ManagedService resource.
 *OrganizationAPI* | [**OrganizationsCreate**](docs/OrganizationAPI.md#organizationscreate) | **Post** /api/organizations | Creates a Organization resource.
@@ -157,6 +155,7 @@ Class | Method | HTTP request | Description
  - [DeploymentJsonMergePatch](docs/DeploymentJsonMergePatch.md)
  - [DeploymentJsonMergePatchBuildContextsValueValue](docs/DeploymentJsonMergePatchBuildContextsValueValue.md)
  - [DeploymentJsonMergePatchCanonicalSpecValue](docs/DeploymentJsonMergePatchCanonicalSpecValue.md)
+ - [DeploymentVariable](docs/DeploymentVariable.md)
  - [Error](docs/Error.md)
  - [Failure](docs/Failure.md)
  - [Machine](docs/Machine.md)
@@ -172,6 +171,7 @@ Class | Method | HTTP request | Description
  - [OrganizationSignal](docs/OrganizationSignal.md)
  - [PortAllocation](docs/PortAllocation.md)
  - [ProxmoxInstance](docs/ProxmoxInstance.md)
+ - [SealedSecret](docs/SealedSecret.md)
  - [Service](docs/Service.md)
  - [ServiceBinding](docs/ServiceBinding.md)
  - [ServiceBindingServiceBindingInput](docs/ServiceBindingServiceBindingInput.md)
@@ -188,6 +188,8 @@ Class | Method | HTTP request | Description
  - [SwarmJsonMergePatch](docs/SwarmJsonMergePatch.md)
  - [SwarmNode](docs/SwarmNode.md)
  - [User](docs/User.md)
+ - [Variable](docs/Variable.md)
+ - [VariableVersion](docs/VariableVersion.md)
 
 
 ## Documentation For Authorization

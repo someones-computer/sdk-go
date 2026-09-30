@@ -25,6 +25,8 @@ type ProxmoxInstance struct {
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Full token identifier, `user@realm!tokenid` — e.g. `root@pam!someones-computer`.
 	TokenId *string `json:"tokenId,omitempty"`
+	// The token's secret (a UUID as Proxmox issues it), encrypted at rest and never serialized. Proxmox shows it exactly once, at creation.
+	TokenSecret *string `json:"tokenSecret,omitempty"`
 	// Whether the certificate must validate against a CA chain.
 	VerifyTls *bool `json:"verifyTls,omitempty"`
 	// base64 SHA-256 of the endpoint's SubjectPublicKeyInfo — curl's `pin-sha256`. The right answer for a self-signed Proxmox: it authenticates *this specific host* without any CA, so the connection is still protected against interception, which `verifyTls = false` alone is not.
@@ -170,6 +172,38 @@ func (o *ProxmoxInstance) HasTokenId() bool {
 // SetTokenId gets a reference to the given string and assigns it to the TokenId field.
 func (o *ProxmoxInstance) SetTokenId(v string) {
 	o.TokenId = &v
+}
+
+// GetTokenSecret returns the TokenSecret field value if set, zero value otherwise.
+func (o *ProxmoxInstance) GetTokenSecret() string {
+	if o == nil || IsNil(o.TokenSecret) {
+		var ret string
+		return ret
+	}
+	return *o.TokenSecret
+}
+
+// GetTokenSecretOk returns a tuple with the TokenSecret field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProxmoxInstance) GetTokenSecretOk() (*string, bool) {
+	if o == nil || IsNil(o.TokenSecret) {
+		return nil, false
+	}
+	return o.TokenSecret, true
+}
+
+// HasTokenSecret returns a boolean if a field has been set.
+func (o *ProxmoxInstance) HasTokenSecret() bool {
+	if o != nil && !IsNil(o.TokenSecret) {
+		return true
+	}
+
+	return false
+}
+
+// SetTokenSecret gets a reference to the given string and assigns it to the TokenSecret field.
+func (o *ProxmoxInstance) SetTokenSecret(v string) {
+	o.TokenSecret = &v
 }
 
 // GetVerifyTls returns the VerifyTls field value if set, zero value otherwise.
@@ -750,6 +784,9 @@ func (o ProxmoxInstance) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.TokenId) {
 		toSerialize["tokenId"] = o.TokenId
+	}
+	if !IsNil(o.TokenSecret) {
+		toSerialize["tokenSecret"] = o.TokenSecret
 	}
 	if !IsNil(o.VerifyTls) {
 		toSerialize["verifyTls"] = o.VerifyTls

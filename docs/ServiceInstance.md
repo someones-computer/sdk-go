@@ -22,6 +22,7 @@ Name | Type | Description | Notes
 **CatalogueEntry** | Pointer to **string** | &#x60;postgres 17&#x60;, &#x60;mysql 8.0&#x60; — the catalogue entry this instance serves. | [optional] [readonly] 
 **Serving** | Pointer to **bool** |  | [optional] [readonly] 
 **InFlightStale** | Pointer to **bool** | Dispatched so long ago that whatever was carrying it is gone. | [optional] [readonly] 
+**AdminCredential** | Pointer to [**SealedSecret**](SealedSecret.md) |  | [optional] 
 
 ## Methods
 
@@ -551,6 +552,31 @@ SetInFlightStale sets InFlightStale field to given value.
 `func (o *ServiceInstance) HasInFlightStale() bool`
 
 HasInFlightStale returns a boolean if a field has been set.
+
+### GetAdminCredential
+
+`func (o *ServiceInstance) GetAdminCredential() SealedSecret`
+
+GetAdminCredential returns the AdminCredential field if non-nil, zero value otherwise.
+
+### GetAdminCredentialOk
+
+`func (o *ServiceInstance) GetAdminCredentialOk() (*SealedSecret, bool)`
+
+GetAdminCredentialOk returns a tuple with the AdminCredential field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAdminCredential
+
+`func (o *ServiceInstance) SetAdminCredential(v SealedSecret)`
+
+SetAdminCredential sets AdminCredential field to given value.
+
+### HasAdminCredential
+
+`func (o *ServiceInstance) HasAdminCredential() bool`
+
+HasAdminCredential returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

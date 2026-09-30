@@ -26,6 +26,7 @@ type DeploymentAccessGateJsonMergePatch struct {
 	Id *string `json:"id,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt NullableTime `json:"updatedAt,omitempty"`
+	AccessGateCredential NullableSealedSecret `json:"accessGateCredential,omitempty"`
 }
 
 // NewDeploymentAccessGateJsonMergePatch instantiates a new DeploymentAccessGateJsonMergePatch object
@@ -247,6 +248,48 @@ func (o *DeploymentAccessGateJsonMergePatch) UnsetUpdatedAt() {
 	o.UpdatedAt.Unset()
 }
 
+// GetAccessGateCredential returns the AccessGateCredential field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DeploymentAccessGateJsonMergePatch) GetAccessGateCredential() SealedSecret {
+	if o == nil || IsNil(o.AccessGateCredential.Get()) {
+		var ret SealedSecret
+		return ret
+	}
+	return *o.AccessGateCredential.Get()
+}
+
+// GetAccessGateCredentialOk returns a tuple with the AccessGateCredential field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DeploymentAccessGateJsonMergePatch) GetAccessGateCredentialOk() (*SealedSecret, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.AccessGateCredential.Get(), o.AccessGateCredential.IsSet()
+}
+
+// HasAccessGateCredential returns a boolean if a field has been set.
+func (o *DeploymentAccessGateJsonMergePatch) HasAccessGateCredential() bool {
+	if o != nil && o.AccessGateCredential.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAccessGateCredential gets a reference to the given NullableSealedSecret and assigns it to the AccessGateCredential field.
+func (o *DeploymentAccessGateJsonMergePatch) SetAccessGateCredential(v SealedSecret) {
+	o.AccessGateCredential.Set(&v)
+}
+// SetAccessGateCredentialNil sets the value for AccessGateCredential to be an explicit nil
+func (o *DeploymentAccessGateJsonMergePatch) SetAccessGateCredentialNil() {
+	o.AccessGateCredential.Set(nil)
+}
+
+// UnsetAccessGateCredential ensures that no value is present for AccessGateCredential, not even an explicit nil
+func (o *DeploymentAccessGateJsonMergePatch) UnsetAccessGateCredential() {
+	o.AccessGateCredential.Unset()
+}
+
 func (o DeploymentAccessGateJsonMergePatch) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -274,6 +317,9 @@ func (o DeploymentAccessGateJsonMergePatch) ToMap() (map[string]interface{}, err
 	}
 	if o.UpdatedAt.IsSet() {
 		toSerialize["updatedAt"] = o.UpdatedAt.Get()
+	}
+	if o.AccessGateCredential.IsSet() {
+		toSerialize["accessGateCredential"] = o.AccessGateCredential.Get()
 	}
 	return toSerialize, nil
 }

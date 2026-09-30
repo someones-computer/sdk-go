@@ -46,6 +46,7 @@ type Application struct {
 	// The access-key id of the read-only Garage key scoped to {@see $buildBucket}, handed to build tasks. Doubles as Garage's own identifier for the key (the same way {@see ManagedService::$externalKeyId} does), so nothing separate is persisted for it.
 	BuildKeyId NullableString `json:"buildKeyId,omitempty"`
 	Deployments []string `json:"deployments,omitempty"`
+	Variables []Variable `json:"variables,omitempty"`
 	PortAllocations []PortAllocation `json:"portAllocations,omitempty"`
 	// Which of the app-hosting pool domains (`snarl.dev`, `starshp.dev` — {@see \\App\\Service\\Ingress\\DomainPoolAssigner}) this application's deployments answer under, in addition to `someones.computer`. Null until its first successful deploy assigns one, and never moved after — a redeploy must resolve to the same pool hostnames it already handed out, the same reason {@see $firstRunningAt} is a latch rather than a rolling value.
 	PoolDomain NullableString `json:"poolDomain,omitempty"`
@@ -55,6 +56,8 @@ type Application struct {
 	DeletedAt NullableTime `json:"deletedAt,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt NullableTime `json:"updatedAt,omitempty"`
+	BuildCredential *SealedSecret `json:"buildCredential,omitempty"`
+	AccessGateCredential NullableSealedSecret `json:"accessGateCredential,omitempty"`
 	// Point the application at a stored icon, or at none.
 	Icon NullableString `json:"icon,omitempty"`
 	// Whether the stored icon was chosen by a person, and so must survive the next deploy's favicon extraction.
@@ -653,6 +656,38 @@ func (o *Application) SetDeployments(v []string) {
 	o.Deployments = v
 }
 
+// GetVariables returns the Variables field value if set, zero value otherwise.
+func (o *Application) GetVariables() []Variable {
+	if o == nil || IsNil(o.Variables) {
+		var ret []Variable
+		return ret
+	}
+	return o.Variables
+}
+
+// GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Application) GetVariablesOk() ([]Variable, bool) {
+	if o == nil || IsNil(o.Variables) {
+		return nil, false
+	}
+	return o.Variables, true
+}
+
+// HasVariables returns a boolean if a field has been set.
+func (o *Application) HasVariables() bool {
+	if o != nil && !IsNil(o.Variables) {
+		return true
+	}
+
+	return false
+}
+
+// SetVariables gets a reference to the given []Variable and assigns it to the Variables field.
+func (o *Application) SetVariables(v []Variable) {
+	o.Variables = v
+}
+
 // GetPortAllocations returns the PortAllocations field value if set, zero value otherwise.
 func (o *Application) GetPortAllocations() []PortAllocation {
 	if o == nil || IsNil(o.PortAllocations) {
@@ -917,6 +952,80 @@ func (o *Application) UnsetUpdatedAt() {
 	o.UpdatedAt.Unset()
 }
 
+// GetBuildCredential returns the BuildCredential field value if set, zero value otherwise.
+func (o *Application) GetBuildCredential() SealedSecret {
+	if o == nil || IsNil(o.BuildCredential) {
+		var ret SealedSecret
+		return ret
+	}
+	return *o.BuildCredential
+}
+
+// GetBuildCredentialOk returns a tuple with the BuildCredential field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Application) GetBuildCredentialOk() (*SealedSecret, bool) {
+	if o == nil || IsNil(o.BuildCredential) {
+		return nil, false
+	}
+	return o.BuildCredential, true
+}
+
+// HasBuildCredential returns a boolean if a field has been set.
+func (o *Application) HasBuildCredential() bool {
+	if o != nil && !IsNil(o.BuildCredential) {
+		return true
+	}
+
+	return false
+}
+
+// SetBuildCredential gets a reference to the given SealedSecret and assigns it to the BuildCredential field.
+func (o *Application) SetBuildCredential(v SealedSecret) {
+	o.BuildCredential = &v
+}
+
+// GetAccessGateCredential returns the AccessGateCredential field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Application) GetAccessGateCredential() SealedSecret {
+	if o == nil || IsNil(o.AccessGateCredential.Get()) {
+		var ret SealedSecret
+		return ret
+	}
+	return *o.AccessGateCredential.Get()
+}
+
+// GetAccessGateCredentialOk returns a tuple with the AccessGateCredential field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Application) GetAccessGateCredentialOk() (*SealedSecret, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.AccessGateCredential.Get(), o.AccessGateCredential.IsSet()
+}
+
+// HasAccessGateCredential returns a boolean if a field has been set.
+func (o *Application) HasAccessGateCredential() bool {
+	if o != nil && o.AccessGateCredential.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAccessGateCredential gets a reference to the given NullableSealedSecret and assigns it to the AccessGateCredential field.
+func (o *Application) SetAccessGateCredential(v SealedSecret) {
+	o.AccessGateCredential.Set(&v)
+}
+// SetAccessGateCredentialNil sets the value for AccessGateCredential to be an explicit nil
+func (o *Application) SetAccessGateCredentialNil() {
+	o.AccessGateCredential.Set(nil)
+}
+
+// UnsetAccessGateCredential ensures that no value is present for AccessGateCredential, not even an explicit nil
+func (o *Application) UnsetAccessGateCredential() {
+	o.AccessGateCredential.Unset()
+}
+
 // GetIcon returns the Icon field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Application) GetIcon() string {
 	if o == nil || IsNil(o.Icon.Get()) {
@@ -1120,6 +1229,9 @@ func (o Application) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Deployments) {
 		toSerialize["deployments"] = o.Deployments
 	}
+	if !IsNil(o.Variables) {
+		toSerialize["variables"] = o.Variables
+	}
 	if !IsNil(o.PortAllocations) {
 		toSerialize["portAllocations"] = o.PortAllocations
 	}
@@ -1140,6 +1252,12 @@ func (o Application) ToMap() (map[string]interface{}, error) {
 	}
 	if o.UpdatedAt.IsSet() {
 		toSerialize["updatedAt"] = o.UpdatedAt.Get()
+	}
+	if !IsNil(o.BuildCredential) {
+		toSerialize["buildCredential"] = o.BuildCredential
+	}
+	if o.AccessGateCredential.IsSet() {
+		toSerialize["accessGateCredential"] = o.AccessGateCredential.Get()
 	}
 	if o.Icon.IsSet() {
 		toSerialize["icon"] = o.Icon.Get()

@@ -48,6 +48,7 @@ type ServiceInstance struct {
 	Serving *bool `json:"serving,omitempty"`
 	// Dispatched so long ago that whatever was carrying it is gone.
 	InFlightStale *bool `json:"inFlightStale,omitempty"`
+	AdminCredential *SealedSecret `json:"adminCredential,omitempty"`
 }
 
 // NewServiceInstance instantiates a new ServiceInstance object
@@ -707,6 +708,38 @@ func (o *ServiceInstance) SetInFlightStale(v bool) {
 	o.InFlightStale = &v
 }
 
+// GetAdminCredential returns the AdminCredential field value if set, zero value otherwise.
+func (o *ServiceInstance) GetAdminCredential() SealedSecret {
+	if o == nil || IsNil(o.AdminCredential) {
+		var ret SealedSecret
+		return ret
+	}
+	return *o.AdminCredential
+}
+
+// GetAdminCredentialOk returns a tuple with the AdminCredential field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ServiceInstance) GetAdminCredentialOk() (*SealedSecret, bool) {
+	if o == nil || IsNil(o.AdminCredential) {
+		return nil, false
+	}
+	return o.AdminCredential, true
+}
+
+// HasAdminCredential returns a boolean if a field has been set.
+func (o *ServiceInstance) HasAdminCredential() bool {
+	if o != nil && !IsNil(o.AdminCredential) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdminCredential gets a reference to the given SealedSecret and assigns it to the AdminCredential field.
+func (o *ServiceInstance) SetAdminCredential(v SealedSecret) {
+	o.AdminCredential = &v
+}
+
 func (o ServiceInstance) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -770,6 +803,9 @@ func (o ServiceInstance) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.InFlightStale) {
 		toSerialize["inFlightStale"] = o.InFlightStale
+	}
+	if !IsNil(o.AdminCredential) {
+		toSerialize["adminCredential"] = o.AdminCredential
 	}
 	return toSerialize, nil
 }
