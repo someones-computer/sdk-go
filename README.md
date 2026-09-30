@@ -111,6 +111,8 @@ Class | Method | HTTP request | Description
 *ManagedServiceAPI* | [**ManagedServicesDelete**](docs/ManagedServiceAPI.md#managedservicesdelete) | **Delete** /api/managed_services/{id} | Removes the ManagedService resource.
 *ManagedServiceAPI* | [**ManagedServicesGet**](docs/ManagedServiceAPI.md#managedservicesget) | **Get** /api/managed_services/{id} | Retrieves a ManagedService resource.
 *ManagedServiceAPI* | [**ManagedServicesList**](docs/ManagedServiceAPI.md#managedserviceslist) | **Get** /api/managed_services | Retrieves the collection of ManagedService resources.
+*ManagedServiceAPI* | [**ManagedServicesListRetired**](docs/ManagedServiceAPI.md#managedserviceslistretired) | **Get** /api/managed_services/retired | Retrieves the collection of ManagedService resources.
+*ManagedServiceAPI* | [**ManagedServicesRestore**](docs/ManagedServiceAPI.md#managedservicesrestore) | **Post** /api/managed_services/{id}/restore | Creates a ManagedService resource.
 *ManagedServiceAPI* | [**ManagedServicesResume**](docs/ManagedServiceAPI.md#managedservicesresume) | **Post** /api/managed_services/{id}/resume | Creates a ManagedService resource.
 *ManagedServiceAPI* | [**ManagedServicesSuspend**](docs/ManagedServiceAPI.md#managedservicessuspend) | **Post** /api/managed_services/{id}/suspend | Creates a ManagedService resource.
 *OrganizationAPI* | [**OrganizationsCreate**](docs/OrganizationAPI.md#organizationscreate) | **Post** /api/organizations | Creates a Organization resource.

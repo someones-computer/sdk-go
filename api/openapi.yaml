@@ -1131,6 +1131,23 @@ paths:
       summary: Creates a ManagedService resource.
       tags:
       - ManagedService
+  /api/managed_services/retired:
+    get:
+      description: Retrieves the collection of ManagedService resources.
+      operationId: managed_services_list_retired
+      parameters: []
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ManagedService'
+                type: array
+          description: ManagedService collection
+      summary: Retrieves the collection of ManagedService resources.
+      tags:
+      - ManagedService
   /api/managed_services/{id}:
     delete:
       description: Removes the ManagedService resource.
@@ -1190,6 +1207,48 @@ paths:
                 $ref: '#/components/schemas/Error'
           description: Not found
       summary: Retrieves a ManagedService resource.
+      tags:
+      - ManagedService
+  /api/managed_services/{id}/restore:
+    post:
+      description: Creates a ManagedService resource.
+      operationId: managed_services_restore
+      parameters:
+      - deprecated: false
+        description: ManagedService identifier
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManagedService'
+          description: ManagedService resource created
+        "400":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/Error'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Invalid input
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ConstraintViolation'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConstraintViolation'
+          description: An error occurred
+      summary: Creates a ManagedService resource.
       tags:
       - ManagedService
   /api/managed_services/{id}/resume:
@@ -4833,7 +4892,8 @@ components:
           readOnly: true
           type: boolean
     ManagedService:
-      description: List managed services (databases/buckets) the caller can see.
+      description: List retired managed services that a restore can still bring back.
+        A service stays restorable for 7 days after deletedAt.
       example:
         instance:
           adminCredential:
@@ -4965,6 +5025,7 @@ components:
           enum:
           - credit_exhausted
           - over_quota
+          - retired
           - null
           nullable: true
           type: string
