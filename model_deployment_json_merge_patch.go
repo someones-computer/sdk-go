@@ -33,6 +33,8 @@ type DeploymentJsonMergePatch struct {
 	BuildContexts map[string]map[string]DeploymentJsonMergePatchBuildContextsValueValue `json:"buildContexts,omitempty"`
 	// Client-forwarded images uploaded with this revision, keyed by compose service name: `{ contextSha256, originalImage, image?, log? }`. See docs/registry.md's \"Client-side forwarding\" callout: `sc` detects a private, unbuildable `image:` reference it can already reach locally and offers to upload it, for a platform that has no other way to pull it. A sibling to {@see self::$buildContexts} rather than folded into it — that array means \"run this through BuildKit\", and this one never does. The tarballs live in the object store ({@see \\App\\Service\\Bundle\\ImageStorage}), not the database; `image` is filled in once the loader has pushed it to the internal registry, the same way `buildContexts[]['image']` is. `{}` for every revision that forwarded nothing, which is most of them.
 	ForwardedImages map[string]map[string]string `json:"forwardedImages,omitempty"`
+	// `build.secrets` values declared for this revision's build services (Grey.ooo/someones.computer_agent#46), sealed the moment they arrive ({@see \\App\\Service\\Secret\\SecretBox}) and never written to the object store the way a build context is: unlike a context tarball, a build secret is live tenant credential material, not something worth caching by content — closer to how {@see \\App\\Service\\Registry\\RegistryTokenSigner} mints a push token than to how {@see \\App\\Entity\\Variable} keeps one.
+	BuildSecrets map[string]map[string]map[string]string `json:"buildSecrets,omitempty"`
 	// Resolved by the placement engine; null until placed.
 	TargetSwarm NullableString `json:"targetSwarm,omitempty"`
 	Status *string `json:"status,omitempty"`
@@ -48,6 +50,7 @@ type DeploymentJsonMergePatch struct {
 	Digest NullableString `json:"digest,omitempty"`
 	CreatedBy NullableUser `json:"createdBy,omitempty"`
 	Services []Service `json:"services,omitempty"`
+	Variables []DeploymentVariable `json:"variables,omitempty"`
 	Failures []Failure `json:"failures,omitempty"`
 	Id *string `json:"id,omitempty"`
 	DeletedAt NullableTime `json:"deletedAt,omitempty"`
@@ -319,6 +322,38 @@ func (o *DeploymentJsonMergePatch) HasForwardedImages() bool {
 // SetForwardedImages gets a reference to the given map[string]map[string]string and assigns it to the ForwardedImages field.
 func (o *DeploymentJsonMergePatch) SetForwardedImages(v map[string]map[string]string) {
 	o.ForwardedImages = v
+}
+
+// GetBuildSecrets returns the BuildSecrets field value if set, zero value otherwise.
+func (o *DeploymentJsonMergePatch) GetBuildSecrets() map[string]map[string]map[string]string {
+	if o == nil || IsNil(o.BuildSecrets) {
+		var ret map[string]map[string]map[string]string
+		return ret
+	}
+	return o.BuildSecrets
+}
+
+// GetBuildSecretsOk returns a tuple with the BuildSecrets field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DeploymentJsonMergePatch) GetBuildSecretsOk() (map[string]map[string]map[string]string, bool) {
+	if o == nil || IsNil(o.BuildSecrets) {
+		return map[string]map[string]map[string]string{}, false
+	}
+	return o.BuildSecrets, true
+}
+
+// HasBuildSecrets returns a boolean if a field has been set.
+func (o *DeploymentJsonMergePatch) HasBuildSecrets() bool {
+	if o != nil && !IsNil(o.BuildSecrets) {
+		return true
+	}
+
+	return false
+}
+
+// SetBuildSecrets gets a reference to the given map[string]map[string]map[string]string and assigns it to the BuildSecrets field.
+func (o *DeploymentJsonMergePatch) SetBuildSecrets(v map[string]map[string]map[string]string) {
+	o.BuildSecrets = v
 }
 
 // GetTargetSwarm returns the TargetSwarm field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -659,6 +694,38 @@ func (o *DeploymentJsonMergePatch) SetServices(v []Service) {
 	o.Services = v
 }
 
+// GetVariables returns the Variables field value if set, zero value otherwise.
+func (o *DeploymentJsonMergePatch) GetVariables() []DeploymentVariable {
+	if o == nil || IsNil(o.Variables) {
+		var ret []DeploymentVariable
+		return ret
+	}
+	return o.Variables
+}
+
+// GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DeploymentJsonMergePatch) GetVariablesOk() ([]DeploymentVariable, bool) {
+	if o == nil || IsNil(o.Variables) {
+		return nil, false
+	}
+	return o.Variables, true
+}
+
+// HasVariables returns a boolean if a field has been set.
+func (o *DeploymentJsonMergePatch) HasVariables() bool {
+	if o != nil && !IsNil(o.Variables) {
+		return true
+	}
+
+	return false
+}
+
+// SetVariables gets a reference to the given []DeploymentVariable and assigns it to the Variables field.
+func (o *DeploymentJsonMergePatch) SetVariables(v []DeploymentVariable) {
+	o.Variables = v
+}
+
 // GetFailures returns the Failures field value if set, zero value otherwise.
 func (o *DeploymentJsonMergePatch) GetFailures() []Failure {
 	if o == nil || IsNil(o.Failures) {
@@ -934,6 +1001,9 @@ func (o DeploymentJsonMergePatch) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ForwardedImages) {
 		toSerialize["forwardedImages"] = o.ForwardedImages
 	}
+	if !IsNil(o.BuildSecrets) {
+		toSerialize["buildSecrets"] = o.BuildSecrets
+	}
 	if o.TargetSwarm.IsSet() {
 		toSerialize["targetSwarm"] = o.TargetSwarm.Get()
 	}
@@ -960,6 +1030,9 @@ func (o DeploymentJsonMergePatch) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Services) {
 		toSerialize["services"] = o.Services
+	}
+	if !IsNil(o.Variables) {
+		toSerialize["variables"] = o.Variables
 	}
 	if !IsNil(o.Failures) {
 		toSerialize["failures"] = o.Failures

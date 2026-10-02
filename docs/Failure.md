@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Service** | Pointer to **NullableString** | Which compose service, where the phase happens per-service. Null for the phases that fail the revision as a whole (placement, stranded) and for a deploy that never got as far as naming one. | [optional] 
 **BuildLogKey** | Pointer to **NullableString** | Object key of the build log as it stood, or null when there was none. | [optional] 
 **ImageDigest** | Pointer to **NullableString** | The digest a {@see FailurePhase::Scan} failure was quarantined over — null for every other phase. What lets the scan quarantine queue (docs/image-scanning.md, #816) resolve straight from a quarantined revision to the exact {@see \\App\\Entity\\ImageScan} an operator&#39;s Clear or Uphold acts on, without re-deriving it from a pinned image reference or a reason string meant for a person to read. | [optional] 
+**ShareToken** | Pointer to **NullableString** | The capability that makes {@see \\App\\Controller\\FailureController::shared()} serve this to someone with no session, or null while it is private. | [optional] [readonly] 
 **SharedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **ShareExpiresAt** | Pointer to **NullableTime** | When the capability above stops working, 24 hours after it was minted. | [optional] [readonly] 
 **SharedBy** | Pointer to [**NullableUser**](User.md) |  | [optional] 
@@ -290,6 +291,41 @@ HasImageDigest returns a boolean if a field has been set.
 `func (o *Failure) UnsetImageDigest()`
 
 UnsetImageDigest ensures that no value is present for ImageDigest, not even an explicit nil
+### GetShareToken
+
+`func (o *Failure) GetShareToken() string`
+
+GetShareToken returns the ShareToken field if non-nil, zero value otherwise.
+
+### GetShareTokenOk
+
+`func (o *Failure) GetShareTokenOk() (*string, bool)`
+
+GetShareTokenOk returns a tuple with the ShareToken field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShareToken
+
+`func (o *Failure) SetShareToken(v string)`
+
+SetShareToken sets ShareToken field to given value.
+
+### HasShareToken
+
+`func (o *Failure) HasShareToken() bool`
+
+HasShareToken returns a boolean if a field has been set.
+
+### SetShareTokenNil
+
+`func (o *Failure) SetShareTokenNil(b bool)`
+
+ SetShareTokenNil sets the value for ShareToken to be an explicit nil
+
+### UnsetShareToken
+`func (o *Failure) UnsetShareToken()`
+
+UnsetShareToken ensures that no value is present for ShareToken, not even an explicit nil
 ### GetSharedAt
 
 `func (o *Failure) GetSharedAt() time.Time`

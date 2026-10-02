@@ -73,6 +73,32 @@ func Test_someonescomputer_ManagedServiceAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ManagedServiceAPIService ManagedServicesListRetired", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.ManagedServiceAPI.ManagedServicesListRetired(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test ManagedServiceAPIService ManagedServicesRestore", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.ManagedServiceAPI.ManagedServicesRestore(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ManagedServiceAPIService ManagedServicesResume", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

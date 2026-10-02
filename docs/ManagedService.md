@@ -28,6 +28,7 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **UpdatedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **CatalogueEntry** | Pointer to **string** | &#x60;postgres 17&#x60;, &#x60;mysql 8.0&#x60; — the catalogue entry, as one string. | [optional] [readonly] 
+**Credential** | Pointer to [**SealedSecret**](SealedSecret.md) |  | [optional] 
 **Available** | Pointer to **bool** |  | [optional] [readonly] 
 **Deleted** | Pointer to **bool** |  | [optional] [readonly] 
 
@@ -779,6 +780,31 @@ SetCatalogueEntry sets CatalogueEntry field to given value.
 `func (o *ManagedService) HasCatalogueEntry() bool`
 
 HasCatalogueEntry returns a boolean if a field has been set.
+
+### GetCredential
+
+`func (o *ManagedService) GetCredential() SealedSecret`
+
+GetCredential returns the Credential field if non-nil, zero value otherwise.
+
+### GetCredentialOk
+
+`func (o *ManagedService) GetCredentialOk() (*SealedSecret, bool)`
+
+GetCredentialOk returns a tuple with the Credential field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCredential
+
+`func (o *ManagedService) SetCredential(v SealedSecret)`
+
+SetCredential sets Credential field to given value.
+
+### HasCredential
+
+`func (o *ManagedService) HasCredential() bool`
+
+HasCredential returns a boolean if a field has been set.
 
 ### GetAvailable
 

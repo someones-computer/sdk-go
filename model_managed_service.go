@@ -18,7 +18,7 @@ import (
 // checks if the ManagedService type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ManagedService{}
 
-// ManagedService List managed services (databases/buckets) the caller can see.
+// ManagedService List retired managed services that a restore can still bring back. A service stays restorable for 7 days after deletedAt.
 type ManagedService struct {
 	Organization *string `json:"organization,omitempty"`
 	Slug *string `json:"slug,omitempty"`
@@ -51,6 +51,7 @@ type ManagedService struct {
 	UpdatedAt NullableTime `json:"updatedAt,omitempty"`
 	// `postgres 17`, `mysql 8.0` — the catalogue entry, as one string.
 	CatalogueEntry *string `json:"catalogueEntry,omitempty"`
+	Credential *SealedSecret `json:"credential,omitempty"`
 	Available *bool `json:"available,omitempty"`
 	Deleted *bool `json:"deleted,omitempty"`
 }
@@ -974,6 +975,38 @@ func (o *ManagedService) SetCatalogueEntry(v string) {
 	o.CatalogueEntry = &v
 }
 
+// GetCredential returns the Credential field value if set, zero value otherwise.
+func (o *ManagedService) GetCredential() SealedSecret {
+	if o == nil || IsNil(o.Credential) {
+		var ret SealedSecret
+		return ret
+	}
+	return *o.Credential
+}
+
+// GetCredentialOk returns a tuple with the Credential field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ManagedService) GetCredentialOk() (*SealedSecret, bool) {
+	if o == nil || IsNil(o.Credential) {
+		return nil, false
+	}
+	return o.Credential, true
+}
+
+// HasCredential returns a boolean if a field has been set.
+func (o *ManagedService) HasCredential() bool {
+	if o != nil && !IsNil(o.Credential) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredential gets a reference to the given SealedSecret and assigns it to the Credential field.
+func (o *ManagedService) SetCredential(v SealedSecret) {
+	o.Credential = &v
+}
+
 // GetAvailable returns the Available field value if set, zero value otherwise.
 func (o *ManagedService) GetAvailable() bool {
 	if o == nil || IsNil(o.Available) {
@@ -1119,6 +1152,9 @@ func (o ManagedService) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CatalogueEntry) {
 		toSerialize["catalogueEntry"] = o.CatalogueEntry
+	}
+	if !IsNil(o.Credential) {
+		toSerialize["credential"] = o.Credential
 	}
 	if !IsNil(o.Available) {
 		toSerialize["available"] = o.Available

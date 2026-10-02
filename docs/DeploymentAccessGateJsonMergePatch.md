@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **UpdatedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
+**AccessGateCredential** | Pointer to [**NullableSealedSecret**](SealedSecret.md) |  | [optional] 
 
 ## Methods
 
@@ -190,6 +191,41 @@ HasUpdatedAt returns a boolean if a field has been set.
 `func (o *DeploymentAccessGateJsonMergePatch) UnsetUpdatedAt()`
 
 UnsetUpdatedAt ensures that no value is present for UpdatedAt, not even an explicit nil
+### GetAccessGateCredential
+
+`func (o *DeploymentAccessGateJsonMergePatch) GetAccessGateCredential() SealedSecret`
+
+GetAccessGateCredential returns the AccessGateCredential field if non-nil, zero value otherwise.
+
+### GetAccessGateCredentialOk
+
+`func (o *DeploymentAccessGateJsonMergePatch) GetAccessGateCredentialOk() (*SealedSecret, bool)`
+
+GetAccessGateCredentialOk returns a tuple with the AccessGateCredential field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAccessGateCredential
+
+`func (o *DeploymentAccessGateJsonMergePatch) SetAccessGateCredential(v SealedSecret)`
+
+SetAccessGateCredential sets AccessGateCredential field to given value.
+
+### HasAccessGateCredential
+
+`func (o *DeploymentAccessGateJsonMergePatch) HasAccessGateCredential() bool`
+
+HasAccessGateCredential returns a boolean if a field has been set.
+
+### SetAccessGateCredentialNil
+
+`func (o *DeploymentAccessGateJsonMergePatch) SetAccessGateCredentialNil(b bool)`
+
+ SetAccessGateCredentialNil sets the value for AccessGateCredential to be an explicit nil
+
+### UnsetAccessGateCredential
+`func (o *DeploymentAccessGateJsonMergePatch) UnsetAccessGateCredential()`
+
+UnsetAccessGateCredential ensures that no value is present for AccessGateCredential, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
