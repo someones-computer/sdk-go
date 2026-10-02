@@ -19,7 +19,6 @@ Name | Type | Description | Notes
 **BuildBucket** | Pointer to **NullableString** | This application&#39;s own Garage build-context bucket — where &#x60;sc deploy&#x60;&#39;s uploaded contexts and forwarded images are parked, and the only bucket the build key below can read. Null until the first upload provisions it ({@see \\App\\Service\\Bundle\\ApplicationBuildBucketProvisioner}); every application predating #996 looks like that too, and provisions on its next deploy. | [optional] 
 **BuildKeyId** | Pointer to **NullableString** | The access-key id of the read-only Garage key scoped to {@see $buildBucket}, handed to build tasks. Doubles as Garage&#39;s own identifier for the key (the same way {@see ManagedService::$externalKeyId} does), so nothing separate is persisted for it. | [optional] 
 **Deployments** | Pointer to **[]string** |  | [optional] 
-**Variables** | Pointer to [**[]Variable**](Variable.md) |  | [optional] 
 **PortAllocations** | Pointer to [**[]PortAllocation**](PortAllocation.md) |  | [optional] 
 **PoolDomain** | Pointer to **NullableString** | Which of the app-hosting pool domains (&#x60;snarl.dev&#x60;, &#x60;starshp.dev&#x60; — {@see \\App\\Service\\Ingress\\DomainPoolAssigner}) this application&#39;s deployments answer under, in addition to &#x60;someones.computer&#x60;. Null until its first successful deploy assigns one, and never moved after — a redeploy must resolve to the same pool hostnames it already handed out, the same reason {@see $firstRunningAt} is a latch rather than a rolling value. | [optional] [readonly] 
 **PoolLabel** | Pointer to **NullableString** | Overrides the auto-slugified application name in the pool-domain hostname&#39;s &#x60;{service}.{deployment}.{label}.{poolDomain}&#x60; shape ({@see \\App\\Service\\Ingress\\PoolHostname}) — null for every application that has not opted into a custom one, which is what {@see poolLabelOrSlug()} falls back to. Unique platform-wide, the same reasoning as {@see \\App\\Entity\\Domain::$name}: two applications sharing a label would collide on the exact same DNS name the moment they also shared a deployment and service name. | [optional] 
@@ -27,8 +26,6 @@ Name | Type | Description | Notes
 **DeletedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **UpdatedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
-**BuildCredential** | Pointer to [**SealedSecret**](SealedSecret.md) |  | [optional] 
-**AccessGateCredential** | Pointer to [**NullableSealedSecret**](SealedSecret.md) |  | [optional] 
 **Icon** | Pointer to **NullableString** | Point the application at a stored icon, or at none. | [optional] 
 **OperatorChosenIcon** | Pointer to **bool** | Whether the stored icon was chosen by a person, and so must survive the next deploy&#39;s favicon extraction. | [optional] [readonly] 
 **IconVersion** | Pointer to **NullableString** | A short, stable token for the icon a caller is looking at — the cache-busting half of the icon URL, and null when there is nothing stored to bust. | [optional] [readonly] 
@@ -508,31 +505,6 @@ SetDeployments sets Deployments field to given value.
 
 HasDeployments returns a boolean if a field has been set.
 
-### GetVariables
-
-`func (o *Application) GetVariables() []Variable`
-
-GetVariables returns the Variables field if non-nil, zero value otherwise.
-
-### GetVariablesOk
-
-`func (o *Application) GetVariablesOk() (*[]Variable, bool)`
-
-GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVariables
-
-`func (o *Application) SetVariables(v []Variable)`
-
-SetVariables sets Variables field to given value.
-
-### HasVariables
-
-`func (o *Application) HasVariables() bool`
-
-HasVariables returns a boolean if a field has been set.
-
 ### GetPortAllocations
 
 `func (o *Application) GetPortAllocations() []PortAllocation`
@@ -748,66 +720,6 @@ HasUpdatedAt returns a boolean if a field has been set.
 `func (o *Application) UnsetUpdatedAt()`
 
 UnsetUpdatedAt ensures that no value is present for UpdatedAt, not even an explicit nil
-### GetBuildCredential
-
-`func (o *Application) GetBuildCredential() SealedSecret`
-
-GetBuildCredential returns the BuildCredential field if non-nil, zero value otherwise.
-
-### GetBuildCredentialOk
-
-`func (o *Application) GetBuildCredentialOk() (*SealedSecret, bool)`
-
-GetBuildCredentialOk returns a tuple with the BuildCredential field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBuildCredential
-
-`func (o *Application) SetBuildCredential(v SealedSecret)`
-
-SetBuildCredential sets BuildCredential field to given value.
-
-### HasBuildCredential
-
-`func (o *Application) HasBuildCredential() bool`
-
-HasBuildCredential returns a boolean if a field has been set.
-
-### GetAccessGateCredential
-
-`func (o *Application) GetAccessGateCredential() SealedSecret`
-
-GetAccessGateCredential returns the AccessGateCredential field if non-nil, zero value otherwise.
-
-### GetAccessGateCredentialOk
-
-`func (o *Application) GetAccessGateCredentialOk() (*SealedSecret, bool)`
-
-GetAccessGateCredentialOk returns a tuple with the AccessGateCredential field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAccessGateCredential
-
-`func (o *Application) SetAccessGateCredential(v SealedSecret)`
-
-SetAccessGateCredential sets AccessGateCredential field to given value.
-
-### HasAccessGateCredential
-
-`func (o *Application) HasAccessGateCredential() bool`
-
-HasAccessGateCredential returns a boolean if a field has been set.
-
-### SetAccessGateCredentialNil
-
-`func (o *Application) SetAccessGateCredentialNil(b bool)`
-
- SetAccessGateCredentialNil sets the value for AccessGateCredential to be an explicit nil
-
-### UnsetAccessGateCredential
-`func (o *Application) UnsetAccessGateCredential()`
-
-UnsetAccessGateCredential ensures that no value is present for AccessGateCredential, not even an explicit nil
 ### GetIcon
 
 `func (o *Application) GetIcon() string`

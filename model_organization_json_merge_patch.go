@@ -44,7 +44,6 @@ type OrganizationJsonMergePatch struct {
 	Machines []Machine `json:"machines,omitempty"`
 	// The append-only credit ledger.
 	CreditTransactions []string `json:"creditTransactions,omitempty"`
-	Variables []Variable `json:"variables,omitempty"`
 	Signals []OrganizationSignal `json:"signals,omitempty"`
 	Id *string `json:"id,omitempty"`
 	DeletedAt NullableTime `json:"deletedAt,omitempty"`
@@ -673,38 +672,6 @@ func (o *OrganizationJsonMergePatch) SetCreditTransactions(v []string) {
 	o.CreditTransactions = v
 }
 
-// GetVariables returns the Variables field value if set, zero value otherwise.
-func (o *OrganizationJsonMergePatch) GetVariables() []Variable {
-	if o == nil || IsNil(o.Variables) {
-		var ret []Variable
-		return ret
-	}
-	return o.Variables
-}
-
-// GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OrganizationJsonMergePatch) GetVariablesOk() ([]Variable, bool) {
-	if o == nil || IsNil(o.Variables) {
-		return nil, false
-	}
-	return o.Variables, true
-}
-
-// HasVariables returns a boolean if a field has been set.
-func (o *OrganizationJsonMergePatch) HasVariables() bool {
-	if o != nil && !IsNil(o.Variables) {
-		return true
-	}
-
-	return false
-}
-
-// SetVariables gets a reference to the given []Variable and assigns it to the Variables field.
-func (o *OrganizationJsonMergePatch) SetVariables(v []Variable) {
-	o.Variables = v
-}
-
 // GetSignals returns the Signals field value if set, zero value otherwise.
 func (o *OrganizationJsonMergePatch) GetSignals() []OrganizationSignal {
 	if o == nil || IsNil(o.Signals) {
@@ -1006,9 +973,6 @@ func (o OrganizationJsonMergePatch) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CreditTransactions) {
 		toSerialize["creditTransactions"] = o.CreditTransactions
-	}
-	if !IsNil(o.Variables) {
-		toSerialize["variables"] = o.Variables
 	}
 	if !IsNil(o.Signals) {
 		toSerialize["signals"] = o.Signals

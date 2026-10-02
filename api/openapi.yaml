@@ -2064,7 +2064,6 @@ components:
           name: name
           templateVmid: 2
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          tokenSecret: tokenSecret
           publicKeyPin: publicKeyPin
           templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
           templateBuildFailures: 4
@@ -2236,7 +2235,6 @@ components:
         name: name
         templateVmid: 2
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        tokenSecret: tokenSecret
         publicKeyPin: publicKeyPin
         templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
         templateBuildFailures: 4
@@ -2250,11 +2248,6 @@ components:
           type: string
         tokenId:
           description: "Full token identifier, `user@realm!tokenid` — e.g. `root@pam!someones-computer`."
-          type: string
-        tokenSecret:
-          description: |-
-            The token's secret (a UUID as Proxmox issues it), encrypted at rest and
-            never serialized. Proxmox shows it exactly once, at creation.
           type: string
         verifyTls:
           default: true
@@ -2538,7 +2531,6 @@ components:
             name: name
             templateVmid: 2
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tokenSecret: tokenSecret
             publicKeyPin: publicKeyPin
             templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
             templateBuildFailures: 4
@@ -2577,7 +2569,6 @@ components:
             name: name
             templateVmid: 2
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tokenSecret: tokenSecret
             publicKeyPin: publicKeyPin
             templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
             templateBuildFailures: 4
@@ -2761,11 +2752,6 @@ components:
         createdAt: 2000-01-23T04:56:07.000+00:00
         adoptedComposeService: adoptedComposeService
         application: https://example.com/
-        sidecarCredential:
-          ciphertext: ciphertext
-          keyId: keyId
-          nonce: nonce
-          algo: algo
         service: https://example.com/
         injectedKeys:
         - injectedKeys
@@ -2818,23 +2804,6 @@ components:
         adopted:
           readOnly: true
           type: boolean
-        sidecarCredential:
-          $ref: '#/components/schemas/SealedSecret'
-    SealedSecret:
-      example:
-        ciphertext: ciphertext
-        keyId: keyId
-        nonce: nonce
-        algo: algo
-      properties:
-        algo:
-          type: string
-        keyId:
-          type: string
-        nonce:
-          type: string
-        ciphertext:
-          type: string
     ServiceBinding.ServiceBindingInput:
       description: Bind a managed service to an application.
       properties:
@@ -2968,10 +2937,6 @@ components:
             format: iri-reference
             type: string
           type: array
-        variables:
-          items:
-            $ref: '#/components/schemas/Variable'
-          type: array
         signals:
           items:
             $ref: '#/components/schemas/OrganizationSignal'
@@ -3037,180 +3002,6 @@ components:
           nullable: true
           readOnly: true
           type: string
-    Variable:
-      example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        deletedAt: 2000-01-23T04:56:07.000+00:00
-        deleted: true
-        application: https://example.com/
-        orgShared: true
-        versions:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          ciphertext: ciphertext
-          encrypted: encrypted
-          createdBy:
-            displayName: displayName
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            username: username
-          variable: null
-          keyId: keyId
-          plaintext: plaintext
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          version: 0
-          nonce: nonce
-          algo: algo
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          ciphertext: ciphertext
-          encrypted: encrypted
-          createdBy:
-            displayName: displayName
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            username: username
-          variable: null
-          keyId: keyId
-          plaintext: plaintext
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          version: 0
-          nonce: nonce
-          algo: algo
-        secretFileDelivery: false
-        organization: https://example.com/
-        sensitive: false
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        key: key
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-      properties:
-        organization:
-          description: |-
-            Re-home this variable. Used only when an application-scoped row follows
-            its {@see Application} across organizations — an org-shared row
-            (`$application === null`) has no application to follow and is never
-            moved this way.
-          example: https://example.com/
-          format: iri-reference
-          type: string
-        application:
-          description: Null => org-shared across all of the organization's applications.
-          example: https://example.com/
-          format: iri-reference
-          nullable: true
-          type: string
-        key:
-          description: The environment variable name. ("key" is reserved in some SQL
-            dialects.)
-          type: string
-        sensitive:
-          default: false
-          type: boolean
-        secretFileDelivery:
-          default: false
-          description: |-
-            Opt-in only, and meaningless unless {@see $sensitive} is also true: whether
-            this secret is delivered to its containers as a mounted Swarm secret file
-            (plus a `<KEY>_FILE` env var naming its path) rather than as a plain `Env`
-            entry — {@see \App\Service\Deploy\StackDeployer}.
-          type: boolean
-        versions:
-          items:
-            $ref: '#/components/schemas/VariableVersion'
-          type: array
-        id:
-          format: uuid
-          readOnly: true
-          type: string
-        deletedAt:
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        createdAt:
-          format: date-time
-          readOnly: true
-          type: string
-        updatedAt:
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        orgShared:
-          readOnly: true
-          type: boolean
-        deleted:
-          readOnly: true
-          type: boolean
-    VariableVersion:
-      example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        ciphertext: ciphertext
-        encrypted: encrypted
-        createdBy:
-          displayName: displayName
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          username: username
-        variable: null
-        keyId: keyId
-        plaintext: plaintext
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        version: 0
-        nonce: nonce
-        algo: algo
-      properties:
-        variable:
-          $ref: '#/components/schemas/Variable'
-        version:
-          type: integer
-        algo:
-          description: "Encryption algorithm identifier, e.g. \"xsalsa20poly1305\"\
-            . Sensitive only."
-          nullable: true
-          readOnly: true
-          type: string
-        keyId:
-          description: Identifier of the key-encryption-key that wrapped this value.
-            Sensitive only.
-          nullable: true
-          readOnly: true
-          type: string
-        nonce:
-          nullable: true
-          readOnly: true
-          type: string
-        ciphertext:
-          nullable: true
-          readOnly: true
-          type: string
-        createdAt:
-          format: date-time
-          readOnly: true
-          type: string
-        createdBy:
-          $ref: '#/components/schemas/User'
-        id:
-          format: uuid
-          readOnly: true
-          type: string
-        encrypted:
-          description: Populate an encrypted (sensitive) value.
-          type: string
-        plaintext:
-          description: Populate a plaintext (non-sensitive) value.
-          type: string
-    User:
-      example:
-        displayName: displayName
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        username: username
-      properties:
-        id:
-          format: uuid
-          readOnly: true
-          type: string
-        username:
-          description: Handle the user can sign in with instead of their email.
-          type: string
-        displayName:
-          nullable: true
-          type: string
     Membership:
       example:
         createdAt: 2000-01-23T04:56:07.000+00:00
@@ -3248,93 +3039,28 @@ components:
           nullable: true
           readOnly: true
           type: string
+    User:
+      example:
+        displayName: displayName
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        username: username
+      properties:
+        id:
+          format: uuid
+          readOnly: true
+          type: string
+        username:
+          description: Handle the user can sign in with instead of their email.
+          type: string
+        displayName:
+          nullable: true
+          type: string
     Organization:
       description: List organizations the caller is a member of.
       example:
         creditTransactions:
         - https://example.com/
         - https://example.com/
-        variables:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          application: https://example.com/
-          orgShared: true
-          versions:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              displayName: displayName
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              displayName: displayName
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          secretFileDelivery: false
-          organization: https://example.com/
-          sensitive: false
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          key: key
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          application: https://example.com/
-          orgShared: true
-          versions:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              displayName: displayName
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              displayName: displayName
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          secretFileDelivery: false
-          organization: https://example.com/
-          sensitive: false
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          key: key
-          updatedAt: 2000-01-23T04:56:07.000+00:00
         swarms:
         - https://example.com/
         - https://example.com/
@@ -3402,7 +3128,6 @@ components:
             name: name
             templateVmid: 2
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tokenSecret: tokenSecret
             publicKeyPin: publicKeyPin
             templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
             templateBuildFailures: 4
@@ -3441,7 +3166,6 @@ components:
             name: name
             templateVmid: 2
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tokenSecret: tokenSecret
             publicKeyPin: publicKeyPin
             templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
             templateBuildFailures: 4
@@ -3590,10 +3314,6 @@ components:
             format: iri-reference
             type: string
           type: array
-        variables:
-          items:
-            $ref: '#/components/schemas/Variable'
-          type: array
         signals:
           items:
             $ref: '#/components/schemas/OrganizationSignal'
@@ -3627,11 +3347,6 @@ components:
         A service stays restorable for 7 days after deletedAt.
       example:
         instance:
-          adminCredential:
-            ciphertext: ciphertext
-            keyId: keyId
-            nonce: nonce
-            algo: algo
           kind: postgres
           capacityBytes: 0
           observedAt: 2000-01-23T04:56:07.000+00:00
@@ -3658,11 +3373,6 @@ components:
         clientConnectionsOverride: 5
         createdAt: 2000-01-23T04:56:07.000+00:00
         quotaBytes: 1
-        credential:
-          ciphertext: ciphertext
-          keyId: keyId
-          nonce: nonce
-          algo: algo
         poolSizeOverride: 5
         state: requested
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -3804,8 +3514,6 @@ components:
           description: "`postgres 17`, `mysql 8.0` — the catalogue entry, as one string."
           readOnly: true
           type: string
-        credential:
-          $ref: '#/components/schemas/SealedSecret'
         available:
           readOnly: true
           type: boolean
@@ -3814,11 +3522,6 @@ components:
           type: boolean
     ServiceInstance:
       example:
-        adminCredential:
-          ciphertext: ciphertext
-          keyId: keyId
-          nonce: nonce
-          algo: algo
         kind: postgres
         capacityBytes: 0
         observedAt: 2000-01-23T04:56:07.000+00:00
@@ -3930,8 +3633,6 @@ components:
           description: Dispatched so long ago that whatever was carrying it is gone.
           readOnly: true
           type: boolean
-        adminCredential:
-          $ref: '#/components/schemas/SealedSecret'
     ManagedService.ManagedServiceInput:
       description: Create a new managed service (database or bucket) on a shared engine.
       properties:
@@ -3985,17 +3686,10 @@ components:
           nullable: true
           readOnly: true
           type: string
-        accessGateCredential:
-          $ref: '#/components/schemas/SealedSecret'
     DeploymentAccessGate:
       description: List an application's per-deployment access-gate overrides.
       example:
         createdAt: 2000-01-23T04:56:07.000+00:00
-        accessGateCredential:
-          ciphertext: ciphertext
-          keyId: keyId
-          nonce: nonce
-          algo: algo
         application: https://example.com/
         accessGate: none
         name: name
@@ -4028,8 +3722,6 @@ components:
           nullable: true
           readOnly: true
           type: string
-        accessGateCredential:
-          $ref: '#/components/schemas/SealedSecret'
     Deployment.DeploymentEndpoint:
       description: List the reachable endpoint(s) for one deployment.
       example:
@@ -4123,19 +3815,6 @@ components:
             is filled in once the loader has pushed it to the internal registry,
             the same way `buildContexts[]['image']` is. `{}` for every revision
             that forwarded nothing, which is most of them.
-        buildSecrets:
-          additionalProperties:
-            additionalProperties:
-              additionalProperties:
-                type: string
-          description: |-
-            `build.secrets` values declared for this revision's build services
-            (Grey.ooo/someones.computer_agent#46), sealed the moment they arrive
-            ({@see \App\Service\Secret\SecretBox}) and never written to the object
-            store the way a build context is: unlike a context tarball, a build
-            secret is live tenant credential material, not something worth caching
-            by content — closer to how {@see \App\Service\Registry\RegistryTokenSigner}
-            mints a push token than to how {@see \App\Entity\Variable} keeps one.
         targetSwarm:
           description: Resolved by the placement engine; null until placed.
           example: https://example.com/
@@ -4203,10 +3882,6 @@ components:
           items:
             $ref: '#/components/schemas/Service'
           type: array
-        variables:
-          items:
-            $ref: '#/components/schemas/DeploymentVariable'
-          type: array
         failures:
           items:
             $ref: '#/components/schemas/Failure'
@@ -4243,7 +3918,6 @@ components:
         displayLabel: displayLabel
         reason: reason
         shared: true
-        shareToken: shareToken
         imageDigest: imageDigest
         reference: reference
         buildLogKey: buildLogKey
@@ -4265,7 +3939,6 @@ components:
           name: name
           templateVmid: 2
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          tokenSecret: tokenSecret
           publicKeyPin: publicKeyPin
           templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
           templateBuildFailures: 4
@@ -4332,13 +4005,6 @@ components:
             reference or a reason string meant for a person to read.
           nullable: true
           type: string
-        shareToken:
-          description: |-
-            The capability that makes {@see \App\Controller\FailureController::shared()}
-            serve this to someone with no session, or null while it is private.
-          nullable: true
-          readOnly: true
-          type: string
         sharedAt:
           format: date-time
           nullable: true
@@ -4376,41 +4042,6 @@ components:
             it has not yet passed its expiry.
           readOnly: true
           type: boolean
-    DeploymentVariable:
-      example:
-        variableVersion:
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          ciphertext: ciphertext
-          encrypted: encrypted
-          createdBy:
-            displayName: displayName
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            username: username
-          variable: null
-          keyId: keyId
-          plaintext: plaintext
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          version: 0
-          nonce: nonce
-          algo: algo
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        key: key
-        deployment: https://example.com/
-      properties:
-        deployment:
-          example: https://example.com/
-          format: iri-reference
-          type: string
-        variableVersion:
-          $ref: '#/components/schemas/VariableVersion'
-        id:
-          format: uuid
-          readOnly: true
-          type: string
-        key:
-          description: The environment variable name this entry contributes.
-          readOnly: true
-          type: string
     Service:
       example:
         image: image
@@ -4537,73 +4168,11 @@ components:
     Deployment:
       description: List an application's deployment revisions.
       example:
-        zeroTaskObservedAt: 2000-01-23T04:56:07.000+00:00
-        canonicalSpec:
-          key:
-            key:
-              key: Deployment_jsonMergePatch_canonicalSpec_value
-        failedOnSwarm: false
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        onASwarm: true
-        statusReason: statusReason
-        buildSecrets:
-          key:
-            key:
-              key: buildSecrets
-        buildContexts:
-          key:
-            key:
-              key:
-                key: Deployment_jsonMergePatch_buildContexts_value_value
-        digest: digest
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        forwardedImages:
-          key:
-            key: forwardedImages
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-        variables:
-        - variableVersion:
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              displayName: displayName
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          key: key
-          deployment: https://example.com/
-        - variableVersion:
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              displayName: displayName
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          key: key
-          deployment: https://example.com/
         failures:
         - phase: placement
           displayLabel: displayLabel
           reason: reason
           shared: true
-          shareToken: shareToken
           imageDigest: imageDigest
           reference: reference
           buildLogKey: buildLogKey
@@ -4625,7 +4194,6 @@ components:
             name: name
             templateVmid: 2
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tokenSecret: tokenSecret
             publicKeyPin: publicKeyPin
             templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
             templateBuildFailures: 4
@@ -4643,7 +4211,6 @@ components:
           displayLabel: displayLabel
           reason: reason
           shared: true
-          shareToken: shareToken
           imageDigest: imageDigest
           reference: reference
           buildLogKey: buildLogKey
@@ -4665,7 +4232,6 @@ components:
             name: name
             templateVmid: 2
             id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            tokenSecret: tokenSecret
             publicKeyPin: publicKeyPin
             templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
             templateBuildFailures: 4
@@ -4680,6 +4246,7 @@ components:
           deployment: https://example.com/
           updatedAt: 2000-01-23T04:56:07.000+00:00
         rawCompose: rawCompose
+        zeroTaskObservedAt: 2000-01-23T04:56:07.000+00:00
         services:
         - image: image
           cpuReservation: 5
@@ -4731,18 +4298,37 @@ components:
           forwardedUnscanned: false
           deployment: https://example.com/
           updatedAt: 2000-01-23T04:56:07.000+00:00
+        canonicalSpec:
+          key:
+            key:
+              key: Deployment_jsonMergePatch_canonicalSpec_value
         degraded: false
         sequence: 0
+        failedOnSwarm: false
+        createdAt: 2000-01-23T04:56:07.000+00:00
         deletedAt: 2000-01-23T04:56:07.000+00:00
+        onASwarm: true
+        statusReason: statusReason
         deleted: true
         application: https://example.com/
+        buildContexts:
+          key:
+            key:
+              key:
+                key: Deployment_jsonMergePatch_buildContexts_value_value
         createdBy:
           displayName: displayName
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           username: username
         name: name
+        digest: digest
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        forwardedImages:
+          key:
+            key: forwardedImages
         targetSwarm: https://example.com/
         status: pending
+        updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         application:
           example: https://example.com/
@@ -4799,19 +4385,6 @@ components:
             is filled in once the loader has pushed it to the internal registry,
             the same way `buildContexts[]['image']` is. `{}` for every revision
             that forwarded nothing, which is most of them.
-        buildSecrets:
-          additionalProperties:
-            additionalProperties:
-              additionalProperties:
-                type: string
-          description: |-
-            `build.secrets` values declared for this revision's build services
-            (Grey.ooo/someones.computer_agent#46), sealed the moment they arrive
-            ({@see \App\Service\Secret\SecretBox}) and never written to the object
-            store the way a build context is: unlike a context tarball, a build
-            secret is live tenant credential material, not something worth caching
-            by content — closer to how {@see \App\Service\Registry\RegistryTokenSigner}
-            mints a push token than to how {@see \App\Entity\Variable} keeps one.
         targetSwarm:
           description: Resolved by the placement engine; null until placed.
           example: https://example.com/
@@ -4878,10 +4451,6 @@ components:
         services:
           items:
             $ref: '#/components/schemas/Service'
-          type: array
-        variables:
-          items:
-            $ref: '#/components/schemas/DeploymentVariable'
           type: array
         failures:
           items:
@@ -5401,10 +4970,6 @@ components:
             format: iri-reference
             type: string
           type: array
-        variables:
-          items:
-            $ref: '#/components/schemas/Variable'
-          type: array
         portAllocations:
           items:
             $ref: '#/components/schemas/PortAllocation'
@@ -5451,10 +5016,6 @@ components:
           nullable: true
           readOnly: true
           type: string
-        buildCredential:
-          $ref: '#/components/schemas/SealedSecret'
-        accessGateCredential:
-          $ref: '#/components/schemas/SealedSecret'
         icon:
           description: "Point the application at a stored icon, or at none."
           nullable: true
@@ -5480,14 +5041,14 @@ components:
       example:
         createdAt: 2000-01-23T04:56:07.000+00:00
         protocol: tcp
-        publishedPort: 1
+        publishedPort: 6
         swarm: https://example.com/
         application: https://example.com/
         deploymentName: deploymentName
         assigned: true
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         serviceName: serviceName
-        targetPort: 6
+        targetPort: 0
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         swarm:
@@ -5549,11 +5110,6 @@ components:
         iconKey: iconKey
         iconVersion: iconVersion
         createdAt: 2000-01-23T04:56:07.000+00:00
-        buildCredential:
-          ciphertext: ciphertext
-          keyId: keyId
-          nonce: nonce
-          algo: algo
         legacyStackBase: legacyStackBase
         buildKeyId: buildKeyId
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -5562,106 +5118,25 @@ components:
         portAllocations:
         - createdAt: 2000-01-23T04:56:07.000+00:00
           protocol: tcp
-          publishedPort: 1
+          publishedPort: 6
           swarm: https://example.com/
           application: https://example.com/
           deploymentName: deploymentName
           assigned: true
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           serviceName: serviceName
-          targetPort: 6
+          targetPort: 0
           updatedAt: 2000-01-23T04:56:07.000+00:00
         - createdAt: 2000-01-23T04:56:07.000+00:00
           protocol: tcp
-          publishedPort: 1
+          publishedPort: 6
           swarm: https://example.com/
           application: https://example.com/
           deploymentName: deploymentName
           assigned: true
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           serviceName: serviceName
-          targetPort: 6
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        variables:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          application: https://example.com/
-          orgShared: true
-          versions:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              displayName: displayName
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              displayName: displayName
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          secretFileDelivery: false
-          organization: https://example.com/
-          sensitive: false
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          key: key
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          deletedAt: 2000-01-23T04:56:07.000+00:00
-          deleted: true
-          application: https://example.com/
-          orgShared: true
-          versions:
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              displayName: displayName
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          - createdAt: 2000-01-23T04:56:07.000+00:00
-            ciphertext: ciphertext
-            encrypted: encrypted
-            createdBy:
-              displayName: displayName
-              id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-              username: username
-            variable: null
-            keyId: keyId
-            plaintext: plaintext
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            version: 0
-            nonce: nonce
-            algo: algo
-          secretFileDelivery: false
-          organization: https://example.com/
-          sensitive: false
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          key: key
+          targetPort: 0
           updatedAt: 2000-01-23T04:56:07.000+00:00
         buildBucket: buildBucket
         primaryDeploymentName: primaryDeploymentName
@@ -5673,11 +5148,6 @@ components:
         - https://example.com/
         - https://example.com/
         deletedAt: 2000-01-23T04:56:07.000+00:00
-        accessGateCredential:
-          ciphertext: ciphertext
-          keyId: keyId
-          nonce: nonce
-          algo: algo
         deleted: true
         currentDeployment: https://example.com/
         poolLabel: poolLabel
@@ -5805,10 +5275,6 @@ components:
             format: iri-reference
             type: string
           type: array
-        variables:
-          items:
-            $ref: '#/components/schemas/Variable'
-          type: array
         portAllocations:
           items:
             $ref: '#/components/schemas/PortAllocation'
@@ -5855,10 +5321,6 @@ components:
           nullable: true
           readOnly: true
           type: string
-        buildCredential:
-          $ref: '#/components/schemas/SealedSecret'
-        accessGateCredential:
-          $ref: '#/components/schemas/SealedSecret'
         icon:
           description: "Point the application at a stored icon, or at none."
           nullable: true
