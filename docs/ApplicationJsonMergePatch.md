@@ -22,6 +22,9 @@ Name | Type | Description | Notes
 **PortAllocations** | Pointer to [**[]PortAllocation**](PortAllocation.md) |  | [optional] 
 **PoolDomain** | Pointer to **NullableString** | Which of the app-hosting pool domains (&#x60;snarl.dev&#x60;, &#x60;starshp.dev&#x60; — {@see \\App\\Service\\Ingress\\DomainPoolAssigner}) this application&#39;s deployments answer under, in addition to &#x60;someones.computer&#x60;. Null until its first successful deploy assigns one, and never moved after — a redeploy must resolve to the same pool hostnames it already handed out, the same reason {@see $firstRunningAt} is a latch rather than a rolling value. | [optional] [readonly] 
 **PoolLabel** | Pointer to **NullableString** | Overrides the auto-slugified application name in the pool-domain hostname&#39;s &#x60;{service}.{deployment}.{label}.{poolDomain}&#x60; shape ({@see \\App\\Service\\Ingress\\PoolHostname}) — null for every application that has not opted into a custom one, which is what {@see poolLabelOrSlug()} falls back to. Unique platform-wide, the same reasoning as {@see \\App\\Entity\\Domain::$name}: two applications sharing a label would collide on the exact same DNS name the moment they also shared a deployment and service name. | [optional] 
+**PoolShortName** | Pointer to **bool** | Whether &#x60;{label}.{poolDomain}&#x60;, with no service or deployment level in front, answers for one deployment (#2030). See {@see poolShortHostname()}. | [optional] [default to false]
+**PoolShortNameDeployment** | Pointer to **NullableString** | The deployment the short name answers for. Null is the unnamed deployment. | [optional] [readonly] 
+**PoolShortNameService** | Pointer to **NullableString** | The compose service it routes to. Null is the only HTTP service. | [optional] [readonly] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **DeletedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
@@ -600,6 +603,101 @@ HasPoolLabel returns a boolean if a field has been set.
 `func (o *ApplicationJsonMergePatch) UnsetPoolLabel()`
 
 UnsetPoolLabel ensures that no value is present for PoolLabel, not even an explicit nil
+### GetPoolShortName
+
+`func (o *ApplicationJsonMergePatch) GetPoolShortName() bool`
+
+GetPoolShortName returns the PoolShortName field if non-nil, zero value otherwise.
+
+### GetPoolShortNameOk
+
+`func (o *ApplicationJsonMergePatch) GetPoolShortNameOk() (*bool, bool)`
+
+GetPoolShortNameOk returns a tuple with the PoolShortName field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPoolShortName
+
+`func (o *ApplicationJsonMergePatch) SetPoolShortName(v bool)`
+
+SetPoolShortName sets PoolShortName field to given value.
+
+### HasPoolShortName
+
+`func (o *ApplicationJsonMergePatch) HasPoolShortName() bool`
+
+HasPoolShortName returns a boolean if a field has been set.
+
+### GetPoolShortNameDeployment
+
+`func (o *ApplicationJsonMergePatch) GetPoolShortNameDeployment() string`
+
+GetPoolShortNameDeployment returns the PoolShortNameDeployment field if non-nil, zero value otherwise.
+
+### GetPoolShortNameDeploymentOk
+
+`func (o *ApplicationJsonMergePatch) GetPoolShortNameDeploymentOk() (*string, bool)`
+
+GetPoolShortNameDeploymentOk returns a tuple with the PoolShortNameDeployment field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPoolShortNameDeployment
+
+`func (o *ApplicationJsonMergePatch) SetPoolShortNameDeployment(v string)`
+
+SetPoolShortNameDeployment sets PoolShortNameDeployment field to given value.
+
+### HasPoolShortNameDeployment
+
+`func (o *ApplicationJsonMergePatch) HasPoolShortNameDeployment() bool`
+
+HasPoolShortNameDeployment returns a boolean if a field has been set.
+
+### SetPoolShortNameDeploymentNil
+
+`func (o *ApplicationJsonMergePatch) SetPoolShortNameDeploymentNil(b bool)`
+
+ SetPoolShortNameDeploymentNil sets the value for PoolShortNameDeployment to be an explicit nil
+
+### UnsetPoolShortNameDeployment
+`func (o *ApplicationJsonMergePatch) UnsetPoolShortNameDeployment()`
+
+UnsetPoolShortNameDeployment ensures that no value is present for PoolShortNameDeployment, not even an explicit nil
+### GetPoolShortNameService
+
+`func (o *ApplicationJsonMergePatch) GetPoolShortNameService() string`
+
+GetPoolShortNameService returns the PoolShortNameService field if non-nil, zero value otherwise.
+
+### GetPoolShortNameServiceOk
+
+`func (o *ApplicationJsonMergePatch) GetPoolShortNameServiceOk() (*string, bool)`
+
+GetPoolShortNameServiceOk returns a tuple with the PoolShortNameService field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPoolShortNameService
+
+`func (o *ApplicationJsonMergePatch) SetPoolShortNameService(v string)`
+
+SetPoolShortNameService sets PoolShortNameService field to given value.
+
+### HasPoolShortNameService
+
+`func (o *ApplicationJsonMergePatch) HasPoolShortNameService() bool`
+
+HasPoolShortNameService returns a boolean if a field has been set.
+
+### SetPoolShortNameServiceNil
+
+`func (o *ApplicationJsonMergePatch) SetPoolShortNameServiceNil(b bool)`
+
+ SetPoolShortNameServiceNil sets the value for PoolShortNameService to be an explicit nil
+
+### UnsetPoolShortNameService
+`func (o *ApplicationJsonMergePatch) UnsetPoolShortNameService()`
+
+UnsetPoolShortNameService ensures that no value is present for PoolShortNameService, not even an explicit nil
 ### GetId
 
 `func (o *ApplicationJsonMergePatch) GetId() string`

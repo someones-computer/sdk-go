@@ -4998,6 +4998,23 @@ components:
             deployment and service name.
           nullable: true
           type: string
+        poolShortName:
+          default: false
+          description: |-
+            Whether `{label}.{poolDomain}`, with no service or deployment level in
+            front, answers for one deployment (#2030). See {@see poolShortHostname()}.
+          type: boolean
+        poolShortNameDeployment:
+          description: The deployment the short name answers for. Null is the unnamed
+            deployment.
+          nullable: true
+          readOnly: true
+          type: string
+        poolShortNameService:
+          description: The compose service it routes to. Null is the only HTTP service.
+          nullable: true
+          readOnly: true
+          type: string
         id:
           format: uuid
           readOnly: true
@@ -5105,9 +5122,11 @@ components:
     Application:
       description: List applications the caller can see.
       example:
+        poolShortNameDeployment: poolShortNameDeployment
         icon: icon
         serviceAdoption: "off"
         iconKey: iconKey
+        poolShortNameService: poolShortNameService
         iconVersion: iconVersion
         createdAt: 2000-01-23T04:56:07.000+00:00
         legacyStackBase: legacyStackBase
@@ -5141,6 +5160,7 @@ components:
         buildBucket: buildBucket
         primaryDeploymentName: primaryDeploymentName
         accessGate: none
+        poolShortName: false
         poolDomain: poolDomain
         firstRunningAt: 2000-01-23T04:56:07.000+00:00
         iconSource: uploaded
@@ -5302,6 +5322,23 @@ components:
             collide on the exact same DNS name the moment they also shared a
             deployment and service name.
           nullable: true
+          type: string
+        poolShortName:
+          default: false
+          description: |-
+            Whether `{label}.{poolDomain}`, with no service or deployment level in
+            front, answers for one deployment (#2030). See {@see poolShortHostname()}.
+          type: boolean
+        poolShortNameDeployment:
+          description: The deployment the short name answers for. Null is the unnamed
+            deployment.
+          nullable: true
+          readOnly: true
+          type: string
+        poolShortNameService:
+          description: The compose service it routes to. Null is the only HTTP service.
+          nullable: true
+          readOnly: true
           type: string
         id:
           format: uuid
