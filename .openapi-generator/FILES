@@ -48,6 +48,7 @@ docs/Failure.md
 docs/Machine.md
 docs/ManagedService.md
 docs/ManagedServiceAPI.md
+docs/ManagedServiceEngine.md
 docs/ManagedServiceLastLoadMillis.md
 docs/ManagedServiceManagedServiceInput.md
 docs/ManagedServicePendingLoadMillis.md
@@ -67,9 +68,6 @@ docs/ServiceBindingServiceBindingInput.md
 docs/ServiceCpuLimit.md
 docs/ServiceCpuReservation.md
 docs/ServiceHealthcheckValue.md
-docs/ServiceInstance.md
-docs/ServiceInstanceCapacityBytes.md
-docs/ServiceInstanceObservedUsageBytes.md
 docs/ServiceMemLimit.md
 docs/ServiceMemReservation.md
 docs/ServicePortsInnerValue.md
@@ -109,6 +107,7 @@ model_error.go
 model_failure.go
 model_machine.go
 model_managed_service.go
+model_managed_service_engine.go
 model_managed_service_last_load_millis.go
 model_managed_service_managed_service_input.go
 model_managed_service_pending_load_millis.go
@@ -126,9 +125,6 @@ model_service_binding_service_binding_input.go
 model_service_cpu_limit.go
 model_service_cpu_reservation.go
 model_service_healthcheck_value.go
-model_service_instance.go
-model_service_instance_capacity_bytes.go
-model_service_instance_observed_usage_bytes.go
 model_service_mem_limit.go
 model_service_mem_reservation.go
 model_service_ports_inner_value.go
