@@ -752,11 +752,60 @@ type ApiDeploymentsListRequest struct {
 	ctx context.Context
 	ApiService *DeploymentAPIService
 	page *int32
+	application *string
+	application2 *[]string
+	sequence *string
+	sequence2 *[]string
+	name *string
+	name2 *[]string
+	itemsPerPage *string
 }
 
 // The collection page number
 func (r ApiDeploymentsListRequest) Page(page int32) ApiDeploymentsListRequest {
 	r.page = &page
+	return r
+}
+
+// Only revisions of this application, by IRI (&#x60;/api/applications/{id}&#x60;).
+func (r ApiDeploymentsListRequest) Application(application string) ApiDeploymentsListRequest {
+	r.application = &application
+	return r
+}
+
+// Only revisions of this application, by IRI (&#x60;/api/applications/{id}&#x60;).
+func (r ApiDeploymentsListRequest) Application2(application2 []string) ApiDeploymentsListRequest {
+	r.application2 = &application2
+	return r
+}
+
+// Only the revision with this sequence number.
+func (r ApiDeploymentsListRequest) Sequence(sequence string) ApiDeploymentsListRequest {
+	r.sequence = &sequence
+	return r
+}
+
+// Only the revision with this sequence number.
+func (r ApiDeploymentsListRequest) Sequence2(sequence2 []string) ApiDeploymentsListRequest {
+	r.sequence2 = &sequence2
+	return r
+}
+
+// Only revisions with this exact name.
+func (r ApiDeploymentsListRequest) Name(name string) ApiDeploymentsListRequest {
+	r.name = &name
+	return r
+}
+
+// Only revisions with this exact name.
+func (r ApiDeploymentsListRequest) Name2(name2 []string) ApiDeploymentsListRequest {
+	r.name2 = &name2
+	return r
+}
+
+// Rows per page.
+func (r ApiDeploymentsListRequest) ItemsPerPage(itemsPerPage string) ApiDeploymentsListRequest {
+	r.itemsPerPage = &itemsPerPage
 	return r
 }
 
@@ -805,6 +854,27 @@ func (a *DeploymentAPIService) DeploymentsListExecute(r ApiDeploymentsListReques
 	} else {
 		var defaultValue int32 = 1
 		r.page = &defaultValue
+	}
+	if r.application != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "application", r.application, "form", "")
+	}
+	if r.application2 != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "application[]", r.application2, "deepObject", "csv")
+	}
+	if r.sequence != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sequence", r.sequence, "form", "")
+	}
+	if r.sequence2 != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sequence[]", r.sequence2, "deepObject", "csv")
+	}
+	if r.name != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name", r.name, "form", "")
+	}
+	if r.name2 != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "name[]", r.name2, "deepObject", "csv")
+	}
+	if r.itemsPerPage != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "itemsPerPage", r.itemsPerPage, "form", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
