@@ -588,6 +588,75 @@ paths:
           default: 1
           type: integer
         style: form
+      - deprecated: false
+        description: "Only revisions of this application, by IRI (`/api/applications/{id}`)."
+        explode: true
+        in: query
+        name: application
+        required: false
+        schema:
+          type: string
+        style: form
+      - deprecated: false
+        description: "Only revisions of this application, by IRI (`/api/applications/{id}`)."
+        explode: true
+        in: query
+        name: "application[]"
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: deepObject
+      - deprecated: false
+        description: Only the revision with this sequence number.
+        explode: true
+        in: query
+        name: sequence
+        required: false
+        schema:
+          type: string
+        style: form
+      - deprecated: false
+        description: Only the revision with this sequence number.
+        explode: true
+        in: query
+        name: "sequence[]"
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: deepObject
+      - deprecated: false
+        description: Only revisions with this exact name.
+        explode: true
+        in: query
+        name: name
+        required: false
+        schema:
+          type: string
+        style: form
+      - deprecated: false
+        description: Only revisions with this exact name.
+        explode: true
+        in: query
+        name: "name[]"
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: deepObject
+      - deprecated: false
+        description: Rows per page.
+        explode: true
+        in: query
+        name: itemsPerPage
+        required: false
+        schema:
+          type: string
+        style: form
       responses:
         "200":
           content:
@@ -4166,7 +4235,8 @@ components:
           readOnly: true
           type: string
     Deployment:
-      description: List an application's deployment revisions.
+      description: "List deployment revisions. Filter by application (IRI), sequence\
+        \ or name. Any other query parameter answers 400."
       example:
         failures:
         - phase: placement
