@@ -426,6 +426,7 @@ func (a *ManagedServiceAPIService) ManagedServicesListExecute(r ApiManagedServic
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	} else {
 		var defaultValue int32 = 1
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", defaultValue, "form", "")
 		r.page = &defaultValue
 	}
 	// to determine the Content-Type header

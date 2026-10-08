@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Deployment** | Pointer to **NullableString** | Deleting a revision deletes its failures with it. They are an account of what that revision did, and outliving the thing they describe would leave a page that can only render half of itself. | [optional] 
-**ProxmoxInstance** | Pointer to [**NullableProxmoxInstance**](ProxmoxInstance.md) |  | [optional] 
+**ProxmoxInstance** | Pointer to [**NullableProxmoxInstance**](ProxmoxInstance.md) | The platform-infrastructure counterpart to {@see $deployment}, set only for a failure that has no revision behind it at all, such as a template build. There&#39;s no tenant on the other end of this one: it&#39;s reachable only from &#x60;/admin&#x60;, never from a member&#39;s own pages. | [optional] 
 **Phase** | Pointer to **string** |  | [optional] 
 **Reason** | Pointer to **string** | Verbatim, as it was written to &#x60;Deployment::$statusReason&#x60; at the time. | [optional] 
 **Reference** | Pointer to **string** | The short handle this failure is quoted by — see {@see FailureReference}. | [optional] [readonly] 
@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **ImageDigest** | Pointer to **NullableString** | The digest a {@see FailurePhase::Scan} failure was quarantined over — null for every other phase. What lets the scan quarantine queue (docs/image-scanning.md, #816) resolve straight from a quarantined revision to the exact {@see \\App\\Entity\\ImageScan} an operator&#39;s Clear or Uphold acts on, without re-deriving it from a pinned image reference or a reason string meant for a person to read. | [optional] 
 **SharedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **ShareExpiresAt** | Pointer to **NullableTime** | When the capability above stops working, 24 hours after it was minted. | [optional] [readonly] 
-**SharedBy** | Pointer to [**NullableUser**](User.md) |  | [optional] 
+**SharedBy** | Pointer to [**NullableUser**](User.md) |  | [optional] [readonly] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **UpdatedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 

@@ -32,7 +32,7 @@ type DeploymentJsonMergePatch struct {
 	// Build contexts uploaded with this revision, keyed by compose service name: `{ contextSha256, dockerfile, dockerfileContent?, additionalContexts?, image?, log? }`. The tarballs themselves live in the content-addressed bundle cache ({@see \\App\\Service\\Bundle\\BundleStorage}); this is the pointer the build worker will walk. `dockerfileContent` is a best-effort text preview extracted at ingest ({@see \\App\\Service\\Bundle\\ContextDockerfileReader}) — null when the context was too large to preview or predates this field.
 	BuildContexts map[string]map[string]DeploymentJsonMergePatchBuildContextsValueValue `json:"buildContexts,omitempty"`
 	// Client-forwarded images uploaded with this revision, keyed by compose service name: `{ contextSha256, originalImage, image?, log? }`. See docs/registry.md's \"Client-side forwarding\" callout: `sc` detects a private, unbuildable `image:` reference it can already reach locally and offers to upload it, for a platform that has no other way to pull it. A sibling to {@see self::$buildContexts} rather than folded into it — that array means \"run this through BuildKit\", and this one never does. The tarballs live in the object store ({@see \\App\\Service\\Bundle\\ImageStorage}), not the database; `image` is filled in once the loader has pushed it to the internal registry, the same way `buildContexts[]['image']` is. `{}` for every revision that forwarded nothing, which is most of them.
-	ForwardedImages map[string]map[string]string `json:"forwardedImages,omitempty"`
+	ForwardedImages map[string]map[string]*string `json:"forwardedImages,omitempty"`
 	// Resolved by the placement engine; null until placed.
 	TargetSwarm NullableString `json:"targetSwarm,omitempty"`
 	Status *string `json:"status,omitempty"`
@@ -292,9 +292,9 @@ func (o *DeploymentJsonMergePatch) SetBuildContexts(v map[string]map[string]Depl
 }
 
 // GetForwardedImages returns the ForwardedImages field value if set, zero value otherwise.
-func (o *DeploymentJsonMergePatch) GetForwardedImages() map[string]map[string]string {
+func (o *DeploymentJsonMergePatch) GetForwardedImages() map[string]map[string]*string {
 	if o == nil || IsNil(o.ForwardedImages) {
-		var ret map[string]map[string]string
+		var ret map[string]map[string]*string
 		return ret
 	}
 	return o.ForwardedImages
@@ -302,9 +302,9 @@ func (o *DeploymentJsonMergePatch) GetForwardedImages() map[string]map[string]st
 
 // GetForwardedImagesOk returns a tuple with the ForwardedImages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeploymentJsonMergePatch) GetForwardedImagesOk() (map[string]map[string]string, bool) {
+func (o *DeploymentJsonMergePatch) GetForwardedImagesOk() (map[string]map[string]*string, bool) {
 	if o == nil || IsNil(o.ForwardedImages) {
-		return map[string]map[string]string{}, false
+		return map[string]map[string]*string{}, false
 	}
 	return o.ForwardedImages, true
 }
@@ -318,8 +318,8 @@ func (o *DeploymentJsonMergePatch) HasForwardedImages() bool {
 	return false
 }
 
-// SetForwardedImages gets a reference to the given map[string]map[string]string and assigns it to the ForwardedImages field.
-func (o *DeploymentJsonMergePatch) SetForwardedImages(v map[string]map[string]string) {
+// SetForwardedImages gets a reference to the given map[string]map[string]*string and assigns it to the ForwardedImages field.
+func (o *DeploymentJsonMergePatch) SetForwardedImages(v map[string]map[string]*string) {
 	o.ForwardedImages = v
 }
 

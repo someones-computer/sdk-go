@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **RawCompose** | Pointer to **string** | Exactly what the user submitted. | [optional] 
 **CanonicalSpec** | Pointer to **map[string]interface{}** | Parsed, supported-subset-only canonical representation of the compose file, as the parser produced it. Keys are &#x60;services&#x60; and &#x60;warnings&#x60;. A revision that predates a key omits it. | [optional] 
 **BuildContexts** | Pointer to [**map[string]map[string]DeploymentJsonMergePatchBuildContextsValueValue**](map.md) | Build contexts uploaded with this revision, keyed by compose service name: &#x60;{ contextSha256, dockerfile, dockerfileContent?, additionalContexts?, image?, log? }&#x60;. The tarballs themselves live in the content-addressed bundle cache ({@see \\App\\Service\\Bundle\\BundleStorage}); this is the pointer the build worker will walk. &#x60;dockerfileContent&#x60; is a best-effort text preview extracted at ingest ({@see \\App\\Service\\Bundle\\ContextDockerfileReader}) — null when the context was too large to preview or predates this field. | [optional] 
-**ForwardedImages** | Pointer to **map[string]map[string]string** | Client-forwarded images uploaded with this revision, keyed by compose service name: &#x60;{ contextSha256, originalImage, image?, log? }&#x60;. See docs/registry.md&#39;s \&quot;Client-side forwarding\&quot; callout: &#x60;sc&#x60; detects a private, unbuildable &#x60;image:&#x60; reference it can already reach locally and offers to upload it, for a platform that has no other way to pull it. A sibling to {@see self::$buildContexts} rather than folded into it — that array means \&quot;run this through BuildKit\&quot;, and this one never does. The tarballs live in the object store ({@see \\App\\Service\\Bundle\\ImageStorage}), not the database; &#x60;image&#x60; is filled in once the loader has pushed it to the internal registry, the same way &#x60;buildContexts[][&#39;image&#39;]&#x60; is. &#x60;{}&#x60; for every revision that forwarded nothing, which is most of them. | [optional] 
+**ForwardedImages** | Pointer to **map[string]map[string]*string** | Client-forwarded images uploaded with this revision, keyed by compose service name: &#x60;{ contextSha256, originalImage, image?, log? }&#x60;. See docs/registry.md&#39;s \&quot;Client-side forwarding\&quot; callout: &#x60;sc&#x60; detects a private, unbuildable &#x60;image:&#x60; reference it can already reach locally and offers to upload it, for a platform that has no other way to pull it. A sibling to {@see self::$buildContexts} rather than folded into it — that array means \&quot;run this through BuildKit\&quot;, and this one never does. The tarballs live in the object store ({@see \\App\\Service\\Bundle\\ImageStorage}), not the database; &#x60;image&#x60; is filled in once the loader has pushed it to the internal registry, the same way &#x60;buildContexts[][&#39;image&#39;]&#x60; is. &#x60;{}&#x60; for every revision that forwarded nothing, which is most of them. | [optional] 
 **TargetSwarm** | Pointer to **NullableString** | Resolved by the placement engine; null until placed. | [optional] 
 **Status** | Pointer to **string** |  | [optional] [default to "pending"]
 **StatusReason** | Pointer to **NullableString** | Why the revision is in its current status — the build worker&#39;s failure message, typically. Null whenever there is nothing to explain. | [optional] 
@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **Digest** | Pointer to **NullableString** | Content digest of the canonical spec, for dedupe/audit. | [optional] 
 **CreatedBy** | Pointer to [**NullableUser**](User.md) |  | [optional] 
 **Services** | Pointer to [**[]Service**](Service.md) | Projection of the compose services. | [optional] 
-**Failures** | Pointer to [**[]Failure**](Failure.md) | Everything that has gone wrong with this revision, append-only. Distinct from {@see \\App\\Entity\\self::$statusReason}, which is only ever the latest. See {@see \\App\\Entity\\Failure} on why both exist. | [optional] 
+**Failures** | Pointer to [**[]Failure**](Failure.md) | Everything that has gone wrong with this revision, append-only. Distinct from {@see \\App\\Entity\\self::$statusReason}, which is only ever the latest. See {@see \\App\\Entity\\Failure} on why both exist. | [optional] [readonly] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **DeletedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
@@ -209,20 +209,20 @@ HasBuildContexts returns a boolean if a field has been set.
 
 ### GetForwardedImages
 
-`func (o *Deployment) GetForwardedImages() map[string]map[string]string`
+`func (o *Deployment) GetForwardedImages() map[string]map[string]*string`
 
 GetForwardedImages returns the ForwardedImages field if non-nil, zero value otherwise.
 
 ### GetForwardedImagesOk
 
-`func (o *Deployment) GetForwardedImagesOk() (*map[string]map[string]string, bool)`
+`func (o *Deployment) GetForwardedImagesOk() (*map[string]map[string]*string, bool)`
 
 GetForwardedImagesOk returns a tuple with the ForwardedImages field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetForwardedImages
 
-`func (o *Deployment) SetForwardedImages(v map[string]map[string]string)`
+`func (o *Deployment) SetForwardedImages(v map[string]map[string]*string)`
 
 SetForwardedImages sets ForwardedImages field to given value.
 

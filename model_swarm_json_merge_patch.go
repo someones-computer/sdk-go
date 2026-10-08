@@ -33,7 +33,7 @@ type SwarmJsonMergePatch struct {
 	Roles []string `json:"roles,omitempty"`
 	LastSeenAt NullableTime `json:"lastSeenAt,omitempty"`
 	// Observed capacity snapshot (cpu/mem/nodes), reconciled from the swarm — whatever {@see \\App\\Service\\Swarm\\SwarmHealth::$capacity} carried at the last successful probe.
-	Capacity map[string]string `json:"capacity,omitempty"`
+	Capacity map[string]*string `json:"capacity,omitempty"`
 	Labels map[string]string `json:"labels,omitempty"`
 	// When {@see \\App\\Service\\Ingress\\TraefikInstaller} last stood up (or confirmed) the edge on this context, dispatched automatically once it becomes a platform-owned runtime context.
 	IngressInstalledAt NullableTime `json:"ingressInstalledAt,omitempty"`
@@ -369,10 +369,10 @@ func (o *SwarmJsonMergePatch) UnsetLastSeenAt() {
 	o.LastSeenAt.Unset()
 }
 
-// GetCapacity returns the Capacity field value if set, zero value otherwise.
-func (o *SwarmJsonMergePatch) GetCapacity() map[string]string {
-	if o == nil || IsNil(o.Capacity) {
-		var ret map[string]string
+// GetCapacity returns the Capacity field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SwarmJsonMergePatch) GetCapacity() map[string]*string {
+	if o == nil {
+		var ret map[string]*string
 		return ret
 	}
 	return o.Capacity
@@ -380,9 +380,10 @@ func (o *SwarmJsonMergePatch) GetCapacity() map[string]string {
 
 // GetCapacityOk returns a tuple with the Capacity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SwarmJsonMergePatch) GetCapacityOk() (map[string]string, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SwarmJsonMergePatch) GetCapacityOk() (map[string]*string, bool) {
 	if o == nil || IsNil(o.Capacity) {
-		return map[string]string{}, false
+		return map[string]*string{}, false
 	}
 	return o.Capacity, true
 }
@@ -396,14 +397,14 @@ func (o *SwarmJsonMergePatch) HasCapacity() bool {
 	return false
 }
 
-// SetCapacity gets a reference to the given map[string]string and assigns it to the Capacity field.
-func (o *SwarmJsonMergePatch) SetCapacity(v map[string]string) {
+// SetCapacity gets a reference to the given map[string]*string and assigns it to the Capacity field.
+func (o *SwarmJsonMergePatch) SetCapacity(v map[string]*string) {
 	o.Capacity = v
 }
 
-// GetLabels returns the Labels field value if set, zero value otherwise.
+// GetLabels returns the Labels field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *SwarmJsonMergePatch) GetLabels() map[string]string {
-	if o == nil || IsNil(o.Labels) {
+	if o == nil {
 		var ret map[string]string
 		return ret
 	}
@@ -412,6 +413,7 @@ func (o *SwarmJsonMergePatch) GetLabels() map[string]string {
 
 // GetLabelsOk returns a tuple with the Labels field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *SwarmJsonMergePatch) GetLabelsOk() (map[string]string, bool) {
 	if o == nil || IsNil(o.Labels) {
 		return map[string]string{}, false
@@ -1049,10 +1051,10 @@ func (o SwarmJsonMergePatch) ToMap() (map[string]interface{}, error) {
 	if o.LastSeenAt.IsSet() {
 		toSerialize["lastSeenAt"] = o.LastSeenAt.Get()
 	}
-	if !IsNil(o.Capacity) {
+	if o.Capacity != nil {
 		toSerialize["capacity"] = o.Capacity
 	}
-	if !IsNil(o.Labels) {
+	if o.Labels != nil {
 		toSerialize["labels"] = o.Labels
 	}
 	if o.IngressInstalledAt.IsSet() {

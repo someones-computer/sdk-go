@@ -274,20 +274,20 @@ HasLastError returns a boolean if a field has been set.
 UnsetLastError ensures that no value is present for LastError, not even an explicit nil
 ### GetVersion
 
-`func (o *ProxmoxInstance) GetVersion() map[string]string`
+`func (o *ProxmoxInstance) GetVersion() map[string]*string`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *ProxmoxInstance) GetVersionOk() (*map[string]string, bool)`
+`func (o *ProxmoxInstance) GetVersionOk() (*map[string]*string, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *ProxmoxInstance) SetVersion(v map[string]string)`
+`func (o *ProxmoxInstance) SetVersion(v map[string]*string)`
 
 SetVersion sets Version field to given value.
 
@@ -297,6 +297,16 @@ SetVersion sets Version field to given value.
 
 HasVersion returns a boolean if a field has been set.
 
+### SetVersionNil
+
+`func (o *ProxmoxInstance) SetVersionNil(b bool)`
+
+ SetVersionNil sets the value for Version to be an explicit nil
+
+### UnsetVersion
+`func (o *ProxmoxInstance) UnsetVersion()`
+
+UnsetVersion ensures that no value is present for Version, not even an explicit nil
 ### GetTemplateVmid
 
 `func (o *ProxmoxInstance) GetTemplateVmid() int32`

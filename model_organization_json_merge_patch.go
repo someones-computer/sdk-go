@@ -20,6 +20,7 @@ var _ MappedNullable = &OrganizationJsonMergePatch{}
 
 // OrganizationJsonMergePatch Update an organization's mutable fields.
 type OrganizationJsonMergePatch struct {
+	// The principal an {@see OrganizationToken} authenticates as: a machine account this platform owns, not a person.
 	MachineAccount NullableUser `json:"machineAccount,omitempty"`
 	Name *string `json:"name,omitempty"`
 	// `unique: true` stops two organizations holding the same *string*; the constraint stops two holding strings that fold to the same **stack name**, which the database has no way to express (#860). Both are needed: the column guards the identifier, the constraint guards what is derived from it.
@@ -29,6 +30,7 @@ type OrganizationJsonMergePatch struct {
 	// An operator's grant of a tier this organization would not reach through any member — {@see \\App\\Enum\\AccountTier::Verified} in particular, which is granted rather than earned and belongs to a contractual relationship with the *organization*, not incidentally to whichever of its members happens to carry the highest personal tier ({@see \\App\\Service\\Trust\\TierResolver::forOrganization()}). A member individually pinned `Verified` still lifts the org the same way a `Trusted` member always has — this pin is for granting it to the org directly, without needing a person to hang it on.
 	TierPin NullableString `json:"tierPin,omitempty"`
 	TierPinnedAt NullableTime `json:"tierPinnedAt,omitempty"`
+	// Nullable and SET NULL: somebody can delete an operator, and the pin outlives them.
 	TierPinnedBy NullableUser `json:"tierPinnedBy,omitempty"`
 	TierPinReason NullableString `json:"tierPinReason,omitempty"`
 	// When {@see \\App\\MessageHandler\\CheckRunwayHandler} last warned this organization that its projected runway had dropped below the threshold; null once no warning is outstanding. Set once per crossing and cleared the moment the projection recovers — by a top-up or by the burn easing off — which is what makes \"warn once, re-arm on recovery\" a fact this column can answer rather than something re-derived from the notification table on every tick.

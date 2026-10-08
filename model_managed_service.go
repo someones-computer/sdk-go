@@ -50,6 +50,7 @@ type ManagedService struct {
 	UpdatedAt NullableTime `json:"updatedAt,omitempty"`
 	// `postgres 17`, `mysql 8.0` — the catalogue entry, as one string.
 	CatalogueEntry *string `json:"catalogueEntry,omitempty"`
+	// The engine as a tenant reads it: its name and its state, and nothing else.
 	Instance NullableManagedServiceEngine `json:"instance,omitempty"`
 	Available *bool `json:"available,omitempty"`
 	Deleted *bool `json:"deleted,omitempty"`

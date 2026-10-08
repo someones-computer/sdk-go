@@ -154,8 +154,9 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/AdoptionApproval'
+                  $ref: "#/components/schemas/AdoptionApproval"
                 type: array
+                default: null
           description: AdoptionApproval collection
       summary: Retrieves the collection of AdoptionApproval resources.
       tags:
@@ -168,7 +169,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AdoptionApproval.AdoptionApprovalInput'
+              $ref: "#/components/schemas/AdoptionApproval.AdoptionApprovalInput"
         description: The new AdoptionApproval resource
         required: true
       responses:
@@ -176,25 +177,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AdoptionApproval'
+                $ref: "#/components/schemas/AdoptionApproval"
           description: AdoptionApproval resource created
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
       summary: Creates a AdoptionApproval resource.
       tags:
@@ -220,10 +221,10 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Removes the AdoptionApproval resource.
       tags:
@@ -246,16 +247,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/AdoptionApproval'
+                $ref: "#/components/schemas/AdoptionApproval"
           description: AdoptionApproval resource
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Retrieves a AdoptionApproval resource.
       tags:
@@ -294,6 +295,7 @@ paths:
           items:
             type: string
           type: array
+          default: null
         style: form
       - deprecated: false
         description: ""
@@ -314,6 +316,7 @@ paths:
           items:
             type: string
           type: array
+          default: null
         style: form
       - deprecated: false
         description: ""
@@ -334,6 +337,7 @@ paths:
           items:
             type: string
           type: array
+          default: null
         style: form
       responses:
         "200":
@@ -341,8 +345,9 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Application'
+                  $ref: "#/components/schemas/Application"
                 type: array
+                default: null
           description: Application collection
       summary: Retrieves the collection of Application resources.
       tags:
@@ -355,7 +360,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Application'
+              $ref: "#/components/schemas/Application"
         description: The new Application resource
         required: true
       responses:
@@ -363,25 +368,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Application'
+                $ref: "#/components/schemas/Application"
           description: Application resource created
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
       summary: Creates a Application resource.
       tags:
@@ -407,19 +412,19 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Forbidden
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Removes the Application resource.
       tags:
@@ -442,16 +447,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Application'
+                $ref: "#/components/schemas/Application"
           description: Application resource
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Retrieves a Application resource.
       tags:
@@ -473,7 +478,7 @@ paths:
         content:
           application/merge-patch+json:
             schema:
-              $ref: '#/components/schemas/Application.jsonMergePatch'
+              $ref: "#/components/schemas/Application.jsonMergePatch"
         description: The updated Application resource
         required: true
       responses:
@@ -481,34 +486,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Application'
+                $ref: "#/components/schemas/Application"
           description: Application resource updated
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Updates the Application resource.
       tags:
@@ -534,8 +539,9 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/CreditTransaction'
+                  $ref: "#/components/schemas/CreditTransaction"
                 type: array
+                default: null
           description: CreditTransaction collection
       summary: Retrieves the collection of CreditTransaction resources.
       tags:
@@ -559,16 +565,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/CreditTransaction'
+                $ref: "#/components/schemas/CreditTransaction"
           description: CreditTransaction resource
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Retrieves a CreditTransaction resource.
       tags:
@@ -607,6 +613,7 @@ paths:
           items:
             type: string
           type: array
+          default: null
         style: deepObject
       - deprecated: false
         description: Only the revision with this sequence number.
@@ -627,6 +634,7 @@ paths:
           items:
             type: string
           type: array
+          default: null
         style: deepObject
       - deprecated: false
         description: Only revisions with this exact name.
@@ -647,6 +655,7 @@ paths:
           items:
             type: string
           type: array
+          default: null
         style: deepObject
       - deprecated: false
         description: Rows per page.
@@ -663,8 +672,9 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Deployment'
+                  $ref: "#/components/schemas/Deployment"
                 type: array
+                default: null
           description: Deployment collection
       summary: Retrieves the collection of Deployment resources.
       tags:
@@ -677,7 +687,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Deployment'
+              $ref: "#/components/schemas/Deployment"
         description: The new Deployment resource
         required: true
       responses:
@@ -685,25 +695,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Deployment'
+                $ref: "#/components/schemas/Deployment"
           description: Deployment resource created
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
       summary: Creates a Deployment resource.
       tags:
@@ -717,7 +727,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Deployment.BundleUploadDeclareInput'
+              $ref: "#/components/schemas/Deployment.BundleUploadDeclareInput"
         description: The new Deployment resource
         required: true
       responses:
@@ -725,25 +735,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Deployment.BundleUploadDeclareOutput'
+                $ref: "#/components/schemas/Deployment.BundleUploadDeclareOutput"
           description: Deployment resource created
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
       summary: Creates a Deployment resource.
       tags:
@@ -757,7 +767,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Deployment.BundleUploadConfirmInput'
+              $ref: "#/components/schemas/Deployment.BundleUploadConfirmInput"
         description: The new Deployment resource
         required: true
       responses:
@@ -765,25 +775,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Deployment.BundleUploadConfirmOutput'
+                $ref: "#/components/schemas/Deployment.BundleUploadConfirmOutput"
           description: Deployment resource created
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
       summary: Creates a Deployment resource.
       tags:
@@ -809,19 +819,19 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Forbidden
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Removes the Deployment resource.
       tags:
@@ -844,16 +854,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Deployment'
+                $ref: "#/components/schemas/Deployment"
           description: Deployment resource
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Retrieves a Deployment resource.
       tags:
@@ -875,7 +885,7 @@ paths:
         content:
           application/merge-patch+json:
             schema:
-              $ref: '#/components/schemas/Deployment.jsonMergePatch'
+              $ref: "#/components/schemas/Deployment.jsonMergePatch"
         description: The updated Deployment resource
         required: true
       responses:
@@ -883,34 +893,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Deployment'
+                $ref: "#/components/schemas/Deployment"
           description: Deployment resource updated
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Updates the Deployment resource.
       tags:
@@ -935,8 +945,9 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Deployment.DeploymentEndpoint'
+                  $ref: "#/components/schemas/Deployment.DeploymentEndpoint"
                 type: array
+                default: null
           description: Deployment collection
       summary: Retrieves the collection of Deployment resources.
       tags:
@@ -962,8 +973,9 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/DeploymentAccessGate'
+                  $ref: "#/components/schemas/DeploymentAccessGate"
                 type: array
+                default: null
           description: DeploymentAccessGate collection
       summary: Retrieves the collection of DeploymentAccessGate resources.
       tags:
@@ -976,7 +988,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/DeploymentAccessGate'
+              $ref: "#/components/schemas/DeploymentAccessGate"
         description: The new DeploymentAccessGate resource
         required: true
       responses:
@@ -984,25 +996,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeploymentAccessGate'
+                $ref: "#/components/schemas/DeploymentAccessGate"
           description: DeploymentAccessGate resource created
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
       summary: Creates a DeploymentAccessGate resource.
       tags:
@@ -1028,19 +1040,19 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Forbidden
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Removes the DeploymentAccessGate resource.
       tags:
@@ -1063,16 +1075,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeploymentAccessGate'
+                $ref: "#/components/schemas/DeploymentAccessGate"
           description: DeploymentAccessGate resource
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Retrieves a DeploymentAccessGate resource.
       tags:
@@ -1094,7 +1106,7 @@ paths:
         content:
           application/merge-patch+json:
             schema:
-              $ref: '#/components/schemas/DeploymentAccessGate.jsonMergePatch'
+              $ref: "#/components/schemas/DeploymentAccessGate.jsonMergePatch"
         description: The updated DeploymentAccessGate resource
         required: true
       responses:
@@ -1102,34 +1114,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeploymentAccessGate'
+                $ref: "#/components/schemas/DeploymentAccessGate"
           description: DeploymentAccessGate resource updated
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Updates the DeploymentAccessGate resource.
       tags:
@@ -1155,8 +1167,9 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/ManagedService'
+                  $ref: "#/components/schemas/ManagedService"
                 type: array
+                default: null
           description: ManagedService collection
       summary: Retrieves the collection of ManagedService resources.
       tags:
@@ -1169,7 +1182,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ManagedService.ManagedServiceInput'
+              $ref: "#/components/schemas/ManagedService.ManagedServiceInput"
         description: The new ManagedService resource
         required: true
       responses:
@@ -1177,25 +1190,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ManagedService'
+                $ref: "#/components/schemas/ManagedService"
           description: ManagedService resource created
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
       summary: Creates a ManagedService resource.
       tags:
@@ -1211,8 +1224,9 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/ManagedService'
+                  $ref: "#/components/schemas/ManagedService"
                 type: array
+                default: null
           description: ManagedService collection
       summary: Retrieves the collection of ManagedService resources.
       tags:
@@ -1238,10 +1252,10 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Removes the ManagedService resource.
       tags:
@@ -1264,16 +1278,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ManagedService'
+                $ref: "#/components/schemas/ManagedService"
           description: ManagedService resource
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Retrieves a ManagedService resource.
       tags:
@@ -1297,25 +1311,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ManagedService'
+                $ref: "#/components/schemas/ManagedService"
           description: ManagedService resource created
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
       summary: Creates a ManagedService resource.
       tags:
@@ -1339,25 +1353,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ManagedService'
+                $ref: "#/components/schemas/ManagedService"
           description: ManagedService resource created
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
       summary: Creates a ManagedService resource.
       tags:
@@ -1381,25 +1395,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ManagedService'
+                $ref: "#/components/schemas/ManagedService"
           description: ManagedService resource created
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
       summary: Creates a ManagedService resource.
       tags:
@@ -1438,6 +1452,7 @@ paths:
           items:
             type: string
           type: array
+          default: null
         style: form
       responses:
         "200":
@@ -1445,8 +1460,9 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Organization'
+                  $ref: "#/components/schemas/Organization"
                 type: array
+                default: null
           description: Organization collection
       summary: Retrieves the collection of Organization resources.
       tags:
@@ -1459,7 +1475,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Organization'
+              $ref: "#/components/schemas/Organization"
         description: The new Organization resource
         required: true
       responses:
@@ -1467,25 +1483,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Organization'
+                $ref: "#/components/schemas/Organization"
           description: Organization resource created
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
       summary: Creates a Organization resource.
       tags:
@@ -1511,19 +1527,19 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Forbidden
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Removes the Organization resource.
       tags:
@@ -1546,16 +1562,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Organization'
+                $ref: "#/components/schemas/Organization"
           description: Organization resource
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Retrieves a Organization resource.
       tags:
@@ -1577,7 +1593,7 @@ paths:
         content:
           application/merge-patch+json:
             schema:
-              $ref: '#/components/schemas/Organization.jsonMergePatch'
+              $ref: "#/components/schemas/Organization.jsonMergePatch"
         description: The updated Organization resource
         required: true
       responses:
@@ -1585,34 +1601,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Organization'
+                $ref: "#/components/schemas/Organization"
           description: Organization resource updated
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Updates the Organization resource.
       tags:
@@ -1638,8 +1654,9 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/ServiceBinding'
+                  $ref: "#/components/schemas/ServiceBinding"
                 type: array
+                default: null
           description: ServiceBinding collection
       summary: Retrieves the collection of ServiceBinding resources.
       tags:
@@ -1652,7 +1669,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/ServiceBinding.ServiceBindingInput'
+              $ref: "#/components/schemas/ServiceBinding.ServiceBindingInput"
         description: The new ServiceBinding resource
         required: true
       responses:
@@ -1660,25 +1677,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServiceBinding'
+                $ref: "#/components/schemas/ServiceBinding"
           description: ServiceBinding resource created
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
       summary: Creates a ServiceBinding resource.
       tags:
@@ -1704,10 +1721,10 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Removes the ServiceBinding resource.
       tags:
@@ -1730,16 +1747,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServiceBinding'
+                $ref: "#/components/schemas/ServiceBinding"
           description: ServiceBinding resource
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Retrieves a ServiceBinding resource.
       tags:
@@ -1765,8 +1782,9 @@ paths:
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/Swarm'
+                  $ref: "#/components/schemas/Swarm"
                 type: array
+                default: null
           description: Swarm collection
       summary: Retrieves the collection of Swarm resources.
       tags:
@@ -1779,7 +1797,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Swarm'
+              $ref: "#/components/schemas/Swarm"
         description: The new Swarm resource
         required: true
       responses:
@@ -1787,34 +1805,34 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Swarm'
+                $ref: "#/components/schemas/Swarm"
           description: Swarm resource created
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
         "403":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Forbidden
       summary: Creates a Swarm resource.
       tags:
@@ -1840,19 +1858,19 @@ paths:
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Forbidden
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Removes the Swarm resource.
       tags:
@@ -1875,16 +1893,16 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Swarm'
+                $ref: "#/components/schemas/Swarm"
           description: Swarm resource
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Retrieves a Swarm resource.
       tags:
@@ -1906,7 +1924,7 @@ paths:
         content:
           application/merge-patch+json:
             schema:
-              $ref: '#/components/schemas/Swarm.jsonMergePatch'
+              $ref: "#/components/schemas/Swarm.jsonMergePatch"
         description: The updated Swarm resource
         required: true
       responses:
@@ -1914,43 +1932,43 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Swarm'
+                $ref: "#/components/schemas/Swarm"
           description: Swarm resource updated
         "400":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Invalid input
         "422":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
             application/json:
               schema:
-                $ref: '#/components/schemas/ConstraintViolation'
+                $ref: "#/components/schemas/ConstraintViolation"
           description: An error occurred
         "403":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Forbidden
         "404":
           content:
             application/problem+json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
             application/json:
               schema:
-                $ref: '#/components/schemas/Error'
+                $ref: "#/components/schemas/Error"
           description: Not found
       summary: Updates the Swarm resource.
       tags:
@@ -2017,10 +2035,14 @@ components:
             Observed capacity snapshot (cpu/mem/nodes), reconciled from the swarm —
             whatever {@see \App\Service\Swarm\SwarmHealth::$capacity} carried at the
             last successful probe.
+          nullable: true
+          type: object
         labels:
           additionalProperties:
             type: string
+          nullable: true
           readOnly: true
+          type: object
         ingressInstalledAt:
           description: |-
             When {@see \App\Service\Ingress\TraefikInstaller} last stood up (or
@@ -2062,15 +2084,19 @@ components:
           type: string
         nodes:
           items:
-            $ref: '#/components/schemas/SwarmNode'
+            $ref: "#/components/schemas/SwarmNode"
+          readOnly: true
           type: array
+          default: null
         machines:
           description: |-
             The machines that serve this context. Mapped only so a delete can let go
             of them. See {@see self::markDeleted()}.
           items:
-            $ref: '#/components/schemas/Machine'
+            $ref: "#/components/schemas/Machine"
+          readOnly: true
           type: array
+          default: null
         deployments:
           description: |-
             The revisions placed here. Mapped for the same single reason as
@@ -2081,7 +2107,9 @@ components:
             example: https://example.com/
             format: iri-reference
             type: string
+          readOnly: true
           type: array
+          default: null
         id:
           format: uuid
           readOnly: true
@@ -2122,46 +2150,46 @@ components:
     Machine:
       example:
         instance:
-          lastSeenAt: 2000-01-23T04:56:07.000+00:00
-          template: true
-          lastError: lastError
+          name: name
+          endpoint: endpoint
           tokenId: tokenId
-          templateBuiltAt: 2000-01-23T04:56:07.000+00:00
           verifyTls: true
+          publicKeyPin: publicKeyPin
+          status: unreachable
+          lastSeenAt: 2000-01-23T04:56:07.000+00:00
+          lastError: lastError
           version:
             key: version
+          templateVmid: 6
           templateAlpineVersion: templateAlpineVersion
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          endpoint: endpoint
-          name: name
-          templateVmid: 2
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          publicKeyPin: publicKeyPin
+          templateBuiltAt: 2000-01-23T04:56:07.000+00:00
           templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
-          templateBuildFailures: 4
-          status: unreachable
+          templateBuildFailures: 1
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
           updatedAt: 2000-01-23T04:56:07.000+00:00
-        address: address
-        provisioningStale: true
-        vmid: 6
-        diskGigabytes: 2
-        diskBlocks: 1
-        provisionAttempt: 5
-        provisionStartedAt: 2000-01-23T04:56:07.000+00:00
+          template: true
         node: node
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        size: s
-        swarm: https://example.com/
-        failure: failure
-        organization: https://example.com/
+        vmid: 5
         name: name
-        templateVmid: 5
+        size: s
+        diskBlocks: 5
+        templateVmid: 2
+        address: address
         state: requested
+        failure: failure
+        provisionAttempt: 7
+        provisionStartedAt: 2000-01-23T04:56:07.000+00:00
+        swarm: https://example.com/
+        organization: https://example.com/
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdAt: 2000-01-23T04:56:07.000+00:00
         updatedAt: 2000-01-23T04:56:07.000+00:00
+        diskGigabytes: 9
+        provisioningStale: true
       properties:
         instance:
-          $ref: '#/components/schemas/ProxmoxInstance'
+          $ref: "#/components/schemas/ProxmoxInstance"
         node:
           description: The node within the instance — same string `app:proxmox:template`
             builds on.
@@ -2293,25 +2321,25 @@ components:
           type: boolean
     ProxmoxInstance:
       example:
-        lastSeenAt: 2000-01-23T04:56:07.000+00:00
-        template: true
-        lastError: lastError
+        name: name
+        endpoint: endpoint
         tokenId: tokenId
-        templateBuiltAt: 2000-01-23T04:56:07.000+00:00
         verifyTls: true
+        publicKeyPin: publicKeyPin
+        status: unreachable
+        lastSeenAt: 2000-01-23T04:56:07.000+00:00
+        lastError: lastError
         version:
           key: version
+        templateVmid: 6
         templateAlpineVersion: templateAlpineVersion
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        endpoint: endpoint
-        name: name
-        templateVmid: 2
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        publicKeyPin: publicKeyPin
+        templateBuiltAt: 2000-01-23T04:56:07.000+00:00
         templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
-        templateBuildFailures: 4
-        status: unreachable
+        templateBuildFailures: 1
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdAt: 2000-01-23T04:56:07.000+00:00
         updatedAt: 2000-01-23T04:56:07.000+00:00
+        template: true
       properties:
         name:
           type: string
@@ -2358,6 +2386,8 @@ components:
           description: |-
             Observed `GET /version` snapshot (release, repoid). Observed state, so it
             is whatever the last probe saw and is never authoritative.
+          nullable: true
+          type: object
         templateVmid:
           description: |-
             The vmid of the Alpine template `app:proxmox:template` last built here, or
@@ -2417,14 +2447,14 @@ components:
           type: boolean
     SwarmNode:
       example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        hostname: hostname
         swarm: https://example.com/
-        state: state
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         nodeId: nodeId
+        hostname: hostname
+        state: state
         capacity:
           key: capacity
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdAt: 2000-01-23T04:56:07.000+00:00
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         swarm:
@@ -2446,6 +2476,8 @@ components:
             type: string
           description: "This node's share of the cluster's capacity, as the reconciler\
             \ read it."
+          nullable: true
+          type: object
         id:
           format: uuid
           readOnly: true
@@ -2462,11 +2494,11 @@ components:
     Error:
       description: A representation of common errors.
       example:
-        instance: instance
-        detail: detail
         title: title
-        type: type
+        detail: detail
         status: 0
+        instance: instance
+        type: type
       properties:
         title:
           description: "A short, human-readable summary of the problem."
@@ -2496,32 +2528,33 @@ components:
     ConstraintViolation:
       description: Unprocessable entity
       example:
-        instance: instance
+        status: 6
         violations:
-        - code: code
+        - propertyPath: propertyPath
+          message: message
+          code: code
+          hint: hint
           payload:
             key: ""
-          hint: hint
-          propertyPath: propertyPath
+        - propertyPath: propertyPath
           message: message
-        - code: code
+          code: code
+          hint: hint
           payload:
             key: ""
-          hint: hint
-          propertyPath: propertyPath
-          message: message
         detail: detail
         type: type
         title: title
-        status: 6
+        instance: instance
       properties:
         status:
           default: 422
           type: integer
         violations:
           items:
-            $ref: '#/components/schemas/ConstraintViolation_violations_inner'
+            $ref: "#/components/schemas/ConstraintViolation_violations_inner"
           type: array
+          default: null
         detail:
           readOnly: true
           type: string
@@ -2539,132 +2572,132 @@ components:
     Swarm:
       description: List swarms the caller can see.
       example:
-        lastSeenAt: 2000-01-23T04:56:07.000+00:00
-        platformOwned: true
+        owner: https://example.com/
+        kind: platform
+        name: name
+        endpoint: endpoint
+        status: unreachable
+        publicHost: publicHost
         roles:
         - roles
         - roles
-        publicHost: publicHost
+        lastSeenAt: 2000-01-23T04:56:07.000+00:00
         capacity:
           key: capacity
-        ingressInstalledAt: 2000-01-23T04:56:07.000+00:00
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        endpoint: endpoint
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-        owner: https://example.com/
-        workingEdge: true
-        kind: platform
-        platformProvisioned: true
-        ingressVerificationError: ingressVerificationError
         labels:
           key: labels
+        ingressInstalledAt: 2000-01-23T04:56:07.000+00:00
+        ingressError: ingressError
+        ingressNetwork: ingressNetwork
+        ingressVerifiedAt: 2000-01-23T04:56:07.000+00:00
+        ingressVerificationError: ingressVerificationError
+        nodes:
+        - swarm: https://example.com/
+          nodeId: nodeId
+          hostname: hostname
+          state: state
+          capacity:
+            key: capacity
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - swarm: https://example.com/
+          nodeId: nodeId
+          hostname: hostname
+          state: state
+          capacity:
+            key: capacity
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        machines:
+        - instance:
+            name: name
+            endpoint: endpoint
+            tokenId: tokenId
+            verifyTls: true
+            publicKeyPin: publicKeyPin
+            status: unreachable
+            lastSeenAt: 2000-01-23T04:56:07.000+00:00
+            lastError: lastError
+            version:
+              key: version
+            templateVmid: 6
+            templateAlpineVersion: templateAlpineVersion
+            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
+            templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
+            templateBuildFailures: 1
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+            template: true
+          node: node
+          vmid: 5
+          name: name
+          size: s
+          diskBlocks: 5
+          templateVmid: 2
+          address: address
+          state: requested
+          failure: failure
+          provisionAttempt: 7
+          provisionStartedAt: 2000-01-23T04:56:07.000+00:00
+          swarm: https://example.com/
+          organization: https://example.com/
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          diskGigabytes: 9
+          provisioningStale: true
+        - instance:
+            name: name
+            endpoint: endpoint
+            tokenId: tokenId
+            verifyTls: true
+            publicKeyPin: publicKeyPin
+            status: unreachable
+            lastSeenAt: 2000-01-23T04:56:07.000+00:00
+            lastError: lastError
+            version:
+              key: version
+            templateVmid: 6
+            templateAlpineVersion: templateAlpineVersion
+            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
+            templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
+            templateBuildFailures: 1
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            createdAt: 2000-01-23T04:56:07.000+00:00
+            updatedAt: 2000-01-23T04:56:07.000+00:00
+            template: true
+          node: node
+          vmid: 5
+          name: name
+          size: s
+          diskBlocks: 5
+          templateVmid: 2
+          address: address
+          state: requested
+          failure: failure
+          provisionAttempt: 7
+          provisionStartedAt: 2000-01-23T04:56:07.000+00:00
+          swarm: https://example.com/
+          organization: https://example.com/
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          diskGigabytes: 9
+          provisioningStale: true
         deployments:
         - https://example.com/
         - https://example.com/
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         deletedAt: 2000-01-23T04:56:07.000+00:00
-        nodes:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          hostname: hostname
-          swarm: https://example.com/
-          state: state
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          nodeId: nodeId
-          capacity:
-            key: capacity
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          hostname: hostname
-          swarm: https://example.com/
-          state: state
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          nodeId: nodeId
-          capacity:
-            key: capacity
-          updatedAt: 2000-01-23T04:56:07.000+00:00
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+        platformOwned: true
+        platformProvisioned: true
+        workingEdge: true
         deleted: true
-        ingressVerifiedAt: 2000-01-23T04:56:07.000+00:00
-        ingressNetwork: ingressNetwork
-        name: name
-        ingressError: ingressError
-        machines:
-        - instance:
-            lastSeenAt: 2000-01-23T04:56:07.000+00:00
-            template: true
-            lastError: lastError
-            tokenId: tokenId
-            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
-            verifyTls: true
-            version:
-              key: version
-            templateAlpineVersion: templateAlpineVersion
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            endpoint: endpoint
-            name: name
-            templateVmid: 2
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            publicKeyPin: publicKeyPin
-            templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
-            templateBuildFailures: 4
-            status: unreachable
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          address: address
-          provisioningStale: true
-          vmid: 6
-          diskGigabytes: 2
-          diskBlocks: 1
-          provisionAttempt: 5
-          provisionStartedAt: 2000-01-23T04:56:07.000+00:00
-          node: node
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          size: s
-          swarm: https://example.com/
-          failure: failure
-          organization: https://example.com/
-          name: name
-          templateVmid: 5
-          state: requested
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - instance:
-            lastSeenAt: 2000-01-23T04:56:07.000+00:00
-            template: true
-            lastError: lastError
-            tokenId: tokenId
-            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
-            verifyTls: true
-            version:
-              key: version
-            templateAlpineVersion: templateAlpineVersion
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            endpoint: endpoint
-            name: name
-            templateVmid: 2
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            publicKeyPin: publicKeyPin
-            templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
-            templateBuildFailures: 4
-            status: unreachable
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          address: address
-          provisioningStale: true
-          vmid: 6
-          diskGigabytes: 2
-          diskBlocks: 1
-          provisionAttempt: 5
-          provisionStartedAt: 2000-01-23T04:56:07.000+00:00
-          node: node
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          size: s
-          swarm: https://example.com/
-          failure: failure
-          organization: https://example.com/
-          name: name
-          templateVmid: 5
-          state: requested
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        status: unreachable
       properties:
         owner:
           description: Null for the platform pool; set for a customer BYO cluster.
@@ -2718,10 +2751,14 @@ components:
             Observed capacity snapshot (cpu/mem/nodes), reconciled from the swarm —
             whatever {@see \App\Service\Swarm\SwarmHealth::$capacity} carried at the
             last successful probe.
+          nullable: true
+          type: object
         labels:
           additionalProperties:
             type: string
+          nullable: true
           readOnly: true
+          type: object
         ingressInstalledAt:
           description: |-
             When {@see \App\Service\Ingress\TraefikInstaller} last stood up (or
@@ -2763,15 +2800,19 @@ components:
           type: string
         nodes:
           items:
-            $ref: '#/components/schemas/SwarmNode'
+            $ref: "#/components/schemas/SwarmNode"
+          readOnly: true
           type: array
+          default: null
         machines:
           description: |-
             The machines that serve this context. Mapped only so a delete can let go
             of them. See {@see self::markDeleted()}.
           items:
-            $ref: '#/components/schemas/Machine'
+            $ref: "#/components/schemas/Machine"
+          readOnly: true
           type: array
+          default: null
         deployments:
           description: |-
             The revisions placed here. Mapped for the same single reason as
@@ -2782,7 +2823,9 @@ components:
             example: https://example.com/
             format: iri-reference
             type: string
+          readOnly: true
           type: array
+          default: null
         id:
           format: uuid
           readOnly: true
@@ -2824,17 +2867,17 @@ components:
       description: List service bindings (application-to-managed-service links) the
         caller can see.
       example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        adoptedComposeService: adoptedComposeService
         application: https://example.com/
         service: https://example.com/
         injectedKeys:
         - injectedKeys
         - injectedKeys
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        adopted: true
         sidecarServiceName: db
+        adoptedComposeService: adoptedComposeService
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdAt: 2000-01-23T04:56:07.000+00:00
         updatedAt: 2000-01-23T04:56:07.000+00:00
+        adopted: true
       properties:
         application:
           example: https://example.com/
@@ -2851,6 +2894,7 @@ components:
           items:
             type: string
           type: array
+          default: null
         sidecarServiceName:
           default: db
           description: |-
@@ -2899,7 +2943,12 @@ components:
       description: Update an organization's mutable fields.
       properties:
         machineAccount:
-          $ref: '#/components/schemas/User'
+          allOf:
+          - $ref: "#/components/schemas/User"
+          description: |-
+            The principal an {@see OrganizationToken} authenticates as: a machine
+            account this platform owns, not a person.
+          nullable: true
         name:
           type: string
         slug:
@@ -2946,7 +2995,12 @@ components:
           readOnly: true
           type: string
         tierPinnedBy:
-          $ref: '#/components/schemas/User'
+          allOf:
+          - $ref: "#/components/schemas/User"
+          description: "Nullable and SET NULL: somebody can delete an operator, and\
+            \ the pin outlives them."
+          nullable: true
+          readOnly: true
         tierPinReason:
           nullable: true
           readOnly: true
@@ -2986,39 +3040,51 @@ components:
           type: integer
         memberships:
           items:
-            $ref: '#/components/schemas/Membership'
+            $ref: "#/components/schemas/Membership"
+          readOnly: true
           type: array
+          default: null
         applications:
           items:
             example: https://example.com/
             format: iri-reference
             type: string
+          readOnly: true
           type: array
+          default: null
         swarms:
           description: BYO swarms owned by this organization.
           items:
             example: https://example.com/
             format: iri-reference
             type: string
+          readOnly: true
           type: array
+          default: null
         machines:
           description: Machines self-service-provisioned for this organization.
           items:
-            $ref: '#/components/schemas/Machine'
+            $ref: "#/components/schemas/Machine"
+          readOnly: true
           type: array
+          default: null
         creditTransactions:
           description: The append-only credit ledger.
           items:
             example: https://example.com/
             format: iri-reference
             type: string
+          readOnly: true
           type: array
+          default: null
         signals:
           description: What this organization's own compose files have told the platform
             about it (#818).
           items:
-            $ref: '#/components/schemas/OrganizationSignal'
+            $ref: "#/components/schemas/OrganizationSignal"
+          readOnly: true
           type: array
+          default: null
         id:
           format: uuid
           readOnly: true
@@ -3045,11 +3111,11 @@ components:
           type: boolean
     OrganizationSignal:
       example:
-        reason: reason
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        application: https://example.com/
         organization: https://example.com/
+        application: https://example.com/
+        reason: reason
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdAt: 2000-01-23T04:56:07.000+00:00
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         organization:
@@ -3082,14 +3148,14 @@ components:
           type: string
     Membership:
       example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        role: owner
         organization: https://example.com/
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         user:
-          displayName: displayName
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
           username: username
+          displayName: displayName
+        role: owner
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdAt: 2000-01-23T04:56:07.000+00:00
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         organization:
@@ -3097,7 +3163,7 @@ components:
           format: iri-reference
           type: string
         user:
-          $ref: '#/components/schemas/User'
+          $ref: "#/components/schemas/User"
         role:
           enum:
           - owner
@@ -3119,9 +3185,9 @@ components:
           type: string
     User:
       example:
-        displayName: displayName
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         username: username
+        displayName: displayName
       properties:
         id:
           format: uuid
@@ -3136,150 +3202,149 @@ components:
     Organization:
       description: List organizations the caller is a member of.
       example:
-        creditTransactions:
+        machineAccount: ""
+        name: name
+        slug: slug
+        theme: house
+        tierPin: untrusted
+        tierPinnedAt: 2000-01-23T04:56:07.000+00:00
+        tierPinnedBy: ""
+        tierPinReason: tierPinReason
+        lowBalanceWarnedAt: 2000-01-23T04:56:07.000+00:00
+        twoFactorRequiredAt: 2000-01-23T04:56:07.000+00:00
+        apiAccessLogRetentionDays: 0
+        memberships:
+        - organization: https://example.com/
+          user:
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            username: username
+            displayName: displayName
+          role: owner
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - organization: https://example.com/
+          user:
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            username: username
+            displayName: displayName
+          role: owner
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        applications:
         - https://example.com/
         - https://example.com/
         swarms:
         - https://example.com/
         - https://example.com/
-        lowBalanceWarnedAt: 2000-01-23T04:56:07.000+00:00
-        apiAccessLogRetentionDays: 0
-        memberships:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          role: owner
-          organization: https://example.com/
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          user:
-            displayName: displayName
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            username: username
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          role: owner
-          organization: https://example.com/
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          user:
-            displayName: displayName
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            username: username
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        tierPinned: true
-        tierPinnedBy:
-          displayName: displayName
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          username: username
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        deletedAt: 2000-01-23T04:56:07.000+00:00
-        tierPinnedAt: 2000-01-23T04:56:07.000+00:00
-        signals:
-        - reason: reason
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          application: https://example.com/
-          organization: https://example.com/
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - reason: reason
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          application: https://example.com/
-          organization: https://example.com/
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        deleted: true
-        tierPin: untrusted
-        tierPinReason: tierPinReason
-        twoFactorRequiredAt: 2000-01-23T04:56:07.000+00:00
-        name: name
-        theme: house
         machines:
         - instance:
-            lastSeenAt: 2000-01-23T04:56:07.000+00:00
-            template: true
-            lastError: lastError
+            name: name
+            endpoint: endpoint
             tokenId: tokenId
-            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
             verifyTls: true
+            publicKeyPin: publicKeyPin
+            status: unreachable
+            lastSeenAt: 2000-01-23T04:56:07.000+00:00
+            lastError: lastError
             version:
               key: version
+            templateVmid: 6
             templateAlpineVersion: templateAlpineVersion
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            endpoint: endpoint
-            name: name
-            templateVmid: 2
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            publicKeyPin: publicKeyPin
+            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
             templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
-            templateBuildFailures: 4
-            status: unreachable
+            templateBuildFailures: 1
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            createdAt: 2000-01-23T04:56:07.000+00:00
             updatedAt: 2000-01-23T04:56:07.000+00:00
-          address: address
-          provisioningStale: true
-          vmid: 6
-          diskGigabytes: 2
-          diskBlocks: 1
-          provisionAttempt: 5
-          provisionStartedAt: 2000-01-23T04:56:07.000+00:00
+            template: true
           node: node
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          size: s
-          swarm: https://example.com/
-          failure: failure
-          organization: https://example.com/
+          vmid: 5
           name: name
-          templateVmid: 5
+          size: s
+          diskBlocks: 5
+          templateVmid: 2
+          address: address
           state: requested
+          failure: failure
+          provisionAttempt: 7
+          provisionStartedAt: 2000-01-23T04:56:07.000+00:00
+          swarm: https://example.com/
+          organization: https://example.com/
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
           updatedAt: 2000-01-23T04:56:07.000+00:00
+          diskGigabytes: 9
+          provisioningStale: true
         - instance:
-            lastSeenAt: 2000-01-23T04:56:07.000+00:00
-            template: true
-            lastError: lastError
+            name: name
+            endpoint: endpoint
             tokenId: tokenId
-            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
             verifyTls: true
+            publicKeyPin: publicKeyPin
+            status: unreachable
+            lastSeenAt: 2000-01-23T04:56:07.000+00:00
+            lastError: lastError
             version:
               key: version
+            templateVmid: 6
             templateAlpineVersion: templateAlpineVersion
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            endpoint: endpoint
-            name: name
-            templateVmid: 2
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            publicKeyPin: publicKeyPin
+            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
             templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
-            templateBuildFailures: 4
-            status: unreachable
+            templateBuildFailures: 1
+            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+            createdAt: 2000-01-23T04:56:07.000+00:00
             updatedAt: 2000-01-23T04:56:07.000+00:00
-          address: address
-          provisioningStale: true
-          vmid: 6
-          diskGigabytes: 2
-          diskBlocks: 1
-          provisionAttempt: 5
-          provisionStartedAt: 2000-01-23T04:56:07.000+00:00
+            template: true
           node: node
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          size: s
-          swarm: https://example.com/
-          failure: failure
-          organization: https://example.com/
+          vmid: 5
           name: name
-          templateVmid: 5
+          size: s
+          diskBlocks: 5
+          templateVmid: 2
+          address: address
           state: requested
+          failure: failure
+          provisionAttempt: 7
+          provisionStartedAt: 2000-01-23T04:56:07.000+00:00
+          swarm: https://example.com/
+          organization: https://example.com/
           id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          diskGigabytes: 9
+          provisioningStale: true
+        creditTransactions:
+        - https://example.com/
+        - https://example.com/
+        signals:
+        - organization: https://example.com/
+          application: https://example.com/
+          reason: reason
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - organization: https://example.com/
+          application: https://example.com/
+          reason: reason
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
           updatedAt: 2000-01-23T04:56:07.000+00:00
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        slug: slug
-        machineAccount:
-          displayName: displayName
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          username: username
-        applications:
-        - https://example.com/
-        - https://example.com/
+        deletedAt: 2000-01-23T04:56:07.000+00:00
+        createdAt: 2000-01-23T04:56:07.000+00:00
         updatedAt: 2000-01-23T04:56:07.000+00:00
+        tierPinned: true
+        deleted: true
       properties:
         machineAccount:
-          $ref: '#/components/schemas/User'
+          allOf:
+          - $ref: "#/components/schemas/User"
+          description: |-
+            The principal an {@see OrganizationToken} authenticates as: a machine
+            account this platform owns, not a person.
+          nullable: true
         name:
           type: string
         slug:
@@ -3326,7 +3391,12 @@ components:
           readOnly: true
           type: string
         tierPinnedBy:
-          $ref: '#/components/schemas/User'
+          allOf:
+          - $ref: "#/components/schemas/User"
+          description: "Nullable and SET NULL: somebody can delete an operator, and\
+            \ the pin outlives them."
+          nullable: true
+          readOnly: true
         tierPinReason:
           nullable: true
           readOnly: true
@@ -3366,39 +3436,51 @@ components:
           type: integer
         memberships:
           items:
-            $ref: '#/components/schemas/Membership'
+            $ref: "#/components/schemas/Membership"
+          readOnly: true
           type: array
+          default: null
         applications:
           items:
             example: https://example.com/
             format: iri-reference
             type: string
+          readOnly: true
           type: array
+          default: null
         swarms:
           description: BYO swarms owned by this organization.
           items:
             example: https://example.com/
             format: iri-reference
             type: string
+          readOnly: true
           type: array
+          default: null
         machines:
           description: Machines self-service-provisioned for this organization.
           items:
-            $ref: '#/components/schemas/Machine'
+            $ref: "#/components/schemas/Machine"
+          readOnly: true
           type: array
+          default: null
         creditTransactions:
           description: The append-only credit ledger.
           items:
             example: https://example.com/
             format: iri-reference
             type: string
+          readOnly: true
           type: array
+          default: null
         signals:
           description: What this organization's own compose files have told the platform
             about it (#818).
           items:
-            $ref: '#/components/schemas/OrganizationSignal'
+            $ref: "#/components/schemas/OrganizationSignal"
+          readOnly: true
           type: array
+          default: null
         id:
           format: uuid
           readOnly: true
@@ -3427,36 +3509,34 @@ components:
       description: List retired managed services that a restore can still bring back.
         A service stays restorable for 7 days after deletedAt.
       example:
-        instance:
-          name: name
-          state: requested
+        organization: https://example.com/
+        slug: slug
+        kind: postgres
+        majorVersion: majorVersion
+        backingName: backingName
+        externalKeyId: externalKeyId
+        quotaBytes: 0
+        poolSizeOverride: 6
+        clientConnectionsOverride: 1
+        state: requested
+        failureReason: failureReason
+        suspensionReason: credit_exhausted
+        usageBytes: 5
+        usageSampledAt: 2000-01-23T04:56:07.000+00:00
+        lastLoadMillis: 5
+        lastLoadSampledAt: 2000-01-23T04:56:07.000+00:00
+        pendingLoadMillis: 2
         bindings:
         - https://example.com/
         - https://example.com/
-        available: true
-        majorVersion: majorVersion
-        clientConnectionsOverride: 1
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        quotaBytes: 0
-        poolSizeOverride: 6
-        state: requested
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        lastLoadSampledAt: 2000-01-23T04:56:07.000+00:00
-        slug: slug
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-        usageSampledAt: 2000-01-23T04:56:07.000+00:00
-        kind: postgres
-        suspensionReason: credit_exhausted
-        externalKeyId: externalKeyId
-        catalogueEntry: catalogueEntry
-        backingName: backingName
         deletedAt: 2000-01-23T04:56:07.000+00:00
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+        catalogueEntry: catalogueEntry
+        instance: ""
+        available: true
         deleted: true
-        organization: https://example.com/
-        failureReason: failureReason
-        pendingLoadMillis: 2
-        usageBytes: 5
-        lastLoadMillis: 5
       properties:
         organization:
           example: https://example.com/
@@ -3488,7 +3568,7 @@ components:
           nullable: true
           type: string
         quotaBytes:
-          $ref: '#/components/schemas/ManagedService_quotaBytes'
+          $ref: "#/components/schemas/ManagedService_quotaBytes"
         poolSizeOverride:
           description: |-
             Operator override of the backend pool size — how many connections each of
@@ -3534,27 +3614,29 @@ components:
           nullable: true
           type: string
         usageBytes:
-          $ref: '#/components/schemas/ManagedService_usageBytes'
+          $ref: "#/components/schemas/ManagedService_usageBytes"
         usageSampledAt:
           format: date-time
           nullable: true
           readOnly: true
           type: string
         lastLoadMillis:
-          $ref: '#/components/schemas/ManagedService_lastLoadMillis'
+          $ref: "#/components/schemas/ManagedService_lastLoadMillis"
         lastLoadSampledAt:
           format: date-time
           nullable: true
           readOnly: true
           type: string
         pendingLoadMillis:
-          $ref: '#/components/schemas/ManagedService_pendingLoadMillis'
+          $ref: "#/components/schemas/ManagedService_pendingLoadMillis"
         bindings:
           items:
             example: https://example.com/
             format: iri-reference
             type: string
+          readOnly: true
           type: array
+          default: null
         id:
           format: uuid
           readOnly: true
@@ -3578,7 +3660,12 @@ components:
           readOnly: true
           type: string
         instance:
-          $ref: '#/components/schemas/ManagedServiceEngine'
+          allOf:
+          - $ref: "#/components/schemas/ManagedServiceEngine"
+          description: "The engine as a tenant reads it: its name and its state, and\
+            \ nothing else."
+          nullable: true
+          readOnly: true
         available:
           readOnly: true
           type: boolean
@@ -3586,9 +3673,6 @@ components:
           readOnly: true
           type: boolean
     ManagedServiceEngine:
-      example:
-        name: name
-        state: requested
       properties:
         name:
           description: "The engine's handle, such as `pg17-1`."
@@ -3660,11 +3744,11 @@ components:
     DeploymentAccessGate:
       description: List an application's per-deployment access-gate overrides.
       example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
         application: https://example.com/
-        accessGate: none
         name: name
+        accessGate: none
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdAt: 2000-01-23T04:56:07.000+00:00
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         application:
@@ -3696,15 +3780,15 @@ components:
     Deployment.DeploymentEndpoint:
       description: List the reachable endpoint(s) for one deployment.
       example:
-        protocol: protocol
-        port: 0
         service: service
+        protocol: protocol
         host: host
-        assigned: true
-        hostUnknownReason: hostUnknownReason
-        edgeRouted: true
+        port: 0
         targetPort: 6
+        assigned: true
+        edgeRouted: true
         url: url
+        hostUnknownReason: hostUnknownReason
       properties:
         service:
           type: string
@@ -3757,7 +3841,8 @@ components:
         buildContexts:
           additionalProperties:
             additionalProperties:
-              $ref: '#/components/schemas/Deployment_jsonMergePatch_buildContexts_value_value'
+              $ref: "#/components/schemas/Deployment_jsonMergePatch_buildContexts_value_value"
+            type: object
           description: |-
             Build contexts uploaded with this revision, keyed by compose service name:
             `{ contextSha256, dockerfile, dockerfileContent?, additionalContexts?, image?, log? }`. The
@@ -3766,11 +3851,13 @@ components:
             worker will walk. `dockerfileContent` is a best-effort text preview
             extracted at ingest ({@see \App\Service\Bundle\ContextDockerfileReader}) — null
             when the context was too large to preview or predates this field.
+          type: object
         forwardedImages:
           additionalProperties:
             additionalProperties:
               nullable: true
               type: string
+            type: object
           description: |-
             Client-forwarded images uploaded with this revision, keyed by compose
             service name: `{ contextSha256, originalImage, image?, log? }`. See
@@ -3784,6 +3871,7 @@ components:
             is filled in once the loader has pushed it to the internal registry,
             the same way `buildContexts[]['image']` is. `{}` for every revision
             that forwarded nothing, which is most of them.
+          type: object
         targetSwarm:
           description: Resolved by the placement engine; null until placed.
           example: https://example.com/
@@ -3846,12 +3934,15 @@ components:
           nullable: true
           type: string
         createdBy:
-          $ref: '#/components/schemas/User'
+          allOf:
+          - $ref: "#/components/schemas/User"
+          nullable: true
         services:
           description: Projection of the compose services.
           items:
-            $ref: '#/components/schemas/Service'
+            $ref: "#/components/schemas/Service"
           type: array
+          default: null
         failures:
           description: |-
             Everything that has gone wrong with this
@@ -3859,8 +3950,10 @@ components:
             {@see \App\Entity\self::$statusReason}, which is only ever
             the latest. See {@see \App\Entity\Failure} on why both exist.
           items:
-            $ref: '#/components/schemas/Failure'
+            $ref: "#/components/schemas/Failure"
+          readOnly: true
           type: array
+          default: null
         id:
           format: uuid
           readOnly: true
@@ -3889,44 +3982,22 @@ components:
           type: boolean
     Failure:
       example:
-        phase: placement
-        displayLabel: displayLabel
-        reason: reason
-        shared: true
-        imageDigest: imageDigest
-        reference: reference
-        buildLogKey: buildLogKey
-        shareExpiresAt: 2000-01-23T04:56:07.000+00:00
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        sharedAt: 2000-01-23T04:56:07.000+00:00
-        proxmoxInstance:
-          lastSeenAt: 2000-01-23T04:56:07.000+00:00
-          template: true
-          lastError: lastError
-          tokenId: tokenId
-          templateBuiltAt: 2000-01-23T04:56:07.000+00:00
-          verifyTls: true
-          version:
-            key: version
-          templateAlpineVersion: templateAlpineVersion
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          endpoint: endpoint
-          name: name
-          templateVmid: 2
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          publicKeyPin: publicKeyPin
-          templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
-          templateBuildFailures: 4
-          status: unreachable
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        service: service
-        sharedBy:
-          displayName: displayName
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          username: username
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         deployment: https://example.com/
+        proxmoxInstance: ""
+        phase: placement
+        reason: reason
+        reference: reference
+        service: service
+        buildLogKey: buildLogKey
+        imageDigest: imageDigest
+        sharedAt: 2000-01-23T04:56:07.000+00:00
+        shareExpiresAt: 2000-01-23T04:56:07.000+00:00
+        sharedBy: ""
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdAt: 2000-01-23T04:56:07.000+00:00
         updatedAt: 2000-01-23T04:56:07.000+00:00
+        displayLabel: displayLabel
+        shared: true
       properties:
         deployment:
           description: |-
@@ -3938,7 +4009,14 @@ components:
           nullable: true
           type: string
         proxmoxInstance:
-          $ref: '#/components/schemas/ProxmoxInstance'
+          allOf:
+          - $ref: "#/components/schemas/ProxmoxInstance"
+          description: |-
+            The platform-infrastructure counterpart to {@see $deployment}, set only
+            for a failure that has no revision behind it at all, such as a template
+            build. There's no tenant on the other end of this one: it's reachable
+            only from `/admin`, never from a member's own pages.
+          nullable: true
         phase:
           enum:
           - placement
@@ -3993,7 +4071,10 @@ components:
           readOnly: true
           type: string
         sharedBy:
-          $ref: '#/components/schemas/User'
+          allOf:
+          - $ref: "#/components/schemas/User"
+          nullable: true
+          readOnly: true
         id:
           format: uuid
           readOnly: true
@@ -4019,30 +4100,30 @@ components:
           type: boolean
     Service:
       example:
+        deployment: https://example.com/
+        name: name
         image: image
-        cpuReservation: 5
-        restart: always
         replicas: 6
         cpuLimit: 1
-        httpPort: 9
+        memLimit: 5
+        cpuReservation: 5
+        memReservation: 2
         ports:
         - key: 7
         - key: 7
+        httpPort: 9
         command:
         - command
         - command
-        memLimit: 5
-        healthcheck:
-          key: 3
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        memReservation: 2
         entrypoint:
         - entrypoint
         - entrypoint
-        name: name
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        healthcheck:
+          key: 3
+        restart: always
         forwardedUnscanned: false
-        deployment: https://example.com/
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdAt: 2000-01-23T04:56:07.000+00:00
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         deployment:
@@ -4057,19 +4138,21 @@ components:
           default: 1
           type: integer
         cpuLimit:
-          $ref: '#/components/schemas/Service_cpuLimit'
+          $ref: "#/components/schemas/Service_cpuLimit"
         memLimit:
-          $ref: '#/components/schemas/Service_memLimit'
+          $ref: "#/components/schemas/Service_memLimit"
         cpuReservation:
-          $ref: '#/components/schemas/Service_cpuReservation'
+          $ref: "#/components/schemas/Service_cpuReservation"
         memReservation:
-          $ref: '#/components/schemas/Service_memReservation'
+          $ref: "#/components/schemas/Service_memReservation"
         ports:
           items:
             additionalProperties:
-              $ref: '#/components/schemas/Service_ports_inner_value'
+              $ref: "#/components/schemas/Service_ports_inner_value"
+            type: object
           nullable: true
           type: array
+          default: null
         httpPort:
           description: |-
             The container port this service speaks HTTP on, as compose's
@@ -4086,6 +4169,7 @@ components:
             type: string
           nullable: true
           type: array
+          default: null
         entrypoint:
           description: |-
             The container's `Command` — compose `entrypoint:`, which replaces the
@@ -4094,9 +4178,10 @@ components:
             type: string
           nullable: true
           type: array
+          default: null
         healthcheck:
           additionalProperties:
-            $ref: '#/components/schemas/Service_healthcheck_value'
+            $ref: "#/components/schemas/Service_healthcheck_value"
           description: |-
             Compose `healthcheck:`, projected straight from {@see \App\Service\Compose\ComposeParser::healthcheck()}
             into the shape {@see \App\Service\Deploy\StackDeployer} sends as Swarm's
@@ -4105,6 +4190,8 @@ components:
             image's own baked-in `HEALTHCHECK` (or none) stands; `disable: true` in
             the compose file is not null, it is `test: ["NONE"]` — an explicit
             instruction rather than silence.
+          nullable: true
+          type: object
         restart:
           default: always
           description: What happens when a container exits; also decides service vs
@@ -4144,165 +4231,118 @@ components:
       description: "List deployment revisions. Filter by application (IRI), sequence\
         \ or name. Any other query parameter answers 400."
       example:
-        failures:
-        - phase: placement
-          displayLabel: displayLabel
-          reason: reason
-          shared: true
-          imageDigest: imageDigest
-          reference: reference
-          buildLogKey: buildLogKey
-          shareExpiresAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          sharedAt: 2000-01-23T04:56:07.000+00:00
-          proxmoxInstance:
-            lastSeenAt: 2000-01-23T04:56:07.000+00:00
-            template: true
-            lastError: lastError
-            tokenId: tokenId
-            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
-            verifyTls: true
-            version:
-              key: version
-            templateAlpineVersion: templateAlpineVersion
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            endpoint: endpoint
-            name: name
-            templateVmid: 2
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            publicKeyPin: publicKeyPin
-            templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
-            templateBuildFailures: 4
-            status: unreachable
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          service: service
-          sharedBy:
-            displayName: displayName
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            username: username
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          deployment: https://example.com/
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - phase: placement
-          displayLabel: displayLabel
-          reason: reason
-          shared: true
-          imageDigest: imageDigest
-          reference: reference
-          buildLogKey: buildLogKey
-          shareExpiresAt: 2000-01-23T04:56:07.000+00:00
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          sharedAt: 2000-01-23T04:56:07.000+00:00
-          proxmoxInstance:
-            lastSeenAt: 2000-01-23T04:56:07.000+00:00
-            template: true
-            lastError: lastError
-            tokenId: tokenId
-            templateBuiltAt: 2000-01-23T04:56:07.000+00:00
-            verifyTls: true
-            version:
-              key: version
-            templateAlpineVersion: templateAlpineVersion
-            createdAt: 2000-01-23T04:56:07.000+00:00
-            endpoint: endpoint
-            name: name
-            templateVmid: 2
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            publicKeyPin: publicKeyPin
-            templateBuildStartedAt: 2000-01-23T04:56:07.000+00:00
-            templateBuildFailures: 4
-            status: unreachable
-            updatedAt: 2000-01-23T04:56:07.000+00:00
-          service: service
-          sharedBy:
-            displayName: displayName
-            id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-            username: username
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          deployment: https://example.com/
-          updatedAt: 2000-01-23T04:56:07.000+00:00
+        application: https://example.com/
+        sequence: 0
+        name: name
         rawCompose: rawCompose
-        zeroTaskObservedAt: 2000-01-23T04:56:07.000+00:00
-        services:
-        - image: image
-          cpuReservation: 5
-          restart: always
-          replicas: 6
-          cpuLimit: 1
-          httpPort: 9
-          ports:
-          - key: 7
-          - key: 7
-          command:
-          - command
-          - command
-          memLimit: 5
-          healthcheck:
-            key: 3
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          memReservation: 2
-          entrypoint:
-          - entrypoint
-          - entrypoint
-          name: name
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          forwardedUnscanned: false
-          deployment: https://example.com/
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - image: image
-          cpuReservation: 5
-          restart: always
-          replicas: 6
-          cpuLimit: 1
-          httpPort: 9
-          ports:
-          - key: 7
-          - key: 7
-          command:
-          - command
-          - command
-          memLimit: 5
-          healthcheck:
-            key: 3
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          memReservation: 2
-          entrypoint:
-          - entrypoint
-          - entrypoint
-          name: name
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          forwardedUnscanned: false
-          deployment: https://example.com/
-          updatedAt: 2000-01-23T04:56:07.000+00:00
         canonicalSpec:
           key: ""
-        degraded: false
-        sequence: 0
-        failedOnSwarm: false
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        deletedAt: 2000-01-23T04:56:07.000+00:00
-        onASwarm: true
-        statusReason: statusReason
-        deleted: true
-        application: https://example.com/
         buildContexts:
           key:
             key:
               key:
                 key: Deployment_jsonMergePatch_buildContexts_value_value
-        createdBy:
-          displayName: displayName
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          username: username
-        name: name
-        digest: digest
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         forwardedImages:
           key:
             key: forwardedImages
         targetSwarm: https://example.com/
         status: pending
+        statusReason: statusReason
+        failedOnSwarm: false
+        zeroTaskObservedAt: 2000-01-23T04:56:07.000+00:00
+        degraded: false
+        digest: digest
+        createdBy: ""
+        services:
+        - deployment: https://example.com/
+          name: name
+          image: image
+          replicas: 6
+          cpuLimit: 1
+          memLimit: 5
+          cpuReservation: 5
+          memReservation: 2
+          ports:
+          - key: 7
+          - key: 7
+          httpPort: 9
+          command:
+          - command
+          - command
+          entrypoint:
+          - entrypoint
+          - entrypoint
+          healthcheck:
+            key: 3
+          restart: always
+          forwardedUnscanned: false
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - deployment: https://example.com/
+          name: name
+          image: image
+          replicas: 6
+          cpuLimit: 1
+          memLimit: 5
+          cpuReservation: 5
+          memReservation: 2
+          ports:
+          - key: 7
+          - key: 7
+          httpPort: 9
+          command:
+          - command
+          - command
+          entrypoint:
+          - entrypoint
+          - entrypoint
+          healthcheck:
+            key: 3
+          restart: always
+          forwardedUnscanned: false
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        failures:
+        - deployment: https://example.com/
+          proxmoxInstance: ""
+          phase: placement
+          reason: reason
+          reference: reference
+          service: service
+          buildLogKey: buildLogKey
+          imageDigest: imageDigest
+          sharedAt: 2000-01-23T04:56:07.000+00:00
+          shareExpiresAt: 2000-01-23T04:56:07.000+00:00
+          sharedBy: ""
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          displayLabel: displayLabel
+          shared: true
+        - deployment: https://example.com/
+          proxmoxInstance: ""
+          phase: placement
+          reason: reason
+          reference: reference
+          service: service
+          buildLogKey: buildLogKey
+          imageDigest: imageDigest
+          sharedAt: 2000-01-23T04:56:07.000+00:00
+          shareExpiresAt: 2000-01-23T04:56:07.000+00:00
+          sharedBy: ""
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+          displayLabel: displayLabel
+          shared: true
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        deletedAt: 2000-01-23T04:56:07.000+00:00
+        createdAt: 2000-01-23T04:56:07.000+00:00
         updatedAt: 2000-01-23T04:56:07.000+00:00
+        onASwarm: true
+        deleted: true
       properties:
         application:
           example: https://example.com/
@@ -4330,7 +4370,8 @@ components:
         buildContexts:
           additionalProperties:
             additionalProperties:
-              $ref: '#/components/schemas/Deployment_jsonMergePatch_buildContexts_value_value'
+              $ref: "#/components/schemas/Deployment_jsonMergePatch_buildContexts_value_value"
+            type: object
           description: |-
             Build contexts uploaded with this revision, keyed by compose service name:
             `{ contextSha256, dockerfile, dockerfileContent?, additionalContexts?, image?, log? }`. The
@@ -4339,11 +4380,13 @@ components:
             worker will walk. `dockerfileContent` is a best-effort text preview
             extracted at ingest ({@see \App\Service\Bundle\ContextDockerfileReader}) — null
             when the context was too large to preview or predates this field.
+          type: object
         forwardedImages:
           additionalProperties:
             additionalProperties:
               nullable: true
               type: string
+            type: object
           description: |-
             Client-forwarded images uploaded with this revision, keyed by compose
             service name: `{ contextSha256, originalImage, image?, log? }`. See
@@ -4357,6 +4400,7 @@ components:
             is filled in once the loader has pushed it to the internal registry,
             the same way `buildContexts[]['image']` is. `{}` for every revision
             that forwarded nothing, which is most of them.
+          type: object
         targetSwarm:
           description: Resolved by the placement engine; null until placed.
           example: https://example.com/
@@ -4419,12 +4463,15 @@ components:
           nullable: true
           type: string
         createdBy:
-          $ref: '#/components/schemas/User'
+          allOf:
+          - $ref: "#/components/schemas/User"
+          nullable: true
         services:
           description: Projection of the compose services.
           items:
-            $ref: '#/components/schemas/Service'
+            $ref: "#/components/schemas/Service"
           type: array
+          default: null
         failures:
           description: |-
             Everything that has gone wrong with this
@@ -4432,8 +4479,10 @@ components:
             {@see \App\Entity\self::$statusReason}, which is only ever
             the latest. See {@see \App\Entity\Failure} on why both exist.
           items:
-            $ref: '#/components/schemas/Failure'
+            $ref: "#/components/schemas/Failure"
+          readOnly: true
           type: array
+          default: null
         id:
           format: uuid
           readOnly: true
@@ -4467,11 +4516,13 @@ components:
           additionalProperties:
             additionalProperties:
               type: string
+            type: object
           description: |-
             Raw `build.secrets` values, keyed by service then by BuildKit secret id
             (Grey.ooo/someones.computer_agent#46) — matches
             `App\Service\Bundle\BundleIngestor::commitFromStoredContent()`'s
             `$secrets` parameter.
+          type: object
         application:
           example: https://example.com/
           format: iri-reference
@@ -4497,12 +4548,14 @@ components:
           type: string
         contexts:
           items:
-            $ref: '#/components/schemas/BundleContextInput'
+            $ref: "#/components/schemas/BundleContextInput"
           type: array
+          default: null
         images:
           items:
-            $ref: '#/components/schemas/BundleForwardedImageInput'
+            $ref: "#/components/schemas/BundleForwardedImageInput"
           type: array
+          default: null
       required:
       - application
       - client
@@ -4537,8 +4590,9 @@ components:
           type: string
         additionalContexts:
           items:
-            $ref: '#/components/schemas/BundleAdditionalContextInput'
+            $ref: "#/components/schemas/BundleAdditionalContextInput"
           type: array
+          default: null
       required:
       - contextSha256
       - service
@@ -4557,13 +4611,13 @@ components:
     Deployment.BundleUploadConfirmOutput:
       description: "Confirm a completed bundle upload, creating the deployment revision."
       example:
-        retried: true
-        sequence: 0
-        digest: digest
-        warning: warning
         id: id
-        url: url
+        sequence: 0
         status: status
+        digest: digest
+        url: url
+        retried: true
+        warning: warning
       properties:
         id:
           type: string
@@ -4613,12 +4667,14 @@ components:
           type: string
         contexts:
           items:
-            $ref: '#/components/schemas/BundleContextInput'
+            $ref: "#/components/schemas/BundleContextInput"
           type: array
+          default: null
         images:
           items:
-            $ref: '#/components/schemas/BundleForwardedImageInput'
+            $ref: "#/components/schemas/BundleForwardedImageInput"
           type: array
+          default: null
       required:
       - application
       - client
@@ -4626,66 +4682,69 @@ components:
     Deployment.BundleUploadDeclareOutput:
       description: Declare a bundle upload and get a presigned URL to upload it to.
       example:
-        images:
-        - contextSha256: contextSha256
-          uploadUrl: uploadUrl
-          service: service
-          name: name
-          alreadyStored: true
-        - contextSha256: contextSha256
-          uploadUrl: uploadUrl
-          service: service
-          name: name
-          alreadyStored: true
-        additionalContexts:
-        - contextSha256: contextSha256
-          uploadUrl: uploadUrl
-          service: service
-          name: name
-          alreadyStored: true
-        - contextSha256: contextSha256
-          uploadUrl: uploadUrl
-          service: service
-          name: name
-          alreadyStored: true
         contexts:
-        - contextSha256: contextSha256
-          uploadUrl: uploadUrl
-          service: service
+        - service: service
           name: name
+          contextSha256: contextSha256
           alreadyStored: true
-        - contextSha256: contextSha256
           uploadUrl: uploadUrl
-          service: service
+        - service: service
           name: name
+          contextSha256: contextSha256
           alreadyStored: true
+          uploadUrl: uploadUrl
+        additionalContexts:
+        - service: service
+          name: name
+          contextSha256: contextSha256
+          alreadyStored: true
+          uploadUrl: uploadUrl
+        - service: service
+          name: name
+          contextSha256: contextSha256
+          alreadyStored: true
+          uploadUrl: uploadUrl
+        images:
+        - service: service
+          name: name
+          contextSha256: contextSha256
+          alreadyStored: true
+          uploadUrl: uploadUrl
+        - service: service
+          name: name
+          contextSha256: contextSha256
+          alreadyStored: true
+          uploadUrl: uploadUrl
         expiresAt: 2000-01-23T04:56:07.000+00:00
       properties:
         contexts:
           description: one per declared build context
           items:
-            $ref: '#/components/schemas/BundleUploadTarget'
+            $ref: "#/components/schemas/BundleUploadTarget"
           type: array
+          default: null
         additionalContexts:
           description: one per declared named additional context
           items:
-            $ref: '#/components/schemas/BundleUploadTarget'
+            $ref: "#/components/schemas/BundleUploadTarget"
           type: array
+          default: null
         images:
           description: one per declared forwarded image
           items:
-            $ref: '#/components/schemas/BundleUploadTarget'
+            $ref: "#/components/schemas/BundleUploadTarget"
           type: array
+          default: null
         expiresAt:
           format: date-time
           type: string
     BundleUploadTarget:
       example:
-        contextSha256: contextSha256
-        uploadUrl: uploadUrl
         service: service
         name: name
+        contextSha256: contextSha256
         alreadyStored: true
+        uploadUrl: uploadUrl
       properties:
         service:
           type: string
@@ -4704,26 +4763,23 @@ components:
     CreditTransaction:
       description: List an organization's credit ledger rows.
       example:
-        engineMillis: 5
-        type: top_up
-        unresolvedContainers: 1
-        stripeEventId: stripeEventId
-        resourceKind: compute
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        amountCents: 0
-        createdBy:
-          displayName: displayName
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          username: username
-        stripeCheckoutSessionId: stripeCheckoutSessionId
         organization: https://example.com/
-        usageRows: 2
-        currency: usd
-        usageHour: 2000-01-23T04:56:07.000+00:00
-        usageSeconds: 6
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        usageBytes: 5
+        type: top_up
         status: pending
+        amountCents: 0
+        currency: usd
+        stripeCheckoutSessionId: stripeCheckoutSessionId
+        usageHour: 2000-01-23T04:56:07.000+00:00
+        resourceKind: compute
+        usageSeconds: 6
+        unresolvedContainers: 1
+        usageBytes: 5
+        engineMillis: 5
+        usageRows: 2
+        stripeEventId: stripeEventId
+        createdBy: ""
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdAt: 2000-01-23T04:56:07.000+00:00
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         organization:
@@ -4797,9 +4853,9 @@ components:
           readOnly: true
           type: integer
         usageBytes:
-          $ref: '#/components/schemas/CreditTransaction_usageBytes'
+          $ref: "#/components/schemas/CreditTransaction_usageBytes"
         engineMillis:
-          $ref: '#/components/schemas/CreditTransaction_engineMillis'
+          $ref: "#/components/schemas/CreditTransaction_engineMillis"
         usageRows:
           description: |-
             The row count an API-access-log-volume debit was computed from — the
@@ -4815,7 +4871,9 @@ components:
           nullable: true
           type: string
         createdBy:
-          $ref: '#/components/schemas/User'
+          allOf:
+          - $ref: "#/components/schemas/User"
+          nullable: true
         id:
           format: uuid
           readOnly: true
@@ -4950,15 +5008,19 @@ components:
             example: https://example.com/
             format: iri-reference
             type: string
+          readOnly: true
           type: array
+          default: null
         portAllocations:
           description: |-
             the published ports this application
             holds cluster-wide, for as long as it exists
             ({@see \App\Entity\PortAllocation})
           items:
-            $ref: '#/components/schemas/PortAllocation'
+            $ref: "#/components/schemas/PortAllocation"
+          readOnly: true
           type: array
+          default: null
         poolDomain:
           description: |-
             Which of the app-hosting pool domains (`snarl.dev`, `starshp.dev` —
@@ -5041,16 +5103,16 @@ components:
           type: boolean
     PortAllocation:
       example:
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        protocol: tcp
-        publishedPort: 6
         swarm: https://example.com/
         application: https://example.com/
         deploymentName: deploymentName
-        assigned: true
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         serviceName: serviceName
         targetPort: 0
+        protocol: tcp
+        publishedPort: 6
+        assigned: true
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdAt: 2000-01-23T04:56:07.000+00:00
         updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         swarm:
@@ -5107,59 +5169,59 @@ components:
     Application:
       description: List applications the caller can see.
       example:
-        poolShortNameDeployment: poolShortNameDeployment
-        icon: icon
-        serviceAdoption: "off"
-        iconKey: iconKey
-        poolShortNameService: poolShortNameService
-        iconVersion: iconVersion
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        legacyStackBase: legacyStackBase
-        buildKeyId: buildKeyId
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        organization: https://example.com/
         slug: slug
-        updatedAt: 2000-01-23T04:56:07.000+00:00
-        portAllocations:
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          protocol: tcp
-          publishedPort: 6
-          swarm: https://example.com/
-          application: https://example.com/
-          deploymentName: deploymentName
-          assigned: true
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          serviceName: serviceName
-          targetPort: 0
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        - createdAt: 2000-01-23T04:56:07.000+00:00
-          protocol: tcp
-          publishedPort: 6
-          swarm: https://example.com/
-          application: https://example.com/
-          deploymentName: deploymentName
-          assigned: true
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          serviceName: serviceName
-          targetPort: 0
-          updatedAt: 2000-01-23T04:56:07.000+00:00
-        buildBucket: buildBucket
-        primaryDeploymentName: primaryDeploymentName
+        name: name
+        isolationLevel: shared
+        serviceAdoption: "off"
         accessGate: none
-        poolShortName: false
-        poolDomain: poolDomain
+        currentDeployment: https://example.com/
         firstRunningAt: 2000-01-23T04:56:07.000+00:00
+        primaryDeploymentName: primaryDeploymentName
+        legacyStackBase: legacyStackBase
+        iconKey: iconKey
         iconSource: uploaded
+        buildBucket: buildBucket
+        buildKeyId: buildKeyId
         deployments:
         - https://example.com/
         - https://example.com/
-        deletedAt: 2000-01-23T04:56:07.000+00:00
-        deleted: true
-        currentDeployment: https://example.com/
+        portAllocations:
+        - swarm: https://example.com/
+          application: https://example.com/
+          deploymentName: deploymentName
+          serviceName: serviceName
+          targetPort: 0
+          protocol: tcp
+          publishedPort: 6
+          assigned: true
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        - swarm: https://example.com/
+          application: https://example.com/
+          deploymentName: deploymentName
+          serviceName: serviceName
+          targetPort: 0
+          protocol: tcp
+          publishedPort: 6
+          assigned: true
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          createdAt: 2000-01-23T04:56:07.000+00:00
+          updatedAt: 2000-01-23T04:56:07.000+00:00
+        poolDomain: poolDomain
         poolLabel: poolLabel
+        poolShortName: false
+        poolShortNameDeployment: poolShortNameDeployment
+        poolShortNameService: poolShortNameService
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        deletedAt: 2000-01-23T04:56:07.000+00:00
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+        icon: icon
         operatorChosenIcon: true
-        organization: https://example.com/
-        name: name
-        isolationLevel: shared
+        iconVersion: iconVersion
+        deleted: true
       properties:
         organization:
           description: |-
@@ -5279,15 +5341,19 @@ components:
             example: https://example.com/
             format: iri-reference
             type: string
+          readOnly: true
           type: array
+          default: null
         portAllocations:
           description: |-
             the published ports this application
             holds cluster-wide, for as long as it exists
             ({@see \App\Entity\PortAllocation})
           items:
-            $ref: '#/components/schemas/PortAllocation'
+            $ref: "#/components/schemas/PortAllocation"
+          readOnly: true
           type: array
+          default: null
         poolDomain:
           description: |-
             Which of the app-hosting pool domains (`snarl.dev`, `starshp.dev` —
@@ -5371,9 +5437,9 @@ components:
     AdoptionApproval:
       description: List adoption approval decisions the caller can see.
       example:
+        application: https://example.com/
         composeServiceName: composeServiceName
         approved: true
-        application: https://example.com/
         decidedAt: 2000-01-23T04:56:07.000+00:00
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
       properties:
@@ -5414,12 +5480,12 @@ components:
       - composeServiceName
     ConstraintViolation_violations_inner:
       example:
-        code: code
-        payload:
-          key: ""
-        hint: hint
         propertyPath: propertyPath
         message: message
+        code: code
+        hint: hint
+        payload:
+          key: ""
       properties:
         propertyPath:
           description: The property path of the violation
@@ -5476,6 +5542,8 @@ components:
       - additionalProperties:
           additionalProperties:
             type: string
+          type: object
+        type: object
       - type: string
       nullable: true
     Service_cpuLimit:
@@ -5516,6 +5584,7 @@ components:
       - items:
           type: string
         type: array
+        default: null
       nullable: true
     CreditTransaction_usageBytes:
       anyOf:

@@ -22,6 +22,7 @@ var _ MappedNullable = &Failure{}
 type Failure struct {
 	// Deleting a revision deletes its failures with it. They are an account of what that revision did, and outliving the thing they describe would leave a page that can only render half of itself.
 	Deployment NullableString `json:"deployment,omitempty"`
+	// The platform-infrastructure counterpart to {@see $deployment}, set only for a failure that has no revision behind it at all, such as a template build. There's no tenant on the other end of this one: it's reachable only from `/admin`, never from a member's own pages.
 	ProxmoxInstance NullableProxmoxInstance `json:"proxmoxInstance,omitempty"`
 	Phase *string `json:"phase,omitempty"`
 	// Verbatim, as it was written to `Deployment::$statusReason` at the time.
