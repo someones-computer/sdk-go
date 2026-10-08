@@ -3749,13 +3749,11 @@ components:
           description: Exactly what the user submitted.
           type: string
         canonicalSpec:
-          additionalProperties:
-            $ref: '#/components/schemas/Deployment_jsonMergePatch_canonicalSpec_value'
-          description: |-
-            Parsed, supported-subset-only canonical representation — what
-            {@see \App\Service\Compose\ComposeParser::parse()} produced. Both keys are
-            optional here and not there: a row is whatever was written when it was
-            written, so a revision that predates a key still has to load.
+          additionalProperties: true
+          description: "Parsed, supported-subset-only canonical representation of\
+            \ the compose file, as the parser produced it. Keys are `services` and\
+            \ `warnings`. A revision that predates a key omits it."
+          type: object
         buildContexts:
           additionalProperties:
             additionalProperties:
@@ -4277,9 +4275,7 @@ components:
           deployment: https://example.com/
           updatedAt: 2000-01-23T04:56:07.000+00:00
         canonicalSpec:
-          key:
-            key:
-              key: Deployment_jsonMergePatch_canonicalSpec_value
+          key: ""
         degraded: false
         sequence: 0
         failedOnSwarm: false
@@ -4326,13 +4322,11 @@ components:
           description: Exactly what the user submitted.
           type: string
         canonicalSpec:
-          additionalProperties:
-            $ref: '#/components/schemas/Deployment_jsonMergePatch_canonicalSpec_value'
-          description: |-
-            Parsed, supported-subset-only canonical representation — what
-            {@see \App\Service\Compose\ComposeParser::parse()} produced. Both keys are
-            optional here and not there: a row is whatever was written when it was
-            written, so a revision that predates a key still has to load.
+          additionalProperties: true
+          description: "Parsed, supported-subset-only canonical representation of\
+            \ the compose file, as the parser produced it. Keys are `services` and\
+            \ `warnings`. A revision that predates a key omits it."
+          type: object
         buildContexts:
           additionalProperties:
             additionalProperties:
@@ -5477,15 +5471,6 @@ components:
       - type: string
       description: "Engine-milliseconds accrued since the last hourly bill, in milliseconds."
       readOnly: true
-    Deployment_jsonMergePatch_canonicalSpec_value:
-      anyOf:
-      - additionalProperties:
-          additionalProperties:
-            nullable: true
-            type: string
-      - items:
-          type: string
-        type: array
     Deployment_jsonMergePatch_buildContexts_value_value:
       anyOf:
       - additionalProperties:
