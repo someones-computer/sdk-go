@@ -18,7 +18,7 @@ import (
 // checks if the Deployment type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Deployment{}
 
-// Deployment List an application's deployment revisions.
+// Deployment List deployment revisions. Filter by application (IRI), sequence or name. Any other query parameter answers 400.
 type Deployment struct {
 	Application *string `json:"application,omitempty"`
 	// Monotonic per-application revision number.
