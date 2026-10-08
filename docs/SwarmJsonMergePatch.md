@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Endpoint** | Pointer to **string** | Manager API endpoint (tcp+TLS) or SSH target. | [optional] 
 **Status** | Pointer to **string** |  | [optional] [default to "unreachable"]
 **PublicHost** | Pointer to **NullableString** | The address a client *outside* the cluster reaches this context&#39;s published ports on — a hostname or an IP, no scheme and no port. | [optional] 
-**Roles** | Pointer to **[]string** | What this context is used for — builds, runtime, or both. Stored as the enum&#39;s string values rather than a relation: it is a small fixed set, and a json column needs no join to answer \&quot;where can I build?\&quot;. | [optional] [default to [runtime]]
+**Roles** | Pointer to **[]string** | What this context is used for — builds, runtime, or both. Stored as the enum&#39;s string values rather than a relation: it is a small fixed set, and a json column needs no join to answer \&quot;where can I build?\&quot;. | [optional] [default to {"runtime"}]
 **LastSeenAt** | Pointer to **NullableTime** |  | [optional] 
 **Capacity** | Pointer to **map[string]string** | Observed capacity snapshot (cpu/mem/nodes), reconciled from the swarm — whatever {@see \\App\\Service\\Swarm\\SwarmHealth::$capacity} carried at the last successful probe. | [optional] 
 **Labels** | Pointer to **map[string]string** |  | [optional] [readonly] 
@@ -19,9 +19,9 @@ Name | Type | Description | Notes
 **IngressNetwork** | Pointer to **NullableString** | The shared overlay that install put the edge on — the one Traefik&#39;s &#x60;--providers.swarm.network&#x60; names, and therefore the only network a service can be routed from. | [optional] [readonly] 
 **IngressVerifiedAt** | Pointer to **NullableTime** | When the edge was last *observed* routing — the overlay present, the edge service on it, watching it, with a task running ({@see \\App\\Service\\Ingress\\IngressVerifier}). | [optional] [readonly] 
 **IngressVerificationError** | Pointer to **NullableString** | What the last verification found wrong, or null when the edge was routing. | [optional] [readonly] 
-**Nodes** | Pointer to [**[]SwarmNode**](SwarmNode.md) |  | [optional] 
-**Machines** | Pointer to [**[]Machine**](Machine.md) | The machines that serve this context. Mapped only so a delete can let go of them. See {@see self::markDeleted()}. | [optional] 
-**Deployments** | Pointer to **[]string** | The revisions placed here. Mapped for the same single reason as {@see self::$machines} — so a delete can let go of them — rather than as a collection anything reads; {@see \\App\\Repository\\DeploymentRepository} is where a caller asks what is on a context. | [optional] 
+**Nodes** | Pointer to [**[]SwarmNode**](SwarmNode.md) |  | [optional] [readonly] 
+**Machines** | Pointer to [**[]Machine**](Machine.md) | The machines that serve this context. Mapped only so a delete can let go of them. See {@see self::markDeleted()}. | [optional] [readonly] 
+**Deployments** | Pointer to **[]string** | The revisions placed here. Mapped for the same single reason as {@see self::$machines} — so a delete can let go of them — rather than as a collection anything reads; {@see \\App\\Repository\\DeploymentRepository} is where a caller asks what is on a context. | [optional] [readonly] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **DeletedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
@@ -282,20 +282,20 @@ HasLastSeenAt returns a boolean if a field has been set.
 UnsetLastSeenAt ensures that no value is present for LastSeenAt, not even an explicit nil
 ### GetCapacity
 
-`func (o *SwarmJsonMergePatch) GetCapacity() map[string]string`
+`func (o *SwarmJsonMergePatch) GetCapacity() map[string]*string`
 
 GetCapacity returns the Capacity field if non-nil, zero value otherwise.
 
 ### GetCapacityOk
 
-`func (o *SwarmJsonMergePatch) GetCapacityOk() (*map[string]string, bool)`
+`func (o *SwarmJsonMergePatch) GetCapacityOk() (*map[string]*string, bool)`
 
 GetCapacityOk returns a tuple with the Capacity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCapacity
 
-`func (o *SwarmJsonMergePatch) SetCapacity(v map[string]string)`
+`func (o *SwarmJsonMergePatch) SetCapacity(v map[string]*string)`
 
 SetCapacity sets Capacity field to given value.
 
@@ -305,6 +305,16 @@ SetCapacity sets Capacity field to given value.
 
 HasCapacity returns a boolean if a field has been set.
 
+### SetCapacityNil
+
+`func (o *SwarmJsonMergePatch) SetCapacityNil(b bool)`
+
+ SetCapacityNil sets the value for Capacity to be an explicit nil
+
+### UnsetCapacity
+`func (o *SwarmJsonMergePatch) UnsetCapacity()`
+
+UnsetCapacity ensures that no value is present for Capacity, not even an explicit nil
 ### GetLabels
 
 `func (o *SwarmJsonMergePatch) GetLabels() map[string]string`
@@ -330,6 +340,16 @@ SetLabels sets Labels field to given value.
 
 HasLabels returns a boolean if a field has been set.
 
+### SetLabelsNil
+
+`func (o *SwarmJsonMergePatch) SetLabelsNil(b bool)`
+
+ SetLabelsNil sets the value for Labels to be an explicit nil
+
+### UnsetLabels
+`func (o *SwarmJsonMergePatch) UnsetLabels()`
+
+UnsetLabels ensures that no value is present for Labels, not even an explicit nil
 ### GetIngressInstalledAt
 
 `func (o *SwarmJsonMergePatch) GetIngressInstalledAt() time.Time`

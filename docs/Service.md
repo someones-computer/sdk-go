@@ -447,6 +447,16 @@ SetHealthcheck sets Healthcheck field to given value.
 
 HasHealthcheck returns a boolean if a field has been set.
 
+### SetHealthcheckNil
+
+`func (o *Service) SetHealthcheckNil(b bool)`
+
+ SetHealthcheckNil sets the value for Healthcheck to be an explicit nil
+
+### UnsetHealthcheck
+`func (o *Service) UnsetHealthcheck()`
+
+UnsetHealthcheck ensures that no value is present for Healthcheck, not even an explicit nil
 ### GetRestart
 
 `func (o *Service) GetRestart() string`
