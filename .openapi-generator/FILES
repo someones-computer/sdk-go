@@ -42,7 +42,6 @@ docs/DeploymentBundleUploadDeclareOutput.md
 docs/DeploymentDeploymentEndpoint.md
 docs/DeploymentJsonMergePatch.md
 docs/DeploymentJsonMergePatchBuildContextsValueValue.md
-docs/DeploymentJsonMergePatchCanonicalSpecValue.md
 docs/Error.md
 docs/Failure.md
 docs/Machine.md
@@ -102,7 +101,6 @@ model_deployment_bundle_upload_declare_output.go
 model_deployment_deployment_endpoint.go
 model_deployment_json_merge_patch.go
 model_deployment_json_merge_patch_build_contexts_value_value.go
-model_deployment_json_merge_patch_canonical_spec_value.go
 model_error.go
 model_failure.go
 model_machine.go

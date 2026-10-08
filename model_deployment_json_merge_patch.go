@@ -27,8 +27,8 @@ type DeploymentJsonMergePatch struct {
 	Name NullableString `json:"name,omitempty"`
 	// Exactly what the user submitted.
 	RawCompose *string `json:"rawCompose,omitempty"`
-	// Parsed, supported-subset-only canonical representation — what {@see \\App\\Service\\Compose\\ComposeParser::parse()} produced. Both keys are optional here and not there: a row is whatever was written when it was written, so a revision that predates a key still has to load.
-	CanonicalSpec map[string]DeploymentJsonMergePatchCanonicalSpecValue `json:"canonicalSpec,omitempty"`
+	// Parsed, supported-subset-only canonical representation of the compose file, as the parser produced it. Keys are `services` and `warnings`. A revision that predates a key omits it.
+	CanonicalSpec map[string]interface{} `json:"canonicalSpec,omitempty"`
 	// Build contexts uploaded with this revision, keyed by compose service name: `{ contextSha256, dockerfile, dockerfileContent?, additionalContexts?, image?, log? }`. The tarballs themselves live in the content-addressed bundle cache ({@see \\App\\Service\\Bundle\\BundleStorage}); this is the pointer the build worker will walk. `dockerfileContent` is a best-effort text preview extracted at ingest ({@see \\App\\Service\\Bundle\\ContextDockerfileReader}) — null when the context was too large to preview or predates this field.
 	BuildContexts map[string]map[string]DeploymentJsonMergePatchBuildContextsValueValue `json:"buildContexts,omitempty"`
 	// Client-forwarded images uploaded with this revision, keyed by compose service name: `{ contextSha256, originalImage, image?, log? }`. See docs/registry.md's \"Client-side forwarding\" callout: `sc` detects a private, unbuildable `image:` reference it can already reach locally and offers to upload it, for a platform that has no other way to pull it. A sibling to {@see self::$buildContexts} rather than folded into it — that array means \"run this through BuildKit\", and this one never does. The tarballs live in the object store ({@see \\App\\Service\\Bundle\\ImageStorage}), not the database; `image` is filled in once the loader has pushed it to the internal registry, the same way `buildContexts[]['image']` is. `{}` for every revision that forwarded nothing, which is most of them.
@@ -228,9 +228,9 @@ func (o *DeploymentJsonMergePatch) SetRawCompose(v string) {
 }
 
 // GetCanonicalSpec returns the CanonicalSpec field value if set, zero value otherwise.
-func (o *DeploymentJsonMergePatch) GetCanonicalSpec() map[string]DeploymentJsonMergePatchCanonicalSpecValue {
+func (o *DeploymentJsonMergePatch) GetCanonicalSpec() map[string]interface{} {
 	if o == nil || IsNil(o.CanonicalSpec) {
-		var ret map[string]DeploymentJsonMergePatchCanonicalSpecValue
+		var ret map[string]interface{}
 		return ret
 	}
 	return o.CanonicalSpec
@@ -238,9 +238,9 @@ func (o *DeploymentJsonMergePatch) GetCanonicalSpec() map[string]DeploymentJsonM
 
 // GetCanonicalSpecOk returns a tuple with the CanonicalSpec field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeploymentJsonMergePatch) GetCanonicalSpecOk() (map[string]DeploymentJsonMergePatchCanonicalSpecValue, bool) {
+func (o *DeploymentJsonMergePatch) GetCanonicalSpecOk() (map[string]interface{}, bool) {
 	if o == nil || IsNil(o.CanonicalSpec) {
-		return map[string]DeploymentJsonMergePatchCanonicalSpecValue{}, false
+		return map[string]interface{}{}, false
 	}
 	return o.CanonicalSpec, true
 }
@@ -254,8 +254,8 @@ func (o *DeploymentJsonMergePatch) HasCanonicalSpec() bool {
 	return false
 }
 
-// SetCanonicalSpec gets a reference to the given map[string]DeploymentJsonMergePatchCanonicalSpecValue and assigns it to the CanonicalSpec field.
-func (o *DeploymentJsonMergePatch) SetCanonicalSpec(v map[string]DeploymentJsonMergePatchCanonicalSpecValue) {
+// SetCanonicalSpec gets a reference to the given map[string]interface{} and assigns it to the CanonicalSpec field.
+func (o *DeploymentJsonMergePatch) SetCanonicalSpec(v map[string]interface{}) {
 	o.CanonicalSpec = v
 }
 
