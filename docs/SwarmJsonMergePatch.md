@@ -20,7 +20,7 @@ Name | Type | Description | Notes
 **IngressVerifiedAt** | Pointer to **NullableTime** | When the edge was last *observed* routing — the overlay present, the edge service on it, watching it, with a task running ({@see \\App\\Service\\Ingress\\IngressVerifier}). | [optional] [readonly] 
 **IngressVerificationError** | Pointer to **NullableString** | What the last verification found wrong, or null when the edge was routing. | [optional] [readonly] 
 **Nodes** | Pointer to [**[]SwarmNode**](SwarmNode.md) |  | [optional] 
-**Machines** | Pointer to [**[]Machine**](Machine.md) |  | [optional] 
+**Machines** | Pointer to [**[]Machine**](Machine.md) | The machines that serve this context. Mapped only so a delete can let go of them. See {@see self::markDeleted()}. | [optional] 
 **Deployments** | Pointer to **[]string** | The revisions placed here. Mapped for the same single reason as {@see self::$machines} — so a delete can let go of them — rather than as a collection anything reads; {@see \\App\\Repository\\DeploymentRepository} is where a caller asks what is on a context. | [optional] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **DeletedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 

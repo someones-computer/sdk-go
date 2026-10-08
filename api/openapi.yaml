@@ -2065,6 +2065,9 @@ components:
             $ref: '#/components/schemas/SwarmNode'
           type: array
         machines:
+          description: |-
+            The machines that serve this context. Mapped only so a delete can let go
+            of them. See {@see self::markDeleted()}.
           items:
             $ref: '#/components/schemas/Machine'
           type: array
@@ -2763,6 +2766,9 @@ components:
             $ref: '#/components/schemas/SwarmNode'
           type: array
         machines:
+          description: |-
+            The machines that serve this context. Mapped only so a delete can let go
+            of them. See {@see self::markDeleted()}.
           items:
             $ref: '#/components/schemas/Machine'
           type: array
@@ -2996,6 +3002,7 @@ components:
             type: string
           type: array
         machines:
+          description: Machines self-service-provisioned for this organization.
           items:
             $ref: '#/components/schemas/Machine'
           type: array
@@ -3007,6 +3014,8 @@ components:
             type: string
           type: array
         signals:
+          description: What this organization's own compose files have told the platform
+            about it (#818).
           items:
             $ref: '#/components/schemas/OrganizationSignal'
           type: array
@@ -3373,6 +3382,7 @@ components:
             type: string
           type: array
         machines:
+          description: Machines self-service-provisioned for this organization.
           items:
             $ref: '#/components/schemas/Machine'
           type: array
@@ -3384,6 +3394,8 @@ components:
             type: string
           type: array
         signals:
+          description: What this organization's own compose files have told the platform
+            about it (#818).
           items:
             $ref: '#/components/schemas/OrganizationSignal'
           type: array
@@ -3416,33 +3428,17 @@ components:
         A service stays restorable for 7 days after deletedAt.
       example:
         instance:
-          kind: postgres
-          capacityBytes: 0
-          observedAt: 2000-01-23T04:56:07.000+00:00
-          inFlightStale: true
-          majorVersion: majorVersion
-          catalogueEntry: catalogueEntry
-          observedUsageBytes: 6
-          serving: true
-          overlayNetwork: overlayNetwork
-          createdAt: 2000-01-23T04:56:07.000+00:00
-          swarm: https://example.com/
-          failureReason: failureReason
           name: name
-          inFlightSince: 2000-01-23T04:56:07.000+00:00
-          imageRef: imageRef
           state: requested
-          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-          updatedAt: 2000-01-23T04:56:07.000+00:00
         bindings:
         - https://example.com/
         - https://example.com/
         available: true
         majorVersion: majorVersion
-        clientConnectionsOverride: 5
+        clientConnectionsOverride: 1
         createdAt: 2000-01-23T04:56:07.000+00:00
-        quotaBytes: 1
-        poolSizeOverride: 5
+        quotaBytes: 0
+        poolSizeOverride: 6
         state: requested
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
         lastLoadSampledAt: 2000-01-23T04:56:07.000+00:00
@@ -3458,9 +3454,9 @@ components:
         deleted: true
         organization: https://example.com/
         failureReason: failureReason
-        pendingLoadMillis: 9
-        usageBytes: 2
-        lastLoadMillis: 7
+        pendingLoadMillis: 2
+        usageBytes: 5
+        lastLoadMillis: 5
       properties:
         organization:
           example: https://example.com/
@@ -3478,8 +3474,6 @@ components:
           type: string
         majorVersion:
           type: string
-        instance:
-          $ref: '#/components/schemas/ServiceInstance'
         backingName:
           description: |-
             What the object is actually called inside the engine — `acme_hearth_db` for a
@@ -3583,66 +3577,24 @@ components:
           description: "`postgres 17`, `mysql 8.0` — the catalogue entry, as one string."
           readOnly: true
           type: string
+        instance:
+          $ref: '#/components/schemas/ManagedServiceEngine'
         available:
           readOnly: true
           type: boolean
         deleted:
           readOnly: true
           type: boolean
-    ServiceInstance:
+    ManagedServiceEngine:
       example:
-        kind: postgres
-        capacityBytes: 0
-        observedAt: 2000-01-23T04:56:07.000+00:00
-        inFlightStale: true
-        majorVersion: majorVersion
-        catalogueEntry: catalogueEntry
-        observedUsageBytes: 6
-        serving: true
-        overlayNetwork: overlayNetwork
-        createdAt: 2000-01-23T04:56:07.000+00:00
-        swarm: https://example.com/
-        failureReason: failureReason
         name: name
-        inFlightSince: 2000-01-23T04:56:07.000+00:00
-        imageRef: imageRef
         state: requested
-        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
-        updatedAt: 2000-01-23T04:56:07.000+00:00
       properties:
         name:
-          description: "Operator-facing handle, unique across the estate: `pg17-1`,\
-            \ `mysql80-1`."
-          type: string
-        kind:
-          enum:
-          - postgres
-          - mariadb
-          - mysql
-          - garage
-          type: string
-        majorVersion:
-          description: |-
-            The major version this engine *is*, as the catalogue names it: `17`, `16`,
-            `11.8`, `8.4`, `8.0`.
-          type: string
-        imageRef:
-          description: "The exact image this instance runs, pinned — never a floating\
-            \ upstream tag."
-          type: string
-        swarm:
-          description: Repoint the instance at a different context.
-          example: https://example.com/
-          format: iri-reference
-          type: string
-        overlayNetwork:
-          description: The internal overlay this engine and every sidecar bound to
-            it share.
+          description: "The engine's handle, such as `pg17-1`."
           type: string
         state:
-          default: requested
-          description: "Moving to any state other than {@see ServiceInstanceState::Failed}\
-            \ clears a stale failure."
+          description: "The state of the engine, such as `serving` or `failed`."
           enum:
           - requested
           - deploying
@@ -3652,56 +3604,6 @@ components:
           - retired
           - failed
           type: string
-        failureReason:
-          description: "Why the instance failed, carried beside the state as `Machine::$failure`\
-            \ already does."
-          nullable: true
-          readOnly: true
-          type: string
-        capacityBytes:
-          $ref: '#/components/schemas/ServiceInstance_capacityBytes'
-        observedUsageBytes:
-          $ref: '#/components/schemas/ServiceInstance_observedUsageBytes'
-        observedAt:
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        inFlightSince:
-          description: |-
-            When the current attempt to reach `Serving` began — {@see claim()} sets it
-            on a fresh row and {@see markInFlight()} again on an upgrade's re-entry into
-            `Healthchecking`; null once the row is `Serving`, `Failed`, or anything else
-            that means nothing is still trying.
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        id:
-          format: uuid
-          readOnly: true
-          type: string
-        createdAt:
-          format: date-time
-          readOnly: true
-          type: string
-        updatedAt:
-          format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-        catalogueEntry:
-          description: "`postgres 17`, `mysql 8.0` — the catalogue entry this instance\
-            \ serves."
-          readOnly: true
-          type: string
-        serving:
-          readOnly: true
-          type: boolean
-        inFlightStale:
-          description: Dispatched so long ago that whatever was carrying it is gone.
-          readOnly: true
-          type: boolean
     ManagedService.ManagedServiceInput:
       description: Create a new managed service (database or bucket) on a shared engine.
       properties:
@@ -3948,10 +3850,16 @@ components:
         createdBy:
           $ref: '#/components/schemas/User'
         services:
+          description: Projection of the compose services.
           items:
             $ref: '#/components/schemas/Service'
           type: array
         failures:
+          description: |-
+            Everything that has gone wrong with this
+            revision, append-only. Distinct from
+            {@see \App\Entity\self::$statusReason}, which is only ever
+            the latest. See {@see \App\Entity\Failure} on why both exist.
           items:
             $ref: '#/components/schemas/Failure'
           type: array
@@ -4519,10 +4427,16 @@ components:
         createdBy:
           $ref: '#/components/schemas/User'
         services:
+          description: Projection of the compose services.
           items:
             $ref: '#/components/schemas/Service'
           type: array
         failures:
+          description: |-
+            Everything that has gone wrong with this
+            revision, append-only. Distinct from
+            {@see \App\Entity\self::$statusReason}, which is only ever
+            the latest. See {@see \App\Entity\Failure} on why both exist.
           items:
             $ref: '#/components/schemas/Failure'
           type: array
@@ -4754,14 +4668,17 @@ components:
         expiresAt: 2000-01-23T04:56:07.000+00:00
       properties:
         contexts:
+          description: one per declared build context
           items:
             $ref: '#/components/schemas/BundleUploadTarget'
           type: array
         additionalContexts:
+          description: one per declared named additional context
           items:
             $ref: '#/components/schemas/BundleUploadTarget'
           type: array
         images:
+          description: one per declared forwarded image
           items:
             $ref: '#/components/schemas/BundleUploadTarget'
           type: array
@@ -5041,6 +4958,10 @@ components:
             type: string
           type: array
         portAllocations:
+          description: |-
+            the published ports this application
+            holds cluster-wide, for as long as it exists
+            ({@see \App\Entity\PortAllocation})
           items:
             $ref: '#/components/schemas/PortAllocation'
           type: array
@@ -5366,6 +5287,10 @@ components:
             type: string
           type: array
         portAllocations:
+          description: |-
+            the published ports this application
+            holds cluster-wide, for as long as it exists
+            ({@see \App\Entity\PortAllocation})
           items:
             $ref: '#/components/schemas/PortAllocation'
           type: array
@@ -5551,19 +5476,6 @@ components:
       - type: integer
       - type: string
       description: "Engine-milliseconds accrued since the last hourly bill, in milliseconds."
-      readOnly: true
-    ServiceInstance_capacityBytes:
-      anyOf:
-      - type: integer
-      - type: string
-      description: "Bytes the underlying volume can hold, when the driver can say."
-      nullable: true
-    ServiceInstance_observedUsageBytes:
-      anyOf:
-      - type: integer
-      - type: string
-      description: Bytes observed in use across every tenant on this instance.
-      nullable: true
       readOnly: true
     Deployment_jsonMergePatch_canonicalSpec_value:
       anyOf:

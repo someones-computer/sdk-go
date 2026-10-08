@@ -47,7 +47,9 @@ type DeploymentJsonMergePatch struct {
 	// Content digest of the canonical spec, for dedupe/audit.
 	Digest NullableString `json:"digest,omitempty"`
 	CreatedBy NullableUser `json:"createdBy,omitempty"`
+	// Projection of the compose services.
 	Services []Service `json:"services,omitempty"`
+	// Everything that has gone wrong with this revision, append-only. Distinct from {@see \\App\\Entity\\self::$statusReason}, which is only ever the latest. See {@see \\App\\Entity\\Failure} on why both exist.
 	Failures []Failure `json:"failures,omitempty"`
 	Id *string `json:"id,omitempty"`
 	DeletedAt NullableTime `json:"deletedAt,omitempty"`

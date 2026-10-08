@@ -46,6 +46,7 @@ type Application struct {
 	// The access-key id of the read-only Garage key scoped to {@see $buildBucket}, handed to build tasks. Doubles as Garage's own identifier for the key (the same way {@see ManagedService::$externalKeyId} does), so nothing separate is persisted for it.
 	BuildKeyId NullableString `json:"buildKeyId,omitempty"`
 	Deployments []string `json:"deployments,omitempty"`
+	// the published ports this application holds cluster-wide, for as long as it exists ({@see \\App\\Entity\\PortAllocation})
 	PortAllocations []PortAllocation `json:"portAllocations,omitempty"`
 	// Which of the app-hosting pool domains (`snarl.dev`, `starshp.dev` — {@see \\App\\Service\\Ingress\\DomainPoolAssigner}) this application's deployments answer under, in addition to `someones.computer`. Null until its first successful deploy assigns one, and never moved after — a redeploy must resolve to the same pool hostnames it already handed out, the same reason {@see $firstRunningAt} is a latch rather than a rolling value.
 	PoolDomain NullableString `json:"poolDomain,omitempty"`

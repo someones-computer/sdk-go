@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Contexts** | Pointer to [**[]BundleUploadTarget**](BundleUploadTarget.md) |  | [optional] 
-**AdditionalContexts** | Pointer to [**[]BundleUploadTarget**](BundleUploadTarget.md) |  | [optional] 
-**Images** | Pointer to [**[]BundleUploadTarget**](BundleUploadTarget.md) |  | [optional] 
+**Contexts** | Pointer to [**[]BundleUploadTarget**](BundleUploadTarget.md) | one per declared build context | [optional] 
+**AdditionalContexts** | Pointer to [**[]BundleUploadTarget**](BundleUploadTarget.md) | one per declared named additional context | [optional] 
+**Images** | Pointer to [**[]BundleUploadTarget**](BundleUploadTarget.md) | one per declared forwarded image | [optional] 
 **ExpiresAt** | Pointer to **time.Time** |  | [optional] 
 
 ## Methods
