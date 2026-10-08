@@ -20,8 +20,11 @@ var _ MappedNullable = &DeploymentBundleUploadDeclareOutput{}
 
 // DeploymentBundleUploadDeclareOutput Declare a bundle upload and get a presigned URL to upload it to.
 type DeploymentBundleUploadDeclareOutput struct {
+	// one per declared build context
 	Contexts []BundleUploadTarget `json:"contexts,omitempty"`
+	// one per declared named additional context
 	AdditionalContexts []BundleUploadTarget `json:"additionalContexts,omitempty"`
+	// one per declared forwarded image
 	Images []BundleUploadTarget `json:"images,omitempty"`
 	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
 }

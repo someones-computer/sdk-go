@@ -2065,6 +2065,9 @@ components:
             $ref: '#/components/schemas/SwarmNode'
           type: array
         machines:
+          description: |-
+            The machines that serve this context. Mapped only so a delete can let go
+            of them. See {@see self::markDeleted()}.
           items:
             $ref: '#/components/schemas/Machine'
           type: array
@@ -2763,6 +2766,9 @@ components:
             $ref: '#/components/schemas/SwarmNode'
           type: array
         machines:
+          description: |-
+            The machines that serve this context. Mapped only so a delete can let go
+            of them. See {@see self::markDeleted()}.
           items:
             $ref: '#/components/schemas/Machine'
           type: array
@@ -2996,6 +3002,7 @@ components:
             type: string
           type: array
         machines:
+          description: Machines self-service-provisioned for this organization.
           items:
             $ref: '#/components/schemas/Machine'
           type: array
@@ -3007,6 +3014,8 @@ components:
             type: string
           type: array
         signals:
+          description: What this organization's own compose files have told the platform
+            about it (#818).
           items:
             $ref: '#/components/schemas/OrganizationSignal'
           type: array
@@ -3373,6 +3382,7 @@ components:
             type: string
           type: array
         machines:
+          description: Machines self-service-provisioned for this organization.
           items:
             $ref: '#/components/schemas/Machine'
           type: array
@@ -3384,6 +3394,8 @@ components:
             type: string
           type: array
         signals:
+          description: What this organization's own compose files have told the platform
+            about it (#818).
           items:
             $ref: '#/components/schemas/OrganizationSignal'
           type: array
@@ -3838,10 +3850,16 @@ components:
         createdBy:
           $ref: '#/components/schemas/User'
         services:
+          description: Projection of the compose services.
           items:
             $ref: '#/components/schemas/Service'
           type: array
         failures:
+          description: |-
+            Everything that has gone wrong with this
+            revision, append-only. Distinct from
+            {@see \App\Entity\self::$statusReason}, which is only ever
+            the latest. See {@see \App\Entity\Failure} on why both exist.
           items:
             $ref: '#/components/schemas/Failure'
           type: array
@@ -4409,10 +4427,16 @@ components:
         createdBy:
           $ref: '#/components/schemas/User'
         services:
+          description: Projection of the compose services.
           items:
             $ref: '#/components/schemas/Service'
           type: array
         failures:
+          description: |-
+            Everything that has gone wrong with this
+            revision, append-only. Distinct from
+            {@see \App\Entity\self::$statusReason}, which is only ever
+            the latest. See {@see \App\Entity\Failure} on why both exist.
           items:
             $ref: '#/components/schemas/Failure'
           type: array
@@ -4644,14 +4668,17 @@ components:
         expiresAt: 2000-01-23T04:56:07.000+00:00
       properties:
         contexts:
+          description: one per declared build context
           items:
             $ref: '#/components/schemas/BundleUploadTarget'
           type: array
         additionalContexts:
+          description: one per declared named additional context
           items:
             $ref: '#/components/schemas/BundleUploadTarget'
           type: array
         images:
+          description: one per declared forwarded image
           items:
             $ref: '#/components/schemas/BundleUploadTarget'
           type: array
@@ -4931,6 +4958,10 @@ components:
             type: string
           type: array
         portAllocations:
+          description: |-
+            the published ports this application
+            holds cluster-wide, for as long as it exists
+            ({@see \App\Entity\PortAllocation})
           items:
             $ref: '#/components/schemas/PortAllocation'
           type: array
@@ -4957,6 +4988,23 @@ components:
             collide on the exact same DNS name the moment they also shared a
             deployment and service name.
           nullable: true
+          type: string
+        poolShortName:
+          default: false
+          description: |-
+            Whether `{label}.{poolDomain}`, with no service or deployment level in
+            front, answers for one deployment (#2030). See {@see poolShortHostname()}.
+          type: boolean
+        poolShortNameDeployment:
+          description: The deployment the short name answers for. Null is the unnamed
+            deployment.
+          nullable: true
+          readOnly: true
+          type: string
+        poolShortNameService:
+          description: The compose service it routes to. Null is the only HTTP service.
+          nullable: true
+          readOnly: true
           type: string
         id:
           format: uuid
@@ -5065,9 +5113,11 @@ components:
     Application:
       description: List applications the caller can see.
       example:
+        poolShortNameDeployment: poolShortNameDeployment
         icon: icon
         serviceAdoption: "off"
         iconKey: iconKey
+        poolShortNameService: poolShortNameService
         iconVersion: iconVersion
         createdAt: 2000-01-23T04:56:07.000+00:00
         legacyStackBase: legacyStackBase
@@ -5101,6 +5151,7 @@ components:
         buildBucket: buildBucket
         primaryDeploymentName: primaryDeploymentName
         accessGate: none
+        poolShortName: false
         poolDomain: poolDomain
         firstRunningAt: 2000-01-23T04:56:07.000+00:00
         iconSource: uploaded
@@ -5236,6 +5287,10 @@ components:
             type: string
           type: array
         portAllocations:
+          description: |-
+            the published ports this application
+            holds cluster-wide, for as long as it exists
+            ({@see \App\Entity\PortAllocation})
           items:
             $ref: '#/components/schemas/PortAllocation'
           type: array
@@ -5262,6 +5317,23 @@ components:
             collide on the exact same DNS name the moment they also shared a
             deployment and service name.
           nullable: true
+          type: string
+        poolShortName:
+          default: false
+          description: |-
+            Whether `{label}.{poolDomain}`, with no service or deployment level in
+            front, answers for one deployment (#2030). See {@see poolShortHostname()}.
+          type: boolean
+        poolShortNameDeployment:
+          description: The deployment the short name answers for. Null is the unnamed
+            deployment.
+          nullable: true
+          readOnly: true
+          type: string
+        poolShortNameService:
+          description: The compose service it routes to. Null is the only HTTP service.
+          nullable: true
+          readOnly: true
           type: string
         id:
           format: uuid

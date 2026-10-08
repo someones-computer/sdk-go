@@ -41,9 +41,11 @@ type OrganizationJsonMergePatch struct {
 	Applications []string `json:"applications,omitempty"`
 	// BYO swarms owned by this organization.
 	Swarms []string `json:"swarms,omitempty"`
+	// Machines self-service-provisioned for this organization.
 	Machines []Machine `json:"machines,omitempty"`
 	// The append-only credit ledger.
 	CreditTransactions []string `json:"creditTransactions,omitempty"`
+	// What this organization's own compose files have told the platform about it (#818).
 	Signals []OrganizationSignal `json:"signals,omitempty"`
 	Id *string `json:"id,omitempty"`
 	DeletedAt NullableTime `json:"deletedAt,omitempty"`

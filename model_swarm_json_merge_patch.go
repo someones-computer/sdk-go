@@ -46,6 +46,7 @@ type SwarmJsonMergePatch struct {
 	// What the last verification found wrong, or null when the edge was routing.
 	IngressVerificationError NullableString `json:"ingressVerificationError,omitempty"`
 	Nodes []SwarmNode `json:"nodes,omitempty"`
+	// The machines that serve this context. Mapped only so a delete can let go of them. See {@see self::markDeleted()}.
 	Machines []Machine `json:"machines,omitempty"`
 	// The revisions placed here. Mapped for the same single reason as {@see self::$machines} — so a delete can let go of them — rather than as a collection anything reads; {@see \\App\\Repository\\DeploymentRepository} is where a caller asks what is on a context.
 	Deployments []string `json:"deployments,omitempty"`
