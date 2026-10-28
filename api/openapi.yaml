@@ -4776,6 +4776,7 @@ components:
         usageBytes: 5
         engineMillis: 5
         usageRows: 2
+        stripePaymentIntentId: stripePaymentIntentId
         stripeEventId: stripeEventId
         createdBy: ""
         id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
@@ -4799,6 +4800,7 @@ components:
           - pending
           - succeeded
           - failed
+          - reversed
           type: string
         amountCents:
           description: Signed integer amount in the smallest currency unit (cents
@@ -4865,6 +4867,11 @@ components:
           nullable: true
           readOnly: true
           type: integer
+        stripePaymentIntentId:
+          description: The Stripe PaymentIntent that paid a top-up. Set when the payment
+            clears.
+          nullable: true
+          type: string
         stripeEventId:
           description: Stripe Event id that last transitioned this row; secondary
             idempotency guard for webhook delivery.
