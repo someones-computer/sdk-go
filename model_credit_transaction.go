@@ -40,6 +40,8 @@ type CreditTransaction struct {
 	EngineMillis NullableCreditTransactionEngineMillis `json:"engineMillis,omitempty"`
 	// The row count an API-access-log-volume debit was computed from — the evidence a per-row charge can be checked against, the same role {@see $usageBytes} plays for a storage debit. Null on anything but that kind of debit.
 	UsageRows NullableInt32 `json:"usageRows,omitempty"`
+	// The Stripe PaymentIntent that paid a top-up. Set when the payment clears.
+	StripePaymentIntentId NullableString `json:"stripePaymentIntentId,omitempty"`
 	// Stripe Event id that last transitioned this row; secondary idempotency guard for webhook delivery.
 	StripeEventId NullableString `json:"stripeEventId,omitempty"`
 	CreatedBy NullableUser `json:"createdBy,omitempty"`
@@ -569,6 +571,48 @@ func (o *CreditTransaction) UnsetUsageRows() {
 	o.UsageRows.Unset()
 }
 
+// GetStripePaymentIntentId returns the StripePaymentIntentId field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *CreditTransaction) GetStripePaymentIntentId() string {
+	if o == nil || IsNil(o.StripePaymentIntentId.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.StripePaymentIntentId.Get()
+}
+
+// GetStripePaymentIntentIdOk returns a tuple with the StripePaymentIntentId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *CreditTransaction) GetStripePaymentIntentIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.StripePaymentIntentId.Get(), o.StripePaymentIntentId.IsSet()
+}
+
+// HasStripePaymentIntentId returns a boolean if a field has been set.
+func (o *CreditTransaction) HasStripePaymentIntentId() bool {
+	if o != nil && o.StripePaymentIntentId.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetStripePaymentIntentId gets a reference to the given NullableString and assigns it to the StripePaymentIntentId field.
+func (o *CreditTransaction) SetStripePaymentIntentId(v string) {
+	o.StripePaymentIntentId.Set(&v)
+}
+// SetStripePaymentIntentIdNil sets the value for StripePaymentIntentId to be an explicit nil
+func (o *CreditTransaction) SetStripePaymentIntentIdNil() {
+	o.StripePaymentIntentId.Set(nil)
+}
+
+// UnsetStripePaymentIntentId ensures that no value is present for StripePaymentIntentId, not even an explicit nil
+func (o *CreditTransaction) UnsetStripePaymentIntentId() {
+	o.StripePaymentIntentId.Unset()
+}
+
 // GetStripeEventId returns the StripeEventId field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *CreditTransaction) GetStripeEventId() string {
 	if o == nil || IsNil(o.StripeEventId.Get()) {
@@ -807,6 +851,9 @@ func (o CreditTransaction) ToMap() (map[string]interface{}, error) {
 	}
 	if o.UsageRows.IsSet() {
 		toSerialize["usageRows"] = o.UsageRows.Get()
+	}
+	if o.StripePaymentIntentId.IsSet() {
+		toSerialize["stripePaymentIntentId"] = o.StripePaymentIntentId.Get()
 	}
 	if o.StripeEventId.IsSet() {
 		toSerialize["stripeEventId"] = o.StripeEventId.Get()
