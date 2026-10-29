@@ -66,6 +66,8 @@ type APIClient struct {
 	ServiceBindingAPI *ServiceBindingAPIService
 
 	SwarmAPI *SwarmAPIService
+
+	VolumeAPI *VolumeAPIService
 }
 
 type service struct {
@@ -93,6 +95,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.OrganizationAPI = (*OrganizationAPIService)(&c.common)
 	c.ServiceBindingAPI = (*ServiceBindingAPIService)(&c.common)
 	c.SwarmAPI = (*SwarmAPIService)(&c.common)
+	c.VolumeAPI = (*VolumeAPIService)(&c.common)
 
 	return c
 }

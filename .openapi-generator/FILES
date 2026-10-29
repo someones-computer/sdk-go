@@ -12,6 +12,7 @@ api_managed_service.go
 api_organization.go
 api_service_binding.go
 api_swarm.go
+api_volume.go
 client.go
 configuration.go
 docs/AdoptionApproval.md
@@ -75,6 +76,9 @@ docs/SwarmAPI.md
 docs/SwarmJsonMergePatch.md
 docs/SwarmNode.md
 docs/User.md
+docs/Volume.md
+docs/VolumeAPI.md
+docs/VolumeVolumeInput.md
 git_push.sh
 go.mod
 go.sum
@@ -130,6 +134,8 @@ model_swarm.go
 model_swarm_json_merge_patch.go
 model_swarm_node.go
 model_user.go
+model_volume.go
+model_volume_volume_input.go
 response.go
 test/api_adoption_approval_test.go
 test/api_application_test.go
@@ -140,4 +146,5 @@ test/api_managed_service_test.go
 test/api_organization_test.go
 test/api_service_binding_test.go
 test/api_swarm_test.go
+test/api_volume_test.go
 utils.go
