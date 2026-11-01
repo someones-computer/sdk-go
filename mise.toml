@@ -1,0 +1,23 @@
+# Host toolchain for someones.computer_sdk_go, managed by mise (https://mise.jdx.dev).
+#
+# It pins the tools the checks need on a host PATH. It is not the task runner.
+#
+#   brew install mise
+#   mise install        # installs everything below
+#   mise run hooks      # writes the git hooks (hk install --mise)
+
+min_version = "2026.1.0"
+
+[tools]
+# The current stable Go. go.mod's directive is a floor, not the toolchain.
+go = "1.27.2"
+
+# Runs the git hooks. The step list is hk.pkl.
+hk = "1.58.1"
+
+# For editing hk.pkl by hand (`pkl eval hk.pkl`). hk embeds its own evaluator and does not need it.
+pkl = "0.32.1"
+
+[tasks.hooks]
+description = "Install the git hooks"
+run = "hk install --mise"

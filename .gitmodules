@@ -1,0 +1,3 @@
+[submodule ".claude/agent-standards"]
+	path = .claude/agent-standards
+	url = https://git.grey.ooo/Grey.ooo/agent-standards.git

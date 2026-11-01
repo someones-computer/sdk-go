@@ -1,0 +1,1 @@
+../agent-standards/bin/worktree-remove.sh

@@ -1,0 +1,1 @@
+../agent-standards/commands/vcs-check.md
