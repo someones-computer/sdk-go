@@ -132,6 +132,27 @@ tags:
     owner === null  => PLATFORM pool (shared infra we run).
     owner !== null  => CUSTOMER BYO cluster (untrusted, outbound-only).
   name: Swarm
+- description: |-
+    A named store of files that S3 holds, for a game server to keep its data in.
+
+    **A volume is a bucket with a name the tenant chose.** The bytes live in the
+    {@see ManagedService} of kind Garage that this row owns. That reuses the quota, the
+    metering, the credit gate and the retirement grace period that a bucket already has.
+    It builds no second storage path. See docs/managed-game-servers.md.
+
+    The services list and `/managed_services` leave out the backing bucket
+    ({@see \App\Repository\ManagedServiceRepository::findForOrganization()} and
+    {@see \App\ApiResource\ManagedServiceOwnerExtension}). A tenant who retired it there
+    would break the volume without a word.
+
+    Soft-deleted together with the bucket. Retiring a volume retires its bucket, so the
+    data stays restorable for the grace period of {@see \App\Repository\ManagedServiceRepository::GRACE_PERIOD}.
+
+    Unique per organization by slug, among live rows. A partial unique index in
+    Version20261029101425's raw SQL does this, and the entity doesn't map it, for the reason
+    {@see ManagedService} gives: DBAL drops the `WHERE` clause on SQLite.
+    {@see VolumeRepository::findOneBySlug()} is the portable half of the rule.
+  name: Volume
 paths:
   /api/adoption_approvals:
     get:
@@ -1973,6 +1994,134 @@ paths:
       summary: Updates the Swarm resource.
       tags:
       - Swarm
+  /api/volumes:
+    get:
+      description: Retrieves the collection of Volume resources.
+      operationId: volumes_list
+      parameters:
+      - deprecated: false
+        description: The collection page number
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/Volume"
+                type: array
+                default: null
+          description: Volume collection
+      summary: Retrieves the collection of Volume resources.
+      tags:
+      - Volume
+    post:
+      description: Creates a Volume resource.
+      operationId: volumes_create
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Volume.VolumeInput"
+        description: The new Volume resource
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Volume"
+          description: Volume resource created
+        "400":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid input
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ConstraintViolation"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConstraintViolation"
+          description: An error occurred
+      summary: Creates a Volume resource.
+      tags:
+      - Volume
+  /api/volumes/{id}:
+    delete:
+      description: Removes the Volume resource.
+      operationId: volumes_delete
+      parameters:
+      - deprecated: false
+        description: Volume identifier
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: Volume resource deleted
+        "404":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Not found
+      summary: Removes the Volume resource.
+      tags:
+      - Volume
+    get:
+      description: Retrieves a Volume resource.
+      operationId: volumes_get
+      parameters:
+      - deprecated: false
+        description: Volume identifier
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Volume"
+          description: Volume resource
+        "404":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Not found
+      summary: Retrieves a Volume resource.
+      tags:
+      - Volume
 components:
   examples: {}
   headers: {}
@@ -1980,6 +2129,161 @@ components:
   requestBodies: {}
   responses: {}
   schemas:
+    Error:
+      description: A representation of common errors.
+      example:
+        title: title
+        detail: detail
+        status: 0
+        instance: instance
+        type: type
+      properties:
+        title:
+          description: "A short, human-readable summary of the problem."
+          nullable: true
+          readOnly: true
+          type: string
+        detail:
+          description: A human-readable explanation specific to this occurrence of
+            the problem.
+          nullable: true
+          readOnly: true
+          type: string
+        status:
+          default: 400
+          nullable: true
+          type: integer
+        instance:
+          description: A URI reference that identifies the specific occurrence of
+            the problem. It may or may not yield further information if dereferenced.
+          nullable: true
+          readOnly: true
+          type: string
+        type:
+          description: A URI reference that identifies the problem type
+          readOnly: true
+          type: string
+    Volume:
+      description: List the volumes the caller can see.
+      example:
+        organization: https://example.com/
+        slug: slug
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        deletedAt: 2000-01-23T04:56:07.000+00:00
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+        state: requested
+        usageBytes: 0
+        deleted: true
+      properties:
+        organization:
+          example: https://example.com/
+          format: iri-reference
+          type: string
+        slug:
+          type: string
+        id:
+          format: uuid
+          readOnly: true
+          type: string
+        deletedAt:
+          format: date-time
+          nullable: true
+          readOnly: true
+          type: string
+        createdAt:
+          format: date-time
+          readOnly: true
+          type: string
+        updatedAt:
+          format: date-time
+          nullable: true
+          readOnly: true
+          type: string
+        state:
+          description: "The bucket's state, as the volume's own."
+          enum:
+          - requested
+          - creating
+          - available
+          - suspended
+          - dropping
+          - dropped
+          - failed
+          readOnly: true
+          type: string
+        usageBytes:
+          description: "Bytes the bucket holds at the last measurement, or null before\
+            \ the first."
+          nullable: true
+          readOnly: true
+          type: integer
+        deleted:
+          readOnly: true
+          type: boolean
+    Volume.VolumeInput:
+      description: "Create a volume: a named store for a game server, held in a Garage\
+        \ bucket."
+      properties:
+        slug:
+          default: ""
+          description: The tenant's own name for it. It shows in the panel and in
+            a game server's settings.
+          maxLength: 56
+          pattern: "^([a-z0-9][a-z0-9-]*)$"
+          type: string
+        organization:
+          example: https://example.com/
+          format: iri-reference
+          nullable: true
+          type: string
+      required:
+      - organization
+      - slug
+    ConstraintViolation:
+      description: Unprocessable entity
+      example:
+        status: 6
+        violations:
+        - propertyPath: propertyPath
+          message: message
+          code: code
+          hint: hint
+          payload:
+            key: ""
+        - propertyPath: propertyPath
+          message: message
+          code: code
+          hint: hint
+          payload:
+            key: ""
+        detail: detail
+        type: type
+        title: title
+        instance: instance
+      properties:
+        status:
+          default: 422
+          type: integer
+        violations:
+          items:
+            $ref: "#/components/schemas/ConstraintViolation_violations_inner"
+          type: array
+          default: null
+        detail:
+          readOnly: true
+          type: string
+        type:
+          readOnly: true
+          type: string
+        title:
+          nullable: true
+          readOnly: true
+          type: string
+        instance:
+          nullable: true
+          readOnly: true
+          type: string
     Swarm.jsonMergePatch:
       description: Update a swarm's mutable fields (platform administration).
       properties:
@@ -2488,84 +2792,6 @@ components:
           type: string
         updatedAt:
           format: date-time
-          nullable: true
-          readOnly: true
-          type: string
-    Error:
-      description: A representation of common errors.
-      example:
-        title: title
-        detail: detail
-        status: 0
-        instance: instance
-        type: type
-      properties:
-        title:
-          description: "A short, human-readable summary of the problem."
-          nullable: true
-          readOnly: true
-          type: string
-        detail:
-          description: A human-readable explanation specific to this occurrence of
-            the problem.
-          nullable: true
-          readOnly: true
-          type: string
-        status:
-          default: 400
-          nullable: true
-          type: integer
-        instance:
-          description: A URI reference that identifies the specific occurrence of
-            the problem. It may or may not yield further information if dereferenced.
-          nullable: true
-          readOnly: true
-          type: string
-        type:
-          description: A URI reference that identifies the problem type
-          readOnly: true
-          type: string
-    ConstraintViolation:
-      description: Unprocessable entity
-      example:
-        status: 6
-        violations:
-        - propertyPath: propertyPath
-          message: message
-          code: code
-          hint: hint
-          payload:
-            key: ""
-        - propertyPath: propertyPath
-          message: message
-          code: code
-          hint: hint
-          payload:
-            key: ""
-        detail: detail
-        type: type
-        title: title
-        instance: instance
-      properties:
-        status:
-          default: 422
-          type: integer
-        violations:
-          items:
-            $ref: "#/components/schemas/ConstraintViolation_violations_inner"
-          type: array
-          default: null
-        detail:
-          readOnly: true
-          type: string
-        type:
-          readOnly: true
-          type: string
-        title:
-          nullable: true
-          readOnly: true
-          type: string
-        instance:
           nullable: true
           readOnly: true
           type: string
