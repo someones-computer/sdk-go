@@ -46,18 +46,22 @@ type ApplicationJsonMergePatch struct {
 	// The access-key id of the read-only Garage key scoped to {@see $buildBucket}, handed to build tasks. Doubles as Garage's own identifier for the key (the same way {@see ManagedService::$externalKeyId} does), so nothing separate is persisted for it.
 	BuildKeyId NullableString `json:"buildKeyId,omitempty"`
 	Deployments []string `json:"deployments,omitempty"`
-	Variables []Variable `json:"variables,omitempty"`
+	// the published ports this application holds cluster-wide, for as long as it exists ({@see \\App\\Entity\\PortAllocation})
 	PortAllocations []PortAllocation `json:"portAllocations,omitempty"`
 	// Which of the app-hosting pool domains (`snarl.dev`, `starshp.dev` — {@see \\App\\Service\\Ingress\\DomainPoolAssigner}) this application's deployments answer under, in addition to `someones.computer`. Null until its first successful deploy assigns one, and never moved after — a redeploy must resolve to the same pool hostnames it already handed out, the same reason {@see $firstRunningAt} is a latch rather than a rolling value.
 	PoolDomain NullableString `json:"poolDomain,omitempty"`
 	// Overrides the auto-slugified application name in the pool-domain hostname's `{service}.{deployment}.{label}.{poolDomain}` shape ({@see \\App\\Service\\Ingress\\PoolHostname}) — null for every application that has not opted into a custom one, which is what {@see poolLabelOrSlug()} falls back to. Unique platform-wide, the same reasoning as {@see \\App\\Entity\\Domain::$name}: two applications sharing a label would collide on the exact same DNS name the moment they also shared a deployment and service name.
 	PoolLabel NullableString `json:"poolLabel,omitempty"`
+	// Whether `{label}.{poolDomain}`, with no service or deployment level in front, answers for one deployment (#2030). See {@see poolShortHostname()}.
+	PoolShortName *bool `json:"poolShortName,omitempty"`
+	// The deployment the short name answers for. Null is the unnamed deployment.
+	PoolShortNameDeployment NullableString `json:"poolShortNameDeployment,omitempty"`
+	// The compose service it routes to. Null is the only HTTP service.
+	PoolShortNameService NullableString `json:"poolShortNameService,omitempty"`
 	Id *string `json:"id,omitempty"`
 	DeletedAt NullableTime `json:"deletedAt,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt NullableTime `json:"updatedAt,omitempty"`
-	BuildCredential *SealedSecret `json:"buildCredential,omitempty"`
-	AccessGateCredential NullableSealedSecret `json:"accessGateCredential,omitempty"`
 	// Point the application at a stored icon, or at none.
 	Icon NullableString `json:"icon,omitempty"`
 	// Whether the stored icon was chosen by a person, and so must survive the next deploy's favicon extraction.
@@ -79,6 +83,8 @@ func NewApplicationJsonMergePatch() *ApplicationJsonMergePatch {
 	this.ServiceAdoption = &serviceAdoption
 	var accessGate string = "none"
 	this.AccessGate = &accessGate
+	var poolShortName bool = false
+	this.PoolShortName = &poolShortName
 	return &this
 }
 
@@ -93,6 +99,8 @@ func NewApplicationJsonMergePatchWithDefaults() *ApplicationJsonMergePatch {
 	this.ServiceAdoption = &serviceAdoption
 	var accessGate string = "none"
 	this.AccessGate = &accessGate
+	var poolShortName bool = false
+	this.PoolShortName = &poolShortName
 	return &this
 }
 
@@ -656,38 +664,6 @@ func (o *ApplicationJsonMergePatch) SetDeployments(v []string) {
 	o.Deployments = v
 }
 
-// GetVariables returns the Variables field value if set, zero value otherwise.
-func (o *ApplicationJsonMergePatch) GetVariables() []Variable {
-	if o == nil || IsNil(o.Variables) {
-		var ret []Variable
-		return ret
-	}
-	return o.Variables
-}
-
-// GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApplicationJsonMergePatch) GetVariablesOk() ([]Variable, bool) {
-	if o == nil || IsNil(o.Variables) {
-		return nil, false
-	}
-	return o.Variables, true
-}
-
-// HasVariables returns a boolean if a field has been set.
-func (o *ApplicationJsonMergePatch) HasVariables() bool {
-	if o != nil && !IsNil(o.Variables) {
-		return true
-	}
-
-	return false
-}
-
-// SetVariables gets a reference to the given []Variable and assigns it to the Variables field.
-func (o *ApplicationJsonMergePatch) SetVariables(v []Variable) {
-	o.Variables = v
-}
-
 // GetPortAllocations returns the PortAllocations field value if set, zero value otherwise.
 func (o *ApplicationJsonMergePatch) GetPortAllocations() []PortAllocation {
 	if o == nil || IsNil(o.PortAllocations) {
@@ -802,6 +778,122 @@ func (o *ApplicationJsonMergePatch) SetPoolLabelNil() {
 // UnsetPoolLabel ensures that no value is present for PoolLabel, not even an explicit nil
 func (o *ApplicationJsonMergePatch) UnsetPoolLabel() {
 	o.PoolLabel.Unset()
+}
+
+// GetPoolShortName returns the PoolShortName field value if set, zero value otherwise.
+func (o *ApplicationJsonMergePatch) GetPoolShortName() bool {
+	if o == nil || IsNil(o.PoolShortName) {
+		var ret bool
+		return ret
+	}
+	return *o.PoolShortName
+}
+
+// GetPoolShortNameOk returns a tuple with the PoolShortName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApplicationJsonMergePatch) GetPoolShortNameOk() (*bool, bool) {
+	if o == nil || IsNil(o.PoolShortName) {
+		return nil, false
+	}
+	return o.PoolShortName, true
+}
+
+// HasPoolShortName returns a boolean if a field has been set.
+func (o *ApplicationJsonMergePatch) HasPoolShortName() bool {
+	if o != nil && !IsNil(o.PoolShortName) {
+		return true
+	}
+
+	return false
+}
+
+// SetPoolShortName gets a reference to the given bool and assigns it to the PoolShortName field.
+func (o *ApplicationJsonMergePatch) SetPoolShortName(v bool) {
+	o.PoolShortName = &v
+}
+
+// GetPoolShortNameDeployment returns the PoolShortNameDeployment field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ApplicationJsonMergePatch) GetPoolShortNameDeployment() string {
+	if o == nil || IsNil(o.PoolShortNameDeployment.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.PoolShortNameDeployment.Get()
+}
+
+// GetPoolShortNameDeploymentOk returns a tuple with the PoolShortNameDeployment field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ApplicationJsonMergePatch) GetPoolShortNameDeploymentOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PoolShortNameDeployment.Get(), o.PoolShortNameDeployment.IsSet()
+}
+
+// HasPoolShortNameDeployment returns a boolean if a field has been set.
+func (o *ApplicationJsonMergePatch) HasPoolShortNameDeployment() bool {
+	if o != nil && o.PoolShortNameDeployment.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPoolShortNameDeployment gets a reference to the given NullableString and assigns it to the PoolShortNameDeployment field.
+func (o *ApplicationJsonMergePatch) SetPoolShortNameDeployment(v string) {
+	o.PoolShortNameDeployment.Set(&v)
+}
+// SetPoolShortNameDeploymentNil sets the value for PoolShortNameDeployment to be an explicit nil
+func (o *ApplicationJsonMergePatch) SetPoolShortNameDeploymentNil() {
+	o.PoolShortNameDeployment.Set(nil)
+}
+
+// UnsetPoolShortNameDeployment ensures that no value is present for PoolShortNameDeployment, not even an explicit nil
+func (o *ApplicationJsonMergePatch) UnsetPoolShortNameDeployment() {
+	o.PoolShortNameDeployment.Unset()
+}
+
+// GetPoolShortNameService returns the PoolShortNameService field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ApplicationJsonMergePatch) GetPoolShortNameService() string {
+	if o == nil || IsNil(o.PoolShortNameService.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.PoolShortNameService.Get()
+}
+
+// GetPoolShortNameServiceOk returns a tuple with the PoolShortNameService field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ApplicationJsonMergePatch) GetPoolShortNameServiceOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PoolShortNameService.Get(), o.PoolShortNameService.IsSet()
+}
+
+// HasPoolShortNameService returns a boolean if a field has been set.
+func (o *ApplicationJsonMergePatch) HasPoolShortNameService() bool {
+	if o != nil && o.PoolShortNameService.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPoolShortNameService gets a reference to the given NullableString and assigns it to the PoolShortNameService field.
+func (o *ApplicationJsonMergePatch) SetPoolShortNameService(v string) {
+	o.PoolShortNameService.Set(&v)
+}
+// SetPoolShortNameServiceNil sets the value for PoolShortNameService to be an explicit nil
+func (o *ApplicationJsonMergePatch) SetPoolShortNameServiceNil() {
+	o.PoolShortNameService.Set(nil)
+}
+
+// UnsetPoolShortNameService ensures that no value is present for PoolShortNameService, not even an explicit nil
+func (o *ApplicationJsonMergePatch) UnsetPoolShortNameService() {
+	o.PoolShortNameService.Unset()
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -950,80 +1042,6 @@ func (o *ApplicationJsonMergePatch) SetUpdatedAtNil() {
 // UnsetUpdatedAt ensures that no value is present for UpdatedAt, not even an explicit nil
 func (o *ApplicationJsonMergePatch) UnsetUpdatedAt() {
 	o.UpdatedAt.Unset()
-}
-
-// GetBuildCredential returns the BuildCredential field value if set, zero value otherwise.
-func (o *ApplicationJsonMergePatch) GetBuildCredential() SealedSecret {
-	if o == nil || IsNil(o.BuildCredential) {
-		var ret SealedSecret
-		return ret
-	}
-	return *o.BuildCredential
-}
-
-// GetBuildCredentialOk returns a tuple with the BuildCredential field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ApplicationJsonMergePatch) GetBuildCredentialOk() (*SealedSecret, bool) {
-	if o == nil || IsNil(o.BuildCredential) {
-		return nil, false
-	}
-	return o.BuildCredential, true
-}
-
-// HasBuildCredential returns a boolean if a field has been set.
-func (o *ApplicationJsonMergePatch) HasBuildCredential() bool {
-	if o != nil && !IsNil(o.BuildCredential) {
-		return true
-	}
-
-	return false
-}
-
-// SetBuildCredential gets a reference to the given SealedSecret and assigns it to the BuildCredential field.
-func (o *ApplicationJsonMergePatch) SetBuildCredential(v SealedSecret) {
-	o.BuildCredential = &v
-}
-
-// GetAccessGateCredential returns the AccessGateCredential field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ApplicationJsonMergePatch) GetAccessGateCredential() SealedSecret {
-	if o == nil || IsNil(o.AccessGateCredential.Get()) {
-		var ret SealedSecret
-		return ret
-	}
-	return *o.AccessGateCredential.Get()
-}
-
-// GetAccessGateCredentialOk returns a tuple with the AccessGateCredential field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ApplicationJsonMergePatch) GetAccessGateCredentialOk() (*SealedSecret, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.AccessGateCredential.Get(), o.AccessGateCredential.IsSet()
-}
-
-// HasAccessGateCredential returns a boolean if a field has been set.
-func (o *ApplicationJsonMergePatch) HasAccessGateCredential() bool {
-	if o != nil && o.AccessGateCredential.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetAccessGateCredential gets a reference to the given NullableSealedSecret and assigns it to the AccessGateCredential field.
-func (o *ApplicationJsonMergePatch) SetAccessGateCredential(v SealedSecret) {
-	o.AccessGateCredential.Set(&v)
-}
-// SetAccessGateCredentialNil sets the value for AccessGateCredential to be an explicit nil
-func (o *ApplicationJsonMergePatch) SetAccessGateCredentialNil() {
-	o.AccessGateCredential.Set(nil)
-}
-
-// UnsetAccessGateCredential ensures that no value is present for AccessGateCredential, not even an explicit nil
-func (o *ApplicationJsonMergePatch) UnsetAccessGateCredential() {
-	o.AccessGateCredential.Unset()
 }
 
 // GetIcon returns the Icon field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -1229,9 +1247,6 @@ func (o ApplicationJsonMergePatch) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Deployments) {
 		toSerialize["deployments"] = o.Deployments
 	}
-	if !IsNil(o.Variables) {
-		toSerialize["variables"] = o.Variables
-	}
 	if !IsNil(o.PortAllocations) {
 		toSerialize["portAllocations"] = o.PortAllocations
 	}
@@ -1240,6 +1255,15 @@ func (o ApplicationJsonMergePatch) ToMap() (map[string]interface{}, error) {
 	}
 	if o.PoolLabel.IsSet() {
 		toSerialize["poolLabel"] = o.PoolLabel.Get()
+	}
+	if !IsNil(o.PoolShortName) {
+		toSerialize["poolShortName"] = o.PoolShortName
+	}
+	if o.PoolShortNameDeployment.IsSet() {
+		toSerialize["poolShortNameDeployment"] = o.PoolShortNameDeployment.Get()
+	}
+	if o.PoolShortNameService.IsSet() {
+		toSerialize["poolShortNameService"] = o.PoolShortNameService.Get()
 	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
@@ -1252,12 +1276,6 @@ func (o ApplicationJsonMergePatch) ToMap() (map[string]interface{}, error) {
 	}
 	if o.UpdatedAt.IsSet() {
 		toSerialize["updatedAt"] = o.UpdatedAt.Get()
-	}
-	if !IsNil(o.BuildCredential) {
-		toSerialize["buildCredential"] = o.BuildCredential
-	}
-	if o.AccessGateCredential.IsSet() {
-		toSerialize["accessGateCredential"] = o.AccessGateCredential.Get()
 	}
 	if o.Icon.IsSet() {
 		toSerialize["icon"] = o.Icon.Get()

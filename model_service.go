@@ -36,7 +36,7 @@ type Service struct {
 	// The container's `Command` — compose `entrypoint:`, which replaces the image's own `ENTRYPOINT` rather than feeding it, unlike {@see $command}.
 	Entrypoint []string `json:"entrypoint,omitempty"`
 	// Compose `healthcheck:`, projected straight from {@see \\App\\Service\\Compose\\ComposeParser::healthcheck()} into the shape {@see \\App\\Service\\Deploy\\StackDeployer} sends as Swarm's `ContainerSpec.Healthcheck` — `test` is a `NONE`/`CMD`/`CMD-SHELL` argv, the rest are nanoseconds/a count. Null means nothing was declared, so an image's own baked-in `HEALTHCHECK` (or none) stands; `disable: true` in the compose file is not null, it is `test: [\"NONE\"]` — an explicit instruction rather than silence.
-	Healthcheck *map[string]ServiceHealthcheckValue `json:"healthcheck,omitempty"`
+	Healthcheck map[string]ServiceHealthcheckValue `json:"healthcheck,omitempty"`
 	// What happens when a container exits; also decides service vs job.
 	Restart *string `json:"restart,omitempty"`
 	// Set while this service's image arrived by client-side forwarding (docs/registry.md's \"Client-side forwarding\" callout) and no scan verdict is yet on record for the digest it was pinned to — bytes from a user's machine, not a source tree we built or a registry we chose to trust. A forwarded image is scanned as it loads ({@see \\App\\MessageHandler\\BuildBundleHandler}), so this is normally cleared by the time the service is projected; one left set is a forwarded image that reached deploy unvetted, which {@see \\App\\MessageHandler\\DeployRevisionHandler} refuses to run (docs/image-scanning.md).
@@ -512,20 +512,21 @@ func (o *Service) SetEntrypoint(v []string) {
 	o.Entrypoint = v
 }
 
-// GetHealthcheck returns the Healthcheck field value if set, zero value otherwise.
+// GetHealthcheck returns the Healthcheck field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *Service) GetHealthcheck() map[string]ServiceHealthcheckValue {
-	if o == nil || IsNil(o.Healthcheck) {
+	if o == nil {
 		var ret map[string]ServiceHealthcheckValue
 		return ret
 	}
-	return *o.Healthcheck
+	return o.Healthcheck
 }
 
 // GetHealthcheckOk returns a tuple with the Healthcheck field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Service) GetHealthcheckOk() (*map[string]ServiceHealthcheckValue, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Service) GetHealthcheckOk() (map[string]ServiceHealthcheckValue, bool) {
 	if o == nil || IsNil(o.Healthcheck) {
-		return nil, false
+		return map[string]ServiceHealthcheckValue{}, false
 	}
 	return o.Healthcheck, true
 }
@@ -541,7 +542,7 @@ func (o *Service) HasHealthcheck() bool {
 
 // SetHealthcheck gets a reference to the given map[string]ServiceHealthcheckValue and assigns it to the Healthcheck field.
 func (o *Service) SetHealthcheck(v map[string]ServiceHealthcheckValue) {
-	o.Healthcheck = &v
+	o.Healthcheck = v
 }
 
 // GetRestart returns the Restart field value if set, zero value otherwise.
@@ -760,7 +761,7 @@ func (o Service) ToMap() (map[string]interface{}, error) {
 	if o.Entrypoint != nil {
 		toSerialize["entrypoint"] = o.Entrypoint
 	}
-	if !IsNil(o.Healthcheck) {
+	if o.Healthcheck != nil {
 		toSerialize["healthcheck"] = o.Healthcheck
 	}
 	if !IsNil(o.Restart) {

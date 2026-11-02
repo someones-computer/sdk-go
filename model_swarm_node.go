@@ -26,7 +26,7 @@ type SwarmNode struct {
 	Hostname NullableString `json:"hostname,omitempty"`
 	State NullableString `json:"state,omitempty"`
 	// This node's share of the cluster's capacity, as the reconciler read it.
-	Capacity map[string]string `json:"capacity,omitempty"`
+	Capacity map[string]*string `json:"capacity,omitempty"`
 	Id *string `json:"id,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt NullableTime `json:"updatedAt,omitempty"`
@@ -197,10 +197,10 @@ func (o *SwarmNode) UnsetState() {
 	o.State.Unset()
 }
 
-// GetCapacity returns the Capacity field value if set, zero value otherwise.
-func (o *SwarmNode) GetCapacity() map[string]string {
-	if o == nil || IsNil(o.Capacity) {
-		var ret map[string]string
+// GetCapacity returns the Capacity field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *SwarmNode) GetCapacity() map[string]*string {
+	if o == nil {
+		var ret map[string]*string
 		return ret
 	}
 	return o.Capacity
@@ -208,9 +208,10 @@ func (o *SwarmNode) GetCapacity() map[string]string {
 
 // GetCapacityOk returns a tuple with the Capacity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SwarmNode) GetCapacityOk() (map[string]string, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *SwarmNode) GetCapacityOk() (map[string]*string, bool) {
 	if o == nil || IsNil(o.Capacity) {
-		return map[string]string{}, false
+		return map[string]*string{}, false
 	}
 	return o.Capacity, true
 }
@@ -224,8 +225,8 @@ func (o *SwarmNode) HasCapacity() bool {
 	return false
 }
 
-// SetCapacity gets a reference to the given map[string]string and assigns it to the Capacity field.
-func (o *SwarmNode) SetCapacity(v map[string]string) {
+// SetCapacity gets a reference to the given map[string]*string and assigns it to the Capacity field.
+func (o *SwarmNode) SetCapacity(v map[string]*string) {
 	o.Capacity = v
 }
 
@@ -357,7 +358,7 @@ func (o SwarmNode) ToMap() (map[string]interface{}, error) {
 	if o.State.IsSet() {
 		toSerialize["state"] = o.State.Get()
 	}
-	if !IsNil(o.Capacity) {
+	if o.Capacity != nil {
 		toSerialize["capacity"] = o.Capacity
 	}
 	if !IsNil(o.Id) {

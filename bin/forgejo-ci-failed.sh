@@ -1,0 +1,1 @@
+../.claude/agent-standards/tools/forgejo/forgejo-ci-failed.sh

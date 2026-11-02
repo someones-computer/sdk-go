@@ -25,8 +25,6 @@ type ProxmoxInstance struct {
 	Endpoint *string `json:"endpoint,omitempty"`
 	// Full token identifier, `user@realm!tokenid` — e.g. `root@pam!someones-computer`.
 	TokenId *string `json:"tokenId,omitempty"`
-	// The token's secret (a UUID as Proxmox issues it), encrypted at rest and never serialized. Proxmox shows it exactly once, at creation.
-	TokenSecret *string `json:"tokenSecret,omitempty"`
 	// Whether the certificate must validate against a CA chain.
 	VerifyTls *bool `json:"verifyTls,omitempty"`
 	// base64 SHA-256 of the endpoint's SubjectPublicKeyInfo — curl's `pin-sha256`. The right answer for a self-signed Proxmox: it authenticates *this specific host* without any CA, so the connection is still protected against interception, which `verifyTls = false` alone is not.
@@ -36,7 +34,7 @@ type ProxmoxInstance struct {
 	// Why the last probe failed, kept so an operator can tell a revoked token from a dead host without re-running anything. Cleared on success.
 	LastError NullableString `json:"lastError,omitempty"`
 	// Observed `GET /version` snapshot (release, repoid). Observed state, so it is whatever the last probe saw and is never authoritative.
-	Version map[string]string `json:"version,omitempty"`
+	Version map[string]*string `json:"version,omitempty"`
 	// The vmid of the Alpine template `app:proxmox:template` last built here, or null if it has never been run against this endpoint. This is what makes a template's existence something the app can answer without an SSH session and a `qm list` — the gap that sent an operator to do exactly that.
 	TemplateVmid NullableInt32 `json:"templateVmid,omitempty"`
 	// The Alpine version baked into {@see $templateVmid}, e.g. `3.23.0`.
@@ -172,38 +170,6 @@ func (o *ProxmoxInstance) HasTokenId() bool {
 // SetTokenId gets a reference to the given string and assigns it to the TokenId field.
 func (o *ProxmoxInstance) SetTokenId(v string) {
 	o.TokenId = &v
-}
-
-// GetTokenSecret returns the TokenSecret field value if set, zero value otherwise.
-func (o *ProxmoxInstance) GetTokenSecret() string {
-	if o == nil || IsNil(o.TokenSecret) {
-		var ret string
-		return ret
-	}
-	return *o.TokenSecret
-}
-
-// GetTokenSecretOk returns a tuple with the TokenSecret field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProxmoxInstance) GetTokenSecretOk() (*string, bool) {
-	if o == nil || IsNil(o.TokenSecret) {
-		return nil, false
-	}
-	return o.TokenSecret, true
-}
-
-// HasTokenSecret returns a boolean if a field has been set.
-func (o *ProxmoxInstance) HasTokenSecret() bool {
-	if o != nil && !IsNil(o.TokenSecret) {
-		return true
-	}
-
-	return false
-}
-
-// SetTokenSecret gets a reference to the given string and assigns it to the TokenSecret field.
-func (o *ProxmoxInstance) SetTokenSecret(v string) {
-	o.TokenSecret = &v
 }
 
 // GetVerifyTls returns the VerifyTls field value if set, zero value otherwise.
@@ -396,10 +362,10 @@ func (o *ProxmoxInstance) UnsetLastError() {
 	o.LastError.Unset()
 }
 
-// GetVersion returns the Version field value if set, zero value otherwise.
-func (o *ProxmoxInstance) GetVersion() map[string]string {
-	if o == nil || IsNil(o.Version) {
-		var ret map[string]string
+// GetVersion returns the Version field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ProxmoxInstance) GetVersion() map[string]*string {
+	if o == nil {
+		var ret map[string]*string
 		return ret
 	}
 	return o.Version
@@ -407,9 +373,10 @@ func (o *ProxmoxInstance) GetVersion() map[string]string {
 
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProxmoxInstance) GetVersionOk() (map[string]string, bool) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ProxmoxInstance) GetVersionOk() (map[string]*string, bool) {
 	if o == nil || IsNil(o.Version) {
-		return map[string]string{}, false
+		return map[string]*string{}, false
 	}
 	return o.Version, true
 }
@@ -423,8 +390,8 @@ func (o *ProxmoxInstance) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given map[string]string and assigns it to the Version field.
-func (o *ProxmoxInstance) SetVersion(v map[string]string) {
+// SetVersion gets a reference to the given map[string]*string and assigns it to the Version field.
+func (o *ProxmoxInstance) SetVersion(v map[string]*string) {
 	o.Version = v
 }
 
@@ -785,9 +752,6 @@ func (o ProxmoxInstance) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TokenId) {
 		toSerialize["tokenId"] = o.TokenId
 	}
-	if !IsNil(o.TokenSecret) {
-		toSerialize["tokenSecret"] = o.TokenSecret
-	}
 	if !IsNil(o.VerifyTls) {
 		toSerialize["verifyTls"] = o.VerifyTls
 	}
@@ -803,7 +767,7 @@ func (o ProxmoxInstance) ToMap() (map[string]interface{}, error) {
 	if o.LastError.IsSet() {
 		toSerialize["lastError"] = o.LastError.Get()
 	}
-	if !IsNil(o.Version) {
+	if o.Version != nil {
 		toSerialize["version"] = o.Version
 	}
 	if o.TemplateVmid.IsSet() {

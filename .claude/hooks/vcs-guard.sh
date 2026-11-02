@@ -1,0 +1,1 @@
+../agent-standards/hooks/vcs-guard.sh

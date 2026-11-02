@@ -22,7 +22,7 @@ var _ MappedNullable = &ManagedServiceManagedServiceInput{}
 // ManagedServiceManagedServiceInput Create a new managed service (database or bucket) on a shared engine.
 type ManagedServiceManagedServiceInput struct {
 	// The engine, as the catalogue names it — `postgres:17`, `mysql:8.0`.
-	Engine string `json:"engine" validate:"regexp=^([a-z]+:[0-9]+(\\\\.[0-9]+)?)$"`
+	Engine string `json:"engine" validate:"regexp=^([a-z]+:[0-9]+(\\.[0-9]+)?)$"`
 	// The tenant's own name for it — what appears in the UI and in `sc service ls`.
 	Slug string `json:"slug" validate:"regexp=^([a-z0-9][a-z0-9-]*)$"`
 	Organization NullableString `json:"organization"`

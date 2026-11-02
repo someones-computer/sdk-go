@@ -8,10 +8,9 @@ Name | Type | Description | Notes
 **Sequence** | Pointer to **int32** | Monotonic per-application revision number. | [optional] 
 **Name** | Pointer to **NullableString** | What this revision is called — &#x60;sc&#x60; defaults it to the slugified branch, so the normal shape is a deployment per branch. Null for revisions created before the field existed, or by a client that doesn&#39;t send one. | [optional] 
 **RawCompose** | Pointer to **string** | Exactly what the user submitted. | [optional] 
-**CanonicalSpec** | Pointer to [**map[string]DeploymentJsonMergePatchCanonicalSpecValue**](DeploymentJsonMergePatchCanonicalSpecValue.md) | Parsed, supported-subset-only canonical representation — what {@see \\App\\Service\\Compose\\ComposeParser::parse()} produced. Both keys are optional here and not there: a row is whatever was written when it was written, so a revision that predates a key still has to load. | [optional] 
+**CanonicalSpec** | Pointer to **map[string]interface{}** | Parsed, supported-subset-only canonical representation of the compose file, as the parser produced it. Keys are &#x60;services&#x60; and &#x60;warnings&#x60;. A revision that predates a key omits it. | [optional] 
 **BuildContexts** | Pointer to [**map[string]map[string]DeploymentJsonMergePatchBuildContextsValueValue**](map.md) | Build contexts uploaded with this revision, keyed by compose service name: &#x60;{ contextSha256, dockerfile, dockerfileContent?, additionalContexts?, image?, log? }&#x60;. The tarballs themselves live in the content-addressed bundle cache ({@see \\App\\Service\\Bundle\\BundleStorage}); this is the pointer the build worker will walk. &#x60;dockerfileContent&#x60; is a best-effort text preview extracted at ingest ({@see \\App\\Service\\Bundle\\ContextDockerfileReader}) — null when the context was too large to preview or predates this field. | [optional] 
-**ForwardedImages** | Pointer to **map[string]map[string]string** | Client-forwarded images uploaded with this revision, keyed by compose service name: &#x60;{ contextSha256, originalImage, image?, log? }&#x60;. See docs/registry.md&#39;s \&quot;Client-side forwarding\&quot; callout: &#x60;sc&#x60; detects a private, unbuildable &#x60;image:&#x60; reference it can already reach locally and offers to upload it, for a platform that has no other way to pull it. A sibling to {@see self::$buildContexts} rather than folded into it — that array means \&quot;run this through BuildKit\&quot;, and this one never does. The tarballs live in the object store ({@see \\App\\Service\\Bundle\\ImageStorage}), not the database; &#x60;image&#x60; is filled in once the loader has pushed it to the internal registry, the same way &#x60;buildContexts[][&#39;image&#39;]&#x60; is. &#x60;{}&#x60; for every revision that forwarded nothing, which is most of them. | [optional] 
-**BuildSecrets** | Pointer to [**map[string]map[string]map[string]string**](map.md) | &#x60;build.secrets&#x60; values declared for this revision&#39;s build services (Grey.ooo/someones.computer_agent#46), sealed the moment they arrive ({@see \\App\\Service\\Secret\\SecretBox}) and never written to the object store the way a build context is: unlike a context tarball, a build secret is live tenant credential material, not something worth caching by content — closer to how {@see \\App\\Service\\Registry\\RegistryTokenSigner} mints a push token than to how {@see \\App\\Entity\\Variable} keeps one. | [optional] 
+**ForwardedImages** | Pointer to **map[string]map[string]*string** | Client-forwarded images uploaded with this revision, keyed by compose service name: &#x60;{ contextSha256, originalImage, image?, log? }&#x60;. See docs/registry.md&#39;s \&quot;Client-side forwarding\&quot; callout: &#x60;sc&#x60; detects a private, unbuildable &#x60;image:&#x60; reference it can already reach locally and offers to upload it, for a platform that has no other way to pull it. A sibling to {@see self::$buildContexts} rather than folded into it — that array means \&quot;run this through BuildKit\&quot;, and this one never does. The tarballs live in the object store ({@see \\App\\Service\\Bundle\\ImageStorage}), not the database; &#x60;image&#x60; is filled in once the loader has pushed it to the internal registry, the same way &#x60;buildContexts[][&#39;image&#39;]&#x60; is. &#x60;{}&#x60; for every revision that forwarded nothing, which is most of them. | [optional] 
 **TargetSwarm** | Pointer to **NullableString** | Resolved by the placement engine; null until placed. | [optional] 
 **Status** | Pointer to **string** |  | [optional] [default to "pending"]
 **StatusReason** | Pointer to **NullableString** | Why the revision is in its current status — the build worker&#39;s failure message, typically. Null whenever there is nothing to explain. | [optional] 
@@ -20,9 +19,8 @@ Name | Type | Description | Notes
 **Degraded** | Pointer to **bool** | Set once a &#x60;Running&#x60; revision has gone a full grace period with zero tasks actually running on its swarm (#1279) — a {@see Failure} of {@see \\App\\Enum\\FailurePhase::Runtime} is recorded alongside it. Never flips &#x60;$status&#x60; itself: &#x60;running&#x60; still means \&quot;this is what the application should be serving\&quot;, and a revision the platform cannot reach a running task for is a fact about the swarm, not a new desired state — the same desired/observed separation {@see \\App\\Service\\Reconcile\\DriftDetector} already keeps at read time, made durable here so it survives past one page view. | [optional] [default to false]
 **Digest** | Pointer to **NullableString** | Content digest of the canonical spec, for dedupe/audit. | [optional] 
 **CreatedBy** | Pointer to [**NullableUser**](User.md) |  | [optional] 
-**Services** | Pointer to [**[]Service**](Service.md) |  | [optional] 
-**Variables** | Pointer to [**[]DeploymentVariable**](DeploymentVariable.md) |  | [optional] 
-**Failures** | Pointer to [**[]Failure**](Failure.md) |  | [optional] 
+**Services** | Pointer to [**[]Service**](Service.md) | Projection of the compose services. | [optional] 
+**Failures** | Pointer to [**[]Failure**](Failure.md) | Everything that has gone wrong with this revision, append-only. Distinct from {@see \\App\\Entity\\self::$statusReason}, which is only ever the latest. See {@see \\App\\Entity\\Failure} on why both exist. | [optional] [readonly] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **DeletedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
@@ -161,20 +159,20 @@ HasRawCompose returns a boolean if a field has been set.
 
 ### GetCanonicalSpec
 
-`func (o *Deployment) GetCanonicalSpec() map[string]DeploymentJsonMergePatchCanonicalSpecValue`
+`func (o *Deployment) GetCanonicalSpec() map[string]interface{}`
 
 GetCanonicalSpec returns the CanonicalSpec field if non-nil, zero value otherwise.
 
 ### GetCanonicalSpecOk
 
-`func (o *Deployment) GetCanonicalSpecOk() (*map[string]DeploymentJsonMergePatchCanonicalSpecValue, bool)`
+`func (o *Deployment) GetCanonicalSpecOk() (*map[string]interface{}, bool)`
 
 GetCanonicalSpecOk returns a tuple with the CanonicalSpec field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCanonicalSpec
 
-`func (o *Deployment) SetCanonicalSpec(v map[string]DeploymentJsonMergePatchCanonicalSpecValue)`
+`func (o *Deployment) SetCanonicalSpec(v map[string]interface{})`
 
 SetCanonicalSpec sets CanonicalSpec field to given value.
 
@@ -211,20 +209,20 @@ HasBuildContexts returns a boolean if a field has been set.
 
 ### GetForwardedImages
 
-`func (o *Deployment) GetForwardedImages() map[string]map[string]string`
+`func (o *Deployment) GetForwardedImages() map[string]map[string]*string`
 
 GetForwardedImages returns the ForwardedImages field if non-nil, zero value otherwise.
 
 ### GetForwardedImagesOk
 
-`func (o *Deployment) GetForwardedImagesOk() (*map[string]map[string]string, bool)`
+`func (o *Deployment) GetForwardedImagesOk() (*map[string]map[string]*string, bool)`
 
 GetForwardedImagesOk returns a tuple with the ForwardedImages field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetForwardedImages
 
-`func (o *Deployment) SetForwardedImages(v map[string]map[string]string)`
+`func (o *Deployment) SetForwardedImages(v map[string]map[string]*string)`
 
 SetForwardedImages sets ForwardedImages field to given value.
 
@@ -233,31 +231,6 @@ SetForwardedImages sets ForwardedImages field to given value.
 `func (o *Deployment) HasForwardedImages() bool`
 
 HasForwardedImages returns a boolean if a field has been set.
-
-### GetBuildSecrets
-
-`func (o *Deployment) GetBuildSecrets() map[string]map[string]map[string]string`
-
-GetBuildSecrets returns the BuildSecrets field if non-nil, zero value otherwise.
-
-### GetBuildSecretsOk
-
-`func (o *Deployment) GetBuildSecretsOk() (*map[string]map[string]map[string]string, bool)`
-
-GetBuildSecretsOk returns a tuple with the BuildSecrets field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetBuildSecrets
-
-`func (o *Deployment) SetBuildSecrets(v map[string]map[string]map[string]string)`
-
-SetBuildSecrets sets BuildSecrets field to given value.
-
-### HasBuildSecrets
-
-`func (o *Deployment) HasBuildSecrets() bool`
-
-HasBuildSecrets returns a boolean if a field has been set.
 
 ### GetTargetSwarm
 
@@ -533,31 +506,6 @@ SetServices sets Services field to given value.
 `func (o *Deployment) HasServices() bool`
 
 HasServices returns a boolean if a field has been set.
-
-### GetVariables
-
-`func (o *Deployment) GetVariables() []DeploymentVariable`
-
-GetVariables returns the Variables field if non-nil, zero value otherwise.
-
-### GetVariablesOk
-
-`func (o *Deployment) GetVariablesOk() (*[]DeploymentVariable, bool)`
-
-GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVariables
-
-`func (o *Deployment) SetVariables(v []DeploymentVariable)`
-
-SetVariables sets Variables field to given value.
-
-### HasVariables
-
-`func (o *Deployment) HasVariables() bool`
-
-HasVariables returns a boolean if a field has been set.
 
 ### GetFailures
 

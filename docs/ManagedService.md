@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **Slug** | Pointer to **string** |  | [optional] 
 **Kind** | Pointer to **string** | The catalogue entry the tenant picked, as &#x60;(kind, majorVersion)&#x60;. | [optional] 
 **MajorVersion** | Pointer to **string** |  | [optional] 
-**Instance** | Pointer to [**NullableServiceInstance**](ServiceInstance.md) |  | [optional] 
 **BackingName** | Pointer to **string** | What the object is actually called inside the engine — &#x60;acme_hearth_db&#x60; for a database, &#x60;acme-hearth-media&#x60; for a bucket. | [optional] 
 **ExternalKeyId** | Pointer to **NullableString** | A bucket&#39;s access key id — the non-secret half of a Garage key, paired with {@see $credentialCiphertext}&#39;s sealed secret access key. Null for every database kind, which has no such pair: its one credential is a password, sealed whole into the four columns above. | [optional] 
 **QuotaBytes** | Pointer to [**NullableManagedServiceQuotaBytes**](ManagedServiceQuotaBytes.md) |  | [optional] 
@@ -22,13 +21,13 @@ Name | Type | Description | Notes
 **LastLoadMillis** | Pointer to [**NullableManagedServiceLastLoadMillis**](ManagedServiceLastLoadMillis.md) |  | [optional] 
 **LastLoadSampledAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **PendingLoadMillis** | Pointer to [**ManagedServicePendingLoadMillis**](ManagedServicePendingLoadMillis.md) |  | [optional] 
-**Bindings** | Pointer to **[]string** |  | [optional] 
+**Bindings** | Pointer to **[]string** |  | [optional] [readonly] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **DeletedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **UpdatedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **CatalogueEntry** | Pointer to **string** | &#x60;postgres 17&#x60;, &#x60;mysql 8.0&#x60; — the catalogue entry, as one string. | [optional] [readonly] 
-**Credential** | Pointer to [**SealedSecret**](SealedSecret.md) |  | [optional] 
+**Instance** | Pointer to [**NullableManagedServiceEngine**](ManagedServiceEngine.md) | The engine as a tenant reads it: its name and its state, and nothing else. | [optional] [readonly] 
 **Available** | Pointer to **bool** |  | [optional] [readonly] 
 **Deleted** | Pointer to **bool** |  | [optional] [readonly] 
 
@@ -151,41 +150,6 @@ SetMajorVersion sets MajorVersion field to given value.
 
 HasMajorVersion returns a boolean if a field has been set.
 
-### GetInstance
-
-`func (o *ManagedService) GetInstance() ServiceInstance`
-
-GetInstance returns the Instance field if non-nil, zero value otherwise.
-
-### GetInstanceOk
-
-`func (o *ManagedService) GetInstanceOk() (*ServiceInstance, bool)`
-
-GetInstanceOk returns a tuple with the Instance field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetInstance
-
-`func (o *ManagedService) SetInstance(v ServiceInstance)`
-
-SetInstance sets Instance field to given value.
-
-### HasInstance
-
-`func (o *ManagedService) HasInstance() bool`
-
-HasInstance returns a boolean if a field has been set.
-
-### SetInstanceNil
-
-`func (o *ManagedService) SetInstanceNil(b bool)`
-
- SetInstanceNil sets the value for Instance to be an explicit nil
-
-### UnsetInstance
-`func (o *ManagedService) UnsetInstance()`
-
-UnsetInstance ensures that no value is present for Instance, not even an explicit nil
 ### GetBackingName
 
 `func (o *ManagedService) GetBackingName() string`
@@ -781,31 +745,41 @@ SetCatalogueEntry sets CatalogueEntry field to given value.
 
 HasCatalogueEntry returns a boolean if a field has been set.
 
-### GetCredential
+### GetInstance
 
-`func (o *ManagedService) GetCredential() SealedSecret`
+`func (o *ManagedService) GetInstance() ManagedServiceEngine`
 
-GetCredential returns the Credential field if non-nil, zero value otherwise.
+GetInstance returns the Instance field if non-nil, zero value otherwise.
 
-### GetCredentialOk
+### GetInstanceOk
 
-`func (o *ManagedService) GetCredentialOk() (*SealedSecret, bool)`
+`func (o *ManagedService) GetInstanceOk() (*ManagedServiceEngine, bool)`
 
-GetCredentialOk returns a tuple with the Credential field if it's non-nil, zero value otherwise
+GetInstanceOk returns a tuple with the Instance field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCredential
+### SetInstance
 
-`func (o *ManagedService) SetCredential(v SealedSecret)`
+`func (o *ManagedService) SetInstance(v ManagedServiceEngine)`
 
-SetCredential sets Credential field to given value.
+SetInstance sets Instance field to given value.
 
-### HasCredential
+### HasInstance
 
-`func (o *ManagedService) HasCredential() bool`
+`func (o *ManagedService) HasInstance() bool`
 
-HasCredential returns a boolean if a field has been set.
+HasInstance returns a boolean if a field has been set.
 
+### SetInstanceNil
+
+`func (o *ManagedService) SetInstanceNil(b bool)`
+
+ SetInstanceNil sets the value for Instance to be an explicit nil
+
+### UnsetInstance
+`func (o *ManagedService) UnsetInstance()`
+
+UnsetInstance ensures that no value is present for Instance, not even an explicit nil
 ### GetAvailable
 
 `func (o *ManagedService) GetAvailable() bool`

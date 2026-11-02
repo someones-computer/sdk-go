@@ -4,23 +4,23 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MachineAccount** | Pointer to [**NullableUser**](User.md) |  | [optional] 
+**MachineAccount** | Pointer to [**NullableUser**](User.md) | The principal an {@see OrganizationToken} authenticates as: a machine account this platform owns, not a person. | [optional] 
 **Name** | Pointer to **string** |  | [optional] 
 **Slug** | Pointer to **string** | &#x60;unique: true&#x60; stops two organizations holding the same *string*; the constraint stops two holding strings that fold to the same **stack name**, which the database has no way to express (#860). Both are needed: the column guards the identifier, the constraint guards what is derived from it. | [optional] 
 **Theme** | Pointer to **NullableString** | The skin this organization&#39;s members see, or null to take the instance&#39;s. | [optional] 
 **TierPin** | Pointer to **NullableString** | An operator&#39;s grant of a tier this organization would not reach through any member — {@see \\App\\Enum\\AccountTier::Verified} in particular, which is granted rather than earned and belongs to a contractual relationship with the *organization*, not incidentally to whichever of its members happens to carry the highest personal tier ({@see \\App\\Service\\Trust\\TierResolver::forOrganization()}). A member individually pinned &#x60;Verified&#x60; still lifts the org the same way a &#x60;Trusted&#x60; member always has — this pin is for granting it to the org directly, without needing a person to hang it on. | [optional] [readonly] 
 **TierPinnedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
-**TierPinnedBy** | Pointer to [**NullableUser**](User.md) |  | [optional] 
+**TierPinnedBy** | Pointer to [**NullableUser**](User.md) | Nullable and SET NULL: somebody can delete an operator, and the pin outlives them. | [optional] [readonly] 
 **TierPinReason** | Pointer to **NullableString** |  | [optional] [readonly] 
 **LowBalanceWarnedAt** | Pointer to **NullableTime** | When {@see \\App\\MessageHandler\\CheckRunwayHandler} last warned this organization that its projected runway had dropped below the threshold; null once no warning is outstanding. Set once per crossing and cleared the moment the projection recovers — by a top-up or by the burn easing off — which is what makes \&quot;warn once, re-arm on recovery\&quot; a fact this column can answer rather than something re-derived from the notification table on every tick. | [optional] [readonly] 
 **TwoFactorRequiredAt** | Pointer to **NullableTime** | When an Owner/Admin turned on the requirement that every member of this organization protects their account with a second factor; null means it is optional. A reversible policy toggle, stamped like {@see User::$disabledAt} rather than a verdict, so no \&quot;who set it\&quot; attribution. | [optional] [readonly] 
-**Memberships** | Pointer to [**[]Membership**](Membership.md) |  | [optional] 
-**Applications** | Pointer to **[]string** |  | [optional] 
-**Swarms** | Pointer to **[]string** | BYO swarms owned by this organization. | [optional] 
-**Machines** | Pointer to [**[]Machine**](Machine.md) |  | [optional] 
-**CreditTransactions** | Pointer to **[]string** | The append-only credit ledger. | [optional] 
-**Variables** | Pointer to [**[]Variable**](Variable.md) |  | [optional] 
-**Signals** | Pointer to [**[]OrganizationSignal**](OrganizationSignal.md) |  | [optional] 
+**ApiAccessLogRetentionDays** | Pointer to **NullableInt32** | How long this organization&#39;s {@see \\App\\Entity\\ApiAccessLogEntry} rows are kept before {@see \\App\\MessageHandler\\PurgeApiAccessLogHandler} prunes them. Null means \&quot;the platform default\&quot; ({@see \\App\\Service\\ApiAccessLogRetention::DEFAULT_DAYS}) rather than a fixed number baked into every organization row the day this shipped. | [optional] [readonly] 
+**Memberships** | Pointer to [**[]Membership**](Membership.md) |  | [optional] [readonly] 
+**Applications** | Pointer to **[]string** |  | [optional] [readonly] 
+**Swarms** | Pointer to **[]string** | BYO swarms owned by this organization. | [optional] [readonly] 
+**Machines** | Pointer to [**[]Machine**](Machine.md) | Machines self-service-provisioned for this organization. | [optional] [readonly] 
+**CreditTransactions** | Pointer to **[]string** | The append-only credit ledger. | [optional] [readonly] 
+**Signals** | Pointer to [**[]OrganizationSignal**](OrganizationSignal.md) | What this organization&#39;s own compose files have told the platform about it (#818). | [optional] [readonly] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **DeletedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
@@ -377,6 +377,41 @@ HasTwoFactorRequiredAt returns a boolean if a field has been set.
 `func (o *OrganizationJsonMergePatch) UnsetTwoFactorRequiredAt()`
 
 UnsetTwoFactorRequiredAt ensures that no value is present for TwoFactorRequiredAt, not even an explicit nil
+### GetApiAccessLogRetentionDays
+
+`func (o *OrganizationJsonMergePatch) GetApiAccessLogRetentionDays() int32`
+
+GetApiAccessLogRetentionDays returns the ApiAccessLogRetentionDays field if non-nil, zero value otherwise.
+
+### GetApiAccessLogRetentionDaysOk
+
+`func (o *OrganizationJsonMergePatch) GetApiAccessLogRetentionDaysOk() (*int32, bool)`
+
+GetApiAccessLogRetentionDaysOk returns a tuple with the ApiAccessLogRetentionDays field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetApiAccessLogRetentionDays
+
+`func (o *OrganizationJsonMergePatch) SetApiAccessLogRetentionDays(v int32)`
+
+SetApiAccessLogRetentionDays sets ApiAccessLogRetentionDays field to given value.
+
+### HasApiAccessLogRetentionDays
+
+`func (o *OrganizationJsonMergePatch) HasApiAccessLogRetentionDays() bool`
+
+HasApiAccessLogRetentionDays returns a boolean if a field has been set.
+
+### SetApiAccessLogRetentionDaysNil
+
+`func (o *OrganizationJsonMergePatch) SetApiAccessLogRetentionDaysNil(b bool)`
+
+ SetApiAccessLogRetentionDaysNil sets the value for ApiAccessLogRetentionDays to be an explicit nil
+
+### UnsetApiAccessLogRetentionDays
+`func (o *OrganizationJsonMergePatch) UnsetApiAccessLogRetentionDays()`
+
+UnsetApiAccessLogRetentionDays ensures that no value is present for ApiAccessLogRetentionDays, not even an explicit nil
 ### GetMemberships
 
 `func (o *OrganizationJsonMergePatch) GetMemberships() []Membership`
@@ -501,31 +536,6 @@ SetCreditTransactions sets CreditTransactions field to given value.
 `func (o *OrganizationJsonMergePatch) HasCreditTransactions() bool`
 
 HasCreditTransactions returns a boolean if a field has been set.
-
-### GetVariables
-
-`func (o *OrganizationJsonMergePatch) GetVariables() []Variable`
-
-GetVariables returns the Variables field if non-nil, zero value otherwise.
-
-### GetVariablesOk
-
-`func (o *OrganizationJsonMergePatch) GetVariablesOk() (*[]Variable, bool)`
-
-GetVariablesOk returns a tuple with the Variables field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetVariables
-
-`func (o *OrganizationJsonMergePatch) SetVariables(v []Variable)`
-
-SetVariables sets Variables field to given value.
-
-### HasVariables
-
-`func (o *OrganizationJsonMergePatch) HasVariables() bool`
-
-HasVariables returns a boolean if a field has been set.
 
 ### GetSignals
 

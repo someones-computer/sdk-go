@@ -32,7 +32,6 @@ type ServiceBinding struct {
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt NullableTime `json:"updatedAt,omitempty"`
 	Adopted *bool `json:"adopted,omitempty"`
-	SidecarCredential *SealedSecret `json:"sidecarCredential,omitempty"`
 }
 
 // NewServiceBinding instantiates a new ServiceBinding object
@@ -364,38 +363,6 @@ func (o *ServiceBinding) SetAdopted(v bool) {
 	o.Adopted = &v
 }
 
-// GetSidecarCredential returns the SidecarCredential field value if set, zero value otherwise.
-func (o *ServiceBinding) GetSidecarCredential() SealedSecret {
-	if o == nil || IsNil(o.SidecarCredential) {
-		var ret SealedSecret
-		return ret
-	}
-	return *o.SidecarCredential
-}
-
-// GetSidecarCredentialOk returns a tuple with the SidecarCredential field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ServiceBinding) GetSidecarCredentialOk() (*SealedSecret, bool) {
-	if o == nil || IsNil(o.SidecarCredential) {
-		return nil, false
-	}
-	return o.SidecarCredential, true
-}
-
-// HasSidecarCredential returns a boolean if a field has been set.
-func (o *ServiceBinding) HasSidecarCredential() bool {
-	if o != nil && !IsNil(o.SidecarCredential) {
-		return true
-	}
-
-	return false
-}
-
-// SetSidecarCredential gets a reference to the given SealedSecret and assigns it to the SidecarCredential field.
-func (o *ServiceBinding) SetSidecarCredential(v SealedSecret) {
-	o.SidecarCredential = &v
-}
-
 func (o ServiceBinding) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
@@ -432,9 +399,6 @@ func (o ServiceBinding) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Adopted) {
 		toSerialize["adopted"] = o.Adopted
-	}
-	if !IsNil(o.SidecarCredential) {
-		toSerialize["sidecarCredential"] = o.SidecarCredential
 	}
 	return toSerialize, nil
 }

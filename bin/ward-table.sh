@@ -1,0 +1,1 @@
+../.claude/agent-standards/bin/ward-table.sh

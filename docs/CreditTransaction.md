@@ -16,6 +16,8 @@ Name | Type | Description | Notes
 **UnresolvedContainers** | Pointer to **NullableInt32** | Containers the meter saw start and never saw stop over the billed hour. | [optional] [readonly] 
 **UsageBytes** | Pointer to [**NullableCreditTransactionUsageBytes**](CreditTransactionUsageBytes.md) |  | [optional] 
 **EngineMillis** | Pointer to [**NullableCreditTransactionEngineMillis**](CreditTransactionEngineMillis.md) |  | [optional] 
+**UsageRows** | Pointer to **NullableInt32** | The row count an API-access-log-volume debit was computed from — the evidence a per-row charge can be checked against, the same role {@see $usageBytes} plays for a storage debit. Null on anything but that kind of debit. | [optional] [readonly] 
+**StripePaymentIntentId** | Pointer to **NullableString** | The Stripe PaymentIntent that paid a top-up. Set when the payment clears. | [optional] 
 **StripeEventId** | Pointer to **NullableString** | Stripe Event id that last transitioned this row; secondary idempotency guard for webhook delivery. | [optional] 
 **CreatedBy** | Pointer to [**NullableUser**](User.md) |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
@@ -411,6 +413,76 @@ HasEngineMillis returns a boolean if a field has been set.
 `func (o *CreditTransaction) UnsetEngineMillis()`
 
 UnsetEngineMillis ensures that no value is present for EngineMillis, not even an explicit nil
+### GetUsageRows
+
+`func (o *CreditTransaction) GetUsageRows() int32`
+
+GetUsageRows returns the UsageRows field if non-nil, zero value otherwise.
+
+### GetUsageRowsOk
+
+`func (o *CreditTransaction) GetUsageRowsOk() (*int32, bool)`
+
+GetUsageRowsOk returns a tuple with the UsageRows field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUsageRows
+
+`func (o *CreditTransaction) SetUsageRows(v int32)`
+
+SetUsageRows sets UsageRows field to given value.
+
+### HasUsageRows
+
+`func (o *CreditTransaction) HasUsageRows() bool`
+
+HasUsageRows returns a boolean if a field has been set.
+
+### SetUsageRowsNil
+
+`func (o *CreditTransaction) SetUsageRowsNil(b bool)`
+
+ SetUsageRowsNil sets the value for UsageRows to be an explicit nil
+
+### UnsetUsageRows
+`func (o *CreditTransaction) UnsetUsageRows()`
+
+UnsetUsageRows ensures that no value is present for UsageRows, not even an explicit nil
+### GetStripePaymentIntentId
+
+`func (o *CreditTransaction) GetStripePaymentIntentId() string`
+
+GetStripePaymentIntentId returns the StripePaymentIntentId field if non-nil, zero value otherwise.
+
+### GetStripePaymentIntentIdOk
+
+`func (o *CreditTransaction) GetStripePaymentIntentIdOk() (*string, bool)`
+
+GetStripePaymentIntentIdOk returns a tuple with the StripePaymentIntentId field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetStripePaymentIntentId
+
+`func (o *CreditTransaction) SetStripePaymentIntentId(v string)`
+
+SetStripePaymentIntentId sets StripePaymentIntentId field to given value.
+
+### HasStripePaymentIntentId
+
+`func (o *CreditTransaction) HasStripePaymentIntentId() bool`
+
+HasStripePaymentIntentId returns a boolean if a field has been set.
+
+### SetStripePaymentIntentIdNil
+
+`func (o *CreditTransaction) SetStripePaymentIntentIdNil(b bool)`
+
+ SetStripePaymentIntentIdNil sets the value for StripePaymentIntentId to be an explicit nil
+
+### UnsetStripePaymentIntentId
+`func (o *CreditTransaction) UnsetStripePaymentIntentId()`
+
+UnsetStripePaymentIntentId ensures that no value is present for StripePaymentIntentId, not even an explicit nil
 ### GetStripeEventId
 
 `func (o *CreditTransaction) GetStripeEventId() string`

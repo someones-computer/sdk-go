@@ -20,6 +20,7 @@ var _ MappedNullable = &OrganizationJsonMergePatch{}
 
 // OrganizationJsonMergePatch Update an organization's mutable fields.
 type OrganizationJsonMergePatch struct {
+	// The principal an {@see OrganizationToken} authenticates as: a machine account this platform owns, not a person.
 	MachineAccount NullableUser `json:"machineAccount,omitempty"`
 	Name *string `json:"name,omitempty"`
 	// `unique: true` stops two organizations holding the same *string*; the constraint stops two holding strings that fold to the same **stack name**, which the database has no way to express (#860). Both are needed: the column guards the identifier, the constraint guards what is derived from it.
@@ -29,20 +30,24 @@ type OrganizationJsonMergePatch struct {
 	// An operator's grant of a tier this organization would not reach through any member — {@see \\App\\Enum\\AccountTier::Verified} in particular, which is granted rather than earned and belongs to a contractual relationship with the *organization*, not incidentally to whichever of its members happens to carry the highest personal tier ({@see \\App\\Service\\Trust\\TierResolver::forOrganization()}). A member individually pinned `Verified` still lifts the org the same way a `Trusted` member always has — this pin is for granting it to the org directly, without needing a person to hang it on.
 	TierPin NullableString `json:"tierPin,omitempty"`
 	TierPinnedAt NullableTime `json:"tierPinnedAt,omitempty"`
+	// Nullable and SET NULL: somebody can delete an operator, and the pin outlives them.
 	TierPinnedBy NullableUser `json:"tierPinnedBy,omitempty"`
 	TierPinReason NullableString `json:"tierPinReason,omitempty"`
 	// When {@see \\App\\MessageHandler\\CheckRunwayHandler} last warned this organization that its projected runway had dropped below the threshold; null once no warning is outstanding. Set once per crossing and cleared the moment the projection recovers — by a top-up or by the burn easing off — which is what makes \"warn once, re-arm on recovery\" a fact this column can answer rather than something re-derived from the notification table on every tick.
 	LowBalanceWarnedAt NullableTime `json:"lowBalanceWarnedAt,omitempty"`
 	// When an Owner/Admin turned on the requirement that every member of this organization protects their account with a second factor; null means it is optional. A reversible policy toggle, stamped like {@see User::$disabledAt} rather than a verdict, so no \"who set it\" attribution.
 	TwoFactorRequiredAt NullableTime `json:"twoFactorRequiredAt,omitempty"`
+	// How long this organization's {@see \\App\\Entity\\ApiAccessLogEntry} rows are kept before {@see \\App\\MessageHandler\\PurgeApiAccessLogHandler} prunes them. Null means \"the platform default\" ({@see \\App\\Service\\ApiAccessLogRetention::DEFAULT_DAYS}) rather than a fixed number baked into every organization row the day this shipped.
+	ApiAccessLogRetentionDays NullableInt32 `json:"apiAccessLogRetentionDays,omitempty"`
 	Memberships []Membership `json:"memberships,omitempty"`
 	Applications []string `json:"applications,omitempty"`
 	// BYO swarms owned by this organization.
 	Swarms []string `json:"swarms,omitempty"`
+	// Machines self-service-provisioned for this organization.
 	Machines []Machine `json:"machines,omitempty"`
 	// The append-only credit ledger.
 	CreditTransactions []string `json:"creditTransactions,omitempty"`
-	Variables []Variable `json:"variables,omitempty"`
+	// What this organization's own compose files have told the platform about it (#818).
 	Signals []OrganizationSignal `json:"signals,omitempty"`
 	Id *string `json:"id,omitempty"`
 	DeletedAt NullableTime `json:"deletedAt,omitempty"`
@@ -469,6 +474,48 @@ func (o *OrganizationJsonMergePatch) UnsetTwoFactorRequiredAt() {
 	o.TwoFactorRequiredAt.Unset()
 }
 
+// GetApiAccessLogRetentionDays returns the ApiAccessLogRetentionDays field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *OrganizationJsonMergePatch) GetApiAccessLogRetentionDays() int32 {
+	if o == nil || IsNil(o.ApiAccessLogRetentionDays.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.ApiAccessLogRetentionDays.Get()
+}
+
+// GetApiAccessLogRetentionDaysOk returns a tuple with the ApiAccessLogRetentionDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *OrganizationJsonMergePatch) GetApiAccessLogRetentionDaysOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.ApiAccessLogRetentionDays.Get(), o.ApiAccessLogRetentionDays.IsSet()
+}
+
+// HasApiAccessLogRetentionDays returns a boolean if a field has been set.
+func (o *OrganizationJsonMergePatch) HasApiAccessLogRetentionDays() bool {
+	if o != nil && o.ApiAccessLogRetentionDays.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetApiAccessLogRetentionDays gets a reference to the given NullableInt32 and assigns it to the ApiAccessLogRetentionDays field.
+func (o *OrganizationJsonMergePatch) SetApiAccessLogRetentionDays(v int32) {
+	o.ApiAccessLogRetentionDays.Set(&v)
+}
+// SetApiAccessLogRetentionDaysNil sets the value for ApiAccessLogRetentionDays to be an explicit nil
+func (o *OrganizationJsonMergePatch) SetApiAccessLogRetentionDaysNil() {
+	o.ApiAccessLogRetentionDays.Set(nil)
+}
+
+// UnsetApiAccessLogRetentionDays ensures that no value is present for ApiAccessLogRetentionDays, not even an explicit nil
+func (o *OrganizationJsonMergePatch) UnsetApiAccessLogRetentionDays() {
+	o.ApiAccessLogRetentionDays.Unset()
+}
+
 // GetMemberships returns the Memberships field value if set, zero value otherwise.
 func (o *OrganizationJsonMergePatch) GetMemberships() []Membership {
 	if o == nil || IsNil(o.Memberships) {
@@ -627,38 +674,6 @@ func (o *OrganizationJsonMergePatch) HasCreditTransactions() bool {
 // SetCreditTransactions gets a reference to the given []string and assigns it to the CreditTransactions field.
 func (o *OrganizationJsonMergePatch) SetCreditTransactions(v []string) {
 	o.CreditTransactions = v
-}
-
-// GetVariables returns the Variables field value if set, zero value otherwise.
-func (o *OrganizationJsonMergePatch) GetVariables() []Variable {
-	if o == nil || IsNil(o.Variables) {
-		var ret []Variable
-		return ret
-	}
-	return o.Variables
-}
-
-// GetVariablesOk returns a tuple with the Variables field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OrganizationJsonMergePatch) GetVariablesOk() ([]Variable, bool) {
-	if o == nil || IsNil(o.Variables) {
-		return nil, false
-	}
-	return o.Variables, true
-}
-
-// HasVariables returns a boolean if a field has been set.
-func (o *OrganizationJsonMergePatch) HasVariables() bool {
-	if o != nil && !IsNil(o.Variables) {
-		return true
-	}
-
-	return false
-}
-
-// SetVariables gets a reference to the given []Variable and assigns it to the Variables field.
-func (o *OrganizationJsonMergePatch) SetVariables(v []Variable) {
-	o.Variables = v
 }
 
 // GetSignals returns the Signals field value if set, zero value otherwise.
@@ -945,6 +960,9 @@ func (o OrganizationJsonMergePatch) ToMap() (map[string]interface{}, error) {
 	if o.TwoFactorRequiredAt.IsSet() {
 		toSerialize["twoFactorRequiredAt"] = o.TwoFactorRequiredAt.Get()
 	}
+	if o.ApiAccessLogRetentionDays.IsSet() {
+		toSerialize["apiAccessLogRetentionDays"] = o.ApiAccessLogRetentionDays.Get()
+	}
 	if !IsNil(o.Memberships) {
 		toSerialize["memberships"] = o.Memberships
 	}
@@ -959,9 +977,6 @@ func (o OrganizationJsonMergePatch) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CreditTransactions) {
 		toSerialize["creditTransactions"] = o.CreditTransactions
-	}
-	if !IsNil(o.Variables) {
-		toSerialize["variables"] = o.Variables
 	}
 	if !IsNil(o.Signals) {
 		toSerialize["signals"] = o.Signals

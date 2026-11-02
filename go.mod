@@ -1,6 +1,6 @@
 module github.com/someones-computer/sdk-go
 
-go 1.18
+go 1.23
 
 require github.com/stretchr/testify v1.12.1
 

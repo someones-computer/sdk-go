@@ -452,6 +452,7 @@ func (a *OrganizationAPIService) OrganizationsListExecute(r ApiOrganizationsList
 		parameterAddToHeaderOrQuery(localVarQueryParams, "page", r.page, "form", "")
 	} else {
 		var defaultValue int32 = 1
+		parameterAddToHeaderOrQuery(localVarQueryParams, "page", defaultValue, "form", "")
 		r.page = &defaultValue
 	}
 	if r.slug != nil {

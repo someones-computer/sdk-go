@@ -18,14 +18,13 @@ import (
 // checks if the ManagedService type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ManagedService{}
 
-// ManagedService List managed services (databases/buckets) the caller can see.
+// ManagedService List retired managed services that a restore can still bring back. A service stays restorable for 7 days after deletedAt.
 type ManagedService struct {
 	Organization *string `json:"organization,omitempty"`
 	Slug *string `json:"slug,omitempty"`
 	// The catalogue entry the tenant picked, as `(kind, majorVersion)`.
 	Kind *string `json:"kind,omitempty"`
 	MajorVersion *string `json:"majorVersion,omitempty"`
-	Instance NullableServiceInstance `json:"instance,omitempty"`
 	// What the object is actually called inside the engine — `acme_hearth_db` for a database, `acme-hearth-media` for a bucket.
 	BackingName *string `json:"backingName,omitempty"`
 	// A bucket's access key id — the non-secret half of a Garage key, paired with {@see $credentialCiphertext}'s sealed secret access key. Null for every database kind, which has no such pair: its one credential is a password, sealed whole into the four columns above.
@@ -51,7 +50,8 @@ type ManagedService struct {
 	UpdatedAt NullableTime `json:"updatedAt,omitempty"`
 	// `postgres 17`, `mysql 8.0` — the catalogue entry, as one string.
 	CatalogueEntry *string `json:"catalogueEntry,omitempty"`
-	Credential *SealedSecret `json:"credential,omitempty"`
+	// The engine as a tenant reads it: its name and its state, and nothing else.
+	Instance NullableManagedServiceEngine `json:"instance,omitempty"`
 	Available *bool `json:"available,omitempty"`
 	Deleted *bool `json:"deleted,omitempty"`
 }
@@ -203,48 +203,6 @@ func (o *ManagedService) HasMajorVersion() bool {
 // SetMajorVersion gets a reference to the given string and assigns it to the MajorVersion field.
 func (o *ManagedService) SetMajorVersion(v string) {
 	o.MajorVersion = &v
-}
-
-// GetInstance returns the Instance field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ManagedService) GetInstance() ServiceInstance {
-	if o == nil || IsNil(o.Instance.Get()) {
-		var ret ServiceInstance
-		return ret
-	}
-	return *o.Instance.Get()
-}
-
-// GetInstanceOk returns a tuple with the Instance field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ManagedService) GetInstanceOk() (*ServiceInstance, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.Instance.Get(), o.Instance.IsSet()
-}
-
-// HasInstance returns a boolean if a field has been set.
-func (o *ManagedService) HasInstance() bool {
-	if o != nil && o.Instance.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetInstance gets a reference to the given NullableServiceInstance and assigns it to the Instance field.
-func (o *ManagedService) SetInstance(v ServiceInstance) {
-	o.Instance.Set(&v)
-}
-// SetInstanceNil sets the value for Instance to be an explicit nil
-func (o *ManagedService) SetInstanceNil() {
-	o.Instance.Set(nil)
-}
-
-// UnsetInstance ensures that no value is present for Instance, not even an explicit nil
-func (o *ManagedService) UnsetInstance() {
-	o.Instance.Unset()
 }
 
 // GetBackingName returns the BackingName field value if set, zero value otherwise.
@@ -975,36 +933,46 @@ func (o *ManagedService) SetCatalogueEntry(v string) {
 	o.CatalogueEntry = &v
 }
 
-// GetCredential returns the Credential field value if set, zero value otherwise.
-func (o *ManagedService) GetCredential() SealedSecret {
-	if o == nil || IsNil(o.Credential) {
-		var ret SealedSecret
+// GetInstance returns the Instance field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *ManagedService) GetInstance() ManagedServiceEngine {
+	if o == nil || IsNil(o.Instance.Get()) {
+		var ret ManagedServiceEngine
 		return ret
 	}
-	return *o.Credential
+	return *o.Instance.Get()
 }
 
-// GetCredentialOk returns a tuple with the Credential field value if set, nil otherwise
+// GetInstanceOk returns a tuple with the Instance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ManagedService) GetCredentialOk() (*SealedSecret, bool) {
-	if o == nil || IsNil(o.Credential) {
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *ManagedService) GetInstanceOk() (*ManagedServiceEngine, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Credential, true
+	return o.Instance.Get(), o.Instance.IsSet()
 }
 
-// HasCredential returns a boolean if a field has been set.
-func (o *ManagedService) HasCredential() bool {
-	if o != nil && !IsNil(o.Credential) {
+// HasInstance returns a boolean if a field has been set.
+func (o *ManagedService) HasInstance() bool {
+	if o != nil && o.Instance.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCredential gets a reference to the given SealedSecret and assigns it to the Credential field.
-func (o *ManagedService) SetCredential(v SealedSecret) {
-	o.Credential = &v
+// SetInstance gets a reference to the given NullableManagedServiceEngine and assigns it to the Instance field.
+func (o *ManagedService) SetInstance(v ManagedServiceEngine) {
+	o.Instance.Set(&v)
+}
+// SetInstanceNil sets the value for Instance to be an explicit nil
+func (o *ManagedService) SetInstanceNil() {
+	o.Instance.Set(nil)
+}
+
+// UnsetInstance ensures that no value is present for Instance, not even an explicit nil
+func (o *ManagedService) UnsetInstance() {
+	o.Instance.Unset()
 }
 
 // GetAvailable returns the Available field value if set, zero value otherwise.
@@ -1093,9 +1061,6 @@ func (o ManagedService) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MajorVersion) {
 		toSerialize["majorVersion"] = o.MajorVersion
 	}
-	if o.Instance.IsSet() {
-		toSerialize["instance"] = o.Instance.Get()
-	}
 	if !IsNil(o.BackingName) {
 		toSerialize["backingName"] = o.BackingName
 	}
@@ -1153,8 +1118,8 @@ func (o ManagedService) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CatalogueEntry) {
 		toSerialize["catalogueEntry"] = o.CatalogueEntry
 	}
-	if !IsNil(o.Credential) {
-		toSerialize["credential"] = o.Credential
+	if o.Instance.IsSet() {
+		toSerialize["instance"] = o.Instance.Get()
 	}
 	if !IsNil(o.Available) {
 		toSerialize["available"] = o.Available

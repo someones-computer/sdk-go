@@ -1,0 +1,1 @@
+../agent-standards/hooks/check-local-credentials.sh

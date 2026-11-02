@@ -13,7 +13,6 @@ Name | Type | Description | Notes
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **UpdatedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **Adopted** | Pointer to **bool** |  | [optional] [readonly] 
-**SidecarCredential** | Pointer to [**SealedSecret**](SealedSecret.md) |  | [optional] 
 
 ## Methods
 
@@ -278,31 +277,6 @@ SetAdopted sets Adopted field to given value.
 `func (o *ServiceBinding) HasAdopted() bool`
 
 HasAdopted returns a boolean if a field has been set.
-
-### GetSidecarCredential
-
-`func (o *ServiceBinding) GetSidecarCredential() SealedSecret`
-
-GetSidecarCredential returns the SidecarCredential field if non-nil, zero value otherwise.
-
-### GetSidecarCredentialOk
-
-`func (o *ServiceBinding) GetSidecarCredentialOk() (*SealedSecret, bool)`
-
-GetSidecarCredentialOk returns a tuple with the SidecarCredential field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetSidecarCredential
-
-`func (o *ServiceBinding) SetSidecarCredential(v SealedSecret)`
-
-SetSidecarCredential sets SidecarCredential field to given value.
-
-### HasSidecarCredential
-
-`func (o *ServiceBinding) HasSidecarCredential() bool`
-
-HasSidecarCredential returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

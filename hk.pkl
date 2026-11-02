@@ -1,0 +1,50 @@
+/// Git hooks for someones.computer_sdk_go, run by hk (https://hk.jdx.dev) and pinned in mise.toml.
+///
+/// Install once per clone with `mise run hooks`. Run the same steps by hand with
+/// `hk check --all`. The steps match CI (`go vet`, `go build`). This module is generated
+/// by openapi-generator, so gofmt is not a step: the generator's output is not gofmt-clean.
+amends "package://github.com/jdx/hk/releases/download/v1.58.1/hk@1.58.1#/Config.pkl"
+
+min_hk_version = "1.58.0"
+
+fail_fast = false
+
+exclude = List(".claude/agent-standards")
+
+local vet = new Step {
+    glob = List("*.go", "go.mod", "go.sum")
+    check = "go vet ./..."
+}
+
+local build = new Step {
+    glob = List("*.go", "go.mod", "go.sum")
+    check = "go build ./..."
+}
+
+local fast = new Mapping<String, Step> {
+    ["vet"] = vet
+}
+
+local everything = new Mapping<String, Step> {
+    ...fast
+    ["build"] = build
+}
+
+hooks {
+    ["pre-commit"] {
+        fix = false
+        stash = "none"
+        steps = fast
+    }
+
+    ["pre-push"] {
+        fix = false
+        stash = "none"
+        steps = everything
+    }
+
+    /// `hk check` / `hk check --all` run every step with no git event involved.
+    ["check"] {
+        steps = everything
+    }
+}

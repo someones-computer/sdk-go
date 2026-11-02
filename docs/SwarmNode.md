@@ -154,20 +154,20 @@ HasState returns a boolean if a field has been set.
 UnsetState ensures that no value is present for State, not even an explicit nil
 ### GetCapacity
 
-`func (o *SwarmNode) GetCapacity() map[string]string`
+`func (o *SwarmNode) GetCapacity() map[string]*string`
 
 GetCapacity returns the Capacity field if non-nil, zero value otherwise.
 
 ### GetCapacityOk
 
-`func (o *SwarmNode) GetCapacityOk() (*map[string]string, bool)`
+`func (o *SwarmNode) GetCapacityOk() (*map[string]*string, bool)`
 
 GetCapacityOk returns a tuple with the Capacity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCapacity
 
-`func (o *SwarmNode) SetCapacity(v map[string]string)`
+`func (o *SwarmNode) SetCapacity(v map[string]*string)`
 
 SetCapacity sets Capacity field to given value.
 
@@ -177,6 +177,16 @@ SetCapacity sets Capacity field to given value.
 
 HasCapacity returns a boolean if a field has been set.
 
+### SetCapacityNil
+
+`func (o *SwarmNode) SetCapacityNil(b bool)`
+
+ SetCapacityNil sets the value for Capacity to be an explicit nil
+
+### UnsetCapacity
+`func (o *SwarmNode) UnsetCapacity()`
+
+UnsetCapacity ensures that no value is present for Capacity, not even an explicit nil
 ### GetId
 
 `func (o *SwarmNode) GetId() string`

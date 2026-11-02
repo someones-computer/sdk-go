@@ -1,0 +1,1 @@
+../agent-standards/hooks/check-named-work.sh

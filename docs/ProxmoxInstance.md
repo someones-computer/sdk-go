@@ -7,7 +7,6 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** |  | [optional] 
 **Endpoint** | Pointer to **string** | Base URL of the API, scheme and authority only — &#x60;https://10.0.0.68:8006&#x60;. | [optional] 
 **TokenId** | Pointer to **string** | Full token identifier, &#x60;user@realm!tokenid&#x60; — e.g. &#x60;root@pam!someones-computer&#x60;. | [optional] 
-**TokenSecret** | Pointer to **string** | The token&#39;s secret (a UUID as Proxmox issues it), encrypted at rest and never serialized. Proxmox shows it exactly once, at creation. | [optional] 
 **VerifyTls** | Pointer to **bool** | Whether the certificate must validate against a CA chain. | [optional] [default to true]
 **PublicKeyPin** | Pointer to **NullableString** | base64 SHA-256 of the endpoint&#39;s SubjectPublicKeyInfo — curl&#39;s &#x60;pin-sha256&#x60;. The right answer for a self-signed Proxmox: it authenticates *this specific host* without any CA, so the connection is still protected against interception, which &#x60;verifyTls &#x3D; false&#x60; alone is not. | [optional] 
 **Status** | Pointer to **string** |  | [optional] [default to "unreachable"]
@@ -117,31 +116,6 @@ SetTokenId sets TokenId field to given value.
 `func (o *ProxmoxInstance) HasTokenId() bool`
 
 HasTokenId returns a boolean if a field has been set.
-
-### GetTokenSecret
-
-`func (o *ProxmoxInstance) GetTokenSecret() string`
-
-GetTokenSecret returns the TokenSecret field if non-nil, zero value otherwise.
-
-### GetTokenSecretOk
-
-`func (o *ProxmoxInstance) GetTokenSecretOk() (*string, bool)`
-
-GetTokenSecretOk returns a tuple with the TokenSecret field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetTokenSecret
-
-`func (o *ProxmoxInstance) SetTokenSecret(v string)`
-
-SetTokenSecret sets TokenSecret field to given value.
-
-### HasTokenSecret
-
-`func (o *ProxmoxInstance) HasTokenSecret() bool`
-
-HasTokenSecret returns a boolean if a field has been set.
 
 ### GetVerifyTls
 
@@ -300,20 +274,20 @@ HasLastError returns a boolean if a field has been set.
 UnsetLastError ensures that no value is present for LastError, not even an explicit nil
 ### GetVersion
 
-`func (o *ProxmoxInstance) GetVersion() map[string]string`
+`func (o *ProxmoxInstance) GetVersion() map[string]*string`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *ProxmoxInstance) GetVersionOk() (*map[string]string, bool)`
+`func (o *ProxmoxInstance) GetVersionOk() (*map[string]*string, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *ProxmoxInstance) SetVersion(v map[string]string)`
+`func (o *ProxmoxInstance) SetVersion(v map[string]*string)`
 
 SetVersion sets Version field to given value.
 
@@ -323,6 +297,16 @@ SetVersion sets Version field to given value.
 
 HasVersion returns a boolean if a field has been set.
 
+### SetVersionNil
+
+`func (o *ProxmoxInstance) SetVersionNil(b bool)`
+
+ SetVersionNil sets the value for Version to be an explicit nil
+
+### UnsetVersion
+`func (o *ProxmoxInstance) UnsetVersion()`
+
+UnsetVersion ensures that no value is present for Version, not even an explicit nil
 ### GetTemplateVmid
 
 `func (o *ProxmoxInstance) GetTemplateVmid() int32`

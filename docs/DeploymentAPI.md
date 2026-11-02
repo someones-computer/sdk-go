@@ -423,7 +423,7 @@ Name | Type | Description  | Notes
 
 ## DeploymentsList
 
-> []Deployment DeploymentsList(ctx).Page(page).Execute()
+> []Deployment DeploymentsList(ctx).Page(page).Application(application).Application2(application2).Sequence(sequence).Sequence2(sequence2).Name(name).Name2(name2).ItemsPerPage(itemsPerPage).Execute()
 
 Retrieves the collection of Deployment resources.
 
@@ -443,10 +443,17 @@ import (
 
 func main() {
 	page := int32(56) // int32 | The collection page number (optional) (default to 1)
+	application := "application_example" // string | Only revisions of this application, by IRI (`/api/applications/{id}`). (optional)
+	application2 := []string{[]string{"Application_example"}} // []string | Only revisions of this application, by IRI (`/api/applications/{id}`). (optional)
+	sequence := "sequence_example" // string | Only the revision with this sequence number. (optional)
+	sequence2 := []string{[]string{"Sequence_example"}} // []string | Only the revision with this sequence number. (optional)
+	name := "name_example" // string | Only revisions with this exact name. (optional)
+	name2 := []string{[]string{"Name_example"}} // []string | Only revisions with this exact name. (optional)
+	itemsPerPage := "itemsPerPage_example" // string | Rows per page. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.DeploymentAPI.DeploymentsList(context.Background()).Page(page).Execute()
+	resp, r, err := apiClient.DeploymentAPI.DeploymentsList(context.Background()).Page(page).Application(application).Application2(application2).Sequence(sequence).Sequence2(sequence2).Name(name).Name2(name2).ItemsPerPage(itemsPerPage).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `DeploymentAPI.DeploymentsList``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -468,6 +475,13 @@ Other parameters are passed through a pointer to a apiDeploymentsListRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **int32** | The collection page number | [default to 1]
+ **application** | **string** | Only revisions of this application, by IRI (&#x60;/api/applications/{id}&#x60;). | 
+ **application2** | **[][]string** | Only revisions of this application, by IRI (&#x60;/api/applications/{id}&#x60;). | 
+ **sequence** | **string** | Only the revision with this sequence number. | 
+ **sequence2** | **[][]string** | Only the revision with this sequence number. | 
+ **name** | **string** | Only revisions with this exact name. | 
+ **name2** | **[][]string** | Only revisions with this exact name. | 
+ **itemsPerPage** | **string** | Rows per page. | 
 
 ### Return type
 
