@@ -19,9 +19,9 @@ import (
 // checks if the VolumeVolumeInput type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &VolumeVolumeInput{}
 
-// VolumeVolumeInput Create a volume: a named store for a game server, held in a Garage bucket.
+// VolumeVolumeInput Create a volume: a named store of files that S3 holds.
 type VolumeVolumeInput struct {
-	// The tenant's own name for it. It shows in the panel and in a game server's settings.
+	// The tenant's own name for it. The bucket under it takes this name after a prefix ({@see VolumeProvisioner::BUCKET_PREFIX}), so the limit is shorter than a service slug's.
 	Slug string `json:"slug" validate:"regexp=^([a-z0-9][a-z0-9-]*)$"`
 	Organization NullableString `json:"organization"`
 }

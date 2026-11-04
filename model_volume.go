@@ -18,7 +18,7 @@ import (
 // checks if the Volume type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Volume{}
 
-// Volume List the volumes the caller can see.
+// Volume List retired volumes that a restore can still bring back. A volume stays restorable for 7 days after deletedAt.
 type Volume struct {
 	Organization *string `json:"organization,omitempty"`
 	Slug *string `json:"slug,omitempty"`
@@ -26,10 +26,10 @@ type Volume struct {
 	DeletedAt NullableTime `json:"deletedAt,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
 	UpdatedAt NullableTime `json:"updatedAt,omitempty"`
-	// The bucket's state, as the volume's own.
+	// The bucket's state, which is the volume's.
 	State *string `json:"state,omitempty"`
-	// Bytes the bucket holds at the last measurement, or null before the first.
 	UsageBytes NullableInt32 `json:"usageBytes,omitempty"`
+	FailureReason NullableString `json:"failureReason,omitempty"`
 	Deleted *bool `json:"deleted,omitempty"`
 }
 
@@ -336,6 +336,48 @@ func (o *Volume) UnsetUsageBytes() {
 	o.UsageBytes.Unset()
 }
 
+// GetFailureReason returns the FailureReason field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Volume) GetFailureReason() string {
+	if o == nil || IsNil(o.FailureReason.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.FailureReason.Get()
+}
+
+// GetFailureReasonOk returns a tuple with the FailureReason field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Volume) GetFailureReasonOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.FailureReason.Get(), o.FailureReason.IsSet()
+}
+
+// HasFailureReason returns a boolean if a field has been set.
+func (o *Volume) HasFailureReason() bool {
+	if o != nil && o.FailureReason.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetFailureReason gets a reference to the given NullableString and assigns it to the FailureReason field.
+func (o *Volume) SetFailureReason(v string) {
+	o.FailureReason.Set(&v)
+}
+// SetFailureReasonNil sets the value for FailureReason to be an explicit nil
+func (o *Volume) SetFailureReasonNil() {
+	o.FailureReason.Set(nil)
+}
+
+// UnsetFailureReason ensures that no value is present for FailureReason, not even an explicit nil
+func (o *Volume) UnsetFailureReason() {
+	o.FailureReason.Unset()
+}
+
 // GetDeleted returns the Deleted field value if set, zero value otherwise.
 func (o *Volume) GetDeleted() bool {
 	if o == nil || IsNil(o.Deleted) {
@@ -401,6 +443,9 @@ func (o Volume) ToMap() (map[string]interface{}, error) {
 	}
 	if o.UsageBytes.IsSet() {
 		toSerialize["usageBytes"] = o.UsageBytes.Get()
+	}
+	if o.FailureReason.IsSet() {
+		toSerialize["failureReason"] = o.FailureReason.Get()
 	}
 	if !IsNil(o.Deleted) {
 		toSerialize["deleted"] = o.Deleted
