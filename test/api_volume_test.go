@@ -73,4 +73,30 @@ func Test_someonescomputer_VolumeAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test VolumeAPIService VolumesListRetired", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.VolumeAPI.VolumesListRetired(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test VolumeAPIService VolumesRestore", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var id string
+
+		resp, httpRes, err := apiClient.VolumeAPI.VolumesRestore(context.Background(), id).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 }

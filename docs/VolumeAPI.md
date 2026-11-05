@@ -8,6 +8,8 @@ Method | HTTP request | Description
 [**VolumesDelete**](VolumeAPI.md#VolumesDelete) | **Delete** /api/volumes/{id} | Removes the Volume resource.
 [**VolumesGet**](VolumeAPI.md#VolumesGet) | **Get** /api/volumes/{id} | Retrieves a Volume resource.
 [**VolumesList**](VolumeAPI.md#VolumesList) | **Get** /api/volumes | Retrieves the collection of Volume resources.
+[**VolumesListRetired**](VolumeAPI.md#VolumesListRetired) | **Get** /api/volumes/retired | Retrieves the collection of Volume resources.
+[**VolumesRestore**](VolumeAPI.md#VolumesRestore) | **Post** /api/volumes/{id}/restore | Creates a Volume resource.
 
 
 
@@ -275,6 +277,137 @@ Name | Type | Description  | Notes
 
 - **Content-Type**: Not defined
 - **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## VolumesListRetired
+
+> []Volume VolumesListRetired(ctx).Execute()
+
+Retrieves the collection of Volume resources.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/someones-computer/sdk-go"
+)
+
+func main() {
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.VolumeAPI.VolumesListRetired(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `VolumeAPI.VolumesListRetired``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `VolumesListRetired`: []Volume
+	fmt.Fprintf(os.Stdout, "Response from `VolumeAPI.VolumesListRetired`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+This endpoint does not need any parameter.
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiVolumesListRetiredRequest struct via the builder pattern
+
+
+### Return type
+
+[**[]Volume**](Volume.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## VolumesRestore
+
+> Volume VolumesRestore(ctx, id).Execute()
+
+Creates a Volume resource.
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/someones-computer/sdk-go"
+)
+
+func main() {
+	id := "id_example" // string | Volume identifier
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.VolumeAPI.VolumesRestore(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `VolumeAPI.VolumesRestore``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `VolumesRestore`: Volume
+	fmt.Fprintf(os.Stdout, "Response from `VolumeAPI.VolumesRestore`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | Volume identifier | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiVolumesRestoreRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+[**Volume**](Volume.md)
+
+### Authorization
+
+[bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json, application/problem+json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
 [[Back to Model list]](../README.md#documentation-for-models)
