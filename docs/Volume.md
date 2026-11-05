@@ -10,8 +10,9 @@ Name | Type | Description | Notes
 **DeletedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **UpdatedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
-**State** | Pointer to **string** | The bucket&#39;s state, as the volume&#39;s own. | [optional] [readonly] 
-**UsageBytes** | Pointer to **NullableInt32** | Bytes the bucket holds at the last measurement, or null before the first. | [optional] [readonly] 
+**State** | Pointer to **string** | The bucket&#39;s state, which is the volume&#39;s. | [optional] [readonly] 
+**UsageBytes** | Pointer to **NullableInt32** |  | [optional] [readonly] 
+**FailureReason** | Pointer to **NullableString** |  | [optional] [readonly] 
 **Deleted** | Pointer to **bool** |  | [optional] [readonly] 
 
 ## Methods
@@ -263,6 +264,41 @@ HasUsageBytes returns a boolean if a field has been set.
 `func (o *Volume) UnsetUsageBytes()`
 
 UnsetUsageBytes ensures that no value is present for UsageBytes, not even an explicit nil
+### GetFailureReason
+
+`func (o *Volume) GetFailureReason() string`
+
+GetFailureReason returns the FailureReason field if non-nil, zero value otherwise.
+
+### GetFailureReasonOk
+
+`func (o *Volume) GetFailureReasonOk() (*string, bool)`
+
+GetFailureReasonOk returns a tuple with the FailureReason field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetFailureReason
+
+`func (o *Volume) SetFailureReason(v string)`
+
+SetFailureReason sets FailureReason field to given value.
+
+### HasFailureReason
+
+`func (o *Volume) HasFailureReason() bool`
+
+HasFailureReason returns a boolean if a field has been set.
+
+### SetFailureReasonNil
+
+`func (o *Volume) SetFailureReasonNil(b bool)`
+
+ SetFailureReasonNil sets the value for FailureReason to be an explicit nil
+
+### UnsetFailureReason
+`func (o *Volume) UnsetFailureReason()`
+
+UnsetFailureReason ensures that no value is present for FailureReason, not even an explicit nil
 ### GetDeleted
 
 `func (o *Volume) GetDeleted() bool`

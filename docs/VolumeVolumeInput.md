@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Slug** | **string** | The tenant&#39;s own name for it. It shows in the panel and in a game server&#39;s settings. | [default to ""]
+**Slug** | **string** | The tenant&#39;s own name for it. The bucket under it takes this name after a prefix ({@see VolumeProvisioner::BUCKET_PREFIX}), so the limit is shorter than a service slug&#39;s. | [default to ""]
 **Organization** | **NullableString** |  | 
 
 ## Methods
