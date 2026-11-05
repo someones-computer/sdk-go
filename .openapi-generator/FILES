@@ -8,6 +8,7 @@ api_application.go
 api_credit_transaction.go
 api_deployment.go
 api_deployment_access_gate.go
+api_game_server.go
 api_managed_service.go
 api_organization.go
 api_service_binding.go
@@ -45,6 +46,11 @@ docs/DeploymentJsonMergePatch.md
 docs/DeploymentJsonMergePatchBuildContextsValueValue.md
 docs/Error.md
 docs/Failure.md
+docs/GameServerAPI.md
+docs/GameServerGameServerInput.md
+docs/GameServerGameServerRead.md
+docs/GameServerGameServerReadSettingsValue.md
+docs/GameServerGameServerSettingsInputJsonMergePatch.md
 docs/Machine.md
 docs/ManagedService.md
 docs/ManagedServiceAPI.md
@@ -107,6 +113,10 @@ model_deployment_json_merge_patch.go
 model_deployment_json_merge_patch_build_contexts_value_value.go
 model_error.go
 model_failure.go
+model_game_server_game_server_input.go
+model_game_server_game_server_read.go
+model_game_server_game_server_read_settings_value.go
+model_game_server_game_server_settings_input_json_merge_patch.go
 model_machine.go
 model_managed_service.go
 model_managed_service_engine.go
@@ -142,6 +152,7 @@ test/api_application_test.go
 test/api_credit_transaction_test.go
 test/api_deployment_access_gate_test.go
 test/api_deployment_test.go
+test/api_game_server_test.go
 test/api_managed_service_test.go
 test/api_organization_test.go
 test/api_service_binding_test.go

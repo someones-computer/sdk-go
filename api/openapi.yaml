@@ -76,6 +76,9 @@ tags:
     application's own default is picked up by every deployment that never
     overrode it.
   name: DeploymentAccessGate
+- description: "A managed game server: a game image that runs on the platform, with\
+    \ a volume that keeps its world."
+  name: GameServer
 - description: |-
     One tenant's database or bucket on a shared engine.
 
@@ -1174,6 +1177,317 @@ paths:
       summary: Updates the DeploymentAccessGate resource.
       tags:
       - DeploymentAccessGate
+  /api/game_servers:
+    get:
+      description: Retrieves the collection of GameServer resources.
+      operationId: game_servers_list
+      parameters:
+      - deprecated: false
+        description: The collection page number
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/GameServer-game_server.read"
+                type: array
+                default: null
+          description: GameServer collection
+      summary: Retrieves the collection of GameServer resources.
+      tags:
+      - GameServer
+    post:
+      description: Creates a GameServer resource.
+      operationId: game_servers_create
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GameServer.GameServerInput"
+        description: The new GameServer resource
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameServer-game_server.read"
+          description: GameServer resource created
+        "400":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid input
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ConstraintViolation"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConstraintViolation"
+          description: An error occurred
+      summary: Creates a GameServer resource.
+      tags:
+      - GameServer
+  /api/game_servers/{id}:
+    delete:
+      description: Removes the GameServer resource.
+      operationId: game_servers_delete
+      parameters:
+      - deprecated: false
+        description: GameServer identifier
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: GameServer resource deleted
+        "404":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Not found
+      summary: Removes the GameServer resource.
+      tags:
+      - GameServer
+    get:
+      description: Retrieves a GameServer resource.
+      operationId: game_servers_get
+      parameters:
+      - deprecated: false
+        description: GameServer identifier
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameServer-game_server.read"
+          description: GameServer resource
+        "404":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Not found
+      summary: Retrieves a GameServer resource.
+      tags:
+      - GameServer
+    patch:
+      description: Updates the GameServer resource.
+      operationId: game_servers_update
+      parameters:
+      - deprecated: false
+        description: GameServer identifier
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/merge-patch+json:
+            schema:
+              $ref: "#/components/schemas/GameServer.GameServerSettingsInput.jsonMergePatch"
+        description: The updated GameServer resource
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameServer-game_server.read"
+          description: GameServer resource updated
+        "400":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid input
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ConstraintViolation"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConstraintViolation"
+          description: An error occurred
+        "404":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Not found
+      summary: Updates the GameServer resource.
+      tags:
+      - GameServer
+  /api/game_servers/{id}/restart:
+    post:
+      description: Creates a GameServer resource.
+      operationId: game_servers_restart
+      parameters:
+      - deprecated: false
+        description: GameServer identifier
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameServer-game_server.read"
+          description: GameServer resource created
+        "400":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid input
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ConstraintViolation"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConstraintViolation"
+          description: An error occurred
+      summary: Creates a GameServer resource.
+      tags:
+      - GameServer
+  /api/game_servers/{id}/start:
+    post:
+      description: Creates a GameServer resource.
+      operationId: game_servers_start
+      parameters:
+      - deprecated: false
+        description: GameServer identifier
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameServer-game_server.read"
+          description: GameServer resource created
+        "400":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid input
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ConstraintViolation"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConstraintViolation"
+          description: An error occurred
+      summary: Creates a GameServer resource.
+      tags:
+      - GameServer
+  /api/game_servers/{id}/stop:
+    post:
+      description: Creates a GameServer resource.
+      operationId: game_servers_stop
+      parameters:
+      - deprecated: false
+        description: GameServer identifier
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GameServer-game_server.read"
+          description: GameServer resource created
+        "400":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid input
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ConstraintViolation"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConstraintViolation"
+          description: An error occurred
+      summary: Creates a GameServer resource.
+      tags:
+      - GameServer
   /api/managed_services:
     get:
       description: Retrieves the collection of ManagedService resources.
@@ -4009,6 +4323,121 @@ components:
       - engine
       - organization
       - slug
+    GameServer-game_server.read:
+      description: List the game servers the caller can see. A server that is starting
+        or stopping is brought up to date first.
+      example:
+        organization: https://example.com/
+        slug: slug
+        name: name
+        kind: minecraft
+        version: version
+        settings:
+          key: true
+        state: stopped
+        stateReason: stateReason
+        volume: volume
+      properties:
+        organization:
+          example: https://example.com/
+          format: iri-reference
+          type: string
+        slug:
+          type: string
+        name:
+          type: string
+        kind:
+          enum:
+          - minecraft
+          - factorio
+          type: string
+        version:
+          type: string
+        settings:
+          additionalProperties:
+            $ref: "#/components/schemas/GameServer_game_server_read_settings_value"
+          type: object
+        state:
+          default: stopped
+          description: "The reason only means something for `failed`, so any other\
+            \ state clears it."
+          enum:
+          - stopped
+          - starting
+          - running
+          - stopping
+          - failed
+          type: string
+        stateReason:
+          description: "Why the server is `failed`, in words a tenant can read. Null\
+            \ in every other state."
+          nullable: true
+          readOnly: true
+          type: string
+        volume:
+          description: "The volume's slug, so a client can name the world without\
+            \ the bucket behind it."
+          readOnly: true
+          type: string
+    GameServer.GameServerSettingsInput.jsonMergePatch:
+      description: "Replace the settings, and optionally the version, of a game server.\
+        \ A running server restarts to apply them."
+      properties:
+        settings:
+          additionalProperties:
+            nullable: true
+            type: string
+          nullable: true
+          type: object
+        version:
+          nullable: true
+          type: string
+    GameServer.GameServerInput:
+      description: "Create a game server, stopped. Start it next. An unset version\
+        \ takes the default, and an unset volume makes a new one."
+      properties:
+        organization:
+          example: https://example.com/
+          format: iri-reference
+          nullable: true
+          type: string
+        slug:
+          default: ""
+          maxLength: 63
+          pattern: "^([a-z0-9][a-z0-9-]*)$"
+          type: string
+        name:
+          default: ""
+          maxLength: 120
+          type: string
+        kind:
+          enum:
+          - minecraft
+          - factorio
+          - null
+          nullable: true
+          type: string
+        version:
+          description: Null takes the game's default version.
+          nullable: true
+          type: string
+        settings:
+          additionalProperties:
+            nullable: true
+            type: string
+          description: The fields of the game's settings schema. A field left out
+            takes its default.
+          type: object
+        volume:
+          description: The slug of an unused volume in the organization. Null makes
+            a new volume named like the server.
+          nullable: true
+          type: string
+      required:
+      - kind
+      - name
+      - organization
+      - slug
     DeploymentAccessGate.jsonMergePatch:
       description: Update a per-deployment access-gate override's mode.
       properties:
@@ -5841,6 +6270,12 @@ components:
       - type: string
       description: "Engine-milliseconds accrued since the last hourly bill, in milliseconds."
       readOnly: true
+    GameServer_game_server_read_settings_value:
+      anyOf:
+      - type: boolean
+      - type: number
+      - type: integer
+      - type: string
     Deployment_jsonMergePatch_buildContexts_value_value:
       anyOf:
       - additionalProperties:
