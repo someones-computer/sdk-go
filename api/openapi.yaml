@@ -4353,6 +4353,7 @@ components:
           - terraria
           - minecraft-bedrock
           - valheim
+          - freelancer
           type: string
         version:
           type: string
@@ -4420,6 +4421,7 @@ components:
           - terraria
           - minecraft-bedrock
           - valheim
+          - freelancer
           - null
           nullable: true
           type: string
