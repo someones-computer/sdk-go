@@ -53,6 +53,8 @@ type APIClient struct {
 
 	ApplicationAPI *ApplicationAPIService
 
+	ApplicationVolumeAPI *ApplicationVolumeAPIService
+
 	CreditTransactionAPI *CreditTransactionAPIService
 
 	DeploymentAPI *DeploymentAPIService
@@ -60,6 +62,8 @@ type APIClient struct {
 	DeploymentAccessGateAPI *DeploymentAccessGateAPIService
 
 	GameServerAPI *GameServerAPIService
+
+	GateRouteExemptionAPI *GateRouteExemptionAPIService
 
 	ManagedServiceAPI *ManagedServiceAPIService
 
@@ -90,10 +94,12 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	// API Services
 	c.AdoptionApprovalAPI = (*AdoptionApprovalAPIService)(&c.common)
 	c.ApplicationAPI = (*ApplicationAPIService)(&c.common)
+	c.ApplicationVolumeAPI = (*ApplicationVolumeAPIService)(&c.common)
 	c.CreditTransactionAPI = (*CreditTransactionAPIService)(&c.common)
 	c.DeploymentAPI = (*DeploymentAPIService)(&c.common)
 	c.DeploymentAccessGateAPI = (*DeploymentAccessGateAPIService)(&c.common)
 	c.GameServerAPI = (*GameServerAPIService)(&c.common)
+	c.GateRouteExemptionAPI = (*GateRouteExemptionAPIService)(&c.common)
 	c.ManagedServiceAPI = (*ManagedServiceAPIService)(&c.common)
 	c.OrganizationAPI = (*OrganizationAPIService)(&c.common)
 	c.ServiceBindingAPI = (*ServiceBindingAPIService)(&c.common)

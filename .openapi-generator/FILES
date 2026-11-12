@@ -5,10 +5,12 @@ README.md
 api/openapi.yaml
 api_adoption_approval.go
 api_application.go
+api_application_volume.go
 api_credit_transaction.go
 api_deployment.go
 api_deployment_access_gate.go
 api_game_server.go
+api_gate_route_exemption.go
 api_managed_service.go
 api_organization.go
 api_service_binding.go
@@ -22,6 +24,8 @@ docs/AdoptionApprovalAdoptionApprovalInput.md
 docs/Application.md
 docs/ApplicationAPI.md
 docs/ApplicationJsonMergePatch.md
+docs/ApplicationVolume.md
+docs/ApplicationVolumeAPI.md
 docs/BundleAdditionalContextInput.md
 docs/BundleContextInput.md
 docs/BundleForwardedImageInput.md
@@ -51,6 +55,9 @@ docs/GameServerGameServerInput.md
 docs/GameServerGameServerRead.md
 docs/GameServerGameServerReadSettingsValue.md
 docs/GameServerGameServerSettingsInputJsonMergePatch.md
+docs/GateRouteExemption.md
+docs/GateRouteExemptionAPI.md
+docs/GateRouteExemptionGateRouteExemptionInput.md
 docs/Machine.md
 docs/ManagedService.md
 docs/ManagedServiceAPI.md
@@ -92,6 +99,7 @@ model_adoption_approval.go
 model_adoption_approval_adoption_approval_input.go
 model_application.go
 model_application_json_merge_patch.go
+model_application_volume.go
 model_bundle_additional_context_input.go
 model_bundle_context_input.go
 model_bundle_forwarded_image_input.go
@@ -117,6 +125,8 @@ model_game_server_game_server_input.go
 model_game_server_game_server_read.go
 model_game_server_game_server_read_settings_value.go
 model_game_server_game_server_settings_input_json_merge_patch.go
+model_gate_route_exemption.go
+model_gate_route_exemption_gate_route_exemption_input.go
 model_machine.go
 model_managed_service.go
 model_managed_service_engine.go
@@ -149,10 +159,12 @@ model_volume_volume_input.go
 response.go
 test/api_adoption_approval_test.go
 test/api_application_test.go
+test/api_application_volume_test.go
 test/api_credit_transaction_test.go
 test/api_deployment_access_gate_test.go
 test/api_deployment_test.go
 test/api_game_server_test.go
+test/api_gate_route_exemption_test.go
 test/api_managed_service_test.go
 test/api_organization_test.go
 test/api_service_binding_test.go

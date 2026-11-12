@@ -35,6 +35,23 @@ tags:
     in the deployment revisions.
   name: Application
 - description: |-
+    A named volume that a compose file declares, kept on one swarm node for one stack of one
+    application (docs/named-volumes.md).
+
+    Not {@see Volume}. That one is an organization's S3 bucket for a game server. This one is a
+    Docker `local` volume: the bytes sit on the node's disk, so the row records which node, and
+    {@see \App\Service\Volume\NamedVolumes} pins the owning service there.
+
+    **The Docker name is `<stack>_<name>`** ({@see self::dockerName()}). The stack name carries
+    the environment prefix, the organization and the application, so two applications that
+    both declare `data` get two volumes. The row exists from the first deploy that mounts the
+    volume. A redeploy finds it again by that name and reuses it. Nothing but an explicit
+    delete ({@see ApplicationVolumeDeleteProcessor}, `delete_application_volume`) removes it.
+
+    The API shows a volume and deletes it. It never creates one: the compose file does that.
+    The operations show in the OpenAPI document and in the four generated SDKs.
+  name: ApplicationVolume
+- description: |-
     An IMMUTABLE, append-only ledger row for an Organization's shared credit
     balance. A balance is never mutated in place — it's always
     `SUM(amountCents)` over `Succeeded` rows (see
@@ -79,6 +96,21 @@ tags:
 - description: "A managed game server: a game image that runs on the platform, with\
     \ a volume that keeps its world."
   name: GameServer
+- description: |-
+    An owner or admin's approval of one route that compose declared as exempt from
+    the access gate (`x-someones.gate_exempt`, {@see GateExemption}).
+
+    **The compose file asks and this row grants.** {@see \App\Service\Ingress\IngressPlanner}
+    writes the exempt router only for a declaration that matches a row here on every
+    field: service, host, path prefix and methods. A redeploy that changes any of
+    them leaves the old row matching nothing, so the new declaration is pending
+    again and the old route closes at once.
+
+    Only approvals have rows. "Pending" is a declaration with no matching row, the
+    same shape as {@see AdoptionApproval}.
+
+    The operations show in the OpenAPI document and in the four generated SDKs.
+  name: GateRouteExemption
 - description: |-
     One tenant's database or bucket on a shared engine.
 
@@ -549,6 +581,104 @@ paths:
       summary: Updates the Application resource.
       tags:
       - Application
+  /api/application_volumes:
+    get:
+      description: Retrieves the collection of ApplicationVolume resources.
+      operationId: api_application_volumes_get_collection
+      parameters:
+      - deprecated: false
+        description: The collection page number
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/ApplicationVolume"
+                type: array
+                default: null
+          description: ApplicationVolume collection
+      summary: Retrieves the collection of ApplicationVolume resources.
+      tags:
+      - ApplicationVolume
+  /api/application_volumes/{id}:
+    delete:
+      description: Removes the ApplicationVolume resource.
+      operationId: api_application_volumes_id_delete
+      parameters:
+      - deprecated: false
+        description: ApplicationVolume identifier
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: ApplicationVolume resource deleted
+        "403":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Forbidden
+        "404":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Not found
+      summary: Removes the ApplicationVolume resource.
+      tags:
+      - ApplicationVolume
+    get:
+      description: Retrieves a ApplicationVolume resource.
+      operationId: api_application_volumes_id_get
+      parameters:
+      - deprecated: false
+        description: ApplicationVolume identifier
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApplicationVolume"
+          description: ApplicationVolume resource
+        "404":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Not found
+      summary: Retrieves a ApplicationVolume resource.
+      tags:
+      - ApplicationVolume
   /api/credit_transactions:
     get:
       description: Retrieves the collection of CreditTransaction resources.
@@ -1488,6 +1618,134 @@ paths:
       summary: Creates a GameServer resource.
       tags:
       - GameServer
+  /api/gate_route_exemptions:
+    get:
+      description: Retrieves the collection of GateRouteExemption resources.
+      operationId: api_gate_route_exemptions_get_collection
+      parameters:
+      - deprecated: false
+        description: The collection page number
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          default: 1
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: "#/components/schemas/GateRouteExemption"
+                type: array
+                default: null
+          description: GateRouteExemption collection
+      summary: Retrieves the collection of GateRouteExemption resources.
+      tags:
+      - GateRouteExemption
+    post:
+      description: Creates a GateRouteExemption resource.
+      operationId: api_gate_route_exemptions_post
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GateRouteExemption.GateRouteExemptionInput"
+        description: The new GateRouteExemption resource
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GateRouteExemption"
+          description: GateRouteExemption resource created
+        "400":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Invalid input
+        "422":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ConstraintViolation"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConstraintViolation"
+          description: An error occurred
+      summary: Creates a GateRouteExemption resource.
+      tags:
+      - GateRouteExemption
+  /api/gate_route_exemptions/{id}:
+    delete:
+      description: Removes the GateRouteExemption resource.
+      operationId: api_gate_route_exemptions_id_delete
+      parameters:
+      - deprecated: false
+        description: GateRouteExemption identifier
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: GateRouteExemption resource deleted
+        "404":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Not found
+      summary: Removes the GateRouteExemption resource.
+      tags:
+      - GateRouteExemption
+    get:
+      description: Retrieves a GateRouteExemption resource.
+      operationId: api_gate_route_exemptions_id_get
+      parameters:
+      - deprecated: false
+        description: GateRouteExemption identifier
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GateRouteExemption"
+          description: GateRouteExemption resource
+        "404":
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/Error"
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Not found
+      summary: Retrieves a GateRouteExemption resource.
+      tags:
+      - GateRouteExemption
   /api/managed_services:
     get:
       description: Retrieves the collection of ManagedService resources.
@@ -4323,6 +4581,64 @@ components:
       - engine
       - organization
       - slug
+    GateRouteExemption:
+      description: List the access-gate route exemptions the caller can see.
+      example:
+        application: https://example.com/
+        serviceName: serviceName
+        host: host
+        pathPrefix: pathPrefix
+        methods: methods
+        approvedAt: 2000-01-23T04:56:07.000+00:00
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+      properties:
+        application:
+          example: https://example.com/
+          format: iri-reference
+          type: string
+        serviceName:
+          type: string
+        host:
+          readOnly: true
+          type: string
+        pathPrefix:
+          readOnly: true
+          type: string
+        methods:
+          description: "Comma-joined, sorted verbs: {@see GateExemption::methodsKey()}."
+          readOnly: true
+          type: string
+        approvedAt:
+          format: date-time
+          nullable: true
+          type: string
+        id:
+          format: uuid
+          readOnly: true
+          type: string
+    GateRouteExemption.GateRouteExemptionInput:
+      description: Approve one route that the current revision declares as exempt
+        from the access gate.
+      properties:
+        application:
+          example: https://example.com/
+          format: iri-reference
+          nullable: true
+          type: string
+        serviceName:
+          default: ""
+          type: string
+        host:
+          default: ""
+          type: string
+        pathPrefix:
+          default: ""
+          type: string
+      required:
+      - application
+      - host
+      - pathPrefix
+      - serviceName
     GameServer-game_server.read:
       description: List the game servers the caller can see. A server that is starting
         or stopping is brought up to date first.
@@ -5628,6 +5944,42 @@ components:
           nullable: true
           readOnly: true
           type: string
+    ApplicationVolume:
+      description: List the compose named volumes of the applications the caller can
+        see.
+      example:
+        application: https://example.com/
+        stackName: stackName
+        name: name
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        updatedAt: 2000-01-23T04:56:07.000+00:00
+        sizeCapBytes: 0
+      properties:
+        application:
+          example: https://example.com/
+          format: iri-reference
+          type: string
+        stackName:
+          type: string
+        name:
+          type: string
+        id:
+          format: uuid
+          readOnly: true
+          type: string
+        createdAt:
+          format: date-time
+          readOnly: true
+          type: string
+        updatedAt:
+          format: date-time
+          nullable: true
+          readOnly: true
+          type: string
+        sizeCapBytes:
+          readOnly: true
+          type: integer
     Application.jsonMergePatch:
       description: Update an application's mutable fields.
       properties:
