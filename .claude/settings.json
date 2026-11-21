@@ -10,6 +10,16 @@
             "timeout": 30
           }
         ]
+      },
+      {
+        "matcher": "mcp__.*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/mcp-write-guard.sh",
+            "timeout": 30
+          }
+        ]
       }
     ],
     "SessionStart": [
@@ -80,8 +90,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/run-late-checklists.sh",
-            "timeout": 15
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/parallel-skills.sh",
+            "timeout": 10
           }
         ]
       },
@@ -89,8 +99,17 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/parallel-skills.sh",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/check-start-folder.sh",
             "timeout": 10
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/run-late-checklists.sh; [ -r \"$f\" ] || \"$CLAUDE_PROJECT_DIR\"/.claude/check-wiring.sh </dev/null >/dev/null 2>&1; if [ -r \"$f\" ]; then exec \"$f\"; fi; echo \"run-late-checklists: the hook link .claude/hooks/run-late-checklists.sh dangles, because .claude/agent-standards is empty. No overdue checklist started. Run: git submodule update --init\"",
+            "timeout": 30
           }
         ]
       }
@@ -129,6 +148,25 @@
             "timeout": 15
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/check-green-claims.sh",
+            "timeout": 60
+          },
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/check-named-work.sh",
+            "timeout": 15
+          },
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/check-design-shown.sh",
+            "timeout": 15
+          }
+        ]
       }
     ]
   },
@@ -138,7 +176,30 @@
       "Bash(git push --force*)",
       "Bash(git push -f*)",
       "Bash(git push --no-verify*)",
-      "Bash(git commit --no-verify*)"
+      "Bash(git commit --no-verify*)",
+      "Bash(git commit)",
+      "Bash(git commit *)",
+      "Bash(git push)",
+      "Bash(git push *)",
+      "Bash(git merge)",
+      "Bash(git merge *)",
+      "Bash(git rebase)",
+      "Bash(git rebase *)",
+      "Bash(git branch -d*)",
+      "Bash(git branch -D*)",
+      "Bash(git branch -m*)",
+      "Bash(git branch -M*)",
+      "Bash(git branch -c*)",
+      "Bash(git branch -C*)",
+      "Bash(git branch --delete*)",
+      "Bash(git branch --move*)",
+      "Bash(git branch --copy*)",
+      "Bash(git branch --set-upstream*)",
+      "Bash(git branch -u*)",
+      "Bash(git switch -c *)",
+      "Bash(git switch -C *)",
+      "Bash(git checkout -b *)",
+      "Bash(git checkout -B *)"
     ]
   }
 }
