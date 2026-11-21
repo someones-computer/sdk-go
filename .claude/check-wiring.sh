@@ -13,6 +13,9 @@
 # bin/install.sh makes the copy, and bin/install.sh --check reports a stale one. Change the
 # canonical one first.
 #
+# A project may own a copy of one shared skill, command, hook, or bin script. It lists the path in
+# .claude/own-copies. bin/install.sh --check reads that list, so this script needs no code for it.
+#
 # The failure mode is silent and expensive: with the submodule uninitialised, CLAUDE.md's
 # `@.claude/agent-standards/...` imports resolve to nothing and every symlink under
 # .claude/{commands,hooks,skills} dangles. Claude Code reports none of that -- the shared
@@ -41,8 +44,16 @@
 # failed recovery (offline, no local object cache, dangling symlink pointing past what the
 # pinned commit contains) surfaces as a warning.
 #
-# `--ci` mode is the exception to "always exits 0": it prints to stderr and exits 1 on any
-# problem, for a consuming project's own pipeline. It also checks the two facts
+# `--ci` mode is the exception to "always exits 0": it prints to stderr and exits 1 on a real
+# fault, for a consuming project's own pipeline. A real fault is an empty agent-standards
+# submodule, a dangling symlink, a missing CLAUDE.md import, or a missing quality-gate table. A
+# stale stamp, a stale copy of this script, and the rest of the installer's drift list are
+# warnings on stderr in a pipeline run (GITHUB_ACTIONS=true). A local run, such as the commit
+# guard, still fails on them. A pipeline job fails on them only when the pull request moves the
+# .claude/agent-standards pin itself. A pin bump then owes the install. A job on main, or on a
+# pull request that leaves the pin alone, stays green, so a new standards release never turns
+# every consumer red. The base of the pull request comes from GITHUB_BASE_REF, or from the first
+# parent of a merge commit. The mode also checks the two facts
 # `skills/self-check` otherwise verifies by hand -- the CLAUDE.md import line and a documented
 # quality gate -- since both are plain greps, not judgement calls, and CI should not have to
 # wait for someone to run `/self-check` or start a fresh session to catch that kind of drift.
@@ -74,6 +85,20 @@ ci=0
 # The absolute path of this script, taken before the cd below. The auto-update runs it again.
 wiring_self="$(cd "$(dirname "$0")" 2>/dev/null && pwd -P)/$(basename "$0")"
 
+# Print the nearest ancestor of the current directory that holds a .git entry. It is not `git
+# rev-parse --show-toplevel`. A submodule keeps a relative core.worktree in its shared config.
+# A linked worktree of it resolves that path against its own git dir, and --show-toplevel then
+# names the .git/modules directory. The wiring check then ran against a tree with no templates.
+top_of() {
+    local d
+    d=$(pwd -P)
+    while [ -n "$d" ] && [ "$d" != / ]; do
+        [ -e "$d/.git" ] && { printf '%s\n' "$d"; return 0; }
+        d=${d%/*}
+    done
+    return 1
+}
+
 # In a linked worktree, CLAUDE_PROJECT_DIR names the main checkout. Check the worktree instead.
 # A linked worktree has a git dir that differs from the common git dir. A CLAUDE_PROJECT_DIR
 # that belongs to another repository stays in force.
@@ -83,9 +108,9 @@ projcommon=""
 [ -n "${CLAUDE_PROJECT_DIR:-}" ] &&
     projcommon=$(cd "$CLAUDE_PROJECT_DIR" 2>/dev/null && cd "$(git rev-parse --git-common-dir 2>/dev/null)" 2>/dev/null && pwd -P)
 if [ -n "$gitdir" ] && [ "$gitdir" != "$commondir" ] && { [ -z "${CLAUDE_PROJECT_DIR:-}" ] || [ "$projcommon" = "$commondir" ]; }; then
-    root=$(git rev-parse --show-toplevel 2>/dev/null)
+    root=$(top_of)
 else
-    root="${CLAUDE_PROJECT_DIR:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)}"
+    root="${CLAUDE_PROJECT_DIR:-$(top_of || pwd)}"
 fi
 cd "$root" 2>/dev/null || exit 0
 
@@ -93,6 +118,42 @@ cd "$root" 2>/dev/null || exit 0
 self=0
 if [ ! -e .claude/agent-standards ] && [ -f bin/install.sh ] && [ -f hooks/check-wiring.sh ]; then
     self=1
+fi
+
+# --- Session start: git and tools ------------------------------------------------------------
+# Session mode only. The faults of the project folder and of the tools go into ONE list, so the
+# first message of a session names every fault at once. A project folder with a wiped .git
+# passed this hook in silence before. tools/preflight.sh lists the missing tools and logins.
+# It lives in the submodule, so a project without the submodule falls back to a plain jq test.
+have_jq=1
+command -v jq >/dev/null 2>&1 || have_jq=0
+preflight=.claude/agent-standards/tools/preflight.sh
+[ "$self" -eq 1 ] && preflight=tools/preflight.sh
+session_faults() {
+    local n=0 line
+    local -a lines=()
+    if ! git rev-parse --git-dir >/dev/null 2>&1; then
+        lines+=("this folder holds no working git repository ($root). The history may have vanished. Check .git before you trust any file here")
+    fi
+    if [ -f "$preflight" ]; then
+        while IFS= read -r line; do
+            [ -n "$line" ] && lines+=("$line")
+        done < <(bash "$preflight" 2>/dev/null)
+    elif [ "$have_jq" -eq 0 ]; then
+        lines+=("jq is not installed. Install it with your package manager, for example: brew install jq")
+    fi
+    [ "${#lines[@]}" -gt 0 ] || return 0
+    echo "WARNING: the session start check found ${#lines[@]} fault(s):"
+    for line in "${lines[@]}"; do
+        n=$((n + 1))
+        echo "  $n. $line"
+    done
+}
+
+if [ "$ci" -eq 0 ] && ! git rev-parse --git-dir >/dev/null 2>&1; then
+    # The checks below all need git. Report and stop.
+    session_faults
+    exit 0
 fi
 
 if [ "$self" -eq 0 ]; then
@@ -180,6 +241,8 @@ if [ "$ci" -eq 0 ] && [ "$self" -eq 0 ] && [ -z "${AGENT_STANDARDS_NO_UPDATE:-}"
     { auto_update; AGENT_STANDARDS_NO_UPDATE=1 exec bash "$wiring_self" "$@"; }
 fi
 
+[ "$ci" -eq 0 ] && session_faults
+
 # --- Every other submodule ------------------------------------------------------------------
 # A fresh worktree has every submodule of the project empty, not only agent-standards. The
 # project's own plans and builds then fail one error at a time ("Module not installed"). Try
@@ -201,8 +264,12 @@ if [ -f .gitmodules ] && [ -n "$(empty_subs)" ]; then
     [ "$main" = "$root" ] && main=""
     # One call for each path, so one broken submodule can't stop the others.
     init_empty_subs() {
-        local repo=$1 mainrepo=$2 sub
+        local repo=$1 mainrepo=$2 depth=${3:-0} sub
+        # A cut-short clone can leave a folder that git reads as its parent. The parent's status
+        # then lists that folder as "." and the walk never ends. A depth cap stops it.
+        [ "$depth" -lt 8 ] || return 0
         while IFS= read -r sub; do
+            case $sub in . | ./ | "") continue ;; esac
             if [ -n "$mainrepo" ] && [ -e "$mainrepo/$sub/.git" ] &&
                 ${limit[@]+"${limit[@]}"} git -C "$repo" submodule update --init \
                     --reference "$mainrepo/$sub" -- "$sub" >/dev/null 2>&1; then
@@ -212,7 +279,9 @@ if [ -f .gitmodules ] && [ -n "$(empty_subs)" ]; then
             fi
             # An empty directory would make `git -C` report the parent's submodules.
             [ -e "$repo/$sub/.git" ] || continue
-            init_empty_subs "$repo/$sub" "${mainrepo:+$mainrepo/$sub}"
+            # A folder that is not its own repository belongs to the parent. Stop here.
+            [ "$(git -C "$repo/$sub" rev-parse --show-toplevel 2>/dev/null)" = "$(cd "$repo/$sub" && pwd -P)" ] || continue
+            init_empty_subs "$repo/$sub" "${mainrepo:+$mainrepo/$sub}" $((depth + 1))
         done < <(git -C "$repo" submodule status 2>/dev/null | sed -n 's/^-[0-9a-f]* \([^ ]*\).*/\1/p')
     }
     init_empty_subs "$root" "$main"
@@ -251,7 +320,9 @@ fi
 installer=.claude/agent-standards/bin/install.sh
 [ "$self" -eq 1 ] && installer=bin/install.sh
 drift=""
-if [ -f "$installer" ]; then
+# The installer needs jq. Without jq its error text would pose as a drift list. In a session
+# the fault list above names jq and the install command, so the drift check stays out of it.
+if [ -f "$installer" ] && { [ "$have_jq" -eq 1 ] || [ "$ci" -eq 1 ]; }; then
     drift=$(bash "$installer" --check "$root" 2>&1) || true
     [ -n "$drift" ] || drift=""
 fi
@@ -304,13 +375,42 @@ if [ -n "$emptysubs" ]; then
     subnote="these submodules are empty and the automatic init failed: $emptysubs. Run 'git submodule update --init --recursive' in $root"
 fi
 
+# pin_moved: succeeds when this change moves the .claude/agent-standards pin. The base is the
+# target branch of a pull request (GITHUB_BASE_REF), else the first parent of a merge commit.
+# With no base, the answer is no, so a plain push never fails on drift.
+pin_moved() {
+    local sub=.claude/agent-standards base="" b cur old
+    [ "$self" -eq 0 ] || return 1
+    if [ -n "${GITHUB_BASE_REF:-}" ]; then
+        for b in "origin/$GITHUB_BASE_REF" "$GITHUB_BASE_REF"; do
+            git rev-parse -q --verify "$b^{commit}" >/dev/null 2>&1 && { base=$b; break; }
+        done
+    fi
+    if [ -z "$base" ] && git rev-parse -q --verify 'HEAD^2' >/dev/null 2>&1; then
+        base='HEAD^1'
+    fi
+    [ -n "$base" ] || return 1
+    cur=$(git rev-parse -q --verify "HEAD:$sub" 2>/dev/null) || return 1
+    old=$(git rev-parse -q --verify "$base:$sub" 2>/dev/null) || return 0
+    [ "$cur" != "$old" ]
+}
+
 if [ "$ci" -eq 1 ]; then
     # An empty submodule is a warning here, not a fault. A consumer's CI checkout may leave a
     # submodule empty on purpose, and the wiring doesn't need it. The agent-standards submodule
     # is the one the wiring needs. Its absence is a fault, and `problems` already holds it.
     [ -n "$subnote" ] && echo "agent-standards wiring check warning: $subnote" >&2
-    [ -n "$unguarded" ] && problems="${problems:+$problems; }$unguarded"
-    [ -n "$drift" ] && problems="${problems:+$problems; }$drift"
+    # Drift (a stale stamp, a stale copy) fails a local run, such as the commit guard. A
+    # pipeline run (GITHUB_ACTIONS=true) only warns, unless the change moves the pin.
+    lenient=0
+    [ "${GITHUB_ACTIONS:-}" = "true" ] && lenient=1
+    if [ "$lenient" -eq 1 ] && ! pin_moved; then
+        [ -n "$unguarded" ] && echo "agent-standards wiring check warning: $unguarded" >&2
+        [ -n "$drift" ] && echo "agent-standards wiring check warning: $drift" >&2
+    else
+        [ -n "$unguarded" ] && problems="${problems:+$problems; }$unguarded"
+        [ -n "$drift" ] && problems="${problems:+$problems; }$drift"
+    fi
     [ -z "$problems" ] && exit 0
     echo "agent-standards wiring check failed: $problems" >&2
     exit 1
