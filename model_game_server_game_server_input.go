@@ -28,7 +28,7 @@ type GameServerGameServerInput struct {
 	// Null takes the game's default version.
 	Version NullableString `json:"version,omitempty"`
 	// The fields of the game's settings schema. A field left out takes its default.
-	Settings map[string]*string `json:"settings,omitempty"`
+	Settings map[string]*interface{} `json:"settings,omitempty"`
 	// The slug of an unused volume in the organization. Null makes a new volume named like the server.
 	Volume NullableString `json:"volume,omitempty"`
 }
@@ -203,9 +203,9 @@ func (o *GameServerGameServerInput) UnsetVersion() {
 }
 
 // GetSettings returns the Settings field value if set, zero value otherwise.
-func (o *GameServerGameServerInput) GetSettings() map[string]*string {
+func (o *GameServerGameServerInput) GetSettings() map[string]*interface{} {
 	if o == nil || IsNil(o.Settings) {
-		var ret map[string]*string
+		var ret map[string]*interface{}
 		return ret
 	}
 	return o.Settings
@@ -213,9 +213,9 @@ func (o *GameServerGameServerInput) GetSettings() map[string]*string {
 
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GameServerGameServerInput) GetSettingsOk() (map[string]*string, bool) {
+func (o *GameServerGameServerInput) GetSettingsOk() (map[string]*interface{}, bool) {
 	if o == nil || IsNil(o.Settings) {
-		return map[string]*string{}, false
+		return map[string]*interface{}{}, false
 	}
 	return o.Settings, true
 }
@@ -229,8 +229,8 @@ func (o *GameServerGameServerInput) HasSettings() bool {
 	return false
 }
 
-// SetSettings gets a reference to the given map[string]*string and assigns it to the Settings field.
-func (o *GameServerGameServerInput) SetSettings(v map[string]*string) {
+// SetSettings gets a reference to the given map[string]*interface{} and assigns it to the Settings field.
+func (o *GameServerGameServerInput) SetSettings(v map[string]*interface{}) {
 	o.Settings = v
 }
 

@@ -1,0 +1,56 @@
+# Template for a project that imports agent-standards at .claude/agent-standards.
+# bin/install.sh copies it to .github/workflows/restamp-agent-standards.yml when the project has
+# a .github/workflows folder, and keeps the copy current. Don't edit the copy.
+#
+# A pull request that moves the submodule pin (Renovate opens one) leaves the install stamp
+# behind. The wiring guard then refuses every session. This job runs the installer on the PR
+# branch and commits what it changes, so the stamp lands with the bump.
+#
+# A push with the job token does not start CI again, so the healed commit would have no checks.
+# Set the secret RESTAMP_TOKEN to a token that can push to the PR branch. The job then pushes
+# with it, and CI runs on the healed commit. Without the secret, the job falls back to the job
+# token, which needs Actions write access to contents. Then the next push or a manual re-run
+# starts CI.
+name: Restamp agent-standards
+
+on:
+  pull_request:
+    paths:
+      - .claude/agent-standards
+
+permissions:
+  contents: write
+
+jobs:
+  restamp:
+    name: Run the installer after a pin bump
+    # A pull request from a fork has no push access.
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.RESTAMP_TOKEN || github.token }}
+      # Clone only the standards submodule. A project can have other submodules that the job
+      # token cannot read, and the job needs none of them. The checkout step keeps its
+      # credentials, so this clone uses the same token.
+      - name: Fetch the standards submodule
+        run: git submodule update --init .claude/agent-standards
+      - name: Run the installer
+        run: .claude/agent-standards/bin/install.sh
+      - name: Commit what the installer changed
+        env:
+          BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          if git diff --quiet -- .claude && [ -z "$(git ls-files --others --exclude-standard .claude)" ]; then
+            echo "The stamp is current."
+            exit 0
+          fi
+          git config user.name "agent-standards restamp"
+          git config user.email "restamp@users.noreply.invalid"
+          git add .claude
+          git commit -m "Run the agent-standards installer after the pin bump"
+          git push origin "HEAD:${BRANCH}"
+      - name: Check the install
+        run: .claude/agent-standards/bin/install.sh --check

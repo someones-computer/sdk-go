@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **NodeId** | Pointer to **string** | The swarm-assigned node id. | [optional] 
 **Hostname** | Pointer to **NullableString** |  | [optional] 
 **State** | Pointer to **NullableString** |  | [optional] 
-**Capacity** | Pointer to **map[string]string** | This node&#39;s share of the cluster&#39;s capacity, as the reconciler read it. | [optional] 
+**Capacity** | Pointer to **map[string]interface{}** | This node&#39;s share of the cluster&#39;s capacity, as the reconciler read it. | [optional] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
 **UpdatedAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
@@ -154,20 +154,20 @@ HasState returns a boolean if a field has been set.
 UnsetState ensures that no value is present for State, not even an explicit nil
 ### GetCapacity
 
-`func (o *SwarmNode) GetCapacity() map[string]*string`
+`func (o *SwarmNode) GetCapacity() map[string]*interface{}`
 
 GetCapacity returns the Capacity field if non-nil, zero value otherwise.
 
 ### GetCapacityOk
 
-`func (o *SwarmNode) GetCapacityOk() (*map[string]*string, bool)`
+`func (o *SwarmNode) GetCapacityOk() (*map[string]*interface{}, bool)`
 
 GetCapacityOk returns a tuple with the Capacity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCapacity
 
-`func (o *SwarmNode) SetCapacity(v map[string]*string)`
+`func (o *SwarmNode) SetCapacity(v map[string]*interface{})`
 
 SetCapacity sets Capacity field to given value.
 

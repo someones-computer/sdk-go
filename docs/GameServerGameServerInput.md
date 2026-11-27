@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Name** | **string** |  | [default to ""]
 **Kind** | **NullableString** |  | 
 **Version** | Pointer to **NullableString** | Null takes the game&#39;s default version. | [optional] 
-**Settings** | Pointer to **map[string]string** | The fields of the game&#39;s settings schema. A field left out takes its default. | [optional] 
+**Settings** | Pointer to **map[string]interface{}** | The fields of the game&#39;s settings schema. A field left out takes its default. | [optional] 
 **Volume** | Pointer to **NullableString** | The slug of an unused volume in the organization. Null makes a new volume named like the server. | [optional] 
 
 ## Methods
@@ -168,20 +168,20 @@ HasVersion returns a boolean if a field has been set.
 UnsetVersion ensures that no value is present for Version, not even an explicit nil
 ### GetSettings
 
-`func (o *GameServerGameServerInput) GetSettings() map[string]*string`
+`func (o *GameServerGameServerInput) GetSettings() map[string]*interface{}`
 
 GetSettings returns the Settings field if non-nil, zero value otherwise.
 
 ### GetSettingsOk
 
-`func (o *GameServerGameServerInput) GetSettingsOk() (*map[string]*string, bool)`
+`func (o *GameServerGameServerInput) GetSettingsOk() (*map[string]*interface{}, bool)`
 
 GetSettingsOk returns a tuple with the Settings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSettings
 
-`func (o *GameServerGameServerInput) SetSettings(v map[string]*string)`
+`func (o *GameServerGameServerInput) SetSettings(v map[string]*interface{})`
 
 SetSettings sets Settings field to given value.
 

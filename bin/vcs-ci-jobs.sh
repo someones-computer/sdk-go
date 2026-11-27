@@ -1,0 +1,1 @@
+../.claude/agent-standards/tools/forgejo/vcs-ci-jobs.sh

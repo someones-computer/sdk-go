@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **Status** | Pointer to **string** |  | [optional] [default to "unreachable"]
 **LastSeenAt** | Pointer to **NullableTime** |  | [optional] 
 **LastError** | Pointer to **NullableString** | Why the last probe failed, kept so an operator can tell a revoked token from a dead host without re-running anything. Cleared on success. | [optional] 
-**Version** | Pointer to **map[string]string** | Observed &#x60;GET /version&#x60; snapshot (release, repoid). Observed state, so it is whatever the last probe saw and is never authoritative. | [optional] 
+**Version** | Pointer to **map[string]interface{}** | Observed &#x60;GET /version&#x60; snapshot (release, repoid). Observed state, so it is whatever the last probe saw and is never authoritative. | [optional] 
 **TemplateVmid** | Pointer to **NullableInt32** | The vmid of the Alpine template &#x60;app:proxmox:template&#x60; last built here, or null if it has never been run against this endpoint. This is what makes a template&#39;s existence something the app can answer without an SSH session and a &#x60;qm list&#x60; — the gap that sent an operator to do exactly that. | [optional] [readonly] 
 **TemplateAlpineVersion** | Pointer to **NullableString** | The Alpine version baked into {@see $templateVmid}, e.g. &#x60;3.23.0&#x60;. | [optional] [readonly] 
 **TemplateBuiltAt** | Pointer to **NullableTime** |  | [optional] [readonly] 
@@ -274,20 +274,20 @@ HasLastError returns a boolean if a field has been set.
 UnsetLastError ensures that no value is present for LastError, not even an explicit nil
 ### GetVersion
 
-`func (o *ProxmoxInstance) GetVersion() map[string]*string`
+`func (o *ProxmoxInstance) GetVersion() map[string]*interface{}`
 
 GetVersion returns the Version field if non-nil, zero value otherwise.
 
 ### GetVersionOk
 
-`func (o *ProxmoxInstance) GetVersionOk() (*map[string]*string, bool)`
+`func (o *ProxmoxInstance) GetVersionOk() (*map[string]*interface{}, bool)`
 
 GetVersionOk returns a tuple with the Version field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetVersion
 
-`func (o *ProxmoxInstance) SetVersion(v map[string]*string)`
+`func (o *ProxmoxInstance) SetVersion(v map[string]*interface{})`
 
 SetVersion sets Version field to given value.
 

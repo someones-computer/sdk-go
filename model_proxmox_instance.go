@@ -34,7 +34,7 @@ type ProxmoxInstance struct {
 	// Why the last probe failed, kept so an operator can tell a revoked token from a dead host without re-running anything. Cleared on success.
 	LastError NullableString `json:"lastError,omitempty"`
 	// Observed `GET /version` snapshot (release, repoid). Observed state, so it is whatever the last probe saw and is never authoritative.
-	Version map[string]*string `json:"version,omitempty"`
+	Version map[string]*interface{} `json:"version,omitempty"`
 	// The vmid of the Alpine template `app:proxmox:template` last built here, or null if it has never been run against this endpoint. This is what makes a template's existence something the app can answer without an SSH session and a `qm list` — the gap that sent an operator to do exactly that.
 	TemplateVmid NullableInt32 `json:"templateVmid,omitempty"`
 	// The Alpine version baked into {@see $templateVmid}, e.g. `3.23.0`.
@@ -363,9 +363,9 @@ func (o *ProxmoxInstance) UnsetLastError() {
 }
 
 // GetVersion returns the Version field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ProxmoxInstance) GetVersion() map[string]*string {
+func (o *ProxmoxInstance) GetVersion() map[string]*interface{} {
 	if o == nil {
-		var ret map[string]*string
+		var ret map[string]*interface{}
 		return ret
 	}
 	return o.Version
@@ -374,9 +374,9 @@ func (o *ProxmoxInstance) GetVersion() map[string]*string {
 // GetVersionOk returns a tuple with the Version field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ProxmoxInstance) GetVersionOk() (map[string]*string, bool) {
+func (o *ProxmoxInstance) GetVersionOk() (map[string]*interface{}, bool) {
 	if o == nil || IsNil(o.Version) {
-		return map[string]*string{}, false
+		return map[string]*interface{}{}, false
 	}
 	return o.Version, true
 }
@@ -390,8 +390,8 @@ func (o *ProxmoxInstance) HasVersion() bool {
 	return false
 }
 
-// SetVersion gets a reference to the given map[string]*string and assigns it to the Version field.
-func (o *ProxmoxInstance) SetVersion(v map[string]*string) {
+// SetVersion gets a reference to the given map[string]*interface{} and assigns it to the Version field.
+func (o *ProxmoxInstance) SetVersion(v map[string]*interface{}) {
 	o.Version = v
 }
 

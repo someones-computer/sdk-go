@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Settings** | Pointer to **map[string]string** |  | [optional] 
+**Settings** | Pointer to **map[string]interface{}** |  | [optional] 
 **Version** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetSettings
 
-`func (o *GameServerGameServerSettingsInputJsonMergePatch) GetSettings() map[string]*string`
+`func (o *GameServerGameServerSettingsInputJsonMergePatch) GetSettings() map[string]*interface{}`
 
 GetSettings returns the Settings field if non-nil, zero value otherwise.
 
 ### GetSettingsOk
 
-`func (o *GameServerGameServerSettingsInputJsonMergePatch) GetSettingsOk() (*map[string]*string, bool)`
+`func (o *GameServerGameServerSettingsInputJsonMergePatch) GetSettingsOk() (*map[string]*interface{}, bool)`
 
 GetSettingsOk returns a tuple with the Settings field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSettings
 
-`func (o *GameServerGameServerSettingsInputJsonMergePatch) SetSettings(v map[string]*string)`
+`func (o *GameServerGameServerSettingsInputJsonMergePatch) SetSettings(v map[string]*interface{})`
 
 SetSettings sets Settings field to given value.
 

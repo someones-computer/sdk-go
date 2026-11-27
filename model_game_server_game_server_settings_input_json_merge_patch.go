@@ -19,7 +19,7 @@ var _ MappedNullable = &GameServerGameServerSettingsInputJsonMergePatch{}
 
 // GameServerGameServerSettingsInputJsonMergePatch Replace the settings, and optionally the version, of a game server. A running server restarts to apply them.
 type GameServerGameServerSettingsInputJsonMergePatch struct {
-	Settings map[string]*string `json:"settings,omitempty"`
+	Settings map[string]*interface{} `json:"settings,omitempty"`
 	Version NullableString `json:"version,omitempty"`
 }
 
@@ -41,9 +41,9 @@ func NewGameServerGameServerSettingsInputJsonMergePatchWithDefaults() *GameServe
 }
 
 // GetSettings returns the Settings field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *GameServerGameServerSettingsInputJsonMergePatch) GetSettings() map[string]*string {
+func (o *GameServerGameServerSettingsInputJsonMergePatch) GetSettings() map[string]*interface{} {
 	if o == nil {
-		var ret map[string]*string
+		var ret map[string]*interface{}
 		return ret
 	}
 	return o.Settings
@@ -52,9 +52,9 @@ func (o *GameServerGameServerSettingsInputJsonMergePatch) GetSettings() map[stri
 // GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *GameServerGameServerSettingsInputJsonMergePatch) GetSettingsOk() (map[string]*string, bool) {
+func (o *GameServerGameServerSettingsInputJsonMergePatch) GetSettingsOk() (map[string]*interface{}, bool) {
 	if o == nil || IsNil(o.Settings) {
-		return map[string]*string{}, false
+		return map[string]*interface{}{}, false
 	}
 	return o.Settings, true
 }
@@ -68,8 +68,8 @@ func (o *GameServerGameServerSettingsInputJsonMergePatch) HasSettings() bool {
 	return false
 }
 
-// SetSettings gets a reference to the given map[string]*string and assigns it to the Settings field.
-func (o *GameServerGameServerSettingsInputJsonMergePatch) SetSettings(v map[string]*string) {
+// SetSettings gets a reference to the given map[string]*interface{} and assigns it to the Settings field.
+func (o *GameServerGameServerSettingsInputJsonMergePatch) SetSettings(v map[string]*interface{}) {
 	o.Settings = v
 }
 
