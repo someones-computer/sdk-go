@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **PublicHost** | Pointer to **NullableString** | The address a client *outside* the cluster reaches this context&#39;s published ports on — a hostname or an IP, no scheme and no port. | [optional] 
 **Roles** | Pointer to **[]string** | What this context is used for — builds, runtime, or both. Stored as the enum&#39;s string values rather than a relation: it is a small fixed set, and a json column needs no join to answer \&quot;where can I build?\&quot;. | [optional] [default to {"runtime"}]
 **LastSeenAt** | Pointer to **NullableTime** |  | [optional] 
-**Capacity** | Pointer to **map[string]string** | Observed capacity snapshot (cpu/mem/nodes), reconciled from the swarm — whatever {@see \\App\\Service\\Swarm\\SwarmHealth::$capacity} carried at the last successful probe. | [optional] 
+**Capacity** | Pointer to **map[string]interface{}** | Observed capacity snapshot (cpu/mem/nodes), reconciled from the swarm — whatever {@see \\App\\Service\\Swarm\\SwarmHealth::$capacity} carried at the last successful probe. | [optional] 
 **Labels** | Pointer to **map[string]string** |  | [optional] [readonly] 
 **IngressInstalledAt** | Pointer to **NullableTime** | When {@see \\App\\Service\\Ingress\\TraefikInstaller} last stood up (or confirmed) the edge on this context, dispatched automatically once it becomes a platform-owned runtime context. | [optional] [readonly] 
 **IngressError** | Pointer to **NullableString** | What the last automatic install attempt said, when it failed. Cleared on a success so the row never shows a stale complaint next to a working edge. | [optional] [readonly] 
@@ -282,20 +282,20 @@ HasLastSeenAt returns a boolean if a field has been set.
 UnsetLastSeenAt ensures that no value is present for LastSeenAt, not even an explicit nil
 ### GetCapacity
 
-`func (o *Swarm) GetCapacity() map[string]*string`
+`func (o *Swarm) GetCapacity() map[string]*interface{}`
 
 GetCapacity returns the Capacity field if non-nil, zero value otherwise.
 
 ### GetCapacityOk
 
-`func (o *Swarm) GetCapacityOk() (*map[string]*string, bool)`
+`func (o *Swarm) GetCapacityOk() (*map[string]*interface{}, bool)`
 
 GetCapacityOk returns a tuple with the Capacity field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCapacity
 
-`func (o *Swarm) SetCapacity(v map[string]*string)`
+`func (o *Swarm) SetCapacity(v map[string]*interface{})`
 
 SetCapacity sets Capacity field to given value.
 

@@ -33,7 +33,7 @@ type Swarm struct {
 	Roles []string `json:"roles,omitempty"`
 	LastSeenAt NullableTime `json:"lastSeenAt,omitempty"`
 	// Observed capacity snapshot (cpu/mem/nodes), reconciled from the swarm — whatever {@see \\App\\Service\\Swarm\\SwarmHealth::$capacity} carried at the last successful probe.
-	Capacity map[string]*string `json:"capacity,omitempty"`
+	Capacity map[string]*interface{} `json:"capacity,omitempty"`
 	Labels map[string]string `json:"labels,omitempty"`
 	// When {@see \\App\\Service\\Ingress\\TraefikInstaller} last stood up (or confirmed) the edge on this context, dispatched automatically once it becomes a platform-owned runtime context.
 	IngressInstalledAt NullableTime `json:"ingressInstalledAt,omitempty"`
@@ -370,9 +370,9 @@ func (o *Swarm) UnsetLastSeenAt() {
 }
 
 // GetCapacity returns the Capacity field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *Swarm) GetCapacity() map[string]*string {
+func (o *Swarm) GetCapacity() map[string]*interface{} {
 	if o == nil {
-		var ret map[string]*string
+		var ret map[string]*interface{}
 		return ret
 	}
 	return o.Capacity
@@ -381,9 +381,9 @@ func (o *Swarm) GetCapacity() map[string]*string {
 // GetCapacityOk returns a tuple with the Capacity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *Swarm) GetCapacityOk() (map[string]*string, bool) {
+func (o *Swarm) GetCapacityOk() (map[string]*interface{}, bool) {
 	if o == nil || IsNil(o.Capacity) {
-		return map[string]*string{}, false
+		return map[string]*interface{}{}, false
 	}
 	return o.Capacity, true
 }
@@ -397,8 +397,8 @@ func (o *Swarm) HasCapacity() bool {
 	return false
 }
 
-// SetCapacity gets a reference to the given map[string]*string and assigns it to the Capacity field.
-func (o *Swarm) SetCapacity(v map[string]*string) {
+// SetCapacity gets a reference to the given map[string]*interface{} and assigns it to the Capacity field.
+func (o *Swarm) SetCapacity(v map[string]*interface{}) {
 	o.Capacity = v
 }
 
