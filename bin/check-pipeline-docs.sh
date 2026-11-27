@@ -1,0 +1,1 @@
+../.claude/agent-standards/scripts/check-pipeline-docs.sh

@@ -1,0 +1,31 @@
+# Template for a project that imports agent-standards at .claude/agent-standards.
+# bin/install.sh copies it to .github/workflows/check-agent-standards-wiring.yml when the project
+# has a workflow, and no workflow of the project runs the wiring check. Don't edit the copy.
+#
+# The job checks out the submodule, then runs the wiring check in CI mode. A broken submodule, a
+# dangling symlink, or a stale stamp then fails the pull request, not the next session.
+#
+# A project with a private submodule sets one secret, not an edit of this copy:
+#   secret PRIVATE_SUBMODULE_TOKEN  a token that can read the project and the private repo
+# The checkout then uses it in place of the job token. With no secret, the job token applies.
+# An insteadOf rewrite fails here: the checkout adds its own Authorization header for
+# the job token, and that header wins over a token in the address.
+name: Check agent-standards wiring
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  wiring:
+    name: Check the agent-standards wiring
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: true
+          token: ${{ secrets.PRIVATE_SUBMODULE_TOKEN || github.token }}
+      - name: Check the wiring
+        run: .claude/agent-standards/hooks/check-wiring.sh --ci
